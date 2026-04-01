@@ -47,7 +47,7 @@ export const ADMIN = {
 };
 
 // ----- Veri Depolama -----
-export const STORAGE_KEY = 'toptanambalaj_products_v5'; // localStorage anahtarı
+export const STORAGE_KEY = 'toptanambalaj_products_v6'; // localStorage anahtarı
 
 // ----- UI / Modal Tasarımı -----
 export const MODAL = {
