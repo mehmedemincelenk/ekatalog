@@ -148,7 +148,7 @@ export default function ProductCard({ product, isAdmin, onDelete, onUpdate }) {
       </div>
 
       {/* Info */}
-      <div className="px-2 py-2 flex flex-col gap-0.5">
+      <div className="px-2 py-2 flex flex-col gap-0.5 flex-grow">
 
         {/* Name — horizontal marquee on overflow */}
         <MarqueeText
@@ -185,7 +185,7 @@ export default function ProductCard({ product, isAdmin, onDelete, onUpdate }) {
         ) : null}
 
         {/* Price */}
-        <p {...makeEditable('price')} className={`mt-0.5 ${priceClass} ${makeEditable('price').className}`}>
+        <p {...makeEditable('price')} className={`mt-auto ${priceClass} ${makeEditable('price').className}`}>
           {product.price}
         </p>
       </div>
