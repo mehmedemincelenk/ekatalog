@@ -322,22 +322,34 @@ export default function ProductCard({ product, categories = [], isAdmin, onDelet
       )}
 
       {/* Status Overlays (Archived / Out of Stock) */}
-      <div className="absolute inset-0 z-[5] pointer-events-none rounded-lg flex items-center justify-center gap-3">
+      <div className="absolute inset-0 z-[5] pointer-events-none rounded-lg flex items-center justify-center gap-2">
         
         {/* Out of Stock Icon */}
         {product.inStock === false && (
-          <div className="bg-stone-900/90 text-white w-10 h-10 rounded-full shadow-xl flex items-center justify-center -translate-y-4" title="Stok Tükendi">
-            <span className="text-2xl font-light leading-none">∅</span>
-          </div>
+          <button 
+            type="button"
+            onClick={(e) => {
+              if (isAdmin) { e.stopPropagation(); onUpdate(product.id, { inStock: true }); }
+            }}
+            className={`bg-stone-900/90 text-white w-8 h-8 rounded-full shadow-xl flex items-center justify-center -translate-y-4 ${isAdmin ? 'pointer-events-auto cursor-pointer hover:bg-stone-900 hover:scale-105 transition-transform' : 'pointer-events-none'}`} 
+            title={isAdmin ? "Stoka geri ekle" : "Stok Tükendi"}
+          >
+            <span className="text-xl font-light leading-none">∅</span>
+          </button>
         )}
 
         {/* Admin Archived Icon */}
         {isAdmin && product.isArchived && (
-          <div className="bg-stone-900/90 text-white w-10 h-10 rounded-full shadow-xl flex items-center justify-center border border-dashed border-stone-400/50 -translate-y-4" title="Arşivlendi">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5">
+          <button 
+            type="button"
+            onClick={(e) => { e.stopPropagation(); onUpdate(product.id, { isArchived: false }); }}
+            className="bg-stone-900/90 text-white w-8 h-8 rounded-full shadow-xl flex items-center justify-center border border-dashed border-stone-400/50 -translate-y-4 pointer-events-auto cursor-pointer hover:bg-stone-900 hover:scale-105 transition-transform" 
+            title="Arşivden Çıkar"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-4 h-4">
               <path strokeLinecap="round" strokeLinejoin="round" d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z" />
             </svg>
-          </div>
+          </button>
         )}
 
       </div>
