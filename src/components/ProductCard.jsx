@@ -135,15 +135,6 @@ export default function ProductCard({ product, categories = [], isAdmin, onDelet
   return (
     <article className="bg-white border border-stone-200 rounded-lg flex flex-col group hover:shadow-md transition-shadow duration-200 relative">
 
-      {/* Admin: trash button */}
-      {isAdmin && (
-        <button onClick={handleDeleteClick} className="absolute top-1.5 right-1.5 z-20 w-6 h-6 flex items-center justify-center rounded-full bg-red-600 text-white hover:bg-red-700 transition-colors shadow" aria-label="Ürünü sil">
-          <svg xmlns="http://www.w3.org/2000/svg" className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-          </svg>
-        </button>
-      )}
-
       {/* Image */}
       <div className={`relative w-full bg-stone-100 aspect-square flex items-center justify-center rounded-t-lg ${isAdmin ? 'cursor-pointer' : ''}`} onClick={handleImageClick}>
         {product.image
@@ -269,6 +260,14 @@ export default function ProductCard({ product, categories = [], isAdmin, onDelet
         </p>
       </div>
 
-      </article>
+      {/* Admin: trash button (bottom right) */}
+      {isAdmin && (
+        <button onClick={handleDeleteClick} className="absolute bottom-1.5 right-1.5 z-20 w-6 h-6 flex items-center justify-center rounded-full bg-red-600 text-white hover:bg-red-700 transition-colors shadow" aria-label="Ürünü sil">
+          <svg xmlns="http://www.w3.org/2000/svg" className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+          </svg>
+        </button>
+      )}
+    </article>
   );
 }
