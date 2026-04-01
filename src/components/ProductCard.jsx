@@ -163,60 +163,62 @@ export default function ProductCard({ product, categories = [], isAdmin, onDelet
           </button>
         )}
         
-        {/* Inline Category Popover */}
+        {/* Category chip — Popover Menu (Centered over Image) */}
         {isAdmin && isEditingCategory && (
           <div 
-            className="absolute top-1.5 left-1.5 z-30 bg-white shadow-xl rounded-lg p-3 w-48 border border-stone-200"
+            className="absolute top-10 left-1/2 -translate-x-1/2 z-40 bg-white border border-stone-200 rounded-lg shadow-2xl w-44 flex flex-col items-stretch overflow-hidden origin-top"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="flex justify-between items-center mb-2">
+            <div className="flex justify-between items-center mb-2 p-3 pb-0">
               <span className="text-[10px] font-bold text-stone-600">Kategori Değiştir</span>
               <button type="button" onClick={() => setIsEditingCategory(false)} className="text-stone-400 hover:text-stone-700 leading-none">×</button>
             </div>
-            {categories.length > 0 && (
-              <div className="flex flex-wrap gap-1 mb-2 max-h-24 overflow-y-auto">
-                {categories.map(cat => (
-                  <button
-                    key={cat}
-                    type="button"
-                    onClick={() => {
-                      onUpdate(product.id, { category: cat });
+            <div className="p-3 pt-1">
+              {categories.length > 0 && (
+                <div className="flex flex-wrap gap-1 mb-2 max-h-24 overflow-y-auto">
+                  {categories.map(cat => (
+                    <button
+                      key={cat}
+                      type="button"
+                      onClick={() => {
+                        onUpdate(product.id, { category: cat });
+                        setIsEditingCategory(false);
+                      }}
+                      className={`px-1.5 py-0.5 text-[9px] rounded-sm font-semibold border ${cat === product.category ? 'bg-kraft-100 text-kraft-800 border-kraft-300' : 'bg-stone-50 text-stone-600 border-stone-200 hover:bg-stone-100'}`}
+                    >
+                      {cat}
+                    </button>
+                  ))}
+                </div>
+              )}
+              <div className="flex gap-1 mt-2">
+                <input 
+                  type="text" 
+                  value={newCatData}
+                  onChange={e => setNewCatData(e.target.value)}
+                  placeholder="Yeni ekle..."
+                  className="w-full border border-stone-300 rounded px-1.5 py-1 text-[10px] focus:outline-none focus:border-kraft-400"
+                  onKeyDown={e => {
+                    if (e.key === 'Enter' && newCatData.trim()) {
+                      e.preventDefault();
+                      onUpdate(product.id, { category: newCatData.trim() });
                       setIsEditingCategory(false);
-                    }}
-                    className={`px-1.5 py-0.5 text-[9px] rounded-sm font-semibold border ${cat === product.category ? 'bg-kraft-100 text-kraft-800 border-kraft-300' : 'bg-stone-50 text-stone-600 border-stone-200 hover:bg-stone-100'}`}
-                  >
-                    {cat}
-                  </button>
-                ))}
+                    }
+                  }}
+                />
+                <button
+                  type="button"
+                  onClick={() => {
+                    if (newCatData.trim()) {
+                      onUpdate(product.id, { category: newCatData.trim() });
+                      setIsEditingCategory(false);
+                    }
+                  }}
+                  className="bg-stone-900 text-white px-2 py-0.5 rounded text-[10px] font-bold hover:bg-stone-700"
+                >
+                  +
+                </button>
               </div>
-            )}
-            <div className="flex gap-1 mt-2">
-              <input 
-                type="text" 
-                value={newCatData}
-                onChange={e => setNewCatData(e.target.value)}
-                placeholder="Yeni ekle..."
-                className="w-full border border-stone-300 rounded px-1.5 py-1 text-[10px] focus:outline-none focus:border-kraft-400"
-                onKeyDown={e => {
-                  if (e.key === 'Enter' && newCatData.trim()) {
-                    e.preventDefault();
-                    onUpdate(product.id, { category: newCatData.trim() });
-                    setIsEditingCategory(false);
-                  }
-                }}
-              />
-              <button
-                type="button"
-                onClick={() => {
-                  if (newCatData.trim()) {
-                    onUpdate(product.id, { category: newCatData.trim() });
-                    setIsEditingCategory(false);
-                  }
-                }}
-                className="bg-stone-900 text-white px-2 py-0.5 rounded text-[10px] font-bold hover:bg-stone-700"
-              >
-                +
-              </button>
             </div>
           </div>
         )}
@@ -265,22 +267,24 @@ export default function ProductCard({ product, categories = [], isAdmin, onDelet
 
       {/* Admin 3-Dots Action Menu (Absolute Bottom Right) */}
       {isAdmin && (
-        <div className="absolute bottom-1.5 right-1.5 z-20">
-          <button 
-            type="button"
-            onClick={(e) => { e.stopPropagation(); setShowActions(!showActions); }} 
-            className={`w-5 h-5 flex items-center justify-center rounded-full transition-colors ${showActions ? 'bg-stone-200 text-stone-900' : 'bg-transparent text-stone-300 hover:bg-stone-100 hover:text-stone-700'}`}
-            aria-label="Aksiyon Menüsü"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={3} stroke="currentColor" className="w-4 h-4">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z" />
-            </svg>
-          </button>
+        <>
+          <div className="absolute bottom-1.5 right-1.5 z-20">
+            <button 
+              type="button"
+              onClick={(e) => { e.stopPropagation(); setShowActions(!showActions); }} 
+              className={`w-5 h-5 flex items-center justify-center rounded-full transition-colors ${showActions ? 'bg-stone-200 text-stone-900' : 'bg-transparent text-stone-300 hover:bg-stone-100 hover:text-stone-700'}`}
+              aria-label="Aksiyon Menüsü"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={3} stroke="currentColor" className="w-4 h-4">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z" />
+              </svg>
+            </button>
+          </div>
           
-          {/* Actions Popover (Icons Only) */}
+          {/* Actions Popover (Icons Only) Centered in Article */}
           {showActions && (
             <div 
-              className="absolute bottom-full right-0 mb-1.5 z-40 bg-white border border-stone-200 rounded-full shadow-xl px-1.5 py-1.5 flex items-center gap-1.5 origin-bottom-right"
+              className="absolute bottom-8 left-1/2 -translate-x-1/2 z-40 bg-white border border-stone-200 rounded-full shadow-2xl px-1.5 py-1.5 flex items-center gap-1.5 origin-bottom"
               onClick={(e) => e.stopPropagation()}
             >
               {/* Stock Toggle (Cube SVG) */}
@@ -322,7 +326,7 @@ export default function ProductCard({ product, categories = [], isAdmin, onDelet
               </button>
             </div>
           )}
-        </div>
+        </>
       )}
 
       {/* Status Overlays (Archived / Out of Stock) */}
