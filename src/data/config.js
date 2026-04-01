@@ -149,7 +149,7 @@ export const GRID = {
   gapClass: 'gap-2',                                      // Kart arası boşluk
   
   // Kategori Reyon Başlıkları Tasarımı
-  headerClass: 'text-[12px] sm:text-sm font-extrabold text-kraft-600 tracking-wider uppercase border-b border-stone-200 pb-1 mb-2 mt-6 first:mt-1',
+  headerClass: 'text-[12px] sm:text-sm font-extrabold text-kraft-600 tracking-wider uppercase border-b border-stone-200 pb-1 mb-2 mt-12 first:mt-4',
 };
 
 // ----- Varsayılan Ürünler -----
