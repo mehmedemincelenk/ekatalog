@@ -156,7 +156,7 @@ export default function ProductCard({ product, categories = [], isAdmin, onDelet
               setNewCatData(''); // reset temp state
               setIsEditingCategory(true);
             }} 
-            className={`absolute top-1.5 left-1.5 z-10 ${categoryClass} ${isAdmin ? 'cursor-pointer hover:ring-1 hover:ring-kraft-400' : 'cursor-default'} outline-none ${!product.category ? 'border-dashed border-red-300 bg-red-50' : ''}`}
+            className={`absolute top-1.5 left-1.5 z-10 ${categoryClass} ${isAdmin ? 'cursor-pointer hover:ring-1 hover:ring-kraft-400' : 'cursor-default'} outline-none ${!product.category ? 'border-dashed border-red-300 bg-red-50' : ''} transition-all duration-300 ${product.inStock === false ? 'grayscale opacity-60' : ''}`}
             title={isAdmin ? "Kategoriyi Değiştir" : ""}
           >
             {product.category || '\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0'}
@@ -255,65 +255,74 @@ export default function ProductCard({ product, categories = [], isAdmin, onDelet
           />
         ) : null}
 
-        {/* Price & 3-Dots Action Menu */}
-        <div className="mt-auto flex items-center justify-between relative">
+        {/* Price */}
+        <div className="mt-auto">
           <p {...makeEditable('price')} className={`${priceClass} transition-all duration-300 ${makeEditable('price').className} ${product.inStock === false && !isAdmin ? 'line-through opacity-60 text-stone-500' : ''}`}>
             {product.price}
           </p>
-          {isAdmin && (
-            <div className="relative">
+        </div>
+      </div>
+
+      {/* Admin 3-Dots Action Menu (Absolute Bottom Right) */}
+      {isAdmin && (
+        <div className="absolute bottom-1.5 right-1.5 z-20">
+          <button 
+            type="button"
+            onClick={(e) => { e.stopPropagation(); setShowActions(!showActions); }} 
+            className={`w-5 h-5 flex items-center justify-center rounded-full transition-colors ${showActions ? 'bg-stone-200 text-stone-900' : 'bg-transparent text-stone-300 hover:bg-stone-100 hover:text-stone-700'}`}
+            aria-label="Aksiyon Menüsü"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={3} stroke="currentColor" className="w-4 h-4">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z" />
+            </svg>
+          </button>
+          
+          {/* Actions Popover */}
+          {showActions && (
+            <div 
+              className="absolute bottom-full right-0 mb-1 z-40 bg-white border border-stone-200 rounded-lg shadow-xl w-36 py-1.5 flex flex-col items-start overflow-hidden origin-bottom-right"
+              onClick={(e) => e.stopPropagation()}
+            >
               <button 
-                type="button"
-                onClick={(e) => { e.stopPropagation(); setShowActions(!showActions); }} 
-                className={`w-7 h-7 flex items-center justify-center rounded-full transition-colors ${showActions ? 'bg-stone-200 text-stone-900' : 'bg-transparent text-stone-400 hover:bg-stone-100 hover:text-stone-700'}`}
-                aria-label="Aksiyon Menüsü"
+                onClick={() => { onUpdate(product.id, { inStock: product.inStock === false ? true : false }); setShowActions(false); }}
+                className="w-full text-left px-3 py-1.5 text-xs font-semibold hover:bg-stone-50 flex items-center justify-between"
               >
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-5 h-5">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z" />
-                </svg>
+                <span className={product.inStock !== false ? 'text-green-600' : 'text-stone-500'}>
+                  {product.inStock !== false ? '✅ Stokta Var' : '❌ Stokt Tükendi'}
+                </span>
               </button>
-              
-              {/* Actions Popover */}
-              {showActions && (
-                <div 
-                  className="absolute bottom-full right-0 mb-1 z-40 bg-white border border-stone-200 rounded-lg shadow-xl w-36 py-1.5 flex flex-col items-start overflow-hidden origin-bottom-right"
-                  onClick={(e) => e.stopPropagation()}
-                >
-                  <button 
-                    onClick={() => { onUpdate(product.id, { inStock: product.inStock === false ? true : false }); setShowActions(false); }}
-                    className="w-full text-left px-3 py-1.5 text-xs font-semibold hover:bg-stone-50 flex items-center justify-between"
-                  >
-                    <span className={product.inStock !== false ? 'text-green-600' : 'text-stone-500'}>
-                      {product.inStock !== false ? '✅ Stokta Var' : '❌ Stokt Tükendi'}
-                    </span>
-                  </button>
-                  <button 
-                    onClick={() => { onUpdate(product.id, { isArchived: !product.isArchived }); setShowActions(false); }}
-                    className="w-full text-left px-3 py-1.5 text-xs font-semibold text-stone-700 hover:bg-stone-50 flex items-center justify-between"
-                  >
-                    <span>{product.isArchived ? '👁️ Yayına Al' : '📦 Arşive Kaldır'}</span>
-                  </button>
-                  <div className="w-full border-t border-stone-100 my-1"></div>
-                  <button 
-                    onClick={(e) => { setShowActions(false); handleDeleteClick(e); }}
-                    className="w-full text-left px-3 py-1.5 text-xs font-semibold text-red-600 hover:bg-red-50 flex items-center gap-1.5"
-                  >
-                    <svg xmlns="http://www.w3.org/2000/svg" className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                    </svg>
-                    Kalıcı Olarak Sil
-                  </button>
-                </div>
-              )}
+              <button 
+                onClick={() => { onUpdate(product.id, { isArchived: !product.isArchived }); setShowActions(false); }}
+                className="w-full text-left px-3 py-1.5 text-xs font-semibold text-stone-700 hover:bg-stone-50 flex items-center justify-between"
+              >
+                <span>{product.isArchived ? '👁️ Yayına Al' : '📦 Arşive Kaldır'}</span>
+              </button>
+              <div className="w-full border-t border-stone-100 my-1"></div>
+              <button 
+                onClick={(e) => { setShowActions(false); handleDeleteClick(e); }}
+                className="w-full text-left px-3 py-1.5 text-xs font-semibold text-red-600 hover:bg-red-50 flex items-center gap-1.5"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                </svg>
+                Kalıcı Olarak Sil
+              </button>
             </div>
           )}
         </div>
-      </div>
+      )}
 
       {/* Admin Archived Overlay */}
       {isAdmin && product.isArchived && (
         <div className="absolute inset-0 bg-stone-900/10 z-[5] pointer-events-none rounded-lg border-2 border-dashed border-stone-400/50 flex flex-col items-center justify-center">
           <span className="bg-stone-900 text-white text-[10px] font-bold px-2 py-0.5 rounded shadow pointer-events-auto select-none">ARŞİVLENDİ</span>
+        </div>
+      )}
+
+      {/* Out of Stock Overlay (Both Admin & Client) */}
+      {product.inStock === false && !product.isArchived && (
+        <div className="absolute inset-0 z-[5] pointer-events-none rounded-lg flex flex-col items-center justify-center">
+          <span className="bg-kraft-200 text-kraft-900 border border-kraft-400 text-[11px] font-bold px-3 py-0.5 rounded shadow-sm pointer-events-auto select-none -translate-y-4">STOK TÜKENDİ</span>
         </div>
       )}
     </article>
