@@ -42,7 +42,7 @@ export const NAVBAR = {
 
 // ----- Admin Modu -----
 export const ADMIN = {
-  triggerClicks: 5,     // Kaç tıkla admin açılır (footer logosu)
+  triggerClicks: 7,     // Kaç tıkla admin açılır (footer logosu - Kural: 7)
   resetDelayMs: 2000,  // Tık sayacı sıfırlama süresi (ms)
 };
 
@@ -72,6 +72,7 @@ export const MODAL = {
 // ----- Carousel -----
 export const CAROUSEL = {
   intervalMs: 4000,          // Slayt geçiş süresi (ms)
+  swipeThreshold: 50,        // Yana kaydırma parmak hassasiyeti (piksel)
 
   // Dış Kasa (Kapsayıcı) ve Yükseklik Yaratıcıları
   heightMobile: 'h-64',
@@ -193,4 +194,29 @@ export const CARD_TYPOGRAPHY = {
   descLeading: 'leading-tight',               // Açıklama satır yüksekliği
   descMaxHeight: 'max-h-[36px]',              // Açıklama alanı maksimum yüksekliği (kullanıcı görünümü)
   descAreaHeight: 'h-[30px]',                 // Admin editöründeki açıklama kutusu yüksekliği
+};
+
+// ----- Ürün Kartı Boyut ve Boşluk Ölçüleri (Layout) -----
+export const CARD_LAYOUT = {
+  // İkonlar ve Rozetler
+  iconTiny: 'w-3 h-3',               // Kategori menüsü taşıma ikonu vb.
+  iconSmall: 'w-5 h-5',              // 3-nokta (Aksiyon) ateşleme butonu
+  iconMedium: 'w-7 h-7',             // Aksiyon menüsü içindeki buton ebatları
+  iconOverlay: 'w-8 h-8',            // Admin ve Stok saydam ikon çemberleri
+  iconOverlaySvg: 'w-4 h-4',         // Rozet içindeki ufak grafik (SVG) ebatları
+  
+  // Pozisyonlandırma ve Kutu Ebatları
+  catPopoverWidth: 'w-44',           // Kategori penceresi ana genişliği
+  catPopoverOffsetTop: 'top-10',     // Kategori penceresinin tepeden konumu
+  catPopoverListMaxH: 'max-h-24',    // Kategoriler listesi max iç kaydırma alanı
+  actionPopoverOffsetB: 'bottom-8',  // 3-nokta popover alttan konumu
+  actionMenuAnchorR: 'right-1.5',    // 3-nokta butonu sağ hizalaması
+  actionMenuAnchorB: 'bottom-1.5',   // 3-nokta butonu alt hizalaması
+
+  // Boşluklar (Padding / Gap)
+  cardInfoPadding: 'px-2 py-2',      // Ürün bilgileri dış çerçeve boşluğu
+  gapSmall: 'gap-1.5',               // İç öğeler arası dar boşluk
+  
+  // Mantıksal Değerler
+  marqueeTolerance: 2,               // Yatayda yanlara taşma hesaplanırken hesaba katılan tolerans (px)
 };

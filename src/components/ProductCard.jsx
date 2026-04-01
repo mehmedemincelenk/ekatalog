@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect } from 'react';
-import { CARD_TYPOGRAPHY as CT } from '../data/config';
+import { CARD_TYPOGRAPHY as CT, CARD_LAYOUT as CL } from '../data/config';
 
 // Derived class strings from individual config tokens
 const categoryClass = `inline-block ${CT.categoryFontSize} ${CT.categoryWeight} ${CT.categoryCase} ${CT.categoryTracking} ${CT.categoryColor} ${CT.categoryBg} ${CT.categoryBorder} ${CT.categoryRounding} ${CT.categoryPadding}`;
@@ -16,7 +16,7 @@ function MarqueeText({ text, textClass, isAdmin, editableProps = {} }) {
   useEffect(() => {
     const el = containerRef.current;
     if (!el) return;
-    const check = () => setOverflow(el.scrollWidth > el.clientWidth + 2);
+    const check = () => setOverflow(el.scrollWidth > el.clientWidth + CL.marqueeTolerance);
     check();
     const ro = new ResizeObserver(check);
     ro.observe(el);
@@ -45,7 +45,7 @@ function DescriptionScroll({ lines, lineClass, maxHeightClass }) {
   useEffect(() => {
     const el = containerRef.current;
     if (!el) return;
-    const check = () => setOverflow(el.scrollHeight > el.clientHeight + 2);
+    const check = () => setOverflow(el.scrollHeight > el.clientHeight + CL.marqueeTolerance);
     check();
     const ro = new ResizeObserver(check);
     ro.observe(el);
@@ -227,7 +227,7 @@ export default function ProductCard({ product, categories = [], isAdmin, onDelet
         {isAdmin && isEditingCategory && (
           <div 
             style={{ transform: `translate(calc(-50% + ${dragPos.x}px), ${dragPos.y}px)` }}
-            className={`absolute top-10 left-1/2 z-50 bg-white border border-stone-200 rounded-lg w-44 flex flex-col items-stretch overflow-hidden origin-top ${isDragging ? 'shadow-3xl ring-2 ring-kraft-200 opacity-95 transition-none' : 'shadow-2xl transition-transform duration-75'}`}
+            className={`absolute ${CL.catPopoverOffsetTop} left-1/2 z-50 bg-white border border-stone-200 rounded-lg ${CL.catPopoverWidth} flex flex-col items-stretch overflow-hidden origin-top ${isDragging ? 'shadow-3xl ring-2 ring-kraft-200 opacity-95 transition-none' : 'shadow-2xl transition-transform duration-75'}`}
             onClick={(e) => e.stopPropagation()}
           >
             <div 
@@ -235,15 +235,15 @@ export default function ProductCard({ product, categories = [], isAdmin, onDelet
               onMouseDown={handleDragStart}
               onTouchStart={handleDragStart}
             >
-              <div className="flex items-center gap-1.5 pointer-events-none select-none">
-                <svg xmlns="http://www.w3.org/2000/svg" className="w-3 h-3 text-stone-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" /></svg>
+              <div className={`flex items-center ${CL.gapSmall} pointer-events-none select-none`}>
+                <svg xmlns="http://www.w3.org/2000/svg" className={`${CL.iconTiny} text-stone-400`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" /></svg>
                 <span className="text-[10px] font-bold text-stone-600">Kategori</span>
               </div>
               <button type="button" onClick={() => setIsEditingCategory(false)} className="text-stone-400 hover:text-stone-700 leading-none">×</button>
             </div>
             <div className="p-3 pt-1 bg-white">
               {categories.length > 0 && (
-                <div className="flex flex-wrap gap-1 mb-2 max-h-24 overflow-y-auto">
+                <div className={`flex flex-wrap gap-1 mb-2 ${CL.catPopoverListMaxH} overflow-y-auto`}>
                   {categories.map(cat => (
                     <button
                       key={cat}
@@ -293,7 +293,7 @@ export default function ProductCard({ product, categories = [], isAdmin, onDelet
       </div>
 
       {/* Info */}
-      <div className="px-2 py-2 flex flex-col gap-0.5 flex-grow">
+      <div className={`${CL.cardInfoPadding} flex flex-col gap-0.5 flex-grow`}>
 
         {/* Name — horizontal marquee on overflow */}
         <MarqueeText
@@ -336,11 +336,11 @@ export default function ProductCard({ product, categories = [], isAdmin, onDelet
       {/* Admin 3-Dots Action Menu (Absolute Bottom Right) */}
       {isAdmin && (
         <>
-          <div className="absolute bottom-1.5 right-1.5 z-20">
+          <div className={`absolute ${CL.actionMenuAnchorB} ${CL.actionMenuAnchorR} z-20`}>
             <button 
               type="button"
               onClick={(e) => { e.stopPropagation(); setShowActions(!showActions); }} 
-              className={`w-5 h-5 flex items-center justify-center rounded-full transition-colors ${showActions ? 'bg-stone-200 text-stone-900' : 'bg-transparent text-stone-300 hover:bg-stone-100 hover:text-stone-700'}`}
+              className={`${CL.iconSmall} flex items-center justify-center rounded-full transition-colors ${showActions ? 'bg-stone-200 text-stone-900' : 'bg-transparent text-stone-300 hover:bg-stone-100 hover:text-stone-700'}`}
               aria-label="Aksiyon Menüsü"
             >
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={3} stroke="currentColor" className="w-4 h-4">
@@ -352,14 +352,14 @@ export default function ProductCard({ product, categories = [], isAdmin, onDelet
           {/* Actions Popover (Icons Only) Centered in Article */}
           {showActions && (
             <div 
-              className="absolute bottom-8 left-1/2 -translate-x-1/2 z-40 bg-white border border-stone-200 rounded-full shadow-2xl px-1.5 py-1.5 flex items-center gap-1.5 origin-bottom"
+              className={`absolute ${CL.actionPopoverOffsetB} left-1/2 -translate-x-1/2 z-40 bg-white border border-stone-200 rounded-full shadow-2xl px-1.5 py-1.5 flex items-center ${CL.gapSmall} origin-bottom`}
               onClick={(e) => e.stopPropagation()}
             >
               {/* Stock Toggle (Empty Set Character) */}
               <button 
                 type="button"
                 onClick={() => { onUpdate(product.id, { inStock: product.inStock === false ? true : false }); setShowActions(false); }}
-                className={`w-7 h-7 flex items-center justify-center rounded-full transition-colors ${product.inStock === false ? 'bg-stone-900 text-white' : 'bg-transparent text-stone-400 hover:bg-stone-100 hover:text-stone-700'}`}
+                className={`${CL.iconMedium} flex items-center justify-center rounded-full transition-colors ${product.inStock === false ? 'bg-stone-900 text-white' : 'bg-transparent text-stone-400 hover:bg-stone-100 hover:text-stone-700'}`}
                 title={product.inStock === false ? "Stok Tasarrufu (Stoğa Ekle)" : "Stok Tükendi Olarak İşaretle"}
               >
                 <span className="text-xl font-light leading-none -mt-0.5">∅</span>
@@ -369,7 +369,7 @@ export default function ProductCard({ product, categories = [], isAdmin, onDelet
               <button 
                 type="button"
                 onClick={() => { onUpdate(product.id, { isArchived: !product.isArchived }); setShowActions(false); }}
-                className={`w-7 h-7 flex items-center justify-center rounded-full transition-colors ${product.isArchived ? 'bg-stone-900 text-white' : 'bg-transparent text-stone-400 hover:bg-stone-100 hover:text-stone-700'}`}
+                className={`${CL.iconMedium} flex items-center justify-center rounded-full transition-colors ${product.isArchived ? 'bg-stone-900 text-white' : 'bg-transparent text-stone-400 hover:bg-stone-100 hover:text-stone-700'}`}
                 title={product.isArchived ? "Arşivden Çıkar" : "Arşive Al"}
               >
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-4 h-4">
@@ -383,7 +383,7 @@ export default function ProductCard({ product, categories = [], isAdmin, onDelet
               <button 
                 type="button"
                 onClick={(e) => { setShowActions(false); handleDeleteClick(e); }}
-                className="w-7 h-7 flex items-center justify-center rounded-full bg-transparent text-red-500 hover:bg-red-50 hover:text-red-700 transition-colors"
+                className={`${CL.iconMedium} flex items-center justify-center rounded-full bg-transparent text-red-500 hover:bg-red-50 hover:text-red-700 transition-colors`}
                 title="Kalıcı Olarak Sil"
               >
                 <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -396,7 +396,7 @@ export default function ProductCard({ product, categories = [], isAdmin, onDelet
       )}
 
       {/* Status Overlays (Archived / Out of Stock) */}
-      <div className="absolute inset-0 z-[5] pointer-events-none rounded-lg flex items-center justify-center gap-2">
+      <div className={`absolute inset-0 z-[5] pointer-events-none rounded-lg flex items-center justify-center ${CL.gapSmall}`}>
         
         {/* Out of Stock Icon */}
         {product.inStock === false && (
@@ -405,7 +405,7 @@ export default function ProductCard({ product, categories = [], isAdmin, onDelet
             onClick={(e) => {
               if (isAdmin) { e.stopPropagation(); onUpdate(product.id, { inStock: true }); }
             }}
-            className={`bg-stone-900/90 text-white w-8 h-8 rounded-full shadow-xl flex items-center justify-center -translate-y-4 ${isAdmin ? 'pointer-events-auto cursor-pointer hover:bg-stone-900 hover:scale-105 transition-transform' : 'pointer-events-none'}`} 
+            className={`bg-stone-900/90 text-white ${CL.iconOverlay} rounded-full shadow-xl flex items-center justify-center -translate-y-4 ${isAdmin ? 'pointer-events-auto cursor-pointer hover:bg-stone-900 hover:scale-105 transition-transform' : 'pointer-events-none'}`} 
             title={isAdmin ? "Stoka geri ekle" : "Stok Tükendi"}
           >
             <span className="text-xl font-light leading-none">∅</span>
@@ -417,10 +417,10 @@ export default function ProductCard({ product, categories = [], isAdmin, onDelet
           <button 
             type="button"
             onClick={(e) => { e.stopPropagation(); onUpdate(product.id, { isArchived: false }); }}
-            className="bg-stone-900/90 text-white w-8 h-8 rounded-full shadow-xl flex items-center justify-center border border-dashed border-stone-400/50 -translate-y-4 pointer-events-auto cursor-pointer hover:bg-stone-900 hover:scale-105 transition-transform" 
+            className={`bg-stone-900/90 text-white ${CL.iconOverlay} rounded-full shadow-xl flex items-center justify-center border border-dashed border-stone-400/50 -translate-y-4 pointer-events-auto cursor-pointer hover:bg-stone-900 hover:scale-105 transition-transform`} 
             title="Arşivden Çıkar"
           >
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-4 h-4">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className={CL.iconOverlaySvg}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z" />
             </svg>
           </button>

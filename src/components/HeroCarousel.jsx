@@ -8,7 +8,7 @@ export default function HeroCarousel({ isAdmin }) {
   const [editingSlideId, setEditingSlideId] = useState(null);
 
   const { 
-    intervalMs, roundedClass,
+    intervalMs, swipeThreshold, roundedClass,
     heightMobile, heightTablet, heightPC, containerWidth, containerPadding, containerMargin,
     dotPosition, dotGap, dotSize, dotActive, dotInactive,
     boxPositionMobile, boxPositionPC, boxWidthMobile, boxWidthPC, boxPaddingMobile, boxPaddingPC, boxRounding, boxBg, boxBorder, boxShadow,
@@ -32,8 +32,8 @@ export default function HeroCarousel({ isAdmin }) {
   const handleTouchEnd = () => {
     if (!touchStart || !touchEnd) return;
     const distance = touchStart - touchEnd;
-    if (distance > 50) next();
-    if (distance < -50) prev();
+    if (distance > swipeThreshold) next();
+    if (distance < -swipeThreshold) prev();
     setTouchStart(0);
     setTouchEnd(0);
   };
