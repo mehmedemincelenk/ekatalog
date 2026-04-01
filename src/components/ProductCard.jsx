@@ -210,20 +210,19 @@ export default function ProductCard({ product, categories = [], isAdmin, onDelet
         }
         <input ref={fileInputRef} type="file" accept="image/png,image/jpeg,image/webp,image/gif" className="hidden" onChange={handleFileChange} />
 
-        {/* Category chip — top-left overlay (Ghost behavior on !categoryId fallback) */}
-        {((product.category && !isEditingCategory) || (!product.category && isAdmin && !isEditingCategory)) && (
+        {/* Category chip — top-left overlay (Yalnızca Admin Görebilir) */}
+        {isAdmin && !isEditingCategory && (
           <button 
             type="button"
             onClick={(e) => {
-              if (!isAdmin) return;
               e.stopPropagation();
               setNewCatData(''); // reset temp state
               setIsEditingCategory(true);
             }} 
-            className={`absolute top-1.5 left-1.5 z-10 ${categoryClass} ${isAdmin ? 'cursor-pointer hover:ring-1 hover:ring-kraft-400' : 'cursor-default'} outline-none ${!product.category ? 'border-dashed border-red-300 bg-red-50' : ''} transition-all duration-300 ${product.inStock === false ? 'grayscale opacity-60' : ''}`}
-            title={isAdmin ? "Kategoriyi Değiştir" : ""}
+            className={`absolute top-1.5 left-1.5 z-10 ${categoryClass} cursor-pointer hover:ring-1 hover:ring-kraft-400 outline-none ${!product.category ? 'border-dashed border-red-300 bg-red-50 text-red-600' : ''} transition-all duration-300 ${product.inStock === false ? 'grayscale opacity-60' : ''}`}
+            title="Kategoriyi Değiştir"
           >
-            {product.category || '\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0'}
+            {product.category || 'KATEGORİSİZ'}
           </button>
         )}
         

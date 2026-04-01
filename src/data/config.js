@@ -147,6 +147,9 @@ export const CAROUSEL = {
 export const GRID = {
   colsClass: 'grid-cols-3 md:grid-cols-4 lg:grid-cols-6', // Sütun sayısı
   gapClass: 'gap-2',                                      // Kart arası boşluk
+  
+  // Kategori Reyon Başlıkları Tasarımı
+  headerClass: 'text-[12px] sm:text-sm font-extrabold text-stone-800 tracking-wider uppercase border-b border-stone-200 pb-1 mb-2 mt-6 first:mt-1',
 };
 
 // ----- Varsayılan Ürünler -----

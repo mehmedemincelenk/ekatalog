@@ -11,17 +11,37 @@ export default function ProductGrid({ products, categories, isAdmin, onDelete, o
     );
   }
 
+  // Ürünleri 'category' etiketine göre gruplara ayır
+  const groupedProducts = products.reduce((acc, product) => {
+    const catName = product.category || 'KATEGORİSİZ / DİĞER';
+    if (!acc[catName]) acc[catName] = [];
+    acc[catName].push(product);
+    return acc;
+  }, {});
+
+  // Oluşan kategori reyonlarını alfabetik olarak hizala
+  const sortedCategories = Object.keys(groupedProducts).sort();
+
   return (
-    <div className={`grid ${GRID.colsClass} ${GRID.gapClass}`}>
-      {products.map((product) => (
-        <ProductCard
-          key={product.id}
-          product={product}
-          categories={categories}
-          isAdmin={isAdmin}
-          onDelete={onDelete}
-          onUpdate={onUpdate}
-        />
+    <div className="w-full flex flex-col">
+      {sortedCategories.map((catName) => (
+        <div key={catName} className="flex flex-col">
+          <h2 className={GRID.headerClass}>
+            {catName}
+          </h2>
+          <div className={`grid ${GRID.colsClass} ${GRID.gapClass}`}>
+            {groupedProducts[catName].map((product) => (
+              <ProductCard
+                key={product.id}
+                product={product}
+                categories={categories}
+                isAdmin={isAdmin}
+                onDelete={onDelete}
+                onUpdate={onUpdate}
+              />
+            ))}
+          </div>
+        </div>
       ))}
     </div>
   );
