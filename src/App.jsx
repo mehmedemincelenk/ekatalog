@@ -10,11 +10,16 @@ import { useProducts } from './hooks/useProducts';
 import { useAdminMode } from './hooks/useAdminMode';
 
 export default function App() {
-  const { products, addProduct, deleteProduct, updateProduct } = useProducts();
+  const { products, updateProduct, removeProduct, addProduct, renameCategory, removeCategoryFromProducts } = useProducts();
   const { isAdmin, handleLogoClick } = useAdminMode();
   const [search, setSearch] = useState('');
   const [activeCategory, setActiveCategory] = useState('Tümü');
   const [showAddModal, setShowAddModal] = useState(false);
+
+  // Mevcut benzersiz kategorileri türet (Modal vs. için)
+  const existingCategories = useMemo(() => {
+    return [...new Set(products.map((p) => p.category).filter(Boolean))].sort();
+  }, [products]);
 
   // Derive filtered products from search + category
   const filteredProducts = useMemo(() => {
@@ -34,7 +39,7 @@ export default function App() {
     <div className="min-h-screen flex flex-col bg-stone-50">
       <Navbar />
 
-      <HeroCarousel />
+      <HeroCarousel isAdmin={isAdmin} />
 
       <SearchFilter
         products={products}
@@ -42,6 +47,9 @@ export default function App() {
         onSearchChange={setSearch}
         activeCategory={activeCategory}
         onCategoryChange={setActiveCategory}
+        isAdmin={isAdmin}
+        renameCategory={renameCategory}
+        removeCategoryFromProducts={removeCategoryFromProducts}
       />
 
       {/* Main catalog content */}
@@ -61,7 +69,7 @@ export default function App() {
         <ProductGrid
           products={filteredProducts}
           isAdmin={isAdmin}
-          onDelete={deleteProduct}
+          onDelete={removeProduct}
           onUpdate={updateProduct}
         />
       </main>
@@ -85,6 +93,7 @@ export default function App() {
       {/* Add product modal */}
       {showAddModal && (
         <AddProductModal
+          categories={existingCategories}
           onAdd={handleAddProduct}
           onClose={() => setShowAddModal(false)}
         />

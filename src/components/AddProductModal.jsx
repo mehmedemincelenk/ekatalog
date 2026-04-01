@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 const EMPTY = { name: '', category: '', price: '', description: '', image: null };
 
-export default function AddProductModal({ onAdd, onClose }) {
+export default function AddProductModal({ categories = [], onAdd, onClose }) {
   const [form, setForm] = useState(EMPTY);
   const [previewUrl, setPreviewUrl] = useState(null);
   const [error, setError] = useState('');
@@ -99,11 +99,17 @@ export default function AddProductModal({ onAdd, onClose }) {
                 id="add-category"
                 name="category"
                 type="text"
+                list="existing-categories"
                 value={form.category}
                 onChange={handleChange}
-                placeholder="örn. Kargo Kutuları"
+                placeholder="Örn. Kargo Kutuları (Seç veya Yaz)"
                 className="w-full border border-stone-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-kraft-400 focus:border-kraft-400 transition"
               />
+              <datalist id="existing-categories">
+                {categories.map((cat) => (
+                  <option key={cat} value={cat} />
+                ))}
+              </datalist>
             </div>
             <div>
               <label className="block text-xs font-semibold text-stone-600 mb-1" htmlFor="add-price">

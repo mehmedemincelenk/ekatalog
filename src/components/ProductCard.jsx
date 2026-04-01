@@ -96,22 +96,32 @@ export default function ProductCard({ product, isAdmin, onDelete, onUpdate }) {
   const makeEditable = (field) => ({
     contentEditable: isAdmin ? 'true' : 'false',
     suppressContentEditableWarning: true,
+    onClick: (e) => e.stopPropagation(),
     onBlur: (e) => {
       let val = e.currentTarget.textContent.trim();
-      if (!val) return;
-      if (field === 'price' && !val.startsWith('₺')) { val = '₺' + val; e.currentTarget.textContent = val; }
-      if (val !== product[field]) onUpdate(product.id, { [field]: val });
+      if (field === 'price' && val && !val.startsWith('₺')) { val = '₺' + val; e.currentTarget.textContent = val; }
+      if (val !== (product[field] || '')) onUpdate(product.id, { [field]: val });
     },
     onKeyDown: (e) => { if (e.key === 'Enter') { e.preventDefault(); e.currentTarget.blur(); } },
-    className: isAdmin ? 'cursor-text focus:outline-none' : '',
+    className: isAdmin ? 'cursor-text focus:outline-none ring-1 ring-transparent hover:ring-amber-200 focus:ring-amber-400 rounded transition-shadow' : '',
   });
 
-  // --- Description: bullet display in view mode, textarea in admin mode ---
+  // Multiline özel in-place edit (Açıklamalar için)
+  const makeEditableMulti = (field) => ({
+    contentEditable: isAdmin ? 'true' : 'false',
+    suppressContentEditableWarning: true,
+    onClick: (e) => e.stopPropagation(),
+    onBlur: (e) => {
+      let val = e.currentTarget.innerText.trim();
+      if (val !== (product[field] || '')) onUpdate(product.id, { [field]: val });
+    },
+    onKeyDown: (e) => { if (e.key === 'Escape') e.currentTarget.blur(); },
+    className: isAdmin ? 'cursor-text focus:outline-none ring-1 ring-transparent hover:ring-amber-200 focus:ring-amber-400 rounded transition-shadow whitespace-pre-wrap' : 'whitespace-pre-wrap',
+  });
+
+  // --- Description processing ---
+  // Replaces raw newlines to map to our • visual output, or just let users type directly
   const descLines = (product.description || '').split('\n').filter(Boolean);
-  const handleDescBlur = (e) => {
-    const val = e.target.value.trim();
-    if (val !== (product.description || '')) onUpdate(product.id, { description: val });
-  };
 
   return (
     <article className={`bg-white border border-stone-200 rounded-lg overflow-hidden flex flex-col group hover:shadow-md transition-shadow duration-200 relative ${isAdmin ? 'ring-1 ring-amber-300' : ''}`}>
@@ -142,9 +152,11 @@ export default function ProductCard({ product, isAdmin, onDelete, onUpdate }) {
         <input ref={fileInputRef} type="file" accept="image/png,image/jpeg,image/webp,image/gif" className="hidden" onChange={handleFileChange} />
 
         {/* Category chip — top-left overlay */}
-        <span {...makeEditable('category')} className={`absolute top-1.5 left-1.5 z-10 ${categoryClass} ${makeEditable('category').className}`}>
-          {product.category}
-        </span>
+        {product.category && (
+          <span {...makeEditable('category')} className={`absolute top-1.5 left-1.5 z-10 ${categoryClass} ${makeEditable('category').className}`}>
+            {product.category}
+          </span>
+        )}
       </div>
 
       {/* Info */}
@@ -163,19 +175,14 @@ export default function ProductCard({ product, isAdmin, onDelete, onUpdate }) {
           } : {}}
         />
 
-        {/* Description:
-            admin  → textarea (fixed height, same tokens, Escape to exit)
-            view   → bullet list (max-height, overflow-y-auto scroll) */}
+        {/* Description: in-place editable raw text vs bullet view */}
         {isAdmin ? (
-          <textarea
-            key={product.id}
-            defaultValue={product.description || ''}
-            rows={3}
-            placeholder="+ Açıklama (her satır → • madde)"
-            onBlur={handleDescBlur}
-            onKeyDown={(e) => { if (e.key === 'Escape') e.currentTarget.blur(); }}
-            className={`w-full resize-none rounded px-1 py-0.5 border border-stone-200 focus:outline-none focus:border-amber-400 ${descClass} ${CT.descAreaHeight} overflow-y-auto`}
-          />
+          <div
+            {...makeEditableMulti('description')}
+            className={`w-full px-1 py-0.5 ${descClass} ${CT.descMaxHeight} overflow-y-auto ${makeEditableMulti('description').className}`}
+          >
+            {product.description || '+ Açıklama ekle'}
+          </div>
         ) : descLines.length > 0 ? (
           <DescriptionScroll
             lines={descLines}

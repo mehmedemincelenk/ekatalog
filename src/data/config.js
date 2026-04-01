@@ -67,7 +67,7 @@ export const CAROUSEL = {
 
   // Kutucuk (Glassmorphism) Görünümü
   boxPositionMobile: 'bottom-10 left-4',         // [MOBİL] Kutunun konumu
-  boxPositionPC: 'sm:bottom-12 sm:left-10',      // [PC] Kutunun konumu (Geniş ekranlar için sm: veya lg: öneki şarttır)
+  boxPositionPC: 'sm:bottom-10 sm:left-6',      // [PC] Kutunun konumu (Geniş ekranlar için sm: veya lg: öneki şarttır)
   boxWidthMobile: 'max-w-[40%]',                 // [MOBİL] Kutu maksimum genişliği
   boxWidthPC: 'sm:max-w-md',                     // [PC] Kutu maksimum genişliği
   boxPaddingMobile: 'p-3',                       // [MOBİL] Kutu iç boşluğu
@@ -79,7 +79,7 @@ export const CAROUSEL = {
 
   // Ana Başlık (Label) Tasarımı
   titleSizeMobile: 'text-[14px]',                // [MOBİL] Başlık boyutu
-  titleSizePC: 'sm:text-3xl lg:text-4xl',        // [PC] Başlık boyutu
+  titleSizePC: 'sm:text-xl lg:text-2xl',        // [PC] Başlık boyutu
   titleWeight: 'font-extrabold',
   titleColor: 'text-white',
   titleTracking: 'tracking-tight',
@@ -87,7 +87,7 @@ export const CAROUSEL = {
 
   // Alt Metin (Sub) Tasarımı
   subSizeMobile: 'text-[10px]',                  // [MOBİL] Alt metin boyutu
-  subSizePC: 'sm:text-base',                     // [PC] Alt metin boyutu
+  subSizePC: 'text-[12px]',                     // [PC] Alt metin boyutu
   subWeight: 'font-medium',
   subColor: 'text-white/90',
   subLeading: 'leading-relaxed',

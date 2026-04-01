@@ -22,7 +22,7 @@ export function useProducts() {
     return newProduct;
   };
 
-  const deleteProduct = (id) => {
+  const removeProduct = (id) => {
     setProducts((prev) => prev.filter((p) => p.id !== id));
   };
 
@@ -32,5 +32,15 @@ export function useProducts() {
     );
   };
 
-  return { products, addProduct, deleteProduct, updateProduct };
+  const renameCategory = (oldName, newName) => {
+    if (!oldName || !newName || oldName === newName) return;
+    setProducts((prev) => prev.map((p) => (p.category === oldName ? { ...p, category: newName } : p)));
+  };
+
+  const removeCategoryFromProducts = (catName) => {
+    if (!catName) return;
+    setProducts((prev) => prev.map((p) => (p.category === catName ? { ...p, category: null } : p)));
+  };
+
+  return { products, updateProduct, removeProduct, addProduct, renameCategory, removeCategoryFromProducts };
 }
