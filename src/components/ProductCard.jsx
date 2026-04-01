@@ -72,8 +72,10 @@ function DescriptionScroll({ lines, lineClass, maxHeightClass }) {
   );
 }
 
-export default function ProductCard({ product, isAdmin, onDelete, onUpdate }) {
+export default function ProductCard({ product, categories = [], isAdmin, onDelete, onUpdate }) {
   const fileInputRef = useRef(null);
+  const [isEditingCategory, setIsEditingCategory] = useState(false);
+  const [newCatData, setNewCatData] = useState('');
 
   // --- Delete ---
   const handleDeleteClick = (e) => {
@@ -153,10 +155,78 @@ export default function ProductCard({ product, isAdmin, onDelete, onUpdate }) {
         <input ref={fileInputRef} type="file" accept="image/png,image/jpeg,image/webp,image/gif" className="hidden" onChange={handleFileChange} />
 
         {/* Category chip — top-left overlay */}
-        {product.category && (
-          <span {...makeEditable('category')} className={`absolute top-1.5 left-1.5 z-10 ${categoryClass} ${makeEditable('category').className}`}>
+        {product.category && !isEditingCategory && (
+          <button 
+            type="button"
+            onClick={(e) => {
+              if (!isAdmin) return;
+              e.stopPropagation();
+              setNewCatData(''); // reset temp state
+              setIsEditingCategory(true);
+            }} 
+            className={`absolute top-1.5 left-1.5 z-10 ${categoryClass} ${isAdmin ? 'cursor-pointer hover:ring-1 hover:ring-kraft-400' : 'cursor-default'} outline-none`}
+            title={isAdmin ? "Kategoriyi Değiştir" : ""}
+          >
             {product.category}
-          </span>
+          </button>
+        )}
+        
+        {/* Inline Category Popover */}
+        {isAdmin && isEditingCategory && (
+          <div 
+            className="absolute top-1.5 left-1.5 z-30 bg-white shadow-xl rounded-lg p-3 w-48 border border-stone-200"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex justify-between items-center mb-2">
+              <span className="text-[10px] font-bold text-stone-600">Kategori Değiştir</span>
+              <button type="button" onClick={() => setIsEditingCategory(false)} className="text-stone-400 hover:text-stone-700 leading-none">×</button>
+            </div>
+            {categories.length > 0 && (
+              <div className="flex flex-wrap gap-1 mb-2 max-h-24 overflow-y-auto">
+                {categories.map(cat => (
+                  <button
+                    key={cat}
+                    type="button"
+                    onClick={() => {
+                      onUpdate(product.id, { category: cat });
+                      setIsEditingCategory(false);
+                    }}
+                    className={`px-1.5 py-0.5 text-[9px] rounded-sm font-semibold border ${cat === product.category ? 'bg-kraft-100 text-kraft-800 border-kraft-300' : 'bg-stone-50 text-stone-600 border-stone-200 hover:bg-stone-100'}`}
+                  >
+                    {cat}
+                  </button>
+                ))}
+              </div>
+            )}
+            <div className="flex gap-1 mt-2">
+              <input 
+                type="text" 
+                value={newCatData}
+                onChange={e => setNewCatData(e.target.value)}
+                placeholder="Yeni ekle..."
+                className="w-full border border-stone-300 rounded px-1.5 py-1 text-[10px] focus:outline-none focus:border-kraft-400"
+                onKeyDown={e => {
+                  if (e.key === 'Enter' && newCatData.trim()) {
+                    e.preventDefault();
+                    onUpdate(product.id, { category: newCatData.trim() });
+                    setIsEditingCategory(false);
+                  }
+                }}
+              />
+              <button
+                type="button"
+                onClick={() => {
+                  if (newCatData.trim()) {
+                    onUpdate(product.id, { category: newCatData.trim() });
+                    setIsEditingCategory(false);
+                  }
+                }}
+                className="bg-stone-900 text-white px-2 py-0.5 rounded text-[10px] font-bold hover:bg-stone-700"
+              >
+                +
+              </button>
+            </div>
+          </div>
         )}
       </div>
 

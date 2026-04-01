@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import Navbar from './components/Navbar';
 import HeroCarousel from './components/HeroCarousel';
 import SearchFilter from './components/SearchFilter';
@@ -15,6 +15,17 @@ export default function App() {
   const [search, setSearch] = useState('');
   const [activeCategories, setActiveCategories] = useState([]); // Boş dizi => 'Tümü'
   const [showAddModal, setShowAddModal] = useState(false);
+  const [showAdminToast, setShowAdminToast] = useState(false);
+
+  useEffect(() => {
+    if (isAdmin) {
+      setShowAdminToast(true);
+      const timer = setTimeout(() => setShowAdminToast(false), 2000);
+      return () => clearTimeout(timer);
+    } else {
+      setShowAdminToast(false);
+    }
+  }, [isAdmin]);
 
   // Kategori seçme / çıkarma mantığı (Tümü'ne basılırsa hepsini iptal et)
   const toggleCategory = (cat) => {
@@ -43,6 +54,13 @@ export default function App() {
 
   return (
     <div className="min-h-screen flex flex-col bg-stone-50">
+      {/* Admin Mode Toast */}
+      <div className={`fixed top-4 left-1/2 -translate-x-1/2 z-[100] transition-all duration-300 ease-out pointer-events-none ${showAdminToast ? 'translate-y-0 opacity-100' : '-translate-y-4 opacity-0'}`}>
+        <div className="bg-stone-900 text-white px-4 py-2 rounded-full shadow-2xl flex items-center gap-2 text-xs font-semibold">
+          <span className="text-amber-400 text-sm">✨</span> Admin Modu Aktif
+        </div>
+      </div>
+
       <Navbar />
 
       <HeroCarousel isAdmin={isAdmin} />
@@ -74,6 +92,7 @@ export default function App() {
 
         <ProductGrid
           products={filteredProducts}
+          categories={existingCategories}
           isAdmin={isAdmin}
           onDelete={removeProduct}
           onUpdate={updateProduct}

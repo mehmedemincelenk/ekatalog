@@ -37,14 +37,14 @@ export default function AddProductModal({ categories = [], onAdd, onClose }) {
 
   return (
     <div
-      className={`fixed inset-0 z-50 flex items-center justify-center ${MODAL.overlayBg} px-4`}
+      className={`fixed inset-0 z-50 flex items-center justify-center ${MODAL.overlayBg} px-4 py-8`}
       role="dialog"
       aria-modal="true"
       aria-label="Yeni Ürün Ekle"
     >
-      <div className={`${MODAL.bgClass} w-full ${MODAL.maxWidthClass} ${MODAL.roundingClass} ${MODAL.shadowClass} overflow-hidden`}>
+      <div className={`${MODAL.bgClass} w-full ${MODAL.maxWidthClass} ${MODAL.roundingClass} ${MODAL.shadowClass} flex flex-col max-h-[85vh]`}>
         {/* Modal Header */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-stone-200">
+        <div className="flex items-center justify-between px-4 py-3 border-b border-stone-200 shrink-0">
           <h2 className="text-base font-bold text-stone-900">Yeni Ürün Ekle</h2>
           <button
             onClick={onClose}
@@ -56,10 +56,10 @@ export default function AddProductModal({ categories = [], onAdd, onClose }) {
         </div>
 
         {/* Form */}
-        <form onSubmit={handleSubmit} className="p-6 space-y-4">
+        <form onSubmit={handleSubmit} className="p-4 space-y-3 overflow-y-auto">
           {/* Image picker */}
           <div className="flex flex-col items-center gap-2">
-            <div className="w-24 h-24 rounded-lg bg-stone-100 border border-stone-200 flex items-center justify-center overflow-hidden">
+            <div className="w-20 h-20 shrink-0 rounded-lg bg-stone-100 border border-stone-200 flex items-center justify-center overflow-hidden">
               {previewUrl ? (
                 <img src={previewUrl} alt="Önizleme" className="w-full h-full object-cover" />
               ) : (
