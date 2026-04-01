@@ -9,9 +9,11 @@ export default function HeroCarousel({ isAdmin }) {
 
   const { 
     intervalMs, roundedClass,
+    heightMobile, heightTablet, heightPC, containerWidth, containerPadding, containerMargin,
+    dotPosition, dotGap, dotSize, dotActive, dotInactive,
     boxPositionMobile, boxPositionPC, boxWidthMobile, boxWidthPC, boxPaddingMobile, boxPaddingPC, boxRounding, boxBg, boxBorder, boxShadow,
     titleSizeMobile, titleSizePC, titleWeight, titleColor, titleTracking, titleShadow,
-    subSizeMobile, subSizePC, subWeight, subColor, subLeading, subShadow, subSpacing
+    subSizeMobile, subSizePC, subWeight, subColor, subLeading, subShadow
   } = CAROUSEL;
   const [activeIndex, setActiveIndex] = useState(0);
 
@@ -80,7 +82,7 @@ export default function HeroCarousel({ isAdmin }) {
                 {slide.label}
               </h2>
               <p 
-                className={`${subSpacing} ${subColor} ${subSizeMobile} ${subSizePC} ${subWeight} ${subShadow} ${subLeading} ${isAdmin ? 'cursor-text focus:outline-none rounded px-1' : ''}`}
+                className={`${subColor} ${subSizeMobile} ${subSizePC} ${subWeight} ${subShadow} ${subLeading} ${isAdmin ? 'cursor-text focus:outline-none rounded px-1' : ''}`}
                 contentEditable={isAdmin}
                 suppressContentEditableWarning
                 onBlur={(e) => {
