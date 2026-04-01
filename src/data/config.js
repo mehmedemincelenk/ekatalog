@@ -66,28 +66,33 @@ export const CAROUSEL = {
   roundedClass: 'rounded-md',  // Köşe yuvarlama
 
   // Kutucuk (Glassmorphism) Görünümü
-  boxPosition: 'bottom-10 left-4 sm:bottom-12 sm:left-10', // Kutunun konumu
-  boxWidth: 'max-w-[40%] sm:max-w-md',                     // Maksimum genişlik
-  boxPadding: 'p-3 sm:p-5',                                // İç boşluk
-  boxRounding: 'rounded-2xl',                              // Köşe yuvarlama
-  boxBg: 'bg-black/25 backdrop-blur-md',                   // Arka plan (buzlu cam efekti) 
-  boxBorder: 'border border-white/20',                     // Kenarlık
-  boxShadow: 'shadow-2xl',                                 // Derinlik gölgesi
+  boxPositionMobile: 'bottom-10 left-4',         // [MOBİL] Kutunun konumu
+  boxPositionPC: 'sm:bottom-12 sm:left-10',      // [PC] Kutunun konumu (Geniş ekranlar için sm: veya lg: öneki şarttır)
+  boxWidthMobile: 'max-w-[40%]',                 // [MOBİL] Kutu maksimum genişliği
+  boxWidthPC: 'sm:max-w-md',                     // [PC] Kutu maksimum genişliği
+  boxPaddingMobile: 'p-3',                       // [MOBİL] Kutu iç boşluğu
+  boxPaddingPC: 'sm:p-5',                        // [PC] Kutu iç boşluğu
+  boxRounding: 'rounded-2xl',                    // Köşe yuvarlama
+  boxBg: 'bg-black/25 backdrop-blur-md',         // Arka plan (buzlu cam efekti) 
+  boxBorder: 'border border-white/20',           // Kenarlık
+  boxShadow: 'shadow-2xl',                       // Derinlik gölgesi
 
   // Ana Başlık (Label) Tasarımı
-  titleSize: 'text-[14px] sm:text-3xl lg:text-4xl',
+  titleSizeMobile: 'text-[14px]',                // [MOBİL] Başlık boyutu
+  titleSizePC: 'sm:text-3xl lg:text-4xl',        // [PC] Başlık boyutu
   titleWeight: 'font-extrabold',
   titleColor: 'text-white',
   titleTracking: 'tracking-tight',
   titleShadow: 'drop-shadow',
 
   // Alt Metin (Sub) Tasarımı
-  subSize: 'text-[10px] sm:text-base',
+  subSizeMobile: 'text-[10px]',                  // [MOBİL] Alt metin boyutu
+  subSizePC: 'sm:text-base',                     // [PC] Alt metin boyutu
   subWeight: 'font-medium',
   subColor: 'text-white/90',
   subLeading: 'leading-relaxed',
   subShadow: 'drop-shadow',
-  subSpacing: 'mt-0', // Alt metin ile üstteki ana başlık arasındaki boşluk
+  subSpacing: 'mt-0',                            // Alt metin ile üstteki ana başlık arasındaki boşluk
 
   slides: [
     {

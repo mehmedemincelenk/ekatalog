@@ -4,9 +4,9 @@ import { CAROUSEL } from '../data/config';
 export default function HeroCarousel() {
   const { 
     slides, intervalMs, roundedClass,
-    boxPosition, boxWidth, boxPadding, boxRounding, boxBg, boxBorder, boxShadow,
-    titleSize, titleWeight, titleColor, titleTracking, titleShadow,
-    subSize, subWeight, subColor, subLeading, subShadow, subSpacing
+    boxPositionMobile, boxPositionPC, boxWidthMobile, boxWidthPC, boxPaddingMobile, boxPaddingPC, boxRounding, boxBg, boxBorder, boxShadow,
+    titleSizeMobile, titleSizePC, titleWeight, titleColor, titleTracking, titleShadow,
+    subSizeMobile, subSizePC, subWeight, subColor, subLeading, subShadow, subSpacing
   } = CAROUSEL;
   const [activeIndex, setActiveIndex] = useState(0);
 
@@ -38,11 +38,11 @@ export default function HeroCarousel() {
             ) : null}
             
             {/* Glassmorphism Text Box (Sol Alt) */}
-            <div className={`absolute z-20 ${boxPosition} ${boxWidth} ${boxPadding} ${boxRounding} ${boxBg} ${boxBorder} ${boxShadow}`}>
-              <h2 className={`${titleColor} ${titleSize} ${titleWeight} ${titleTracking} ${titleShadow}`}>
+            <div className={`absolute z-20 ${boxPositionMobile} ${boxPositionPC} ${boxWidthMobile} ${boxWidthPC} ${boxPaddingMobile} ${boxPaddingPC} ${boxRounding} ${boxBg} ${boxBorder} ${boxShadow}`}>
+              <h2 className={`${titleColor} ${titleSizeMobile} ${titleSizePC} ${titleWeight} ${titleTracking} ${titleShadow}`}>
                 {slide.label}
               </h2>
-              <p className={`${subSpacing} ${subColor} ${subSize} ${subWeight} ${subShadow} ${subLeading}`}>
+              <p className={`${subSpacing} ${subColor} ${subSizeMobile} ${subSizePC} ${subWeight} ${subShadow} ${subLeading}`}>
                 {slide.sub}
               </p>
             </div>
