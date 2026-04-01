@@ -52,7 +52,7 @@ export default function SearchFilter({ products, search, onSearchChange, activeC
                     isActive && !isAdmin
                       ? 'bg-stone-900 text-white border-stone-900'
                       : 'bg-white text-stone-600 border-stone-300 hover:border-stone-500 hover:text-stone-900'
-                  } ${isAdmin ? 'cursor-text ring-1 ring-amber-300 bg-amber-50' : ''}`}
+                  } ${isAdmin ? 'cursor-text bg-amber-50 focus:outline-none' : ''}`}
                   contentEditable={isAdmin}
                   suppressContentEditableWarning
                   onBlur={(e) => {

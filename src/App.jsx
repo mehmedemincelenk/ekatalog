@@ -89,7 +89,7 @@ export default function App() {
         <button
           id="admin-add-btn"
           onClick={() => setShowAddModal(true)}
-          className="admin-fab fixed bottom-6 right-6 z-40 w-14 h-14 rounded-full bg-stone-900 text-white text-3xl font-light shadow-xl hover:bg-stone-700 transition-colors flex items-center justify-center"
+          className="admin-fab fixed bottom-6 right-6 z-40 w-14 h-14 rounded-full bg-stone-900 text-white text-4xl pb-1.5 font-light shadow-xl hover:bg-stone-700 transition-colors flex items-center justify-center"
           aria-label="Yeni Ürün Ekle"
         >
           +

@@ -96,6 +96,7 @@ export default function ProductCard({ product, isAdmin, onDelete, onUpdate }) {
   const makeEditable = (field) => ({
     contentEditable: isAdmin ? 'true' : 'false',
     suppressContentEditableWarning: true,
+    inputMode: field === 'price' && isAdmin ? 'decimal' : undefined,
     onClick: (e) => e.stopPropagation(),
     onBlur: (e) => {
       let val = e.currentTarget.textContent.trim();
@@ -103,7 +104,7 @@ export default function ProductCard({ product, isAdmin, onDelete, onUpdate }) {
       if (val !== (product[field] || '')) onUpdate(product.id, { [field]: val });
     },
     onKeyDown: (e) => { if (e.key === 'Enter') { e.preventDefault(); e.currentTarget.blur(); } },
-    className: isAdmin ? 'cursor-text focus:outline-none ring-1 ring-transparent hover:ring-amber-200 focus:ring-amber-400 rounded transition-shadow' : '',
+    className: isAdmin ? 'cursor-text focus:outline-none rounded transition-shadow' : '',
   });
 
   // Multiline özel in-place edit (Açıklamalar için)
@@ -116,7 +117,7 @@ export default function ProductCard({ product, isAdmin, onDelete, onUpdate }) {
       if (val !== (product[field] || '')) onUpdate(product.id, { [field]: val });
     },
     onKeyDown: (e) => { if (e.key === 'Escape') e.currentTarget.blur(); },
-    className: isAdmin ? 'cursor-text focus:outline-none ring-1 ring-transparent hover:ring-amber-200 focus:ring-amber-400 rounded transition-shadow whitespace-pre-wrap' : 'whitespace-pre-wrap',
+    className: isAdmin ? 'cursor-text focus:outline-none rounded transition-shadow whitespace-pre-wrap' : 'whitespace-pre-wrap',
   });
 
   // --- Description processing ---

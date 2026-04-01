@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { MODAL } from '../data/config';
 
 const EMPTY = { name: '', category: '', price: '', description: '', image: null };
 
@@ -35,12 +36,12 @@ export default function AddProductModal({ categories = [], onAdd, onClose }) {
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4"
+      className={`fixed inset-0 z-50 flex items-center justify-center ${MODAL.overlayBg} px-4`}
       role="dialog"
       aria-modal="true"
       aria-label="Yeni Ürün Ekle"
     >
-      <div className="bg-white w-full max-w-md rounded-xl shadow-2xl overflow-hidden">
+      <div className={`${MODAL.bgClass} w-full ${MODAL.maxWidthClass} ${MODAL.roundingClass} ${MODAL.shadowClass} overflow-hidden`}>
         {/* Modal Header */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-stone-200">
           <h2 className="text-base font-bold text-stone-900">Yeni Ürün Ekle</h2>

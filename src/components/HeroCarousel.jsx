@@ -74,7 +74,7 @@ export default function HeroCarousel({ isAdmin }) {
             {/* Glassmorphism Text Box (Sol Alt) */}
             <div className={`absolute z-20 ${boxPositionMobile} ${boxPositionPC} ${boxWidthMobile} ${boxWidthPC} ${boxPaddingMobile} ${boxPaddingPC} ${boxRounding} ${boxBg} ${boxBorder} ${boxShadow}`}>
               <h2 
-                className={`${titleColor} ${titleSizeMobile} ${titleSizePC} ${titleWeight} ${titleTracking} ${titleShadow} ${isAdmin ? 'cursor-text focus:outline-none ring-1 ring-white/50 rounded px-1' : ''}`}
+                className={`${titleColor} ${titleSizeMobile} ${titleSizePC} ${titleWeight} ${titleTracking} ${titleShadow} ${isAdmin ? 'cursor-text focus:outline-none rounded px-1' : ''}`}
                 contentEditable={isAdmin}
                 suppressContentEditableWarning
                 onBlur={(e) => {
@@ -86,7 +86,7 @@ export default function HeroCarousel({ isAdmin }) {
                 {slide.label}
               </h2>
               <p 
-                className={`${subSpacing} ${subColor} ${subSizeMobile} ${subSizePC} ${subWeight} ${subShadow} ${subLeading} ${isAdmin ? 'cursor-text focus:outline-none ring-1 ring-white/50 rounded px-1' : ''}`}
+                className={`${subSpacing} ${subColor} ${subSizeMobile} ${subSizePC} ${subWeight} ${subShadow} ${subLeading} ${isAdmin ? 'cursor-text focus:outline-none rounded px-1' : ''}`}
                 contentEditable={isAdmin}
                 suppressContentEditableWarning
                 onBlur={(e) => {

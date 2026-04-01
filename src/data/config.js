@@ -49,6 +49,15 @@ export const ADMIN = {
 // ----- Veri Depolama -----
 export const STORAGE_KEY = 'toptanambalaj_products_v5'; // localStorage anahtarı
 
+// ----- UI / Modal Tasarımı -----
+export const MODAL = {
+  bgClass: 'bg-white',
+  maxWidthClass: 'max-w-md',
+  roundingClass: 'rounded-xl',
+  shadowClass: 'shadow-2xl',
+  overlayBg: 'bg-black/50',
+};
+
 // ============================================================
 // TAILWIND CSS TASARIM REHBERİ (KOPYA KAĞIDI)
 // ============================================================
@@ -72,7 +81,7 @@ export const CAROUSEL = {
   boxWidthPC: 'sm:max-w-md',                     // [PC] Kutu maksimum genişliği
   boxPaddingMobile: 'p-2',                       // [MOBİL] Kutu iç boşluğu
   boxPaddingPC: 'sm:p-5',                        // [PC] Kutu iç boşluğu
-  boxRounding: 'rounded-xl',                     // Köşe yuvarlama
+  boxRounding: 'rounded-md',                     // Köşe yuvarlama
   boxBg: 'bg-black/25 backdrop-blur-md',         // Arka plan (buzlu cam efekti) 
   boxBorder: 'border border-white/20',           // Kenarlık
   boxShadow: 'shadow-2xl',                       // Derinlik gölgesi
