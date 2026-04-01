@@ -28,7 +28,15 @@ export default function Footer({ onLogoClick, isAdmin }) {
         </p>
         
         {/* Adres */}
-        <p className="text-xs text-stone-400 text-center">{COMPANY.address}</p>
+        <a 
+          href={`https://maps.google.com/?q=${encodeURIComponent(COMPANY.address)}`} 
+          target="_blank" 
+          rel="noopener noreferrer"
+          className="text-xs text-stone-400 text-center hover:text-stone-600 hover:underline transition-colors"
+          title="Google Haritalar'da Aç"
+        >
+          {COMPANY.address}
+        </a>
       </div>
     </footer>
   );

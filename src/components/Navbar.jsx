@@ -36,7 +36,15 @@ export default function Navbar() {
               </svg>
               <span className={`${n.phoneSize} ${n.phoneWeight}`}>{COMPANY.phone}</span>
             </a>
-            <p className={`${n.addressSize} ${n.addressColor} text-right`}>{COMPANY.address}</p>
+            <a 
+              href={`https://maps.google.com/?q=${encodeURIComponent(COMPANY.address)}`} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className={`${n.addressSize} ${n.addressColor} text-right hover:text-stone-900 hover:underline transition-colors`}
+              title="Google Haritalar'da Aç"
+            >
+              {COMPANY.address}
+            </a>
           </div>
 
         </div>
