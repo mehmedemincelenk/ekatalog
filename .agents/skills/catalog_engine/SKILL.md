@@ -1,27 +1,21 @@
 ---
-name: catalog_engine
-description: Ürün CRUD işlemlerini, kategori yönetimini ve reyon bazlı görünümü yönetir.
+name: saas_engine
+description: Supabase tabanlı en basit çoklu kullanıcı ve tema yönetim motoru.
 ---
-# Ürün Yönetim Motoru
+# SaaS Motoru (ekatalog.co)
 
-## 1. Veri Akışı
-- Tüm ürünler `localStorage`'dan `useProducts` hook'u ile okunur/yazılır.
-- Ürünler düz bir dizi (flat array) olarak saklanır. Gruplama **sadece render sırasında** yapılır.
-- Storage anahtarı versiyonlanır: `toptanambalaj_products_vX`. Veri yapısı değiştiğinde `X` artırılır.
+## 1. Subdomain vs Ghost Mode Resolution
+- **Subdomain Check:** URL'de `slug.ekatalog.co` varsa, Supabase'den bu slug'a ait dükkanı çek.
+- **Ghost Mode:** Eğer URL sadece `ekatalog.co` ise, Ghost/Demo modunu (şablonlu) yükle ve kullanıcıyı admin yetkisiyle başlat.
+- **Hata:** Dükkan bulunamazsa "Katalog Bulunamadı" yerine şık bir "Dükkanınızı Oluşturun" (Ghost Mode) yönlendirmesi yap.
 
-## 2. Kategori Yönetimi
-- Kategoriler ürünlerden dinamik olarak türetilir (`[...new Set(products.map(p => p.category))]`).
-- Sıralama **kesinlikle alfabetik değildir**. `config.js` içindeki `CATEGORY_ORDER` dizisi ve `sortCategories()` fonksiyonu kullanılır.
-- Kategoriler sırası: Gıda & Sos → Temizlik & Kağıt → Ambalaj → Poşet → Alüminyum → Streç & Folyo → Baskılı Ürünler → Özel Setler.
-- Yeni eklenen kategori bu listenin dışındaysa en sona düşer (index 999).
+## 2. Dynamic Data Fetching (Payment Check)
+- `useProducts(slug)` ve `useSettings(slug)` hook'ları dükkanın `paid_until` tarihini de döner.
+- Ödeme tarihi dolmuşsa, dükkana "Geçici Olarak Kapalı" veya "Ödeme Bekliyor" overlay'i yerleştir.
 
-## 3. Reyon Bazlı Görünüm (ProductGrid)
-- `ProductGrid` ürünleri category'ye göre `reduce` ile gruplar.
-- Her grup üst başlık (reyon adı) + kart grid'i şeklinde render edilir.
-- Başlık stili `config.js > GRID.headerClass` değişkeninden alınır.
-- `ProductGrid` dışarıdan `categories` prop'u **almaz**; kendi içinde hesaplar.
+## 3. Tema ve Dinamik İçerik
+- **CSS Değişkenleri:** Supabase'den gelen renk ve font ayarlarını `:root` seviyesinde uygula.
+- **Kategoriler:** Ürün listesinden otomatik kategori listesi türet ve seçili temaya göre görselleştir.
 
-## 4. Ürün Kartı (ProductCard)
-- Admin modunda: Kategori etiketi görünür (tıklanabilir, düzenlenebilir). 3-nokta aksiyon menüsü aktiftir.
-- Müşteri modunda: Kategori etiketi gizlenir. Sadece görsel, ad, açıklama, fiyat görünür.
-- Açıklama (description) satır bazlı gösterilir (`\n` karakteri ile ayrılır).
+## 4. WhatsApp Publish Integration
+- "OK" tuşuna basıldığında dükkanın verisini (JSON) WhatsApp API üzerinden veya geçici bir linkle kayıt servisine gönder.

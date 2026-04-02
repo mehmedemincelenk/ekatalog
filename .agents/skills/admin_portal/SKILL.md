@@ -1,43 +1,22 @@
 ---
 name: admin_portal
-description: Gizli admin modunu, ürün CRUD işlemlerini ve iOS uyumlu görsel yüklemeyi yönetir.
+description: Supabase tabanlı en yalın dükkan ve ürün yönetimi.
 ---
-# Admin Portal Becerisi
+# Admin Portal (SaaS)
 
-## 1. Gizli Admin Giriş/Çıkış
-- **Giriş:** Footer logosuna 2 saniye içinde 7 ardışık tıklama (`useAdminMode` hook'u yönetir).
-- **Çıkış:** Admin modundayken footer logosuna 1 kez tıklama.
-- Admin modu aktifken sayfada sarı bir "🔓 Admin Modu Aktif" rozeti görünür.
+## 1. Focused Edit Pipeline
+- **Odaklama:** Ürün kartına tıklandığında `isFocused` state'ini true yap ve kartı modal/overlay içinde büyüt.
+- **In-place Save:** Kart üzerindeki her değişiklik (metin, fiyat) odağı kaybettiğinde (blur) veya "TAMAM" dendiğinde Supabase'e kaydedilir.
+- **Görsel Yükleme:** Odaktaki görsele tıklandığında Canvas ile **800px / 0.7 JPEG** sıkıştırması uygula ve Blob olarak gönder.
 
-## 2. Yeni Ürün Modalı (AddProductModal)
-Sağ alt köşedeki "+" FAB butonu şu alanları içeren modalı açar:
-- **Ürün Adı** (Text) — Sadece öz isim ("Hışır", "Ketçap")
-- **Açıklama** (Textarea) — Miktar, gramaj, ebat detayları, her satır ayrı bilgi
-- **Fiyat** (Text) — "₺75" veya "Fiyat Sorunuz" formatında
-- **Kategori** (Select + Text) — Mevcut kategorileri listeler; yeni isim girilirse listeye eklenir
-- **Ürün Görseli** (File Upload)
+## 2. WhatsApp On-Tap Registration (Ghost Mode Exit)
+- **OK Tuşu:** Hayalet modunda butona tıklandığında geçici verileri (localStorage/Supabase) WhatsApp'tan gelecek telefon numarasıyla eşleştirir.
+- **Aktivasyon:** Kullanıcıya "Dükkanınız kuruldu: `slug.ekatalog.co`" mesajı tetikler.
 
-Modal onaylandığında ürün anında listeye dahil edilir ve `localStorage` güncellenir.
+## 3. WhatsApp Pay & QR
+- **Ödeme Linki:** Dükkan süresi dolduğunda Shopier/Iyzico linkini WhatsApp üzerinden gönder. Webhook ile `paid_until` tarihini otomatik uzat.
+- **QR/PDF:** `jspdf` veya benzeri bir kütüphane ile dükkan adı ve dinamik QR kodu içeren A4 sayfasını PDF olarak oluştur.
 
-## 3. ⚠️ KRİTİK: iOS Görsel Yükleme & LocalStorage Limiti
-iPhone/Safari cihazlarda ham fotoğraf yüklemek uygulamayı **tamamen çökertir** (beyaz ekran). Nedeni: LocalStorage'ın 5MB sınırı.
-
-**Asla şöyle yapma:**
-```js
-reader.onload = (e) => setImage(e.target.result); // YANLIŞ - Ham base64 = 5MB aşımı
-```
-
-**Her zaman şöyle yap (Downscale Pipeline):**
-```js
-// 1. Canvas ile max 800px'e küçült
-// 2. JPEG kalitesi 0.7'ye düşür
-// 3. Sonucu base64'e çevir
-// 4. try/catch ile QuotaExceededError'u yakala ve kullanıcıyı bilgilendir
-```
-
-Bu sıkıştırma (`compressImage` util fonksiyonu `src/utils/image.js`'dedir) her görsel değişiminde çağrılmalıdır.
-
-## 4. In-Place Editing
-- Admin modunda ürün adı, fiyatı veya kategori etiketi tıklandığında `contentEditable` devreye girer.
-- Odak kaybedildiğinde (`onBlur`) değişiklik `updateProduct` hook'uyla kaydedilir.
-- Görsel alanına tıklandığında input[type=file] tetiklenir, Downscale pipeline çalışır.
+## 4. Dinamik Domain Senkronizasyonu
+- Admin panelinde "Şirket Adı" güncellendiğinde, bu değerden yeni bir `slug` türet ve Supabase'deki `stores` tablosuna yaz.
+- Yeni subdomain linkini WhatsApp'a bas.

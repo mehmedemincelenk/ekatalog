@@ -1,26 +1,25 @@
 import { useState, useEffect } from 'react';
-import { CAROUSEL } from '../data/config';
+import { getStorageKey, DEFAULT_CAROUSEL } from '../data/config';
 
-const STORAGE_KEY = 'toptanambalaj_carousel_v1';
+export function useCarousel(slug = 'demo') {
+  const storageKey = getStorageKey(slug) + '_carousel';
 
-export function useCarousel() {
   const [slides, setSlides] = useState(() => {
     try {
-      const stored = localStorage.getItem(STORAGE_KEY);
-      return stored ? JSON.parse(stored) : CAROUSEL.slides;
+      const stored = localStorage.getItem(storageKey);
+      return stored ? JSON.parse(stored) : DEFAULT_CAROUSEL.slides;
     } catch {
-      return CAROUSEL.slides;
+      return DEFAULT_CAROUSEL.slides;
     }
   });
 
   useEffect(() => {
     try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(slides));
+      localStorage.setItem(storageKey, JSON.stringify(slides));
     } catch (err) {
       console.error('Carousel Storage Hatası:', err);
-      alert('Slayt görseli kaydedilemedi. Hafıza kotası dolmuş olabilir.');
     }
-  }, [slides]);
+  }, [slides, storageKey]);
 
   const updateSlide = (id, changes) => {
     setSlides((prev) =>

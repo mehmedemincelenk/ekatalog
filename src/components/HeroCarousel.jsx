@@ -1,20 +1,24 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
-import { CAROUSEL } from '../data/config';
+import { DEFAULT_CAROUSEL } from '../data/config';
 import { useCarousel } from '../hooks/useCarousel';
 
-export default function HeroCarousel({ isAdmin }) {
-  const { slides, updateSlide } = useCarousel();
+export default function HeroCarousel({ isAdmin, settings }) {
+  const { slides, updateSlide } = useCarousel('demo');
   const fileInputRef = useRef(null);
   const [editingSlideId, setEditingSlideId] = useState(null);
 
   const { 
-    intervalMs, swipeThreshold, roundedClass,
-    heightMobile, heightTablet, heightPC, containerWidth, containerPadding, containerMargin,
-    dotPosition, dotGap, dotSize, dotActive, dotInactive,
-    boxPositionMobile, boxPositionPC, boxWidthMobile, boxWidthPC, boxPaddingMobile, boxPaddingPC, boxRounding, boxBg, boxBorder, boxShadow,
-    titleSizeMobile, titleSizePC, titleWeight, titleColor, titleTracking, titleShadow,
-    subSizeMobile, subSizePC, subWeight, subColor, subLeading, subShadow
-  } = CAROUSEL;
+    intervalMs = 5000, swipeThreshold = 50, roundedClass = 'rounded-md',
+    heightMobile = 'h-64', heightTablet = 'sm:h-80', heightPC = 'lg:h-96', 
+    containerWidth = 'mx-auto max-w-7xl', containerPadding = 'px-4 sm:px-6 lg:px-8', containerMargin = 'mt-4',
+    dotPosition = 'bottom-3', dotGap = 'gap-1.5', dotSize = 'w-2 h-2', dotActive = 'bg-white scale-125', dotInactive = 'bg-white/50',
+    boxPositionMobile = 'bottom-8 left-2', boxPositionPC = 'sm:bottom-10 sm:left-6', 
+    boxWidthMobile = 'max-w-[60%]', boxWidthPC = 'sm:max-w-md', 
+    boxPaddingMobile = 'p-2', boxPaddingPC = 'sm:p-5', 
+    boxRounding = 'rounded-md', boxBg = 'bg-black/25 backdrop-blur-md', boxBorder = 'border border-white/20', boxShadow = 'shadow-2xl',
+    titleSizeMobile = 'text-[14px]', titleSizePC = 'sm:text-xl lg:text-2xl', titleWeight = 'font-extrabold', titleColor = 'text-white', titleTracking = 'tracking-tight', titleShadow = 'drop-shadow',
+    subSizeMobile = 'text-[10px]', subSizePC = 'text-[12px]', subWeight = 'font-medium', subColor = 'text-white/90', subLeading = 'leading-none', subShadow = 'drop-shadow'
+  } = DEFAULT_CAROUSEL;
   const [activeIndex, setActiveIndex] = useState(0);
   const [touchStart, setTouchStart] = useState(0);
   const [touchEnd, setTouchEnd] = useState(0);

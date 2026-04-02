@@ -1,11 +1,14 @@
 import { useState, useEffect } from 'react';
-import { STORAGE_KEY } from '../data/config';
+import { getStorageKey } from '../data/config';
 import { DEFAULT_PRODUCTS } from '../data/products';
 
 export function useProducts() {
+  const slug = 'demo'; // Şimdilik statik, 3. aşamada dinamikleşecek
+  const storageKey = getStorageKey(slug);
+
   const [products, setProducts] = useState(() => {
     try {
-      const stored = localStorage.getItem(STORAGE_KEY);
+      const stored = localStorage.getItem(storageKey);
       if (stored) {
         const parsed = JSON.parse(stored);
         // Eksik resimleri DEFAULT_PRODUCTS içindeki veritabanından çekerek canlı kataloğa enjekte et
@@ -25,7 +28,7 @@ export function useProducts() {
 
   useEffect(() => {
     try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(products));
+      localStorage.setItem(storageKey, JSON.stringify(products));
     } catch (err) {
       console.error('Storage Hatası:', err);
       alert('Cihaz hafızası (5MB) doldu! Hata: ' + err.message + '\nLütfen sayfayı yenileyin ve çalışmaya devam etmek için eski ürünleri veya yüksek boyutlu resimleri silerek yer açın.');

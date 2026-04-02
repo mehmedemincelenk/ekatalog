@@ -8,11 +8,13 @@ import References from './components/References';
 import Footer from './components/Footer';
 import { useProducts } from './hooks/useProducts';
 import { useAdminMode } from './hooks/useAdminMode';
+import { useSettings } from './hooks/useSettings';
 import { sortCategories } from './data/config';
 
 export default function App() {
   const { products, updateProduct, removeProduct, addProduct, renameCategory, removeCategoryFromProducts } = useProducts();
   const { isAdmin, handleLogoClick } = useAdminMode();
+  const { settings, updateSettings } = useSettings('demo');
   const [search, setSearch] = useState('');
   const [activeCategories, setActiveCategories] = useState([]); // Boş dizi => 'Tümü'
   const [showAddModal, setShowAddModal] = useState(false);
@@ -29,10 +31,10 @@ export default function App() {
     setActiveCategories(prev => prev.includes(cat) ? prev.filter(c => c !== cat) : [...prev, cat]);
   };
 
-  // Mevcut benzersiz kategorileri türet (Modal vs. için) - config sırasına göre
+  // Mevcut benzersiz kategorileri türet (Modal vs. için) - Alfabetik veya ayardan gelen sıraya göre
   const existingCategories = useMemo(() => {
-    return sortCategories([...new Set(products.map((p) => p.category).filter(Boolean))]);
-  }, [products]);
+    return sortCategories([...new Set(products.map((p) => p.category).filter(Boolean))], settings.categoryOrder || []);
+  }, [products, settings.categoryOrder]);
 
   // Derive filtered products from search + category
   const filteredProducts = useMemo(() => {
@@ -51,11 +53,11 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-stone-50">
+    <div className="min-h-screen flex flex-col bg-stone-50" style={{ backgroundColor: settings.colors?.bg }}>
 
-      <Navbar />
+      <Navbar settings={settings} />
 
-      <HeroCarousel isAdmin={isAdmin} />
+      <HeroCarousel isAdmin={isAdmin} settings={settings} />
 
       <SearchFilter
         products={products}
@@ -90,7 +92,7 @@ export default function App() {
 
       <References />
 
-      <Footer onLogoClick={handleLogoClick} isAdmin={isAdmin} />
+      <Footer onLogoClick={handleLogoClick} isAdmin={isAdmin} settings={settings} />
 
       {/* Admin floating + button */}
       {isAdmin && (
