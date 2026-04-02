@@ -1,29 +1,41 @@
 import { useState, useEffect } from 'react';
-import { getStorageKey, DEFAULT_BRANDING } from '../data/config';
+import { db } from '../lib/db';
+import { useTenant } from './useTenant';
+import { DEFAULT_BRANDING } from '../data/config';
 
-export function useSettings(slug = 'demo') {
-  const storageKey = getStorageKey(slug) + '_settings';
-
-  const [settings, setSettings] = useState(() => {
-    try {
-      const stored = localStorage.getItem(storageKey);
-      return stored ? JSON.parse(stored) : DEFAULT_BRANDING;
-    } catch {
-      return DEFAULT_BRANDING;
-    }
-  });
+export function useSettings() {
+  const { slug } = useTenant();
+  const [settings, setSettings] = useState(DEFAULT_BRANDING);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    try {
-      localStorage.setItem(storageKey, JSON.stringify(settings));
-    } catch (err) {
-      console.error('Settings Storage Hatası:', err);
+    let mounted = true;
+    const loadData = async () => {
+      setIsLoading(true);
+      try {
+        const data = await db.settings.get(slug);
+        if (mounted) setSettings(data);
+      } catch (err) {
+        console.error('Ayarlar yüklenirken hata:', err);
+      } finally {
+        if (mounted) setIsLoading(false);
+      }
+    };
+    loadData();
+    return () => { mounted = false; };
+  }, [slug]);
+
+  useEffect(() => {
+    if (!isLoading) {
+      db.settings.update(slug, settings).catch(err => {
+         console.error('Ayarlar kaydedilirken hata:', err);
+      });
     }
-  }, [settings, storageKey]);
+  }, [settings, slug, isLoading]);
 
   const updateSettings = (newSettings) => {
     setSettings(prev => ({ ...prev, ...newSettings }));
   };
 
-  return { settings, updateSettings };
+  return { settings, updateSettings, isLoading };
 }

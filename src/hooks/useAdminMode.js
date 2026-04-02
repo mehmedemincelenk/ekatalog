@@ -1,13 +1,24 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { ADMIN } from '../data/config';
+import { useTenant } from './useTenant';
 
 export function useAdminMode() {
-  const [isAdmin, setIsAdmin] = useState(false);
+  const { isGhostMode } = useTenant();
+
+  // Ghost mode ise her zaman admin olarak başla
+  const [isAdmin, setIsAdmin] = useState(isGhostMode);
   const [clickCount, setClickCount] = useState(0);
   const [timerId, setTimerId] = useState(null);
 
+  // Tenant değiştiğinde veya ghost mode durumu değiştiğinde state'i güncelle
+  useEffect(() => {
+    setIsAdmin(isGhostMode);
+  }, [isGhostMode]);
+
   const handleLogoClick = useCallback(() => {
-    // If already in admin mode, one click exits
+    // Eğer ghost mode'daysa zaten admindir, çıkış yapamaz
+    if (isGhostMode) return;
+
     if (isAdmin) {
       setIsAdmin(false);
       setClickCount(0);
@@ -24,11 +35,10 @@ export function useAdminMode() {
       return next;
     });
 
-    // Reset counter if no new click within resetDelayMs
     if (timerId) clearTimeout(timerId);
     const id = setTimeout(() => setClickCount(0), ADMIN.resetDelayMs);
     setTimerId(id);
-  }, [timerId, isAdmin]);
+  }, [timerId, isAdmin, isGhostMode]);
 
   return { isAdmin, handleLogoClick };
 }

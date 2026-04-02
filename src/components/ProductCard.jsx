@@ -1,3 +1,4 @@
+import FocusedEditModal from "./FocusedEditModal";
 import { useRef, useState, useEffect } from 'react';
 import { CARD_TYPOGRAPHY as CT, CARD_LAYOUT as CL } from '../data/config';
 
@@ -73,6 +74,7 @@ function DescriptionScroll({ lines, lineClass, maxHeightClass }) {
 }
 
 export default function ProductCard({ product, categories = [], isAdmin, onDelete, onUpdate }) {
+  const [showFocusedEdit, setShowFocusedEdit] = useState(false);
   const fileInputRef = useRef(null);
   const cardRef = useRef(null);
   const [isEditingCategory, setIsEditingCategory] = useState(false);
@@ -198,7 +200,8 @@ export default function ProductCard({ product, categories = [], isAdmin, onDelet
   };
 
   return (
-    <article ref={cardRef} className={`bg-white border ${product.inStock === false ? 'border-transparent bg-stone-50' : 'border-stone-200'} rounded-lg flex flex-col group hover:shadow-md transition-shadow duration-200 relative`}>
+    <>
+      <article onClick={() => { if (isAdmin) setShowFocusedEdit(true); }} ref={cardRef} className={`bg-white border cursor-pointer ${product.inStock === false ? 'border-transparent bg-stone-50' : 'border-stone-200'} rounded-lg flex flex-col group hover:shadow-md transition-shadow duration-200 relative`}>
 
       {/* Image */}
       <div className={`relative w-full bg-stone-100 aspect-square flex items-center justify-center rounded-t-lg ${isAdmin ? 'cursor-pointer' : ''}`} onClick={handleImageClick}>
@@ -431,5 +434,7 @@ export default function ProductCard({ product, categories = [], isAdmin, onDelet
 
       </div>
     </article>
+      {showFocusedEdit && <FocusedEditModal product={product} onClose={() => setShowFocusedEdit(false)} onUpdate={onUpdate} />}
+    </>
   );
 }
