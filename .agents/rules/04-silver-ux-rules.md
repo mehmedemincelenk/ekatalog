@@ -6,12 +6,16 @@ trigger: always_on
 name: silver-ux
 description: 50+ yaş grubu için erişilebilirlik ve tasarım kuralları.
 ---
-# SILVER UX KURALLARI (50+ DOSTU)
+# SILVER UX KURALLARI (APPLE EVRENSELLİĞİ)
 
-## 1. Görsel Okunabilirlik
-- **Font Boyutu:** Temel metinler asla **16px** (1rem) altına düşemez. Başlıklar net ve okunaklı olmalıdır.
-- **Kontrast:** Metin ve arka plan kontrastı (WCAG AA standartı) yüksek olmalı. Soluk gri metinlerden kaçın.
-- **Buton Boyutu:** Tıklanabilir her alan (dokunma hedefi) mobilde en az **48x48px** olmalıdır.
+## 1. Apple Standartlarında Tipografi
+- **Dinamik Hiyerarşi:** Sabit "büyük font" yerine, Apple'ın Tipografi Hiyerarşisini (Headline, Body, Caption) kullan. Okunabilirlik puntodan ziyade **harf arası boşluk (tracking)** ve **satır yüksekliği (leading)** ile sağlanır.
+- **Okunabilirlik Önceliği:** Kontrast ve netlik esastır. Yazılar arka planla boğuşmamalı, "Nefes alan" (Whitespace) bir düzen kullanılmalıdır.
+- **Sistem Fontları:** Cihazın kendi yerel fontlarını (San Francisco, Segoe UI) kullanarak kullanıcıya tanıdık ve güvenli bir his ver.
+
+## 2. Dokunma Hedefleri (Precision & Ease)
+- **Evrensel Erişim:** Butonlar ve tıklanabilir alanlar Apple standartlarında (min 44x44pt / 48x48px) olmalı, ancak kaba değil, zarif görünmelidir.
+- **Etkileşim Geri Bildirimi:** Her dokunuşta kullanıcıya hafif bir görsel tepki (opacity değişimi veya hafif scale) vererek işlemin gerçekleştiğini hissettir.
 
 ## 2. Dil ve Terimler
 - **Sıfır Teknik Jargon:** "Login", "Sign-up", "Slug", "Tenant" gibi kelimeleri kullanıcıya gösterme. Bunun yerine "Giriş Yap", "Dükkanını Aç", "Dükkan Adresi" kelimelerini kullan.
