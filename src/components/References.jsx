@@ -1,4 +1,4 @@
-import { REFERENCES, COMPANY } from '../data/config';
+import { REFERENCES } from '../data/config';
 
 export default function References() {
   return (

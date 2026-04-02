@@ -1,4 +1,4 @@
-import { sortCategories, CATEGORY_EMOJIS } from '../data/config';
+import { sortCategories } from '../data/config';
 
 // SearchFilter: real-time search box + dynamic category chips
 export default function SearchFilter({ products, search, onSearchChange, activeCategories = [], onCategoryToggle, isAdmin, renameCategory, removeCategoryFromProducts }) {
@@ -30,7 +30,7 @@ export default function SearchFilter({ products, search, onSearchChange, activeC
         <div className="flex flex-wrap gap-2 items-center flex-1">
           {categories.map((cat) => {
             const isActive = cat === 'Tümü' ? activeCategories.length === 0 : activeCategories.includes(cat);
-            const emoji = CATEGORY_EMOJIS[cat] || '🏷️';
+            const emoji = (cat === "Tümü" ? "🔍" : "📦") || '🏷️';
             return (
               <div key={cat} className="group flex items-center gap-1 flex-shrink-0">
                 <button

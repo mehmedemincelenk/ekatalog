@@ -53,3 +53,229 @@ body {
     animation: desc-scroll 5s linear infinite;
   }
 }
+
+/* ==========================================================================
+   APPLE-ESQUE SILVER UX (FOCUSED EDIT VIEW)
+   Vanilla CSS & CSS Variables Implementation
+   ========================================================================== */
+
+:root {
+  /* Colors */
+  --apple-bg-overlay: rgba(0, 0, 0, 0.55);
+  --apple-bg-modal: #ffffff;
+  --apple-bg-input: #f5f5f7;
+  --apple-text-primary: #1d1d1f;
+  --apple-text-secondary: #86868b;
+  --apple-border: #d2d2d7;
+  --apple-btn-primary: #1d1d1f;
+  --apple-btn-primary-hover: #424245;
+  --apple-btn-secondary: #f5f5f7;
+  --apple-btn-secondary-hover: #e8e8ed;
+
+  /* Typography Variables */
+  --font-apple: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --spacing-unit: 8px;
+}
+
+.focused-edit-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--apple-bg-overlay);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: calc(var(--spacing-unit) * 2);
+  animation: fadeIn 0.2s ease-out forwards;
+}
+
+.focused-edit-modal {
+  background-color: var(--apple-bg-modal);
+  width: 100%;
+  max-width: 440px;
+  border-radius: 24px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-apple);
+  transform: scale(0.98);
+  animation: scaleUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.focused-edit-image-container {
+  width: 100%;
+  height: 300px;
+  position: relative;
+  background-color: var(--apple-bg-input);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.focused-edit-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.focused-edit-image-container:hover .focused-edit-image {
+  transform: scale(1.02);
+}
+
+.focused-edit-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: var(--apple-text-secondary);
+}
+
+.focused-edit-placeholder .placeholder-icon {
+  font-size: 40px;
+  margin-bottom: calc(var(--spacing-unit) * 1);
+}
+
+.focused-edit-placeholder .placeholder-text {
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+.focused-edit-image-hint {
+  position: absolute;
+  bottom: calc(var(--spacing-unit) * 2);
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 500;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  backdrop-filter: blur(4px);
+}
+
+.focused-edit-image-container:hover .focused-edit-image-hint {
+  opacity: 1;
+}
+
+.hidden-file-input {
+  display: none;
+}
+
+.focused-edit-content {
+  padding: calc(var(--spacing-unit) * 4);
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--spacing-unit) * 3);
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.focused-input {
+  width: 100%;
+  border: none;
+  background-color: transparent;
+  color: var(--apple-text-primary);
+  font-family: inherit;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.focused-input::placeholder {
+  color: var(--apple-text-secondary);
+}
+
+/* Apple Typography Hierarchy */
+.input-title {
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.input-price {
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  color: #1d1d1f;
+}
+
+.input-desc {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5; /* Good leading for readability */
+  color: var(--apple-text-primary);
+  resize: none;
+  background-color: var(--apple-bg-input);
+  padding: calc(var(--spacing-unit) * 2);
+  border-radius: 12px;
+  margin-top: calc(var(--spacing-unit) * 1);
+}
+
+.input-desc:focus {
+  background-color: #f0f0f2;
+}
+
+.focused-edit-actions {
+  padding: 0 calc(var(--spacing-unit) * 4) calc(var(--spacing-unit) * 4);
+  display: flex;
+  gap: calc(var(--spacing-unit) * 2);
+}
+
+.btn-cancel,
+.btn-save {
+  flex: 1;
+  border: none;
+  border-radius: 14px;
+  padding: calc(var(--spacing-unit) * 2) 0; /* Ensures > 48px touch target */
+  font-size: 17px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-height: 54px; /* Apple standard touch target */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-cancel {
+  background-color: var(--apple-btn-secondary);
+  color: var(--apple-text-primary);
+}
+
+.btn-cancel:hover {
+  background-color: var(--apple-btn-secondary-hover);
+}
+
+.btn-save {
+  background-color: var(--apple-btn-primary);
+  color: #ffffff;
+  flex: 2; /* Save button gets more emphasis */
+}
+
+.btn-save:hover {
+  background-color: var(--apple-btn-primary-hover);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes scaleUp {
+  from { transform: scale(0.96); }
+  to { transform: scale(1); }
+}
