@@ -12,8 +12,9 @@ Bu dosya, projenin SaaS dönüşümü ve 50+ yaş kitlesi için kullanıcı dene
 ## 📝 1.1 Plan: Hayalet Admin ve Sıfır Sürtünmeli Kayıt (Ghost Mode Onboarding)
 **Hedef:** 50+ yaş kitlesi için "Önce Dene, Sonra Kaydol" yaklaşımıyla en zahmetsiz kayıt deneyimi.
 - **Akış:** İşletme sahibi `ekatalog.co`'ya girdiğinde karşısına doğrudan şablonlu, içi dolu bir dükkan çıkar. Hiçbir form doldurmadan "Hayalet Admin" modunda ürünleri siler, ekler, fiyatları değiştirir (tıklayarak düzenleme).
-- **Yayınlama (OK Tuşu):** Düzenleme bittiğinde kocaman bir "TAMAM / YAYINLA" butonuna tıklar. Eğer ilk kez yapıyorsa WhatsApp kayıt akışı (One-Tap) devreye girer.
-- **WhatsApp Entegrasyonu:** Kayıt tamamlandığı an telefonuna `sirketadi.ekatalog.co` linki otomatik düşer. Aynı anda web sitesindeki görünüm "B2C Müşteri Görünümü"ne geçerek dükkanın canlı halini gösterir.
+- **Yayınlama (TAMAM Tuşu):** Düzenleme bittiğinde kocaman bir "DÜKKANIMI YAYINLA" butonuna tıklar.
+- **Numara Girişi (SaaS Deneyimi):** Kullanıcı başka bir sekmeye atılmaz. Dükkan içinde şık bir alan açılır: "Dükkan linkinizi WhatsApp'tan iletmemiz için numaranızı yazın."
+- **WhatsApp Entegrasyonu:** Kayıt tamamlandığı an arka planda (API üzerinden) telefonuna `sirketadi.ekatalog.co` linki gönderilir. Ekranda ise "Dükkanınız başarıyla kuruldu! Onay mesajını WhatsApp'tan ilettik, lütfen telefonunuzu kontrol edin." uyarısı görünür.
 
 ---
 

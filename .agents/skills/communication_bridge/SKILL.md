@@ -9,9 +9,10 @@ description: WhatsApp mesajları, bildirimler ve ödeme otomasyonları yönetimi
 - **Ödeme Hatırlatma:** "Dükkanınızın kullanım süresi doldu. Devam etmek için 100 TL ödeme yapabilirsiniz: {pay_link}"
 - **Slug Değişimi:** "Dükkanınızın adresi güncellendi! Yeni link: {new_slug}.ekatalog.co"
 
-## 2. Webhook Dinleyicileri (In-place Activation)
+## 2. Webhook & Background Messaging
+- **Kayıt (SaaS Akışı):** Kullanıcı dükkan içindeki forma numarasını girer. Backend, bu numaraya otomatik olarak onay linkini gönderir.
+- **In-app Feedback:** Mesaj gönderildiği an kullanıcıya "Dükkanınız kuruldu! Onay mesajını WhatsApp'tan ilettik, lütfen telefonunuzu kontrol edin." bildirimi gösterilir.
 - **Iyzico / Shopier Link:** Ödeme başarılı bildirimi geldiği an, Supabase'deki `stores` tablosunda `paid_until` değerini `+30 gün` olarak güncelle.
-- **Kayıt (WhatsApp OK):** WhatsApp'tan gelen telefon numarasını, `auth` tablosunda ilgili `slug` ile eşleştir.
 
 ## 3. Sosyal Paylaşım & SEO
 - **Dinamik Meta:** Paylaşımlarda dükkan logosu ve isminin şık görünmesini sağlayacak meta tag'leri (`og:image`, `og:title`) slug bazlı oluştur.
