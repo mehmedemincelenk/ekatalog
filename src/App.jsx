@@ -77,12 +77,12 @@ export default function App() {
         removeCategoryFromProducts={removeCategoryFromProducts}
       />
 
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
-        <div className="flex items-center justify-between mb-4">
+      <main className="main-layout py-6">
+        <div className="layout-header mb-4">
           <h1 className="text-sm font-semibold text-stone-500">
             {filteredProducts.length} ürün listeleniyor
           </h1>
-          <div className={`text-xs font-semibold bg-amber-50 text-amber-800 border border-amber-200 px-2 py-1 rounded transition-opacity ${isAdmin && !isGhostMode ? 'opacity-100' : 'opacity-0 pointer-events-none hidden'}`}>
+          <div className={`status-badge admin-badge ${isAdmin && !isGhostMode ? 'visible' : 'hidden'}`}>
             🔓 Düzenleme Modu
           </div>
         </div>
