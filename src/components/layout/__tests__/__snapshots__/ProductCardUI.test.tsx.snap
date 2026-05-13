@@ -1,0 +1,305 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`ProductCardUI (Diamond Snapshot) > Admin görünümü snapshotu ile eşleşmeli 1`] = `
+<DocumentFragment>
+  <article
+    class="
+      bg-white border-2 transition-smooth relative flex flex-col group rounded-[var(--radius-card)] rounded-[var(--radius-card)] h-fit overflow-hidden border-2 transition-all duration-500
+      border-stone-100
+      opacity-100
+      
+    "
+  >
+    <div
+      class="relative w-full transition-smooth overflow-hidden group/img rounded-[calc(var(--radius-card)-4px)] w-full overflow-hidden bg-stone-100 rounded-t-[inherit] rounded-b-none relative"
+      style="aspect-ratio: 1/1; flex-shrink: 0;"
+    >
+      <div
+        class="relative overflow-hidden bg-stone-100  w-full h-full"
+      >
+        <div
+          class="absolute inset-0 z-10 flex items-center justify-center bg-stone-50"
+          style="opacity: 1;"
+        >
+          <div
+            class="absolute inset-0 shimmer-animation opacity-50"
+          />
+          <div
+            class="flex flex-col items-center justify-center gap-3 opacity-20"
+          >
+            <div
+              class="
+          w-8 h-8 border-3 
+          border-stone-200 border-t-stone-800 
+          rounded-full
+        "
+              style="opacity: 0; transform: scale(0.8);"
+            />
+          </div>
+          <div
+            class="absolute inset-0 opacity-[0.03] pointer-events-none"
+            style="background-image: radial-gradient(rgb(0, 0, 0) 0.5px, transparent 0.5px); background-size: 16px 16px;"
+          />
+        </div>
+        <img
+          alt="Test Ürünü"
+          class="
+            w-full h-full transition-all duration-700 ease-out
+            object-contain
+            opacity-0 scale-105 blur-sm
+          "
+          loading="lazy"
+          src="https://example.com/image.jpg"
+        />
+      </div>
+      <div
+        class="absolute top-2 left-2 z-10 flex flex-col gap-1"
+      >
+        <span
+          class="
+        inline-flex items-center justify-center rounded-lg font-black uppercase tracking-widest border gap-1.5
+        bg-white/90 text-stone-900 border-stone-200 backdrop-blur-sm
+        px-2 py-1 text-[8px]
+        
+      "
+        >
+          Orijinal
+        </span>
+      </div>
+    </div>
+    <div
+      class="px-2 pt-2 pb-1 flex flex-col gap-1 pb-4"
+    >
+      <div
+        class="flex flex-col gap-1"
+      >
+        <h3
+          class="text-[0.6875rem] leading-normal font-bold text-stone-900 leading-tight tracking-tight truncate"
+        >
+          Test Ürünü
+        </h3>
+        <p
+          class="text-[0.5rem] leading-tight font-medium uppercase tracking-wider text-stone-600 leading-snug font-bold normal-case line-clamp-3 leading-relaxed min-h-[3em]"
+        >
+          Harika bir test açıklaması
+        </p>
+      </div>
+      <div
+        class="mt-2 pt-2 border-t border-stone-50 flex items-center justify-between"
+      >
+        <span
+          class="text-stone-900 text-sm font-black tracking-tight"
+        >
+          ₺150,00
+        </span>
+      </div>
+    </div>
+  </article>
+</DocumentFragment>
+`;
+
+exports[`ProductCardUI (Diamond Snapshot) > Normal görünüm snaphotu ile eşleşmeli 1`] = `
+<DocumentFragment>
+  <article
+    class="
+      bg-white border-2 transition-smooth relative flex flex-col group rounded-[var(--radius-card)] rounded-[var(--radius-card)] h-fit overflow-hidden border-2 transition-all duration-500
+      border-stone-100
+      opacity-100
+      
+    "
+  >
+    <div
+      class="relative w-full transition-smooth overflow-hidden group/img rounded-[calc(var(--radius-card)-4px)] w-full overflow-hidden bg-stone-100 rounded-t-[inherit] rounded-b-none relative"
+      style="aspect-ratio: 1/1; flex-shrink: 0;"
+    >
+      <div
+        class="relative overflow-hidden bg-stone-100  w-full h-full"
+      >
+        <div
+          class="absolute inset-0 z-10 flex items-center justify-center bg-stone-50"
+          style="opacity: 1;"
+        >
+          <div
+            class="absolute inset-0 shimmer-animation opacity-50"
+          />
+          <div
+            class="flex flex-col items-center justify-center gap-3 opacity-20"
+          >
+            <div
+              class="
+          w-8 h-8 border-3 
+          border-stone-200 border-t-stone-800 
+          rounded-full
+        "
+              style="opacity: 0; transform: scale(0.8);"
+            />
+          </div>
+          <div
+            class="absolute inset-0 opacity-[0.03] pointer-events-none"
+            style="background-image: radial-gradient(rgb(0, 0, 0) 0.5px, transparent 0.5px); background-size: 16px 16px;"
+          />
+        </div>
+        <img
+          alt="Test Ürünü"
+          class="
+            w-full h-full transition-all duration-700 ease-out
+            object-contain
+            opacity-0 scale-105 blur-sm
+          "
+          loading="lazy"
+          src="https://example.com/image.jpg"
+        />
+      </div>
+      <div
+        class="absolute top-2 left-2 z-10 flex flex-col gap-1"
+      >
+        <span
+          class="
+        inline-flex items-center justify-center rounded-lg font-black uppercase tracking-widest border gap-1.5
+        bg-white/90 text-stone-900 border-stone-200 backdrop-blur-sm
+        px-2 py-1 text-[8px]
+        
+      "
+        >
+          Orijinal
+        </span>
+      </div>
+    </div>
+    <div
+      class="px-2 pt-2 pb-1 flex flex-col gap-1 pb-4"
+    >
+      <div
+        class="flex flex-col gap-1"
+      >
+        <h3
+          class="text-[0.6875rem] leading-normal font-bold text-stone-900 leading-tight tracking-tight truncate"
+        >
+          Test Ürünü
+        </h3>
+        <p
+          class="text-[0.5rem] leading-tight font-medium uppercase tracking-wider text-stone-600 leading-snug font-bold normal-case line-clamp-3 leading-relaxed min-h-[3em]"
+        >
+          Harika bir test açıklaması
+        </p>
+      </div>
+      <div
+        class="mt-2 pt-2 border-t border-stone-50 flex items-center justify-between"
+      >
+        <span
+          class="text-stone-900 text-sm font-black tracking-tight"
+        >
+          ₺150,00
+        </span>
+      </div>
+    </div>
+  </article>
+</DocumentFragment>
+`;
+
+exports[`ProductCardUI (Diamond Snapshot) > Stokta olmayan görünüm snapshotu ile eşleşmeli 1`] = `
+<DocumentFragment>
+  <article
+    class="
+      bg-white border-2 transition-smooth relative flex flex-col group rounded-[var(--radius-card)] rounded-[var(--radius-card)] h-fit overflow-hidden border-2 transition-all duration-500
+      border-stone-100
+      opacity-100
+      
+    "
+  >
+    <div
+      class="relative w-full transition-smooth overflow-hidden group/img rounded-[calc(var(--radius-card)-4px)] w-full overflow-hidden bg-stone-100 rounded-t-[inherit] rounded-b-none relative"
+      style="aspect-ratio: 1/1; flex-shrink: 0;"
+    >
+      <div
+        class="relative overflow-hidden bg-stone-100  w-full h-full"
+      >
+        <div
+          class="absolute inset-0 z-10 flex items-center justify-center bg-stone-50"
+          style="opacity: 1;"
+        >
+          <div
+            class="absolute inset-0 shimmer-animation opacity-50"
+          />
+          <div
+            class="flex flex-col items-center justify-center gap-3 opacity-20"
+          >
+            <div
+              class="
+          w-8 h-8 border-3 
+          border-stone-200 border-t-stone-800 
+          rounded-full
+        "
+              style="opacity: 0; transform: scale(0.8);"
+            />
+          </div>
+          <div
+            class="absolute inset-0 opacity-[0.03] pointer-events-none"
+            style="background-image: radial-gradient(rgb(0, 0, 0) 0.5px, transparent 0.5px); background-size: 16px 16px;"
+          />
+        </div>
+        <img
+          alt="Test Ürünü"
+          class="
+            w-full h-full transition-all duration-700 ease-out
+            object-contain
+            opacity-0 scale-105 blur-sm
+          "
+          loading="lazy"
+          src="https://example.com/image.jpg"
+        />
+      </div>
+      <div
+        class="absolute top-2 left-2 z-10 flex flex-col gap-1"
+      >
+        <span
+          class="
+        inline-flex items-center justify-center rounded-lg font-black uppercase tracking-widest border gap-1.5
+        bg-white/90 text-stone-900 border-stone-200 backdrop-blur-sm
+        px-2 py-1 text-[8px]
+        
+      "
+        >
+          Orijinal
+        </span>
+        <span
+          class="
+        inline-flex items-center justify-center rounded-lg font-black uppercase tracking-widest border gap-1.5
+        bg-red-500 text-white border-red-600 shadow-lg shadow-red-500/20
+        px-2 py-1 text-[8px]
+        
+      "
+        >
+          Stokta Yok
+        </span>
+      </div>
+    </div>
+    <div
+      class="px-2 pt-2 pb-1 flex flex-col gap-1 pb-4"
+    >
+      <div
+        class="flex flex-col gap-1"
+      >
+        <h3
+          class="text-[0.6875rem] leading-normal font-bold text-stone-900 leading-tight tracking-tight truncate"
+        >
+          Test Ürünü
+        </h3>
+        <p
+          class="text-[0.5rem] leading-tight font-medium uppercase tracking-wider text-stone-600 leading-snug font-bold normal-case line-clamp-3 leading-relaxed min-h-[3em]"
+        >
+          Harika bir test açıklaması
+        </p>
+      </div>
+      <div
+        class="mt-2 pt-2 border-t border-stone-50 flex items-center justify-between"
+      >
+        <span
+          class="text-stone-900 text-sm font-black tracking-tight"
+        >
+          ₺150,00
+        </span>
+      </div>
+    </div>
+  </article>
+</DocumentFragment>
+`;

@@ -1,0 +1,21 @@
+# .gitignore — "Bunu Repoya Koyma" Listesi
+# Bu dosya, Git'e "Hangi klasörleri ve dosyaları görmezden gelmelisin?" talimatını verir.
+
+# Proje çalışırken oluşan devasa kütüphane klasörü (İnternetten çekildiği için yedeklemeye gerek yok)
+node_modules/
+
+# Projeyi yayına hazırladığımızda (build) oluşan çıktı klasörü
+dist/
+
+# Yerel çalışma dosyaları ve loglar
+*.log
+.DS_Store
+prepared_products.json
+bulk-uploader.cjs
+import-products.cjs
+import-products.js
+
+# ÖNEMLİ: Gerçek şifrelerin olduğu .env dosyasını ASLA internete (Github) yollama!
+# Sadece .env.example (örnek şablon) yollanır.
+.env
+.env.local
