@@ -36,7 +36,7 @@ export function FloatingAdminMenu({
             icon: <div className="w-6 h-6 flex items-center justify-center text-stone-900">{globalIcons.bulkPrice}</div>,
             action: onBulkUpdateTrigger,
             label: 'TOPLU İŞLEM',
-            className: 'bg-white text-stone-900 border border-white/20 w-full !col-span-2 !rounded-lg mb-1',
+            className: '!bg-stone-100/90 !text-stone-900 border border-white/20 w-full !col-span-2 !rounded-lg mb-1 backdrop-blur-md',
             primary: true
           },
         ]
@@ -53,20 +53,18 @@ export function FloatingAdminMenu({
       icon: <div className="w-6 h-6 flex items-center justify-center"><Lucide.Image size={24} /></div>,
       action: () => useStore.getState().openModal('SOCIAL_EXPORT'),
       label: '',
-      className: 'bg-white/5 text-white border border-white/10',
     },
     {
       id: 'currency',
       icon: (
         <div className="w-full h-full flex items-center justify-center">
-          <span className="text-[20px] font-medium leading-none text-white">
+          <span className="text-[20px] font-medium leading-none">
             {activeCurrency === 'TRY' ? '₺' : activeCurrency === 'USD' ? '$' : '€'}
           </span>
         </div>
       ),
       action: onCurrencyToggle,
       label: '',
-      className: 'bg-white/5 text-white border border-white/10',
       closeOnClick: false,
     },
     {
@@ -74,7 +72,6 @@ export function FloatingAdminMenu({
       icon: <div className="w-6 h-6 flex items-center justify-center">{globalIcons.settings}</div>,
       action: onSettingsTrigger,
       label: '', 
-      className: 'bg-white/5 text-white border border-white/10',
     },
   ];
 
@@ -135,7 +132,7 @@ export function FloatingGuestMenu({
       id: 'currency',
       icon: (
         <div className="w-full h-full flex items-center justify-center">
-          <span className="text-[20px] font-medium leading-none text-stone-900">
+          <span className="text-[20px] font-medium leading-none text-white">
             {activeCurrency === 'TRY' ? '₺' : activeCurrency === 'USD' ? '$' : '€'}
           </span>
         </div>
