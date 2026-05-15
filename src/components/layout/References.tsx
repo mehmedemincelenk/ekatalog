@@ -57,11 +57,10 @@ const ReferenceCard = memo(({
             {!isDeleteConfirming ? (
               <Button
                 onClick={() => setIsDeleteConfirming(true)}
-                variant="danger"
-                mode="circle"
-                size="sm"
-                icon={<Lucide.Trash2 size={14} />}
-                className="!w-7 !h-7 shadow-lg opacity-0 group-hover:opacity-100 transition-opacity"
+                variant="glass"
+                mode="square"
+                className="!w-8 !h-8 !bg-stone-900/60 backdrop-blur-md border border-white/20 text-white shadow-xl !rounded-lg !p-0 opacity-0 group-hover:opacity-100 transition-all"
+                icon={<Lucide.Trash2 size={14} strokeWidth={3} />}
                 title="Referansı Sil"
               />
             ) : (
@@ -71,19 +70,17 @@ const ReferenceCard = memo(({
                     onDelete(refData.id);
                     setIsDeleteConfirming(false);
                   }}
-                  variant="danger"
-                  mode="circle"
-                  size="sm"
-                  icon={<Lucide.Check size={14} />}
-                  className="!w-7 !h-7 shadow-lg"
+                  variant="action"
+                  mode="square"
+                  className="!w-8 !h-8 !p-0 !rounded-lg shadow-xl"
+                  icon={<Lucide.Check size={14} strokeWidth={4} />}
                 />
                 <Button
                   onClick={() => setIsDeleteConfirming(false)}
-                  variant="secondary"
-                  mode="circle"
-                  size="sm"
-                  icon={<Lucide.X size={14} />}
-                  className="!w-7 !h-7 shadow-lg"
+                  variant="glass"
+                  mode="square"
+                  className="!w-8 !h-8 !bg-stone-900/60 backdrop-blur-md border border-white/20 text-white shadow-xl !rounded-lg !p-0"
+                  icon={<Lucide.X size={14} strokeWidth={3} />}
                 />
               </div>
             )}

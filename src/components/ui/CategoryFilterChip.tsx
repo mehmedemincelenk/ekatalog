@@ -78,7 +78,10 @@ const CategoryFilterChip = memo(
         >
           <AnimatePresence mode="wait">
             {isAdminMode ? (
-              <div className={`${chipTheme.adminSelectWrapper} flex-none h-full`}>
+              <div className="relative w-9 h-full flex-none">
+                <div className="absolute inset-0 bg-stone-900/60 backdrop-blur-md border-r border-white/10 flex items-center justify-center pointer-events-none">
+                  <span className="text-white text-[10px] font-black">{orderIndex + 1}.</span>
+                </div>
                 <select
                   value={orderIndex}
                   disabled={isUpdatingOrder}
@@ -92,16 +95,18 @@ const CategoryFilterChip = memo(
                       setIsUpdatingOrder(false);
                     }
                   }}
-                  className={chipTheme.adminSelect}
+                  className="absolute inset-0 w-full h-full bg-transparent text-transparent appearance-none cursor-pointer z-10 border-none outline-none"
                 >
                   {Array.from({ length: totalCategories }).map((_, i) => (
-                    <option key={i} value={i}>
+                    <option key={i} value={i} className="text-stone-900 bg-white">
                       {i + 1}.
                     </option>
                   ))}
                 </select>
                 {isUpdatingOrder && (
-                  <div className="w-3 h-3 border-2 border-stone-900/30 border-t-stone-900 rounded-full animate-spin" />
+                  <div className="absolute inset-0 flex items-center justify-center bg-stone-900/40 z-20">
+                    <div className="w-3 h-3 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                  </div>
                 )}
               </div>
             ) : (

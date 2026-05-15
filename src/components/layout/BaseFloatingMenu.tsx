@@ -30,6 +30,7 @@ interface BaseFloatingMenuProps {
   activeMainIcon?: ReactNode;
   isPrimaryToggle?: boolean;
   labelText?: string;
+  theme?: 'light' | 'dark'; // Diamond: Support multiple visual identities
 }
 
 export default function BaseFloatingMenu({
@@ -38,10 +39,13 @@ export default function BaseFloatingMenu({
   mainIcon = <LayoutGrid className="w-full h-full p-0.5" strokeWidth={2.5} />,
   activeMainIcon = <X className="w-full h-full p-0.5" strokeWidth={2.5} />,
   labelText = 'MENÜ',
+  theme = 'light',
 }: BaseFloatingMenuProps) {
   const [isExpanded, setIsExpanded] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
+
+  const isDark = theme === 'dark';
 
   const clearTimer = useCallback(() => {
     if (timerRef.current) {
@@ -88,7 +92,12 @@ export default function BaseFloatingMenu({
   return (
     <div ref={containerRef} className="z-[100] origin-bottom-right" style={{ transform: 'scale(0.95)' }}>
       <div 
-        className={`flex flex-col items-center p-1 bg-white/70 backdrop-blur-3xl border border-white/40 shadow-[0_20px_50px_rgba(0,0,0,0.15)] rounded-xl transition-all duration-200 ease-in-out overflow-hidden w-[110px]`}
+        className={`
+          flex flex-col items-center p-1 rounded-2xl transition-all duration-300 ease-in-out overflow-hidden w-[110px]
+          ${isDark 
+            ? 'bg-stone-900/40 backdrop-blur-xl border border-white/20 shadow-[0_20px_50px_rgba(0,0,0,0.3)]' 
+            : 'bg-white/70 backdrop-blur-3xl border border-white/40 shadow-[0_20px_50px_rgba(0,0,0,0.15)]'}
+        `}
       >
         {/* ACTION CLUSTER (Above toggle, no gap) */}
         <AnimatePresence>
@@ -128,12 +137,17 @@ export default function BaseFloatingMenu({
                         variant={btn.variant || 'secondary'}
                         size="sm"
                         mode="rectangle"
-                        className={`shrink-0 shadow-sm rounded-lg ${btn.className || ''} w-full !justify-start px-2 gap-2 h-[40px] !bg-stone-50/80 !border-stone-100 hover:!bg-white hover:shadow-md transition-all`}
+                        className={`
+                          shrink-0 shadow-sm rounded-lg ${btn.className || ''} w-full !justify-start px-2 gap-2 h-[40px] transition-all
+                          ${isDark 
+                            ? '!bg-white/5 !border-white/10 hover:!bg-white/10 !text-white hover:shadow-md' 
+                            : '!bg-stone-50/80 !border-stone-100 hover:!bg-white hover:shadow-md !text-stone-900'}
+                        `}
                       >
                         <div className="flex-1 min-w-0 overflow-hidden text-left">
                           <MarqueeText
                             text={btn.label}
-                            textClass="text-[8px] font-black uppercase tracking-tighter text-stone-900"
+                            textClass={`text-[8px] font-black uppercase tracking-tighter ${isDark ? 'text-white' : 'text-stone-900'}`}
                             isAdmin={false}
                           />
                         </div>
@@ -159,11 +173,15 @@ export default function BaseFloatingMenu({
                         variant={btn.variant || 'secondary'}
                         size="sm"
                         mode="rectangle"
-                        className={`shrink-0 shadow-sm rounded-lg ${btn.className || ''} w-full h-[46px] !p-0 transition-all ${
-                          !btn.variant || btn.variant === 'secondary' 
-                            ? '!bg-stone-50/80 !border-stone-100 hover:!bg-white hover:shadow-md' 
+                        className={`
+                          shrink-0 shadow-sm rounded-lg ${btn.className || ''} w-full h-[46px] !p-0 transition-all 
+                          ${(!btn.variant || btn.variant === 'secondary') 
+                            ? (isDark 
+                                ? '!bg-white/5 !border-white/10 hover:!bg-white/10 hover:shadow-md !text-white' 
+                                : '!bg-stone-50/80 !border-stone-100 hover:!bg-white hover:shadow-md !text-stone-900')
                             : 'hover:scale-[1.05] hover:shadow-lg'
-                        }`}
+                          }
+                        `}
                       />
                     </motion.div>
                   ))}
@@ -184,8 +202,10 @@ export default function BaseFloatingMenu({
             size="sm"
             mode="rectangle"
             className={`
-              ${isExpanded ? '!bg-white !text-stone-900 border-stone-100' : '!bg-stone-900 !text-white border-transparent'} 
-              hover:scale-[1.02] active:scale-95 transition-all h-12 w-full shadow-lg rounded-lg relative overflow-hidden
+              hover:scale-[1.02] active:scale-95 transition-all h-12 w-full shadow-lg rounded-lg relative overflow-hidden backdrop-blur-md
+              ${isExpanded 
+                ? '!bg-white !text-stone-900 border-white/20' 
+                : (isDark ? '!bg-stone-900/60 !text-white border-white/10' : '!bg-stone-900 !text-white border-transparent')}
             `}
             aria-label={isExpanded ? 'Menüyü Kapat' : 'Menüyü Aç'}
           >

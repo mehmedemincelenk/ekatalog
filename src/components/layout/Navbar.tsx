@@ -366,9 +366,9 @@ const Navbar = memo(
                     {settings.displayConfig.showWhatsapp && (
                       <Button
                         onClick={() => useStore.getState().openModal('CONTACT')}
-                        variant="primary"
+                        variant="glass"
                         mode="rectangle"
-                        className="!bg-stone-900 !text-white !px-3 !py-1 !rounded-md hover:!bg-black !shadow-lg border-white/10"
+                        className="!bg-stone-900/60 backdrop-blur-md border border-white/20 !text-white !px-3 !py-1 !rounded-lg hover:!bg-stone-900/80 !shadow-xl transition-all"
                       >
                         <div className="flex items-center gap-2">
                           <span
