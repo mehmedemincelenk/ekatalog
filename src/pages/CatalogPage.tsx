@@ -18,7 +18,6 @@ import References from '../components/layout/References';
 import Footer from '../components/layout/Footer';
 import { FloatingAdminMenu, FloatingGuestMenu } from '../components/layout/FloatingMenus';
 import AppModals from '../components/modals/AppModals';
-import ShowroomPage from './ShowroomPage';
 import Loading from '../components/ui/Loading';
 import Button from '../components/ui/Button';
 
@@ -173,7 +172,6 @@ export default function CatalogPage() {
 
         {/* GLOBAL UI STACK (DIAMOND POSITIONING) */}
         <AppModals />
-        <ShowroomPage />
         
         {!isAdmin && (
           <div className="fixed inset-0 pointer-events-none z-[400] print:hidden">

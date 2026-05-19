@@ -1,4 +1,4 @@
-import { useState, memo, useEffect } from 'react';
+import { memo } from 'react';
 import * as Lucide from 'lucide-react';
 import { THEME, LABELS } from '../../data/config';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -6,10 +6,8 @@ import Button from '../ui/Button';
 import CategoryFilterChip from '../ui/CategoryFilterChip';
 import { QuickEditModal } from '../modals/UtilityModals';
 import FormInput from '../ui/FormInput';
-import { useDebounce } from '../../hooks/useCommon';
-import { useStore } from '../../store';
 import { SearchFilterProps } from '../../types';
-import { useProducts } from '../../hooks/useProductsHub';
+import { useSearchFilterFlow } from '../../hooks/useSearchFilterFlow';
 
 /**
  * SEARCH FILTER COMPONENT (DIAMOND EDITION)
@@ -25,66 +23,38 @@ const SearchFilter = memo(
     renameCategory,
     onAddCategory,
   }: SearchFilterProps) => {
-    const {
-      isAdmin,
-      settings,
-      searchQuery: search,
-      setSearchQuery: onSearchChange,
-      activeCategories,
-      toggleCategory: onCategoryToggle,
-      updateSetting,
-      showFeedback,
-    } = useStore();
+    const flow = useSearchFilterFlow();
 
-    const { allProducts, executeGranularBulkActions, reorderCategories } = useProducts(search, activeCategories, isAdmin, settings);
-
-    const [internalSearch, setInternalSearch] = useState(search);
-    const [isPanelOpen, setIsPanelOpen] = useState(false);
-    const [isAddingCategory, setIsAddingCategory] = useState(false);
-    
-    // NEW: Category Management State
-    const [adminAction, setAdminAction] = useState<'IDLE' | 'EDIT' | 'DELETE'>('IDLE');
-
-    const displayConfig = settings?.displayConfig || {
+    const displayConfig = flow.settings?.displayConfig || {
       showSearch: true,
       showCategories: true,
     };
     const filterTheme = THEME.searchFilter;
     const globalIcons = THEME.icons;
 
-    const debouncedSearch = useDebounce(internalSearch, 400);
-
-    useEffect(() => {
-      onSearchChange(debouncedSearch);
-    }, [debouncedSearch, onSearchChange]);
-
-    useEffect(() => {
-      setInternalSearch(search);
-    }, [search]);
-
     const showAll = displayConfig.showSearch || displayConfig.showCategories;
-    if (!showAll && !isAdmin) return null;
+    if (!showAll && !flow.isAdmin) return null;
 
     // Diamond Logic: Always follow mobile interaction rules.
     const mobileInitialLimit = 5;
     const hasMoreThanLimit = sortedList.length > mobileInitialLimit;
     
-    const visibleList = (isPanelOpen || !hasMoreThanLimit) 
+    const visibleList = (flow.isPanelOpen || !hasMoreThanLimit) 
       ? sortedList 
       : sortedList.slice(0, mobileInitialLimit);
 
     const renderCategoryList = (list: string[]) => (
       <>
         {/* ADMIN: KATEGORİ YÖNETİM GRUBU */}
-        {isAdmin && (
+        {flow.isAdmin && (
           <div className="flex items-center gap-1 shrink-0">
             {/* DÜZENLE (Pencil) */}
             <Button
               variant="glass"
               mode="square"
-              className={`w-8 h-8 !bg-stone-900/60 backdrop-blur-md border border-white/20 text-white shadow-xl !rounded-lg !p-0 transition-all ${adminAction === 'EDIT' ? '!bg-amber-500 ring-2 ring-amber-400' : ''}`}
+              className={`w-8 h-8 !bg-stone-900/60 backdrop-blur-md border border-white/20 text-white shadow-xl !rounded-lg !p-0 transition-all ${flow.adminAction === 'EDIT' ? '!bg-amber-500 ring-2 ring-amber-400' : ''}`}
               icon={<Lucide.Pencil size={14} strokeWidth={3} />}
-              onClick={() => setAdminAction(prev => prev === 'EDIT' ? 'IDLE' : 'EDIT')}
+              onClick={() => flow.setAdminAction(prev => prev === 'EDIT' ? 'IDLE' : 'EDIT')}
               title="Kategoriyi Düzenle (Tıkla ve Chip'e Bas)"
             />
 
@@ -92,9 +62,9 @@ const SearchFilter = memo(
             <Button
               variant="glass"
               mode="square"
-              className={`w-8 h-8 !bg-stone-900/60 backdrop-blur-md border border-white/20 text-white shadow-xl !rounded-lg !p-0 transition-all ${adminAction === 'DELETE' ? '!bg-red-600 ring-2 ring-red-500' : ''}`}
+              className={`w-8 h-8 !bg-stone-900/60 backdrop-blur-md border border-white/20 text-white shadow-xl !rounded-lg !p-0 transition-all ${flow.adminAction === 'DELETE' ? '!bg-red-600 ring-2 ring-red-500' : ''}`}
               icon={<Lucide.Trash2 size={14} strokeWidth={3} />}
-              onClick={() => setAdminAction(prev => prev === 'DELETE' ? 'IDLE' : 'DELETE')}
+              onClick={() => flow.setAdminAction(prev => prev === 'DELETE' ? 'IDLE' : 'DELETE')}
               title="Kategoriyi Sil (Tıkla ve Chip'e Bas)"
             />
           </div>
@@ -104,44 +74,23 @@ const SearchFilter = memo(
           <CategoryFilterChip
             key={cat}
             categoryName={cat}
-            isItemSelected={activeCategories.includes(cat)}
-            isAdminMode={isAdmin}
+            isItemSelected={flow.activeCategories.includes(cat)}
+            isAdminMode={flow.isAdmin}
             productCount={stats[cat] || 0}
-            onSelect={onCategoryToggle}
+            onSelect={flow.onCategoryToggle}
             onRename={renameCategory}
             onOrderChange={onCategoryOrderChange}
             orderIndex={sortedList.indexOf(cat)}
             totalCategories={sortedList.length}
-            adminActionOverride={adminAction}
-            onDelete={async (name) => {
-              // Diamond Standard: Ürünleri silmek yerine 'Arşiv' kategorisine taşıyoruz.
-              const catProds = allProducts?.filter(p => p.category === name) || [];
-              
-              if (catProds.length > 0) {
-                const actions = catProds.map(p => ({ productId: p.id, category: 'Arşiv' }));
-                await executeGranularBulkActions(actions);
-              }
-              
-              // Kategoriyi listeden kaldır ve Arşiv'i ekle (yoksa)
-              let newOrder = (settings?.categoryOrder || []).filter(c => c !== name);
-              if (!newOrder.includes('Arşiv')) {
-                newOrder = [...newOrder, 'Arşiv'];
-              }
-              
-              // Local & Remote Update
-              updateSetting('categoryOrder', newOrder);
-              await reorderCategories(newOrder);
-              
-              showFeedback('success', `Kategori silindi, ${catProds.length} ürün Arşiv'e taşındı.`);
-              setAdminAction('IDLE');
-            }}
+            adminActionOverride={flow.adminAction}
+            onDelete={flow.handleDeleteCategory}
           />
         ))}
         
         {/* MOBILE "MORE" CHIP */}
-        {!isPanelOpen && hasMoreThanLimit && (
+        {!flow.isPanelOpen && hasMoreThanLimit && (
           <Button
-            onClick={() => setIsPanelOpen(true)}
+            onClick={() => flow.setIsPanelOpen(true)}
             variant="secondary"
             mode="rectangle"
             className="flex px-5 py-2.5 text-[10px] font-black uppercase tracking-widest shrink-0 !rounded-xl border-stone-200 border-dashed border-2 hover:border-stone-900 transition-all text-stone-400 hover:text-stone-900"
@@ -169,8 +118,8 @@ const SearchFilter = memo(
                 <FormInput
                   id="mobile-search-input"
                   type="text"
-                  value={internalSearch}
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setInternalSearch(e.target.value)}
+                  value={flow.internalSearch}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => flow.setInternalSearch(e.target.value)}
                   placeholder={LABELS.filter.searchPlaceholder}
                   className="!pl-9 !border-none !bg-transparent !h-full !text-base font-bold placeholder:text-stone-400"
                   containerClassName="flex-1 h-full"
@@ -181,7 +130,7 @@ const SearchFilter = memo(
             {displayConfig.showCategories && (
               <div className="flex-none flex items-center justify-start gap-2 overflow-hidden">
                 <Button
-                  onClick={() => setIsPanelOpen(!isPanelOpen)}
+                  onClick={() => flow.setIsPanelOpen(!flow.isPanelOpen)}
                   variant="glass"
                   mode="rectangle"
                   className="h-11 px-4 flex-none !text-[10px] !rounded-lg !bg-stone-900/60 backdrop-blur-md border-white/20 text-white shadow-xl hover:!bg-stone-900/80 transition-all"
@@ -193,7 +142,7 @@ const SearchFilter = memo(
           </div>
 
           {/* EXPANDED PANEL */}
-          {displayConfig.showCategories && isPanelOpen && (
+          {displayConfig.showCategories && flow.isPanelOpen && (
             <div className="mt-3">
               <AnimatePresence mode="wait">
                 <motion.div
@@ -211,7 +160,7 @@ const SearchFilter = memo(
             </div>
           )}
 
-          {!showAll && isAdmin && (
+          {!showAll && flow.isAdmin && (
             <div className="text-[10px] font-black uppercase text-stone-400 text-center py-2 italic">
               Bu alan gizli (Sadece Admin Görür)
             </div>
@@ -219,8 +168,8 @@ const SearchFilter = memo(
         </div>
 
         <QuickEditModal
-          isOpen={isAddingCategory}
-          onClose={() => setIsAddingCategory(false)}
+          isOpen={flow.isAddingCategory}
+          onClose={() => flow.setIsAddingCategory(false)}
           onSave={(name: string) => {
             if (name.trim()) onAddCategory?.(name.trim());
           }}

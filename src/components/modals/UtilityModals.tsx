@@ -17,6 +17,7 @@ import Turnstile from '../ui/Turnstile';
 import SmartImage from '../ui/SmartImage';
 import { openExternalMap, openWhatsApp, callPhone } from '../../utils/contact';
 import { copyToClipboard } from '../../utils/core';
+import { usePinFlow } from '../../hooks/usePinFlow';
 
 // ---------------------------------------------------------------------------
 // 1. QR MODAL (Branded & Interactive)
@@ -170,75 +171,39 @@ export function QuickEditModal({ isOpen, onClose, onSave, title, subtitle, initi
 // 6. PIN MODAL
 // ---------------------------------------------------------------------------
 export function PinModal({ onVerify, onAuthenticationSuccess, onModalClose, isLockedOut, failedAttempts = 0, isStatic = false, initialStep }: PinModalProps) {
-  const [overrideIsLockedOut, setOverrideIsLockedOut] = useState<boolean | undefined>();
-  const [overrideFailedAttempts, setOverrideFailedAttempts] = useState<number | undefined>();
-  const activeIsLockedOut = overrideIsLockedOut !== undefined ? overrideIsLockedOut : isLockedOut;
-  const activeFailedAttempts = overrideFailedAttempts !== undefined ? overrideFailedAttempts : failedAttempts;
-  const [currentPinAttempt, setCurrentPinAttempt] = useState('');
-  const [hasAuthError, setHasAuthError] = useState(false);
-  const [isVerifying, setIsVerifying] = useState(false);
-  const [isRobotVerified, setIsRobotVerified] = useState(false);
-  const requiresCaptcha = activeFailedAttempts >= 2;
-  const isInputDisabled = activeIsLockedOut || isVerifying || (requiresCaptcha && !isRobotVerified);
+  const flow = usePinFlow(onVerify, onAuthenticationSuccess, isLockedOut ?? false, failedAttempts, initialStep);
   const theme = THEME.pinModal;
   const globalIcons = THEME.icons;
 
-  const [prevInitialStep, setPrevInitialStep] = useState(initialStep);
-  if (initialStep !== prevInitialStep) {
-    setPrevInitialStep(initialStep);
-    if (initialStep === 1) {
-      setOverrideIsLockedOut(false);
-      setOverrideFailedAttempts(0);
-    } else if (initialStep === 2) {
-      setOverrideIsLockedOut(false);
-      setOverrideFailedAttempts(2);
-    } else if (initialStep === 3) {
-      setOverrideIsLockedOut(true);
-      setOverrideFailedAttempts(0);
-    }
-  }
-
-  const handleDigitEntry = async (digit: string) => {
-    if (isInputDisabled || currentPinAttempt.length >= 4) return;
-    const newAttempt = currentPinAttempt + digit;
-    setCurrentPinAttempt(newAttempt);
-    if (newAttempt.length === 4) {
-      setIsVerifying(true);
-      if (await onVerify(newAttempt)) onAuthenticationSuccess();
-      else { setHasAuthError(true); setTimeout(() => { setCurrentPinAttempt(''); setHasAuthError(false); }, 600); }
-      setIsVerifying(false);
-    }
-  };
-
   return (
     <motion.div initial={isStatic ? { opacity: 1 } : { opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className={isStatic ? "relative z-0" : `${theme.overlay} z-[10000]`}>
-      <motion.div initial={isStatic ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8, filter: 'blur(10px)' }} animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }} exit={{ opacity: 0, scale: 1.1, filter: 'blur(20px)' }} transition={{ type: 'spring', damping: 25, stiffness: 300, duration: 0.4 }} className={`${isStatic ? "relative w-full max-w-sm mx-auto" : theme.container} ${hasAuthError ? theme.animations.shake : ''}`}>
+      <motion.div initial={isStatic ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8, filter: 'blur(10px)' }} animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }} exit={{ opacity: 0, scale: 1.1, filter: 'blur(20px)' }} transition={{ type: 'spring', damping: 25, stiffness: 300, duration: 0.4 }} className={`${isStatic ? "relative w-full max-w-sm mx-auto" : theme.container} ${flow.hasAuthError ? theme.animations.shake : ''}`}>
         <AnimatePresence mode="wait">
-          {requiresCaptcha && !isRobotVerified ? (
+          {flow.requiresCaptcha && !flow.isRobotVerified ? (
             <motion.div key="captcha" initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 1.1 }} className="flex flex-col items-center justify-center min-h-[320px] w-full">
               <span className="text-[10px] font-black tracking-[0.4em] text-white/40 uppercase mb-10">GÜVENLİK DOĞRULAMASI</span>
               <div className="bg-white/5 backdrop-blur-md p-6 rounded-[2.5rem] border border-white/10 shadow-2xl">
-                <Turnstile onVerify={() => setIsRobotVerified(true)} options={{ theme: 'dark', size: 'normal' }} />
+                <Turnstile onVerify={() => flow.setIsRobotVerified(true)} options={{ theme: 'dark', size: 'normal' }} />
               </div>
               <Button onClick={onModalClose} variant="ghost" className="mt-10 text-white/30 hover:text-white font-black text-[10px] tracking-[0.2em] uppercase">İPTAL ET</Button>
             </motion.div>
           ) : (
             <motion.div key="pin" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="w-full">
               <div className="flex flex-col items-center justify-center h-20 mb-4">
-                <div className={theme.headerIconWrapper + ' !mb-0'}><div className={theme.headerIconSize}>{isVerifying ? <div className={THEME.loading.spinner + ' w-5 h-5'} /> : activeIsLockedOut ? '⏳' : globalIcons.lock}</div></div>
+                <div className={theme.headerIconWrapper + ' !mb-0'}><div className={theme.headerIconSize}>{flow.isVerifying ? <div className={THEME.loading.spinner + ' w-5 h-5'} /> : flow.activeIsLockedOut ? '⏳' : globalIcons.lock}</div></div>
               </div>
               <div className={theme.dotsWrapper}>
                 {[...Array(4)].map((_, i) => (
-                  <div key={i} className={`${theme.dotBase} ${i < currentPinAttempt.length ? (isVerifying && !hasAuthError ? `bg-emerald-500 ${THEME.shadows.glow}` : theme.dotActive) : theme.dotInactive} ${hasAuthError ? theme.dotError : ''}`} />
+                  <div key={i} className={`${theme.dotBase} ${i < flow.currentPinAttempt.length ? (flow.isVerifying && !flow.hasAuthError ? `bg-emerald-500 ${THEME.shadows.glow}` : theme.dotActive) : theme.dotInactive} ${flow.hasAuthError ? theme.dotError : ''}`} />
                 ))}
               </div>
-              <div className={`${theme.keyboardGrid} ${isInputDisabled ? 'opacity-30 pointer-events-none grayscale' : 'transition-all'}`}>
+              <div className={`${theme.keyboardGrid} ${flow.isInputDisabled ? 'opacity-30 pointer-events-none grayscale' : 'transition-all'}`}>
                 {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((num) => (
-                  <Button key={num} onClick={() => handleDigitEntry(String(num))} className={theme.keyButton} variant="secondary" mode="circle"><span className={theme.typography.keyText}>{num}</span></Button>
+                  <Button key={num} onClick={() => flow.handleDigitEntry(String(num))} className={theme.keyButton} variant="secondary" mode="circle"><span className={theme.typography.keyText}>{num}</span></Button>
                 ))}
                 <Button onClick={onModalClose} variant="ghost" mode="rectangle" className={theme.cancelButton}>İPTAL</Button>
-                <Button onClick={() => handleDigitEntry('0')} className={theme.keyButton} variant="secondary" mode="circle"><span className={theme.typography.keyText}>0</span></Button>
-                <Button onClick={() => setCurrentPinAttempt(prev => prev.slice(0, -1))} variant="ghost" mode="circle" className={theme.deleteButton} icon={<div className={theme.deleteIconSize}>{globalIcons.backspace}</div>} />
+                <Button onClick={() => flow.handleDigitEntry('0')} className={theme.keyButton} variant="secondary" mode="circle"><span className={theme.typography.keyText}>0</span></Button>
+                <Button onClick={() => flow.setCurrentPinAttempt(prev => prev.slice(0, -1))} variant="ghost" mode="circle" className={theme.deleteButton} icon={<div className={theme.deleteIconSize}>{globalIcons.backspace}</div>} />
               </div>
             </motion.div>
           )}

@@ -1,18 +1,13 @@
-import { useStore } from '../../store';
-import { useState, useEffect, useCallback, useRef } from 'react';
-import { motion, PanInfo } from 'framer-motion';
-import { THEME, CAROUSEL, TECH } from '../../data/config';
-import { supabase } from '../../supabase';
-import { getActiveStoreSlug, reorderArray } from '../../utils/core';
+import { useEffect, useRef } from 'react';
+import { motion } from 'framer-motion';
+import { THEME } from '../../data/config';
 import CarouselSlideUnit from './CarouselSlideUnit';
 import Button from '../ui/Button';
 
 import * as Lucide from 'lucide-react';
 
-import { HeroCarouselProps, CarouselSlide } from '../../types';
-
-const INTERVAL_MS = 6000;
-const SWIPE_THRESHOLD = 50;
+import { HeroCarouselProps } from '../../types';
+import { useHeroCarouselFlow } from '../../hooks/useHeroCarouselFlow';
 
 /**
  * HERO CAROUSEL COMPONENT (DIAMOND EDITION)
@@ -20,166 +15,29 @@ const SWIPE_THRESHOLD = 50;
  * Implements a centered 60% hero card flanked by 20% "ghost" previews.
  */
 export default function HeroCarousel({ isAdminModeActive }: HeroCarouselProps) {
-  const { showFeedback } = useStore();
-  const [marketingSlides, setMarketingSlides] = useState<CarouselSlide[]>(CAROUSEL.slides);
-  const [loading, setLoading] = useState(true);
-  const activeStoreSlug = getActiveStoreSlug();
+  const flow = useHeroCarouselFlow(isAdminModeActive);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   // Diamond Logic: Listen for global add event
   useEffect(() => {
     if (!isAdminModeActive) return;
     const handleGlobalAdd = () => {
-      setActiveEditingSlideId(-1);
+      flow.setActiveEditingSlideId(-1);
       fileInputRef.current?.click();
     };
     window.addEventListener('ekatalog:add-carousel-slide', handleGlobalAdd);
     return () => window.removeEventListener('ekatalog:add-carousel-slide', handleGlobalAdd);
-  }, [isAdminModeActive]);
+  }, [isAdminModeActive, flow]);
 
-  const persistCarouselData = useCallback(async (updatedSlides: CarouselSlide[]) => {
-    if (!isAdminModeActive) return;
-    try {
-      const { error } = await supabase.from('stores').update({
-        carousel_data: { slides: updatedSlides },
-      }).eq('slug', activeStoreSlug);
-      if (error) throw error;
-    } catch (err) { console.error('Carousel sync failed:', err); }
-  }, [isAdminModeActive, activeStoreSlug]);
-
-  const reorderSlides = useCallback(async (slideId: number, newPosition: number) => {
-    setMarketingSlides((prev) => {
-      const oldIndex = prev.findIndex((s) => s.id === slideId);
-      if (oldIndex === -1) return prev;
-      const updated = reorderArray(prev, oldIndex, newPosition);
-      persistCarouselData(updated);
-      return updated;
-    });
-    // Slayt geçişini biraz geciktirerek state'in oturmasını sağla
-    setTimeout(() => setCurrentIndex(newPosition), 100);
-  }, [persistCarouselData]);
-
-  const synchronizeCarouselSlides = useCallback(async () => {
-    setLoading(true);
-    const { data: storeData, error: fetchError } = await supabase.from('stores').select('carousel_data').eq('slug', activeStoreSlug).single();
-    if (storeData && !fetchError && storeData.carousel_data?.slides) {
-      setMarketingSlides(storeData.carousel_data.slides);
-    }
-    setLoading(false);
-  }, [activeStoreSlug]);
-
-  useEffect(() => { synchronizeCarouselSlides(); }, [synchronizeCarouselSlides]);
-
-  const modifySlideContent = useCallback(async (slideId: number, contentChanges: Partial<CarouselSlide>) => {
-    setMarketingSlides((prev) => {
-      const updated = prev.map((s) => s.id === slideId ? { ...s, ...contentChanges } : s);
-      persistCarouselData(updated);
-      return updated;
-    });
-  }, [persistCarouselData]);
-
-  const uploadHeroImage = useCallback(async (slideId: number, visualFile: File) => {
-    try {
-      const { processDualQualityVisuals } = await import('../../utils/image');
-      const { hq: optimizedVisual } = await processDualQualityVisuals(visualFile, TECH.storage.heroWidth);
-      const visualFileName = `hero-${activeStoreSlug}-${slideId === -1 ? 'new' : slideId}-${Date.now()}.jpg`;
-      const storagePath = `${TECH.storage.heroFolder}/${visualFileName}`;
-      const { error } = await supabase.storage.from(TECH.storage.bucket).upload(storagePath, optimizedVisual, { upsert: true, cacheControl: TECH.storage.cacheControl });
-      if (error) throw error;
-      const { data: { publicUrl } } = supabase.storage.from(TECH.storage.bucket).getPublicUrl(storagePath);
-      const finalizedUrl = `${publicUrl}?t=${Date.now()}`;
-      
-      if (slideId !== -1) {
-        await modifySlideContent(slideId, { src: finalizedUrl });
-      }
-      return finalizedUrl;
-    } catch (err) { console.error('Hero upload failed:', err); throw err; }
-  }, [activeStoreSlug, modifySlideContent]);
-
-  const deleteSlide = useCallback(async (slideId: number) => {
-    setMarketingSlides((prev) => {
-      const updated = prev.filter((s) => s.id !== slideId);
-      persistCarouselData(updated);
-      return updated;
-    });
-  }, [persistCarouselData]);
-
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [isTransitioning, setIsTransitioning] = useState(false);
-  const [isAssetUploading, setIsAssetUploading] = useState(false);
-  const [uploadSuccess, setUploadSuccess] = useState(false);
-  const [activeEditingSlideId, setActiveEditingSlideId] = useState<number | null>(null);
-  
   const carouselTheme = THEME.heroCarousel;
 
-  const handleNext = useCallback(() => {
-    if (marketingSlides.length <= 1) return;
-    setIsTransitioning(true);
-    setCurrentIndex((prev) => (prev + 1) % marketingSlides.length);
-  }, [marketingSlides.length]);
-
-  const handlePrev = useCallback(() => {
-    if (marketingSlides.length <= 1) return;
-    setIsTransitioning(true);
-    setCurrentIndex((prev) => (prev - 1 + marketingSlides.length) % marketingSlides.length);
-  }, [marketingSlides.length]);
-
-  useEffect(() => {
-    if (isAdminModeActive || isAssetUploading || marketingSlides.length <= 1) return;
-    const scrollTimer = setInterval(handleNext, INTERVAL_MS);
-    return () => clearInterval(scrollTimer);
-  }, [handleNext, isAdminModeActive, isAssetUploading, marketingSlides.length]);
-
-  const handleFileUploadAction = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (!file || activeEditingSlideId === null) return;
-    
-    try {
-      setIsAssetUploading(true);
-      
-      if (activeEditingSlideId === -1) {
-        const uploadedUrl = await uploadHeroImage(-1, file);
-        
-        setMarketingSlides((prev) => {
-          const currentRealSlides = (prev || []).filter(s => s && s.src && s.src !== '');
-          const nextId = currentRealSlides.length > 0 ? Math.max(...currentRealSlides.map((s) => s.id)) + 1 : 1;
-          const newSlide: CarouselSlide = { id: nextId, src: uploadedUrl, bg: 'bg-stone-200', label: 'Yeni Afiş', sub: 'Düzenlemek için tıklayın.' };
-          const updatedSlides = [...currentRealSlides, newSlide];
-          persistCarouselData(updatedSlides);
-          
-          // Anında yeni slayta odaklan
-          setTimeout(() => setCurrentIndex(updatedSlides.length - 1), 50);
-          
-          return updatedSlides;
-        });
-      } else {
-        await uploadHeroImage(activeEditingSlideId, file);
-      }
-      setUploadSuccess(true);
-      setTimeout(() => setUploadSuccess(false), 1500);
-    } catch (err) {
-      console.error('Hero upload error:', err);
-      showFeedback('error', 'İşlem başarısız oldu.');
-    } finally {
-      setIsAssetUploading(false);
-      setActiveEditingSlideId(null);
-      if (event.target) event.target.value = '';
-    }
-  };
-
-  const handleDragEnd = (_: unknown, info: PanInfo) => {
-    if (isAdminModeActive || marketingSlides.length <= 1) return;
-    if (info.offset.x < -SWIPE_THRESHOLD) handleNext();
-    else if (info.offset.x > SWIPE_THRESHOLD) handlePrev();
-  };
-
-  if (loading) return (
+  if (flow.loading) return (
     <div className={`${carouselTheme.container} animate-pulse`}>
       <div className={`${carouselTheme.layout} bg-stone-100 flex items-center justify-center`}><div className={carouselTheme.slide.loadingSpinner} /></div>
     </div>
   );
 
-  if (marketingSlides.length === 0 && isAdminModeActive) {
+  if (flow.marketingSlides.length === 0 && isAdminModeActive) {
     return (
       <div className="px-6 py-10 fade-in relative flex items-center justify-center border-2 border-dashed border-stone-200 rounded-3xl bg-stone-50/50">
         <p className="text-[10px] font-black uppercase tracking-[0.2em] text-stone-400 italic">
@@ -190,13 +48,13 @@ export default function HeroCarousel({ isAdminModeActive }: HeroCarouselProps) {
           type="file" 
           className="hidden" 
           accept="image/*" 
-          onChange={(e) => { setActiveEditingSlideId(-1); handleFileUploadAction(e); }} 
+          onChange={(e) => { flow.setActiveEditingSlideId(-1); flow.handleFileUploadAction(e); }} 
         />
       </div>
     );
   }
 
-  if (marketingSlides.length === 0) return null;
+  if (flow.marketingSlides.length === 0) return null;
 
   return (
     <div className={carouselTheme.container}>
@@ -207,16 +65,16 @@ export default function HeroCarousel({ isAdminModeActive }: HeroCarouselProps) {
         className="hidden" 
         accept="image/*"
         onChange={(e) => { 
-          setActiveEditingSlideId(-1); 
-          handleFileUploadAction(e); 
+          flow.setActiveEditingSlideId(-1); 
+          flow.handleFileUploadAction(e); 
         }} 
       />
 
       <div className={carouselTheme.layout}>
         {/* LOCALIZED LOADING & SUCCESS OVERLAY */}
-        {(isAssetUploading || uploadSuccess) && (
+        {(flow.isAssetUploading || flow.uploadSuccess) && (
           <div className={`${carouselTheme.slide.overlay} absolute inset-0 z-[70] flex flex-col items-center justify-center bg-white/40 backdrop-blur-sm animate-in fade-in duration-500`}>
-            {isAssetUploading ? (
+            {flow.isAssetUploading ? (
               <div className={`${carouselTheme.slide.loadingSpinner}`}></div>
             ) : (
               <div className="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center shadow-lg animate-in zoom-in duration-300">
@@ -228,34 +86,34 @@ export default function HeroCarousel({ isAdminModeActive }: HeroCarouselProps) {
         <motion.div
           drag={isAdminModeActive ? false : "x"}
           dragConstraints={{ left: 0, right: 0 }}
-          onDragEnd={handleDragEnd}
+          onDragEnd={flow.handleDragEnd}
           className="flex w-full h-full touch-pan-y"
-          animate={{ x: `-${currentIndex * 100}%` }}
-          transition={isTransitioning ? { duration: 0.7, ease: [0.22, 1, 0.36, 1] } : { duration: 0 }}
-          onAnimationComplete={() => setIsTransitioning(false)}
+          animate={{ x: `-${flow.currentIndex * 100}%` }}
+          transition={flow.isTransitioning ? { duration: 0.7, ease: [0.22, 1, 0.36, 1] } : { duration: 0 }}
+          onAnimationComplete={() => flow.setIsTransitioning(false)}
         >
-          {marketingSlides.map((slideItem, index) => (
+          {flow.marketingSlides.map((slideItem, index) => (
             <div key={index} className="relative w-full h-full shrink-0">
               <CarouselSlideUnit
                 slideData={slideItem}
-                isCurrentlyActive={index === currentIndex}
+                isCurrentlyActive={index === flow.currentIndex}
                 isAdmin={isAdminModeActive}
-                isCurrentlyUploading={isAssetUploading}
+                isCurrentlyUploading={flow.isAssetUploading}
                 currentIndex={index}
-                totalSlides={marketingSlides.length}
-                editingTargetSlideId={activeEditingSlideId}
-                onOrderChange={(newPos) => reorderSlides(slideItem.id, newPos)}
+                totalSlides={flow.marketingSlides.length}
+                editingTargetSlideId={flow.activeEditingSlideId}
+                onOrderChange={(newPos) => flow.reorderSlides(slideItem.id, newPos)}
                 onUpload={(e) => {
-                  setActiveEditingSlideId(slideItem.id);
-                  handleFileUploadAction(e);
+                  flow.setActiveEditingSlideId(slideItem.id);
+                  flow.handleFileUploadAction(e);
                 }}
-                onDeleteTrigger={deleteSlide}
+                onDeleteTrigger={flow.deleteSlide}
               />
             </div>
           ))}
         </motion.div>
 
-        {marketingSlides.length > 1 && (
+        {flow.marketingSlides.length > 1 && (
           <>
             {/* NAVIGATION BUTTONS (DIAMOND BLACK GLASS EDITION) */}
             <div className="absolute inset-y-0 left-2 z-50 flex items-center">
@@ -264,7 +122,7 @@ export default function HeroCarousel({ isAdminModeActive }: HeroCarouselProps) {
                 mode="square"
                 className="!w-10 !h-10 !bg-stone-900/60 backdrop-blur-md border-white/20 hover:!bg-stone-900/80 text-white shadow-2xl transition-all active:scale-90 !rounded-lg"
                 icon={<Lucide.ChevronLeft size={24} strokeWidth={2.5} />}
-                onClick={handlePrev}
+                onClick={flow.handlePrev}
               />
             </div>
             <div className="absolute inset-y-0 right-2 z-50 flex items-center">
@@ -273,14 +131,14 @@ export default function HeroCarousel({ isAdminModeActive }: HeroCarouselProps) {
                 mode="square"
                 className="!w-10 !h-10 !bg-stone-900/60 backdrop-blur-md border-white/20 hover:!bg-stone-900/80 text-white shadow-2xl transition-all active:scale-90 !rounded-lg"
                 icon={<Lucide.ChevronRight size={24} strokeWidth={2.5} />}
-                onClick={handleNext}
+                onClick={flow.handleNext}
               />
             </div>
 
             <div className={carouselTheme.navigation.dotsWrapper}>
-              {marketingSlides.map((_, dotIndex) => (
-                <div key={dotIndex} onClick={() => { setIsTransitioning(true); setCurrentIndex(dotIndex); }}
-                  className={`${carouselTheme.navigation.dotBase} ${currentIndex === dotIndex ? carouselTheme.navigation.dotActive : carouselTheme.navigation.dotInactive}`} />
+              {flow.marketingSlides.map((_, dotIndex) => (
+                <div key={dotIndex} onClick={() => { flow.setIsTransitioning(true); flow.setCurrentIndex(dotIndex); }}
+                  className={`${carouselTheme.navigation.dotBase} ${flow.currentIndex === dotIndex ? carouselTheme.navigation.dotActive : carouselTheme.navigation.dotInactive}`} />
               ))}
             </div>
           </>

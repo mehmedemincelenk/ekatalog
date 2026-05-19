@@ -10,6 +10,7 @@ import { THEME } from '../../data/config';
 import { storage } from '../../utils/storage';
 import { QuickEditModal } from './UtilityModals';
 import * as Lucide from 'lucide-react';
+import { useDisplaySettingsFlow } from '../../hooks/useDisplaySettingsFlow';
 
 interface HelpInfo {
   title: string;
@@ -107,176 +108,50 @@ export default function DisplaySettingsModal({
   onToggleInline,
   isStatic = false,
 }: DisplaySettingsModalProps) {
-    const { showFeedback, adminPin } = useStore();
-    const [isUploading, setIsUploading] = useState(false);
-    const [helpId, setHelpId] = useState<string | null>(null);
-    const [hiddenHelpIds, setHiddenHelpIds] = useState<string[]>(() => {
-      return storage.get('ekatalog_hidden_help_ids', []);
-    });
-
-    const [localConfig, setLocalConfig] = useState(settings?.displayConfig || {});
-    const [localAnnouncement, setLocalAnnouncement] = useState(settings?.announcementBar?.enabled || false);
-    const [localMaintenance, setLocalMaintenance] = useState(settings?.maintenanceMode?.enabled || false);
-    const [localInline, setLocalInline] = useState(isInlineEnabled);
-    const [quickEdit, setQuickEdit] = useState<{
-      key: string;
-      value: string;
-      title: string;
-    } | null>(null);
-
     const fileInputRef = useRef<HTMLInputElement>(null);
-
-    // Adjusting state during render instead of useEffect to avoid sync setState warning
-    const [prevOpen, setPrevOpen] = useState(isOpen);
-    if (isOpen !== prevOpen) {
-      setPrevOpen(isOpen);
-      if (isOpen && settings) {
-        setLocalConfig(settings.displayConfig || {});
-        setLocalAnnouncement(settings.announcementBar?.enabled || false);
-        setLocalMaintenance(settings.maintenanceMode?.enabled || false);
-        setLocalInline(isInlineEnabled);
-      }
-    }
+    const flow = useDisplaySettingsFlow(
+      isOpen,
+      settings,
+      updateSetting,
+      isInlineEnabled,
+      onToggleInline
+    );
 
     if (!settings) return null;
-
-    const getOptionState = (key: keyof DisplayConfig) => {
-      const val = localConfig[key];
-      if (key === 'showPrice') return val !== false;
-      if (key === 'showWhatsapp') return val !== false;
-      if (key === 'showCarousel') return val !== false;
-      if (key === 'showCategories') return val !== false;
-      if (key === 'showSearch') return val !== false;
-      return !!val;
-    };
-
-    const toggleOption = async (key: keyof DisplayConfig) => {
-      const currentVal = getOptionState(key);
-      const newVal = !currentVal;
-      setLocalConfig(prev => ({ ...prev, [key]: newVal }));
-      try {
-        await updateSetting('displayConfig', {
-          ...settings.displayConfig,
-          [key]: newVal,
-        });
-      } catch (err) {
-        setLocalConfig(settings.displayConfig || {});
-      }
-    };
-
-    const toggleAnnouncement = async () => {
-      const newVal = !localAnnouncement;
-      setLocalAnnouncement(newVal);
-      try {
-        await updateSetting('announcementBar', { ...settings.announcementBar, enabled: newVal });
-      } catch (err) {
-        setLocalAnnouncement(settings.announcementBar?.enabled || false);
-      }
-    };
-
-    const toggleMaintenance = async () => {
-      const newVal = !localMaintenance;
-      setLocalMaintenance(newVal);
-      try {
-        await updateSetting('maintenanceMode', { ...settings.maintenanceMode, enabled: newVal });
-      } catch (err) {
-        setLocalMaintenance(settings.maintenanceMode?.enabled || false);
-      }
-    };
-
-    const handleToggleInline = () => {
-      setLocalInline(!localInline);
-      onToggleInline();
-    };
-
-    const handleLogoUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-      const file = e.target.files?.[0];
-      if (!file || !adminPin) return;
-      setIsUploading(true);
-      try {
-        const { secureUploadVisualAsset } = await import('../../utils/image');
-        const finalizedUrl = await secureUploadVisualAsset({
-          file,
-          folder: 'logos',
-          adminPin,
-          oldUrl: settings.logoUrl,
-          slugBaseName: settings.name,
-          uniqueIdPrefix: 'logo',
-          isDualQuality: false
-        });
-        
-        await updateSetting('logoUrl', finalizedUrl);
-        showFeedback('success', 'Logo başarıyla güncellendi');
-      } catch (err) {
-        showFeedback('error', 'Logo yüklenirken bir hata oluştu');
-      } finally {
-        setIsUploading(false);
-      }
-    };
-
-    const hideHelpPermanently = (id: string) => {
-      const updated = [...hiddenHelpIds, id];
-      setHiddenHelpIds(updated);
-      storage.set('ekatalog_hidden_help_ids', updated);
-      setHelpId(null);
-    };
-
-    const handleIdentityClick = (option: any) => {
-      if (option.isLogo) {
-        fileInputRef.current?.click();
-        return;
-      }
-      setQuickEdit({
-        key: option.key,
-        value: option.value,
-        title: option.label
-      });
-    };
-
-    const handleQuickSave = (newVal: string) => {
-      if (!quickEdit) return;
-      if (quickEdit.key === 'instagram') {
-        const sanitized = newVal.trim().replace(/^@/, '');
-        updateSetting('instagram', sanitized ? `https://www.instagram.com/${sanitized}` : '');
-      } else {
-        updateSetting(quickEdit.key as any, newVal);
-      }
-      setQuickEdit(null);
-    };
 
     const groups = [
       {
         id: 'floating',
         title: 'YÜZEN MENÜ BİLEŞENLERİ',
         options: [
-          { key: 'showWhatsapp', label: 'WhatsApp', isOn: getOptionState('showWhatsapp' as keyof DisplayConfig), onToggle: () => toggleOption('showWhatsapp' as keyof DisplayConfig) },
-          { key: 'showInstagram', label: 'Instagram', isOn: getOptionState('showInstagram' as keyof DisplayConfig), onToggle: () => toggleOption('showInstagram' as keyof DisplayConfig) },
-          { key: 'showAddress', label: 'Adres Bilgisi', isOn: getOptionState('showAddress' as keyof DisplayConfig), onToggle: () => toggleOption('showAddress' as keyof DisplayConfig) },
-          { key: 'showCurrency', label: 'Döviz Çevirici', isOn: getOptionState('showCurrency' as keyof DisplayConfig), onToggle: () => toggleOption('showCurrency' as keyof DisplayConfig) },
-          { key: 'showPriceList', label: 'Fiyat Listesi', isOn: getOptionState('showPriceList' as keyof DisplayConfig), onToggle: () => toggleOption('showPriceList' as keyof DisplayConfig) },
-          { key: 'showCoupons', label: 'İndirim Kuponu', isOn: getOptionState('showCoupons' as keyof DisplayConfig), onToggle: () => toggleOption('showCoupons' as keyof DisplayConfig) },
+          { key: 'showWhatsapp', label: 'WhatsApp', isOn: flow.getOptionState('showWhatsapp'), onToggle: () => flow.toggleOption('showWhatsapp') },
+          { key: 'showInstagram', label: 'Instagram', isOn: flow.getOptionState('showInstagram'), onToggle: () => flow.toggleOption('showInstagram') },
+          { key: 'showAddress', label: 'Adres Bilgisi', isOn: flow.getOptionState('showAddress'), onToggle: () => flow.toggleOption('showAddress') },
+          { key: 'showCurrency', label: 'Döviz Çevirici', isOn: flow.getOptionState('showCurrency'), onToggle: () => flow.toggleOption('showCurrency') },
+          { key: 'showPriceList', label: 'Fiyat Listesi', isOn: flow.getOptionState('showPriceList'), onToggle: () => flow.toggleOption('showPriceList') },
+          { key: 'showCoupons', label: 'İndirim Kuponu', isOn: flow.getOptionState('showCoupons'), onToggle: () => flow.toggleOption('showCoupons') },
         ]
       },
       {
         id: 'branding',
         title: 'VİTRİN VE TASARIM',
         options: [
-          { key: 'showLogo', label: 'Mağaza Logosu', isOn: getOptionState('showLogo' as keyof DisplayConfig), onToggle: () => toggleOption('showLogo' as keyof DisplayConfig) },
-          { key: 'showSubtitle', label: 'Slogan / Alt Başlık', isOn: getOptionState('showSubtitle' as keyof DisplayConfig), onToggle: () => toggleOption('showSubtitle' as keyof DisplayConfig) },
-          { key: 'showCarousel', label: 'Ana Sayfa Afişleri', isOn: getOptionState('showCarousel' as keyof DisplayConfig), onToggle: () => toggleOption('showCarousel' as keyof DisplayConfig) },
-          { key: 'showReferences', label: 'Referans Logoları', isOn: getOptionState('showReferences' as keyof DisplayConfig), onToggle: () => toggleOption('showReferences' as keyof DisplayConfig) },
-          { key: 'showPrice', label: 'Ürün Fiyatları', isOn: getOptionState('showPrice' as keyof DisplayConfig), onToggle: () => toggleOption('showPrice' as keyof DisplayConfig) },
-          { key: 'announcement', label: 'Duyuru Panosu', isOn: localAnnouncement, onToggle: toggleAnnouncement },
+          { key: 'showLogo', label: 'Mağaza Logosu', isOn: flow.getOptionState('showLogo'), onToggle: () => flow.toggleOption('showLogo') },
+          { key: 'showSubtitle', label: 'Slogan / Alt Başlık', isOn: flow.getOptionState('showSubtitle'), onToggle: () => flow.toggleOption('showSubtitle') },
+          { key: 'showCarousel', label: 'Ana Sayfa Afişleri', isOn: flow.getOptionState('showCarousel'), onToggle: () => flow.toggleOption('showCarousel') },
+          { key: 'showReferences', label: 'Referans Logoları', isOn: flow.getOptionState('showReferences'), onToggle: () => flow.toggleOption('showReferences') },
+          { key: 'showPrice', label: 'Ürün Fiyatları', isOn: flow.getOptionState('showPrice'), onToggle: () => flow.toggleOption('showPrice') },
+          { key: 'announcement', label: 'Duyuru Panosu', isOn: flow.localAnnouncement, onToggle: flow.toggleAnnouncement },
         ]
       },
       {
         id: 'system',
         title: 'SİSTEM YÖNETİMİ',
         options: [
-          { key: 'showSearch', label: 'Arama Çubuğu', isOn: getOptionState('showSearch' as keyof DisplayConfig), onToggle: () => toggleOption('showSearch' as keyof DisplayConfig) },
-          { key: 'showCategories', label: 'Kategori Filtreleri', isOn: getOptionState('showCategories' as keyof DisplayConfig), onToggle: () => toggleOption('showCategories' as keyof DisplayConfig) },
-          { key: 'inline', label: 'Hızlı Düzenleme', isOn: localInline, onToggle: handleToggleInline, hasHelp: true },
-          { key: 'maintenance', label: 'Bakım Modu', isOn: localMaintenance, onToggle: toggleMaintenance, hasHelp: true },
+          { key: 'showSearch', label: 'Arama Çubuğu', isOn: flow.getOptionState('showSearch'), onToggle: () => flow.toggleOption('showSearch') },
+          { key: 'showCategories', label: 'Kategori Filtreleri', isOn: flow.getOptionState('showCategories'), onToggle: () => flow.toggleOption('showCategories') },
+          { key: 'inline', label: 'Hızlı Düzenleme', isOn: flow.localInline, onToggle: flow.handleToggleInline, hasHelp: true },
+          { key: 'maintenance', label: 'Bakım Modu', isOn: flow.localMaintenance, onToggle: flow.toggleMaintenance, hasHelp: true },
         ]
       },
       {
@@ -319,8 +194,8 @@ export default function DisplaySettingsModal({
               ref={fileInputRef} 
               className="hidden" 
               accept="image/*" 
-              onChange={handleLogoUpload} 
-              disabled={isUploading} 
+              onChange={flow.handleLogoUpload} 
+              disabled={flow.isUploading} 
             />
 
             {groups.map((group) => (
@@ -332,12 +207,12 @@ export default function DisplaySettingsModal({
                   group.isIdentity ? (
                     <div
                       key={option.key}
-                      onClick={() => handleIdentityClick(option)}
+                      onClick={() => flow.handleIdentityClick(option, fileInputRef)}
                       className="col-span-2 flex items-center justify-between p-3 rounded-2xl border border-stone-100 bg-white text-stone-900 shadow-sm hover:border-stone-900 cursor-pointer transition-all group h-12"
                     >
                       <div className="flex items-center gap-2 overflow-hidden flex-1">
                         <div className="w-6 h-6 flex items-center justify-center text-stone-400 group-hover:text-stone-900 transition-colors">
-                          {isUploading && option.isLogo ? (
+                          {flow.isUploading && option.isLogo ? (
                             <Loading size="sm" variant="dark" />
                           ) : (
                             option.icon
@@ -346,11 +221,11 @@ export default function DisplaySettingsModal({
                         <div className="flex flex-col overflow-hidden">
                           <span className="text-[8px] font-black uppercase text-stone-400 leading-none mb-0.5">{option.label}</span>
                           <div className="flex items-center gap-2">
-                            {option.isLogo && settings.logoUrl && !isUploading && (
+                            {option.isLogo && settings.logoUrl && !flow.isUploading && (
                               <img src={settings.logoUrl} className="w-4 h-4 object-contain rounded-sm bg-stone-50" alt="Mini Logo" />
                             )}
                             <span className="text-[10px] font-bold truncate">
-                              {isUploading && option.isLogo ? 'YÜKLENİYOR...' : (option.value || 'Girilmemiş')}
+                              {flow.isUploading && option.isLogo ? 'YÜKLENİYOR...' : (option.value || 'Girilmemiş')}
                             </span>
                           </div>
                         </div>
@@ -361,8 +236,8 @@ export default function DisplaySettingsModal({
                     <SettingCard 
                       key={option.key} 
                       option={option as any} 
-                      onHelpTrigger={setHelpId} 
-                      isHiddenHelp={hiddenHelpIds.includes(option.key)} 
+                      onHelpTrigger={flow.setHelpId} 
+                      isHiddenHelp={flow.hiddenHelpIds.includes(option.key)} 
                     />
                   )
                 ))}
@@ -373,34 +248,34 @@ export default function DisplaySettingsModal({
 
         {/* IDENTITY QUICK EDIT */}
         <div className="z-[100000]">
-          {quickEdit && (
+          {flow.quickEdit && (
             <QuickEditModal
-              isOpen={!!quickEdit}
-              onClose={() => setQuickEdit(null)}
-              onSave={handleQuickSave}
-              initialValue={quickEdit.value || ''}
-              placeholder={`${quickEdit.title} girin...`}
+              isOpen={!!flow.quickEdit}
+              onClose={() => flow.setQuickEdit(null)}
+              onSave={flow.handleQuickSave}
+              initialValue={flow.quickEdit.value || ''}
+              placeholder={`${flow.quickEdit.title} girin...`}
             />
           )}
         </div>
 
-        <BaseModal isOpen={!!helpId} onClose={() => setHelpId(null)} maxWidth="max-w-sm" isStatic={isStatic} footer={
+        <BaseModal isOpen={!!flow.helpId} onClose={() => flow.setHelpId(null)} maxWidth="max-w-sm" isStatic={isStatic} footer={
           <div className="flex flex-col gap-2 w-full">
-            <Button onClick={() => setHelpId(null)} variant="primary" size="md" className="w-full !py-4 font-black" mode="rectangle">KAPAT</Button>
-            <Button onClick={() => helpId && hideHelpPermanently(helpId)} variant="ghost" size="sm" className="w-full !text-stone-400 !text-[9px] font-black hover:!text-stone-900 underline px-6 text-center leading-tight shadow-none" mode="rectangle">Bu ipucunu tekrar gösterme</Button>
+            <Button onClick={() => flow.setHelpId(null)} variant="primary" size="md" className="w-full !py-4 font-black" mode="rectangle">KAPAT</Button>
+            <Button onClick={() => flow.helpId && flow.hideHelpPermanently(flow.helpId)} variant="ghost" size="sm" className="w-full !text-stone-400 !text-[9px] font-black hover:!text-stone-900 underline px-6 text-center leading-tight shadow-none" mode="rectangle">Bu ipucunu tekrar gösterme</Button>
           </div>
         }>
-          {helpId && (
+          {flow.helpId && (
             <div className="space-y-4 py-2">
               <div className="bg-emerald-50 border border-emerald-100 p-5 rounded-3xl flex gap-4">
                 <div className="w-8 h-8 bg-emerald-500 rounded-xl flex items-center justify-center shrink-0 text-white shadow-sm"><Lucide.Check size={18} /></div>
-                <p className="text-[11px] text-emerald-800 leading-relaxed font-bold">{HELP_CONTENTS[helpId].onText}</p>
+                <p className="text-[11px] text-emerald-800 leading-relaxed font-bold">{HELP_CONTENTS[flow.helpId].onText}</p>
               </div>
               <div className="bg-stone-50 border border-stone-100 p-5 rounded-3xl opacity-60 text-stone-500 flex items-center gap-4">
                 <div className="w-8 h-8 bg-stone-200 rounded-xl flex items-center justify-center shrink-0 text-stone-400">
                   <Lucide.X size={18} strokeWidth={3} />
                 </div>
-                <p className="text-[11px] leading-relaxed font-bold">{HELP_CONTENTS[helpId].offText}</p>
+                <p className="text-[11px] leading-relaxed font-bold">{HELP_CONTENTS[flow.helpId].offText}</p>
               </div>
             </div>
           )}

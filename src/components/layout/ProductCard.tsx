@@ -1,23 +1,18 @@
 // FILE ROLE: Core Product Presentation Unit (Interactive Card)
 // DEPENDS ON: THEME, Product Types, Admin Sub-menus, Animation Logic
 // CONSUMED BY: ProductGrid.tsx
-import { useRef, useState, useEffect, memo } from 'react';
+import { useRef, memo } from 'react';
 import { motion } from 'framer-motion';
 import Loading from '../ui/Loading';
 import Badge from '../ui/Badge';
 import { LABELS, THEME } from '../../data/config';
 import { Product } from '../../types';
-import { resolveVisualAssetUrl } from '../../utils/image';
-import {
-  standardizePriceInput,
-  transformCurrencyStringToNumber,
-  formatNumberToCurrency,
-} from '../../utils/core';
+import { standardizePriceInput } from '../../utils/core';
 import SmartImage from '../ui/SmartImage';
 import { MarqueeText } from '../ui/MarqueeText';
 
 import { QuickEditModal, ProductDetailModal } from '../modals/UtilityModals';
-import { useStore } from '../../store';
+import { useProductCardFlow } from '../../hooks/useProductCardFlow';
 
 /**
  * PRODUCT CARD COMPONENT (100% Tokenized & Professional English)
@@ -42,128 +37,40 @@ const ProductCard = memo(
     onOrderIndexChange,
     itemsInCategory = 1,
   }: ProductCardProps) => {
-    const { visitorCurrency, exchangeRates } = useStore();
     const fileInputRef = useRef<HTMLInputElement>(null);
     const cardContainerRef = useRef<HTMLElement>(null);
 
-    const [isUpdatingOrder, setIsUpdatingOrder] = useState(false);
-    const [showSuccess, setShowSuccess] = useState(false);
-    const [isUploadingImage, setIsUploadingImage] = useState(false);
-
-    const [optimisticImagePreview, setOptimisticImagePreview] = useState<
-      string | null
-    >(null);
-    const [isZoomDetailOpen, setIsZoomDetailOpen] = useState(false);
-    const [quickEdit, setQuickEdit] = useState<{
-      field: keyof Product;
-      value: string;
-      title: string;
-    } | null>(null);
-
-    const setIsAdminMenuOpen = (isOpen: boolean) => {
-      setActiveAdminProductId?.(isOpen ? product.id : null);
-    };
+    const {
+      isUpdatingOrder,
+      setIsUpdatingOrder,
+      showSuccess,
+      setShowSuccess,
+      isUploadingImage,
+      isZoomDetailOpen,
+      setIsZoomDetailOpen,
+      quickEdit,
+      setQuickEdit,
+      setIsAdminMenuOpen,
+      handleImageFileChange,
+      handleDataFieldUpdate,
+      handlePromptEdit,
+      isPromotionActive,
+      originalPriceLabel,
+      discountedPriceLabel,
+      primaryImageSource,
+      highDefinitionImageSource
+    } = useProductCardFlow(
+      product,
+      isAdmin,
+      isInlineEnabled,
+      activeDiscount,
+      onUpdate,
+      onImageUpload,
+      setActiveAdminProductId
+    );
 
     const theme = THEME.productCard;
     const adminLabels = LABELS.adminActions;
-
-
-
-    // Apple-style scroll to close behavior
-    useEffect(() => {
-      if (!isZoomDetailOpen) return;
-      const handleScrollClose = () => setIsZoomDetailOpen(false);
-      window.addEventListener('scroll', handleScrollClose, { passive: true });
-      return () => window.removeEventListener('scroll', handleScrollClose);
-    }, [isZoomDetailOpen]);
-
-    // CLEANUP memory ONLY on unmount to prevent race conditions during upload transitions
-    useEffect(() => {
-      return () => {
-        if (optimisticImagePreview) {
-          URL.revokeObjectURL(optimisticImagePreview);
-        }
-      };
-    }, [optimisticImagePreview]);
-
-    // When real image arrives, just clear the preview state (revocation stays in cleanup)
-    useEffect(() => {
-      if (product.image_url && optimisticImagePreview) {
-        setOptimisticImagePreview(null);
-      }
-    }, [product.image_url, optimisticImagePreview]);
-
-    const handleImageFileChange = async (
-      event: React.ChangeEvent<HTMLInputElement>,
-    ) => {
-      const selectedFile = event.target.files?.[0];
-      if (!selectedFile || !onImageUpload) return;
-
-      const localPreviewUrl = URL.createObjectURL(selectedFile);
-      setOptimisticImagePreview(localPreviewUrl);
-      setIsUploadingImage(true);
-
-      try {
-        await onImageUpload(product.id, selectedFile);
-      } catch {
-        alert(LABELS.saveError);
-        setOptimisticImagePreview(null);
-      } finally {
-        setIsUploadingImage(false);
-        event.target.value = '';
-      }
-    };
-
-    const handleDataFieldUpdate = (
-      fieldName: keyof Product,
-      newValue: string | boolean | null,
-    ) => {
-      if (newValue !== (product[fieldName] || '')) {
-        onUpdate(product.id, { [fieldName]: newValue });
-      }
-    };
-
-    const handlePromptEdit = (field: keyof Product, label: string) => {
-      if (!isAdmin || isInlineEnabled) return;
-      setQuickEdit({
-        field,
-        value: (product[field] as string) || '',
-        title: label,
-      });
-    };
-
-    // DISCOUNT & CURRENCY CALCULATION
-    const isPromotionActive =
-      activeDiscount &&
-      (!activeDiscount.category ||
-        activeDiscount.category === product.category);
-    const baseMathematicalPrice = transformCurrencyStringToNumber(
-      product.price,
-    );
-
-    const originalPriceLabel = formatNumberToCurrency(
-      baseMathematicalPrice,
-      visitorCurrency,
-      exchangeRates ?? undefined,
-    );
-
-    const discountedPriceLabel =
-      isPromotionActive && baseMathematicalPrice > 0
-        ? formatNumberToCurrency(
-            baseMathematicalPrice * (1 - activeDiscount.rate),
-            visitorCurrency,
-            exchangeRates ?? undefined,
-          )
-        : null;
-
-    const primaryImageSource =
-      (optimisticImagePreview ||
-      (product.image_url ? resolveVisualAssetUrl(product.image_url) : null)) ?? null;
-    const highDefinitionImageSource = (product.image_url
-      ? resolveVisualAssetUrl(
-          product.image_url.replace('/lq/', '/hq/').split('?')[0],
-        )
-      : null) ?? null;
 
     return (
       <>
@@ -232,14 +139,7 @@ const ProductCard = memo(
               text={product.name}
               textClass={`${theme.typography.name} ${theme.typography.nameTransition} ${product.out_of_stock ? theme.typography.nameOutOfStock : ''}`}
               isAdmin={isAdmin}
-              onClick={() => {
-                if (!isAdmin || isInlineEnabled) return;
-                setQuickEdit({
-                  field: 'name',
-                  value: product.name,
-                  title: 'Ürün Adı',
-                });
-              }}
+              onClick={() => handlePromptEdit('name', 'Ürün Adı')}
               editableProps={
                 isAdmin && isInlineEnabled
                   ? {

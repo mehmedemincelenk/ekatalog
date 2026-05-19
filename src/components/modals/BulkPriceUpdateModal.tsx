@@ -8,15 +8,7 @@ import StatusOverlay from '../ui/StatusOverlay';
 import StatusToggle from '../ui/StatusToggle';
 import { transformCurrencyStringToNumber } from '../../utils/core';
 import { BulkPriceUpdateModalProps, Product } from '../../types';
-
-type ActionType = 'PRICE' | 'DELETE' | 'ARCHIVE' | 'STOCK' | null;
-
-interface DeskItemState {
-  included: boolean;
-  manualPrice?: number;
-  manualInStock?: boolean;
-  manualArchived?: boolean;
-}
+import { useBulkPriceFlow, ActionType, DeskItemState } from '../../hooks/useBulkPriceFlow';
 
 /**
  * DESK ITEM ROW (Local Diamond Utility)
@@ -110,187 +102,29 @@ export default function BulkPriceUpdateModal({
   isStatic = false,
   initialStep,
 }: BulkPriceUpdateModalProps) {
-  const [currentStep, setCurrentStep] = useState<number>(initialStep || 1);
-  const [actionType, setActionType] = useState<ActionType>(null);
-  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
-  const [isPercentage, setIsPercentage] = useState<boolean | null>(null);
-  const [isIncrease, setIsIncrease] = useState<boolean | null>(null);
-  const [inputValue, setInputValue] = useState('');
-  const [isProcessing, setIsProcessing] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
-  const [deskItems, setDeskItems] = useState<Record<string, DeskItemState>>({});
-
-
-
-  const resetAll = () => {
-    setCurrentStep(1);
-    setActionType(null);
-    setSelectedCategories([]);
-    setIsPercentage(null);
-    setIsIncrease(null);
-    setInputValue('');
-    setDeskItems({});
-    setIsProcessing(false);
-    setSubmitStatus('idle');
-  };
-
-  const nextStep = () => {
-    if (currentStep === 1) {
-      setCurrentStep(2); // Move to Category
-      return;
-    }
-    
-    if (currentStep === 2) {
-      if (actionType === 'PRICE') {
-        setCurrentStep(2.1);
-        return;
-      }
-      prepareDeskAndDirectTo(3);
-      return;
-    }
-
-    if (currentStep === 2.1) {
-      setCurrentStep(2.2);
-      return;
-    }
-    if (currentStep === 2.2) {
-      setCurrentStep(2.3);
-      return;
-    }
-    if (currentStep === 2.3) {
-      prepareDeskAndDirectTo(3);
-      return;
-    }
-
-    setCurrentStep((prev) => prev + 1);
-  };
-
-  const prepareDeskAndDirectTo = (targetStep: number) => {
-    const productsForDesk = allProducts.filter(
-      (p) =>
-        selectedCategories.length === 0 ||
-        selectedCategories.includes(p.category),
-    );
-    const initialDesk: Record<string, DeskItemState> = {};
-    const isStatusAction = actionType === 'STOCK' || actionType === 'ARCHIVE';
-
-    productsForDesk.forEach((p) => {
-      initialDesk[p.id] = {
-        included: !isStatusAction,
-        manualInStock: !p.out_of_stock,
-        manualArchived: p.is_archived,
-      };
-    });
-    setDeskItems(initialDesk);
-    setCurrentStep(targetStep);
-  };
-
-  const prevStep = () => {
-    if (currentStep === 2) {
-      setCurrentStep(1);
-      return;
-    }
-    if (currentStep === 2.1) {
-      setCurrentStep(2);
-      return;
-    }
-    if (currentStep === 2.2) {
-      setCurrentStep(2.1);
-      return;
-    }
-    if (currentStep === 2.3) {
-      setCurrentStep(2.2);
-      return;
-    }
-    if (currentStep === 3 && actionType === 'PRICE') {
-      setCurrentStep(2.3);
-      return;
-    }
-    if (currentStep === 3) {
-      setCurrentStep(2);
-      return;
-    }
-    setCurrentStep((prev) => prev - 1);
-  };
-
-  const toggleCategory = (cat: string) => {
-    if (cat === 'TÜMÜ') {
-      setSelectedCategories(
-        selectedCategories.length === categories.length ? [] : [...categories],
-      );
-      return;
-    }
-    setSelectedCategories((prev) =>
-      prev.includes(cat) ? prev.filter((c) => c !== cat) : [...prev, cat],
-    );
-  };
-
-  const initialProductsForDesk = useMemo(() => {
-    return allProducts
-      .filter(
-        (p) =>
-          selectedCategories.length === 0 ||
-          selectedCategories.includes(p.category),
-      )
-      .sort((a, b) => {
-        const catA = categories.indexOf(a.category);
-        const catB = categories.indexOf(b.category);
-        if (catA !== catB) return catA - catB;
-        return (a.sort_order || 0) - (b.sort_order || 0);
-      });
-  }, [allProducts, selectedCategories, categories]);
-
-  const toggleProductInclusion = (id: string) => {
-    setDeskItems((prev) => ({
-      ...prev,
-      [id]: { ...prev[id], included: !prev[id]?.included },
-    }));
-  };
-
-
-  const calculateNewPrice = (current: number) => {
-    if (!inputValue) return current;
-    const amount = transformCurrencyStringToNumber(inputValue);
-    let result = current;
-    if (isPercentage) {
-      const adj = current * (amount / 100);
-      result = isIncrease ? current + adj : current - adj;
-    } else {
-      result = isIncrease ? current + amount : current - amount;
-    }
-    return result < 0 ? 0 : result;
-  };
-
-  const handleApply = async () => {
-    setIsProcessing(true);
-    try {
-      const itemsToUpdate = Object.entries(deskItems)
-        .filter(([_, state]) => state.included)
-        .map(([id, state]) => ({
-          id,
-          ...state,
-        }));
-
-      await onGranularUpdate(itemsToUpdate.map(item => ({
-        productId: item.id,
-        newPrice: actionType === 'PRICE' ? item.manualPrice : undefined,
-        delete: actionType === 'DELETE',
-        out_of_stock: actionType === 'STOCK' ? (item.manualInStock === false) : undefined,
-        is_archived: actionType === 'ARCHIVE' ? item.manualArchived : undefined,
-      })));
-      setSubmitStatus('success');
-      setTimeout(() => {
-        onClose();
-        resetAll();
-      }, 1500);
-    } catch (err) {
-      console.error('Bulk action failed', err);
-      setSubmitStatus('error');
-      setTimeout(() => setSubmitStatus('idle'), 2000);
-    } finally {
-      setIsProcessing(false);
-    }
-  };
+  const {
+    currentStep,
+    actionType,
+    setActionType,
+    selectedCategories,
+    setIsPercentage,
+    isPercentage,
+    isIncrease,
+    setIsIncrease,
+    inputValue,
+    setInputValue,
+    isProcessing,
+    submitStatus,
+    deskItems,
+    resetAll,
+    nextStep,
+    prevStep,
+    toggleCategory,
+    initialProductsForDesk,
+    toggleProductInclusion,
+    calculateNewPrice,
+    handleApply,
+  } = useBulkPriceFlow(allProducts, categories, onGranularUpdate, onClose, initialStep);
 
   if (!isOpen) return null;
 
