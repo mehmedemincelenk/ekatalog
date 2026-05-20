@@ -1,64 +1,20 @@
 import { useEffect, useRef } from 'react';
-
 import { TurnstileProps, TurnstileOptions } from '../../types';
 
-/**
- * TURNSTILE COMPONENT (Cloudflare Security Widget)
- * -----------------------------------------------------------
- * Provides intelligent, non-intrusive bot protection.
- */
-const Turnstile = ({ onVerify, options = {} }: TurnstileProps) => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const widgetIdRef = useRef<string | null>(null);
+export default function Turnstile({ onVerify: oV, options: o = {} }: TurnstileProps) {
+  const cR = useRef<HTMLDivElement>(null);
+  const wR = useRef<string | null>(null);
 
   useEffect(() => {
-    // Cloudflare scriptinin yüklendiğinden emin ol
-    if (!window.turnstile) {
-      console.warn('Cloudflare Turnstile script not loaded yet.');
-      return;
-    }
+    if (!window.turnstile) return;
+    if (wR.current) window.turnstile.remove(wR.current);
+    const hn = window.location.hostname;
+    const aK = (hn === 'localhost' || hn === '127.0.0.1') ? '1x00000000000000000000AA' : (import.meta.env.VITE_TURNSTILE_SITE_KEY || '0x4AAAAAADAJkSXkZ8wkzSTM');
+    wR.current = window.turnstile.render(cR.current!, { sitekey: aK, callback: (t: string) => oV(t), theme: o.theme || 'auto', size: o.size || 'normal' });
+    return () => { if (wR.current) window.turnstile.remove(wR.current); };
+  }, [oV, o.theme, o.size]);
 
-    // Eğer zaten bir widget varsa salla
-    if (widgetIdRef.current) {
-      window.turnstile.remove(widgetIdRef.current);
-    }
-
-    // Yerel geliştirme ortamında test anahtarını, canlıda gerçek anahtarı kullanıyoruz.
-    const isLocal =
-      window.location.hostname === 'localhost' ||
-      window.location.hostname === '127.0.0.1';
-    
-    const activeSiteKey = isLocal
-      ? '1x00000000000000000000AA' 
-      : (import.meta.env.VITE_TURNSTILE_SITE_KEY || '0x4AAAAAADAJkSXkZ8wkzSTM');
-
-    widgetIdRef.current = window.turnstile.render(containerRef.current!, {
-      sitekey: activeSiteKey,
-      callback: (token: string) => onVerify(token),
-      theme: options.theme || 'auto',
-      size: options.size || 'normal',
-    });
-
-    return () => {
-      if (widgetIdRef.current) {
-        window.turnstile.remove(widgetIdRef.current);
-      }
-    };
-  }, [onVerify, options.theme, options.size]);
-
-  return <div ref={containerRef} className="my-4 flex justify-center" />;
-};
-
-export default Turnstile;
-
-declare global {
-  interface Window {
-    turnstile: {
-      render: (
-        container: string | HTMLElement,
-        options: TurnstileOptions,
-      ) => string;
-      remove: (widgetId: string) => void;
-    };
-  }
+  return <div ref={cR} className="my-4 flex justify-center" />;
 }
+
+declare global { interface Window { turnstile: { render: (c: string | HTMLElement, o: TurnstileOptions) => string; remove: (wId: string) => void; }; } }
