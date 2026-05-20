@@ -24,7 +24,7 @@ function GlobalFeedbackOverlay() {
   } = useStore();
   return (
     <StatusOverlay
-      status={status as any}
+      status={status as 'success' | 'error' | 'loading'}
       message={message}
       onClose={hideFeedback}
     />

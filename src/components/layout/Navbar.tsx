@@ -7,6 +7,7 @@ import Button from '../ui/Button';
 import SmartImage from '../ui/SmartImage';
 import FormInput from '../ui/FormInput';
 import { QuickEditModal } from '../modals/UtilityModals';
+import { useStore } from '../../store';
 
 /**
  * NAVBAR COMPONENT (Layout Correction)
@@ -267,7 +268,6 @@ const Navbar = memo(
                     {flow.settings.displayConfig.showWhatsapp && (
                       <Button
                         onClick={() => {
-                          const { useStore } = require('../../store');
                           useStore.getState().openModal('CONTACT');
                         }}
                         variant="glass"

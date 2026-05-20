@@ -4,12 +4,7 @@ import { useStore } from '../../store';
 import { THEME } from '../../data/config';
 import { FloatingAdminMenuProps, FloatingGuestMenuProps } from '../../types';
 import { getNextCurrency } from '../../utils/price';
-import {
-  generateVCard,
-  openWhatsApp,
-  callPhone,
-  openInstagram,
-} from '../../utils/contact';
+import { openWhatsApp, callPhone, openInstagram } from '../../utils/contact';
 
 // ---------------------------------------------------------------------------
 // 1. FLOATING ADMIN MENU
@@ -125,23 +120,12 @@ export function FloatingGuestMenu({
 
   const whatsappNumber = settings?.whatsapp || '';
 
-  const handleVCard = () => {
-    if (settings) generateVCard(settings);
-  };
-
   const guestActions: FloatingAction[] = [
     {
       id: 'coupon',
       icon: <Lucide.Ticket className="w-5 h-5" strokeWidth={2.5} />,
       action: onCouponClick,
       label: 'İNDİRİM KODU',
-      variant: 'secondary',
-    },
-    {
-      id: 'vcard',
-      icon: <Lucide.UserPlus className="w-5 h-5" strokeWidth={2.5} />,
-      action: handleVCard,
-      label: '',
       variant: 'secondary',
     },
     {

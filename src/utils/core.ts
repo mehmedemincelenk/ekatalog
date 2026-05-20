@@ -53,42 +53,58 @@ export const getActiveStoreSlug = (): string => {
   if (storeParam) return storeParam;
   if (urlParams.get('main') === '1') return 'landing';
 
-  // 3. Localhost & Dev Overrides
-  if (
+  // 3. Dev Override Check (Explicitly skip if it's the landing domain)
+  const isDevHost =
     hostname === 'localhost' ||
     hostname === '127.0.0.1' ||
     hostname === '::1' ||
     hostname.startsWith('192.168.') ||
     hostname.startsWith('172.') ||
-    hostname.startsWith('10.') ||
-    (import.meta.env && import.meta.env.DEV)
+    hostname.startsWith('10.');
+
+  const isDevMode = import.meta.env && import.meta.env.DEV;
+
+  // Even in local dev / dev host, if they request the landing page domain, show landing
+  if (
+    hostname === 'ekatalog.site' ||
+    hostname === 'www.ekatalog.site' ||
+    hostname === 'landing.ekatalog.site'
   ) {
+    return 'landing';
+  }
+
+  // Subdomain resolution for ekatalog.site (handles x.ekatalog.site, www.x.ekatalog.site, etc.)
+  if (hostname.endsWith('.ekatalog.site')) {
+    const subdomain = hostname.slice(0, -'.ekatalog.site'.length);
+    if (subdomain.startsWith('www.')) {
+      return subdomain.substring(4);
+    }
+    if (subdomain === 'www' || subdomain === 'landing') {
+      return 'landing';
+    }
+    return subdomain;
+  }
+
+  // 4. Default Dev Shop fallback if on localhost / dev mode
+  if (isDevHost || isDevMode) {
     const envSlug = import.meta.env.VITE_STORE_SLUG;
     if (envSlug && envSlug !== 'mainsite' && envSlug !== 'landing')
       return envSlug;
     return 'toptan-ambalajcim'; // Default Dev Shop
   }
 
-  // 4. Subdomain Resolution (Production)
-  const isLocal =
-    hostname === 'localhost' ||
-    hostname === '127.0.0.1' ||
-    hostname === '::1' ||
-    hostname.startsWith('192.168.');
+  // 5. Fallback for custom domains or other hosting platforms
   const parts = hostname.split('.');
-
-  // If it's a real domain (not local) and has no subdomain, it's the landing page
+  
   if (
-    !isLocal &&
-    (parts.length <= 2 ||
-      (parts.length === 3 && (parts[0] === 'www' || parts[0] === 'landing')))
+    parts.length <= 2 ||
+    (parts.length === 3 && (parts[0] === 'www' || parts[0] === 'landing'))
   ) {
     return 'landing';
   }
 
-  // If it's localhost and we reached here, it means it's the default shop
-  if (isLocal && parts.length === 1) {
-    return 'toptanambalajcim';
+  if (parts.length >= 4 && parts[0] === 'www') {
+    return parts[1];
   }
 
   return parts[0];

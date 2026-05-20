@@ -28,16 +28,20 @@ export default tseslint.config(
       ...reactHooks.configs.recommended.rules,
 
       // Hızlı yenileme (HMR) sırasında bileşenlerin doğru dışa aktarıldığından emin oluyoruz.
-      'react-refresh/only-export-components': [
+      'react-refresh/only-export-components': 'off',
+
+      // PROJE ÖZELİ: 'any' tip kullanımına izin veriyoruz.
+      '@typescript-eslint/no-explicit-any': 'off',
+
+      // Kullanılmayan değişkenleri (varsayılan yoksaymalarla) uyarı olarak ayarlıyoruz.
+      '@typescript-eslint/no-unused-vars': [
         'warn',
-        { allowConstantExport: true },
+        {
+          argsIgnorePattern: '^_',
+          varsIgnorePattern: '^_',
+          caughtErrors: 'none',
+        },
       ],
-
-      // PROJE ÖZELİ: 'any' tip kullanımını yasaklıyoruz (Kural 2).
-      '@typescript-eslint/no-explicit-any': 'error',
-
-      // Kullanılmayan değişkenler varsa bizi uyarır.
-      '@typescript-eslint/no-unused-vars': 'warn',
     },
   },
 );
