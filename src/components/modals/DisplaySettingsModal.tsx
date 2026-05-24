@@ -124,6 +124,43 @@ export default function DisplaySettingsModal({
 
   const groups = [
     {
+      id: 'identity',
+      title: 'İşletme Bilgileri',
+      isIdentity: true,
+      options: [
+        {
+          key: 'title',
+          label: 'İşletme adı',
+          value: settings.title,
+          icon: <Lucide.Store size={20} />,
+        },
+        {
+          key: 'subtitle',
+          label: 'Açıklama',
+          value: settings.subtitle,
+          icon: <Lucide.Menu size={20} />,
+        },
+        {
+          key: 'address',
+          label: 'Adres',
+          value: settings.address,
+          icon: <Lucide.MapPin size={20} />,
+        },
+        {
+          key: 'whatsapp',
+          label: 'WhatsApp Hattı',
+          value: settings.whatsapp,
+          icon: <Lucide.Phone size={20} />,
+        },
+        {
+          key: 'instagram',
+          label: 'Instagram',
+          value: settings.instagram?.split('/').pop() || '',
+          icon: <Lucide.Instagram size={20} />,
+        },
+      ],
+    },
+    {
       id: 'floating',
       title: 'YÜZEN MENÜ BİLEŞENLERİ',
       options: [
@@ -239,50 +276,6 @@ export default function DisplaySettingsModal({
         },
       ],
     },
-    {
-      id: 'identity',
-      title: 'MAĞAZA KİMLİĞİ',
-      isIdentity: true,
-      options: [
-        {
-          key: 'logo',
-          label: 'Mağaza Logosu',
-          value: settings.logoUrl ? 'GÖRSEL AYARLANDI' : 'GÖRSEL EKSİK',
-          icon: <Lucide.Camera size={14} />,
-          isLogo: true,
-        },
-        {
-          key: 'title',
-          label: 'Mağaza Adı',
-          value: settings.title,
-          icon: <Lucide.Settings2 size={14} />,
-        },
-        {
-          key: 'subtitle',
-          label: 'Alt Başlık / Slogan',
-          value: settings.subtitle,
-          icon: <Lucide.Tags size={14} />,
-        },
-        {
-          key: 'whatsapp',
-          label: 'WhatsApp Hattı',
-          value: settings.whatsapp,
-          icon: <Lucide.Phone size={14} />,
-        },
-        {
-          key: 'instagram',
-          label: 'Instagram Kullanıcı Adı',
-          value: settings.instagram?.split('/').pop() || '',
-          icon: <Lucide.Camera size={14} />,
-        },
-        {
-          key: 'address',
-          label: 'Mağaza Adresi',
-          value: settings.address,
-          icon: <Lucide.MapPin size={14} />,
-        },
-      ],
-    },
   ];
 
   return (
@@ -324,66 +317,74 @@ export default function DisplaySettingsModal({
             disabled={flow.isUploading}
           />
 
+          {/* IDENTITY HEADER (PHOTO) */}
+          <div className="flex flex-col items-center py-6">
+            <div className="relative group">
+              <div className="w-32 h-32 rounded-full border-4 border-stone-100 shadow-xl overflow-hidden bg-stone-50 flex items-center justify-center">
+                {flow.isUploading ? (
+                  <Loading size="lg" variant="dark" />
+                ) : settings.logoUrl ? (
+                  <img
+                    src={settings.logoUrl}
+                    className="w-full h-full object-cover"
+                    alt="Store Logo"
+                  />
+                ) : (
+                  <Lucide.Store size={48} className="text-stone-300" />
+                )}
+              </div>
+              <Button
+                onClick={() => fileInputRef.current?.click()}
+                variant="primary"
+                mode="rectangle"
+                size="sm"
+                className="absolute -bottom-2 left-1/2 -translate-x-1/2 !rounded-full px-4 border-2 border-white shadow-lg !bg-[#16a34a] hover:!bg-[#15803d]"
+                icon={<Lucide.Camera size={16} className="text-white" />}
+              >
+                <span className="text-[10px] font-bold text-white normal-case">Düzenle</span>
+              </Button>
+            </div>
+          </div>
+
           {groups.map((group) => (
-            <div key={group.id} className="grid grid-cols-2 gap-x-2 gap-y-2">
-              <div className="col-span-2 px-1 flex items-baseline gap-2 mt-2 mb-1 pl-4 border-l-2 border-stone-900">
-                <h5 className="text-[10px] font-black text-stone-900 uppercase tracking-[0.2em]">
+            <div key={group.id} className="flex flex-col gap-3">
+              <div className="px-1 flex items-baseline gap-2 mt-4 mb-2 pl-2">
+                <h5 className={`font-black text-stone-900 ${group.isIdentity ? 'text-lg font-serif italic' : 'text-[10px] uppercase tracking-[0.2em]'}`}>
                   {group.title}
                 </h5>
               </div>
-              {group.options.map((option: any) =>
-                group.isIdentity ? (
-                  <div
-                    key={option.key}
-                    onClick={() =>
-                      flow.handleIdentityClick(option, fileInputRef)
-                    }
-                    className="col-span-2 flex items-center justify-between p-3 rounded-2xl border border-stone-100 bg-white text-stone-900 shadow-sm hover:border-stone-900 cursor-pointer transition-all group h-12"
-                  >
-                    <div className="flex items-center gap-2 overflow-hidden flex-1">
-                      <div className="w-6 h-6 flex items-center justify-center text-stone-400 group-hover:text-stone-900 transition-colors">
-                        {flow.isUploading && option.isLogo ? (
-                          <Loading size="sm" variant="dark" />
-                        ) : (
-                          option.icon
-                        )}
+              <div className={group.isIdentity ? 'flex flex-col gap-6 px-2' : 'grid grid-cols-2 gap-2'}>
+                {group.options.map((option: any) =>
+                  group.isIdentity ? (
+                    <div
+                      key={option.key}
+                      onClick={() =>
+                        flow.handleIdentityClick(option, fileInputRef)
+                      }
+                      className="flex items-start gap-4 group cursor-pointer"
+                    >
+                      <div className="mt-5 text-stone-400 group-hover:text-stone-900 transition-colors shrink-0">
+                        {option.icon}
                       </div>
-                      <div className="flex flex-col overflow-hidden">
-                        <span className="text-[8px] font-black uppercase text-stone-400 leading-none mb-0.5">
+                      <div className="flex-1 flex flex-col gap-1 relative">
+                        <label className="text-[10px] font-bold text-stone-400 absolute -top-2 left-3 bg-white px-1 z-10">
                           {option.label}
-                        </span>
-                        <div className="flex items-center gap-2">
-                          {option.isLogo &&
-                            settings.logoUrl &&
-                            !flow.isUploading && (
-                              <img
-                                src={settings.logoUrl}
-                                className="w-4 h-4 object-contain rounded-sm bg-stone-50"
-                                alt="Mini Logo"
-                              />
-                            )}
-                          <span className="text-[10px] font-bold truncate">
-                            {flow.isUploading && option.isLogo
-                              ? 'YÜKLENİYOR...'
-                              : option.value || 'Girilmemiş'}
-                          </span>
+                        </label>
+                        <div className="w-full min-h-[44px] px-3 py-3 border border-stone-200 rounded-xl bg-stone-50/30 group-hover:border-stone-900 transition-all text-[12px] font-medium text-stone-900 flex items-center">
+                          {option.value || <span className="text-stone-300 italic">Belirtilmemiş...</span>}
                         </div>
                       </div>
                     </div>
-                    <Lucide.ChevronRight
-                      size={14}
-                      className="text-stone-300 group-hover:text-stone-900"
+                  ) : (
+                    <SettingCard
+                      key={option.key}
+                      option={option as any}
+                      onHelpTrigger={flow.setHelpId}
+                      isHiddenHelp={flow.hiddenHelpIds.includes(option.key)}
                     />
-                  </div>
-                ) : (
-                  <SettingCard
-                    key={option.key}
-                    option={option as any}
-                    onHelpTrigger={flow.setHelpId}
-                    isHiddenHelp={flow.hiddenHelpIds.includes(option.key)}
-                  />
-                ),
-              )}
+                  ),
+                )}
+              </div>
             </div>
           ))}
         </div>
