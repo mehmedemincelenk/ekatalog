@@ -150,7 +150,9 @@ export default function CatalogPage() {
           className="flex-1 overflow-y-auto overflow-x-hidden no-scrollbar scroll-smooth relative z-10"
         >
           <main className="bg-stone-50">
-            <HeroCarousel isAdminModeActive={isAdmin} />
+            {storeSettings?.displayConfig?.showCarousel !== false && (
+              <HeroCarousel isAdminModeActive={isAdmin} />
+            )}
             <SearchFilter
               sortedList={sortedList}
               stats={stats}

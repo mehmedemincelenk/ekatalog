@@ -1,4 +1,3 @@
-import React from 'react';
 import * as Lucide from 'lucide-react';
 
 export default function StorefrontClosedView() {

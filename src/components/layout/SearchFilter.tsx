@@ -112,7 +112,7 @@ const SearchFilter = memo(
 
     return (
       <div
-        className={`w-full bg-stone-50 border-b border-stone-200 py-2 relative z-40 ${!showAll ? 'opacity-50 grayscale' : ''}`}
+        className={`w-full bg-stone-50 py-2 relative z-40 ${!showAll ? 'opacity-50 grayscale' : ''}`}
       >
         <div className={`${filterTheme.container} !flex-col !items-stretch`}>
           {/* TOP BAR: Search & Interaction */}

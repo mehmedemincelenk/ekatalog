@@ -46,7 +46,6 @@ interface BaseFloatingMenuProps {
 export default function BaseFloatingMenu({
   actions,
   autoCloseDelay = 5000,
-  mainIcon,
   activeMainIcon,
 }: BaseFloatingMenuProps) {
   const [isExpanded, setIsExpanded] = useState(false);
