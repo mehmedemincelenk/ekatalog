@@ -143,11 +143,11 @@ const SearchFilter = memo(
                 <Button
                   onClick={() => flow.setIsPanelOpen(!flow.isPanelOpen)}
                   variant="glass"
-                  mode="rectangle"
-                  className="h-11 px-4 flex-none !text-[10px] !rounded-lg !bg-stone-900/60 backdrop-blur-md border-white/20 text-white shadow-xl hover:!bg-stone-900/80 transition-all"
-                >
-                  {LABELS.filter.categoryBtn}
-                </Button>
+                  mode="square"
+                  className="h-11 w-11 flex-none !rounded-lg !bg-stone-900/60 backdrop-blur-md border-white/20 text-white shadow-xl hover:!bg-stone-900/80 transition-all !p-0"
+                  icon={<Lucide.LayoutGrid size={20} strokeWidth={2.5} />}
+                  aria-label={LABELS.filter.categoryBtn}
+                />
               </div>
             )}
           </div>

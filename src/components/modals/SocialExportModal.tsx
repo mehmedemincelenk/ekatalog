@@ -44,7 +44,7 @@ export default function SocialExportModal({
       title="İNDİR-PAYLAŞ"
       maxWidth="max-w-md"
     >
-      <div className="flex flex-row items-center justify-center gap-4 sm:gap-8 py-6 px-4">
+      <div className="flex flex-row items-center justify-center gap-4 py-6 px-4">
         {/* LEFT: PHONE MOCKUP (SCALED DOWN TO FIT) */}
         <div className="relative shrink-0">
           <div className="w-[162px] h-[288px] rounded-[2rem] shadow-[0_20px_50px_-10px_rgba(0,0,0,0.3)] overflow-hidden border-[6px] border-stone-950 relative bg-stone-50">
@@ -81,7 +81,7 @@ export default function SocialExportModal({
                 className={isExporting ? 'animate-spin' : ''}
               />
             }
-            className="!w-16 !h-16 sm:!w-20 sm:!h-20 !rounded-2xl !bg-stone-900 hover:!bg-black !text-white shadow-xl"
+            className="!w-16 !h-16 !rounded-2xl !bg-stone-900 hover:!bg-black !text-white shadow-xl"
           />
 
           <Button
@@ -89,7 +89,7 @@ export default function SocialExportModal({
             onClick={handleDownload}
             loading={isExporting}
             icon={<Lucide.Download size={24} />}
-            className="!w-16 !h-16 sm:!w-20 sm:!h-20 !rounded-2xl shadow-lg border-2 border-stone-200 !bg-white !text-stone-900"
+            className="!w-16 !h-16 !rounded-2xl shadow-lg border-2 border-stone-200 !bg-white !text-stone-900"
           />
         </div>
       </div>

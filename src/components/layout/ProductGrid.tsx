@@ -87,7 +87,7 @@ const ProductGrid = memo(
               />
 
               {categoryProducts.length > 0 || isAdmin ? (
-                <div className="grid grid-cols-2 gap-x-3 gap-y-6">
+                <div className={`${theme.cols} ${theme.gap}`}>
                   {categoryProducts.map((product, index) => {
                     const isPriority = priorityCounter < 4;
                     priorityCounter++;

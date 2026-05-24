@@ -64,12 +64,17 @@ export function useAdminMode() {
         'verify_admin_access',
         {
           target_slug: STORE_SLUG,
-          input_pin: pin,
+          p_pin: pin,
         },
       );
 
       if (error) {
-        console.error('❌ PIN doğrulama hatası:', error);
+        console.error('❌ PIN doğrulama hatası (Detaylı):', {
+          message: error.message,
+          details: error.details,
+          hint: error.hint,
+          code: error.code
+        });
         return false;
       }
 

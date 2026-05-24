@@ -307,8 +307,8 @@ export const THEME = {
       line: 'flex-1 h-px bg-stone-200',
       count: `${FS.xs} font-bold text-stone-400`,
     },
-    cols: 'grid grid-cols-3',
-    gap: 'gap-x-2 gap-y-2',
+    cols: 'grid grid-cols-2',
+    gap: 'gap-4',
     emptyState: {
       wrapper: 'flex flex-col items-center justify-center py-20 text-stone-400',
       iconSize: 'w-16 h-16 mb-4 opacity-20',
@@ -345,8 +345,8 @@ export const THEME = {
     outOfStockBorder:
       'border-transparent bg-stone-50/50 grayscale-[0.8] opacity-70',
     shadow: 'hover:shadow-2xl hover:-translate-y-1',
-    padding: 'px-2 pt-2 pb-1',
-    gap: 'gap-1',
+    padding: 'px-3 pt-3 pb-3',
+    gap: 'gap-1.5',
     innerLayout: {
       contentWrapper: 'flex flex-col gap-1',
       descriptionWrapper: 'relative min-h-[24px]',

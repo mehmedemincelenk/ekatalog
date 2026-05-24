@@ -88,12 +88,12 @@ export default function Button({
   const hasDescriptionOrSelected = !!description || selected !== undefined;
   const isVertical = layout === 'vertical';
   const customStyles = hasDescriptionOrSelected
-    ? `!flex border-2 text-left w-full justify-start ${isVertical ? 'flex-col items-center p-8 rounded-[3rem] text-center' : 'items-center gap-5 p-6'} ${selected ? 'bg-stone-900 border-stone-900 text-white shadow-2xl scale-[1.02] z-10' : 'bg-stone-50 border-stone-100 text-stone-600 hover:border-stone-300 hover:bg-white'}`
+    ? `!flex border-2 text-left w-full justify-start ${isVertical ? 'flex-col items-center p-8 rounded-3xl text-center' : 'items-center gap-5 p-6'} ${selected ? 'bg-stone-900 border-stone-900 text-white shadow-2xl scale-[1.02] z-10' : 'bg-stone-50 border-stone-100 text-stone-600 hover:border-stone-300 hover:bg-white'}`
     : '';
   const roundedMode =
     mode === 'rectangle'
       ? hasDescriptionOrSelected
-        ? 'rounded-[2.5rem]'
+        ? 'rounded-3xl'
         : 'rounded-2xl'
       : MODE_CLASSES[mode as keyof typeof MODE_CLASSES] || '';
   return (

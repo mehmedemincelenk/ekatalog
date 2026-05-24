@@ -68,7 +68,7 @@ export default function BaseModal({
           className={
             isStatic
               ? 'relative z-0'
-              : `fixed inset-0 z-[200] flex ${position === 'bottom-right' ? 'items-end justify-end p-4' : 'items-start sm:items-center justify-center p-4 pt-16 sm:pt-4'} print:p-0 print:block print:relative print:z-auto`
+              : `fixed inset-0 z-[200] flex ${position === 'bottom-right' ? 'items-end justify-end p-4' : 'items-center justify-center p-4'} print:p-0 print:block print:relative print:z-auto`
           }
         >
           {/* BACKDROP */}

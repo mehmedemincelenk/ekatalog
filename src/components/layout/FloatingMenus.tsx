@@ -125,8 +125,7 @@ export function FloatingGuestMenu({
       id: 'coupon',
       icon: <Lucide.Ticket className="w-5 h-5" strokeWidth={2.5} />,
       action: onCouponClick,
-      label: 'İNDİRİM KODU',
-      variant: 'secondary',
+      label: '',
     },
     {
       id: 'location',
