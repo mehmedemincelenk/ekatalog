@@ -64,7 +64,7 @@ export function useAdminMode() {
         'verify_admin_access',
         {
           target_slug: STORE_SLUG,
-          p_pin: pin,
+          input_pin: pin,
         },
       );
 
