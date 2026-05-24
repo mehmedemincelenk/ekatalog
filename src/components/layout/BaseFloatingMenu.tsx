@@ -1,8 +1,7 @@
-import React, { useState, useEffect, useRef, useCallback, ReactNode } from 'react';
+import { useState, useEffect, useRef, useCallback, ReactNode } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Button from '../ui/Button';
 import { MarqueeText } from '../ui/MarqueeText';
-import * as Lucide from 'lucide-react';
 
 /**
  * BASE FLOATING MENU (DIAMOND FRAME)
@@ -46,18 +45,7 @@ interface BaseFloatingMenuProps {
 export default function BaseFloatingMenu({
   actions,
   autoCloseDelay = 5000,
-  mainIcon = <Lucide.LayoutGrid className="w-full h-full p-0.5" strokeWidth={3} />,
-  activeMainIcon = <Lucide.X className="w-full h-full p-0.5" strokeWidth={3} />,
-  labelText = 'MENÜ',
 }: BaseFloatingMenuProps) {
-  // Override icon strokeWidth to 3 (max bold) dynamically for layoutGrid and custom icons
-  const renderedMainIcon = React.isValidElement(mainIcon)
-    ? React.cloneElement(mainIcon as React.ReactElement<any>, { strokeWidth: 3 })
-    : mainIcon;
-
-  const renderedActiveMainIcon = React.isValidElement(activeMainIcon)
-    ? React.cloneElement(activeMainIcon as React.ReactElement<any>, { strokeWidth: 3 })
-    : activeMainIcon;
   const [isExpanded, setIsExpanded] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
@@ -231,24 +219,15 @@ export default function BaseFloatingMenu({
             size="sm"
             mode="rectangle"
             className={`
-              hover:scale-[1.02] active:scale-95 transition-all h-12 w-full shadow-lg !rounded-lg relative overflow-hidden backdrop-blur-md
+              hover:scale-[1.02] active:scale-95 transition-all h-9 w-full shadow-lg !rounded-lg relative overflow-hidden backdrop-blur-md
               ${
                 isExpanded
-                  ? '!bg-white !text-stone-900 border-white/20'
-                  : '!bg-stone-900/60 !text-white border-white/10'
+                  ? '!bg-white border-white/20'
+                  : '!bg-stone-900/60 border-white/10'
               }
             `}
             aria-label={isExpanded ? 'Menüyü Kapat' : 'Menüyü Aç'}
-          >
-            <div className="flex flex-row items-center justify-center gap-2.5 w-full h-full px-1">
-              <span className="text-[11px] font-black uppercase tracking-tight leading-none">
-                {labelText}
-              </span>
-              <div className="w-4 h-4 flex items-center justify-center shrink-0">
-                {isExpanded ? renderedActiveMainIcon : renderedMainIcon}
-              </div>
-            </div>
-          </Button>
+          />
         </div>
       </div>
     </div>
