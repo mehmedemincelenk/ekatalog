@@ -37,8 +37,8 @@ INSERT INTO public.stores (
     {"id": 2, "src": "https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=1600&auto=format&fit=crop&q=80", "bg": "from-stone-900/60 to-black/80", "label": "EŞSİZ BUTİK TATLILAR", "sub": "Her sabah şefimiz tarafından taze hazırlanan artizan tatlılarımız ve makaronlarımızla gününüzü tatlandırın."}
   ]}',
   '[]',
-  '{"showLogo": true, "showSearch": true, "showAddress": true, "showInstagram": true, "showWhatsapp": true, "showSubtitle": true, "showReferences": false, "showPrice": true, "showCarousel": true, "showCoupons": true, "showPriceList": true, "showCurrency": true, "showCategories": true}',
-  '{"text": "☕ İLK SİPARİŞTE %15 İNDİRİM FIRSATI! KUPON KODU: VIBE15", "enabled": true}',
+  '{"showLogo": true, "showSearch": true, "showAddress": true, "showInstagram": true, "showWhatsapp": true, "showSubtitle": true, "showReferences": false, "showPrice": true, "showCarousel": false, "showCoupons": true, "showPriceList": true, "showCurrency": true, "showCategories": true}',
+  '{"text": "☕ İLK SİPARİŞTE %15 İNDİRİM FIRSATI! KUPON KODU: VIBE15", "enabled": false}',
   '{"enabled": false, "message": "Güncelleme yapılıyor."}',
   '{"usd": 32.5, "eur": 35.2}'
 ) ON CONFLICT (slug) DO NOTHING;
