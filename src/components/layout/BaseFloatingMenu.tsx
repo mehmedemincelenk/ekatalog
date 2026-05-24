@@ -164,7 +164,7 @@ export default function BaseFloatingMenu({
                           size="sm"
                           mode="rectangle"
                           className={`
-                          shrink-0 !rounded-lg ${btn.className || ''} w-full !justify-start px-2 gap-2 h-[40px] transition-all !text-white backdrop-blur-md !shadow-none
+                          shrink-0 !rounded-lg ${btn.className || ''} w-full !justify-center px-1 gap-2 h-[40px] transition-all !text-white backdrop-blur-md !shadow-none
                           ${
                             !btn.variant || btn.variant === 'secondary'
                               ? '!bg-white/10 !border-white/10 hover:!bg-white/20'
@@ -172,10 +172,10 @@ export default function BaseFloatingMenu({
                           }
                         `}
                         >
-                          <div className="flex-1 min-w-0 overflow-hidden text-left">
+                          <div className="flex-1 min-w-0 text-center px-1">
                             <MarqueeText
                               text={btn.label}
-                              textClass="text-[8px] font-black uppercase tracking-tighter text-white"
+                              textClass="text-[11px] font-black uppercase tracking-normal text-white"
                               isAdmin={false}
                             />
                           </div>

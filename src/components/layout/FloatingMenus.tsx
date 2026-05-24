@@ -26,49 +26,11 @@ export function FloatingAdminMenu({
   };
 
   const adminActions: FloatingAction[] = [
-    ...(onBulkUpdateTrigger
-      ? [
-          {
-            id: 'bulk',
-            icon: (
-              <div className="w-6 h-6 flex items-center justify-center text-stone-900">
-                {globalIcons.bulkPrice}
-              </div>
-            ),
-            action: onBulkUpdateTrigger,
-            label: 'TOPLU İŞLEM',
-            className:
-              '!bg-stone-100/90 !text-stone-900 border border-white/20 w-full !col-span-2 !rounded-lg mb-1 backdrop-blur-md',
-            primary: true,
-          },
-        ]
-      : []),
-    {
-      id: 'add',
-      icon: (
-        <div className="w-6 h-6 flex items-center justify-center">
-          {globalIcons.plus}
-        </div>
-      ),
-      action: onProductAddTrigger,
-      label: '',
-      primary: true,
-    },
-    {
-      id: 'social',
-      icon: (
-        <div className="w-6 h-6 flex items-center justify-center">
-          <Lucide.Image size={24} />
-        </div>
-      ),
-      action: () => useStore.getState().openModal('SOCIAL_EXPORT'),
-      label: '',
-    },
     {
       id: 'currency',
       icon: (
         <div className="w-full h-full flex items-center justify-center">
-          <span className="text-[20px] font-medium leading-none">
+          <span className="text-[20px] font-bold leading-none">
             {activeCurrency === 'TRY'
               ? '₺'
               : activeCurrency === 'USD'
@@ -82,14 +44,36 @@ export function FloatingAdminMenu({
       closeOnClick: false,
     },
     {
-      id: 'settings',
+      id: 'add',
       icon: (
-        <div className="w-6 h-6 flex items-center justify-center">
-          {globalIcons.settings}
+        <div className="w-7 h-7 flex items-center justify-center">
+          {globalIcons.plus}
         </div>
       ),
-      action: onSettingsTrigger,
+      action: onProductAddTrigger,
       label: '',
+      primary: true,
+    },
+    {
+      id: 'bulk',
+      icon: null,
+      action: onBulkUpdateTrigger || (() => {}),
+      label: 'İŞLEMLER',
+      className: '!col-span-2 !w-full !rounded-xl !bg-stone-100 !text-stone-900 border-none my-0.5',
+    },
+    {
+      id: 'social',
+      icon: null,
+      action: () => useStore.getState().openModal('SOCIAL_EXPORT'),
+      label: 'TASARIM',
+      className: '!col-span-2 !w-full !rounded-xl !bg-stone-800/50 !text-white border border-white/10 my-0.5',
+    },
+    {
+      id: 'settings',
+      icon: null,
+      action: onSettingsTrigger,
+      label: 'AYARLAR',
+      className: '!col-span-2 !w-full !rounded-xl !bg-stone-800/50 !text-white border border-white/10 my-0.5',
     },
   ];
 
