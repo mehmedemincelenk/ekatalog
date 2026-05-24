@@ -140,6 +140,9 @@ export interface CompanySettings {
   activeCurrency: 'TRY' | 'USD' | 'EUR';
   photoroomApiKey?: string;
   slug?: string;
+  subscription_tier?: 'free' | 'pro';
+  subscription_expires_at?: string | null;
+  created_at?: string;
 }
 
 /**

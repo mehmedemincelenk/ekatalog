@@ -209,7 +209,7 @@ export default function BaseFloatingMenu({
         </AnimatePresence>
 
         {/* MASTER TOGGLE */}
-        <div className="w-full p-0.5">
+        <div className="w-full p-0.5 flex">
           <Button
             onClick={() => {
               clearTimer();

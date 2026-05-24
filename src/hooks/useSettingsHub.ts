@@ -140,6 +140,9 @@ export function useSettingsQuery() {
         },
         announcementBar: raw.announcement_bar || { enabled: false, text: '' },
         visitor_leads: raw.visitor_leads || [],
+        subscription_tier: raw.subscription_tier || 'free',
+        subscription_expires_at: raw.subscription_expires_at,
+        created_at: raw.created_at,
       };
 
       return settings;

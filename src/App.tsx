@@ -3,6 +3,7 @@
 // CONSUMED BY: main.tsx
 import { useStore } from './store';
 import { getActiveStoreSlug } from './utils/core';
+import { useSaaSLifecycle } from './hooks/useSaaSLifecycle';
 
 // PAGES
 import LandingPage from './pages/LandingPage';
@@ -10,6 +11,8 @@ import CatalogPage from './pages/CatalogPage';
 
 // COMPONENTS
 import StatusOverlay from './components/ui/StatusOverlay';
+import GlobalAdminLockModal from './components/modals/GlobalAdminLockModal';
+import StorefrontClosedView from './components/layout/StorefrontClosedView';
 
 /**
  * GLOBAL FEEDBACK OVERLAY (Connected)
@@ -39,6 +42,8 @@ function GlobalFeedbackOverlay() {
  */
 export default function App() {
   const currentSlug = getActiveStoreSlug();
+  const isAdmin = useStore((state) => state.isAdmin);
+  const { isStorefrontClosed, isAdminLocked, daysLeft, isSubscriptionExpired } = useSaaSLifecycle();
 
   // Eğer ana site (Landing) isteniyorsa
   if (currentSlug === 'main-site' || currentSlug === 'landing') {
@@ -50,9 +55,18 @@ export default function App() {
     );
   }
 
+  // 1. Ziyaretçi Vitrini Kapalıysa (Hard Expiry)
+  if (isStorefrontClosed) {
+    return <StorefrontClosedView />;
+  }
+
   // Aksi halde Katalog sayfasını yükle
   return (
     <>
+      {/* 2. Admin Tolerans Süresindeyse Kilit Modalı Bas */}
+      {isAdminLocked && isAdmin && (
+        <GlobalAdminLockModal daysLeft={daysLeft} isSubscriptionExpired={isSubscriptionExpired} />
+      )}
       <CatalogPage />
       <GlobalFeedbackOverlay />
     </>
