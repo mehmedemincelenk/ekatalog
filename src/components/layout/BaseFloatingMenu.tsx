@@ -216,29 +216,23 @@ export default function BaseFloatingMenu({
         </AnimatePresence>
 
         {/* MASTER TOGGLE */}
-        <div className="w-full">
-          <Button
+        <div className="w-full flex">
+          <button
             onClick={() => {
               clearTimer();
               setIsExpanded((prev) => !prev);
             }}
-            variant="secondary"
-            size="sm"
-            mode="rectangle"
             style={{
               width: '100px',
-              height: '32px',
+              height: '20px',
             }}
-            className="hover:scale-[1.02] active:scale-95 transition-all relative overflow-hidden flex items-center justify-center !bg-white border border-white/20 shadow-lg backdrop-blur-md !p-0 !rounded-[2px]"
+            className="hover:scale-[1.02] active:scale-95 transition-all relative overflow-hidden flex items-center justify-center bg-white border border-white/20 shadow-lg backdrop-blur-md p-0 rounded-[2px] cursor-pointer outline-none select-none"
             aria-label={isExpanded ? 'Menüyü Kapat' : 'Menüyü Aç'}
-            icon={
-              isExpanded ? (
-                activeMainIcon || <Lucide.X size={14} className="text-stone-900" />
-              ) : (
-                mainIcon || <Lucide.Menu size={14} className="text-stone-900" />
-              )
-            }
-          />
+          >
+            {isExpanded ? (
+              activeMainIcon || <Lucide.X size={10} className="text-stone-900 animate-in spin-in duration-200" />
+            ) : null}
+          </button>
         </div>
       </div>
     </div>
