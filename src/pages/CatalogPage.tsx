@@ -214,7 +214,7 @@ export default function CatalogPage() {
 
       {!isAdmin && (
         <div className="fixed inset-0 pointer-events-none z-[400] print:hidden">
-          <div className="absolute bottom-6 right-4 pointer-events-auto">
+          <div className="absolute bottom-3 right-4 pointer-events-auto">
             <FloatingGuestMenu
               onCouponClick={() => openModal('COUPON')}
               onExcelClick={() => openModal('PRICE_LIST')}
@@ -249,7 +249,7 @@ export default function CatalogPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 20 }}
-              className="absolute bottom-6 right-4 pointer-events-auto"
+              className="absolute bottom-3 right-4 pointer-events-auto"
             >
               <FloatingAdminMenu
                 onProductAddTrigger={() => openModal('GLOBAL_ADD_MENU')}
