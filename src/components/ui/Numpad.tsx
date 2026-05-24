@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Delete, Check } from 'lucide-react';
+import * as Lucide from 'lucide-react';
 import Button from './Button';
 
 interface NumpadProps {
@@ -40,7 +40,7 @@ export default function Numpad({
                 ? 'text-stone-500 hover:text-white'
                 : '!text-stone-400 hover:!text-stone-900'
             }
-            icon={<Delete size={20} />}
+            icon={<Lucide.Delete size={20} />}
           />
         )}
       </div>
@@ -72,7 +72,7 @@ export default function Numpad({
           showFingerprint
           disabled={value.length < 10}
           className={`!w-full !h-16 ${value.length < 10 ? 'opacity-50' : 'hover:scale-105 active:scale-95'}`}
-          icon={<Check size={24} strokeWidth={3} />}
+          icon={<Lucide.Check size={24} strokeWidth={3} />}
         />
       </div>
     </div>

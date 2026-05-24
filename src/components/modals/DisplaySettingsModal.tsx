@@ -156,7 +156,13 @@ export default function DisplaySettingsModal({
           key: 'instagram',
           label: 'Instagram',
           value: settings.instagram?.split('/').pop() || '',
-          icon: <Lucide.Instagram size={20} />,
+          icon: (
+            <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+            </svg>
+          ),
         },
       ],
     },
@@ -320,7 +326,7 @@ export default function DisplaySettingsModal({
           {/* IDENTITY HEADER (PHOTO) */}
           <div className="flex flex-col items-center py-6">
             <div className="relative group">
-              <div className="w-32 h-32 rounded-full border-4 border-stone-100 shadow-xl overflow-hidden bg-stone-50 flex items-center justify-center">
+              <div className="w-32 h-32 rounded-3xl border-4 border-stone-100 shadow-xl overflow-hidden bg-stone-50 flex items-center justify-center">
                 {flow.isUploading ? (
                   <Loading size="lg" variant="dark" />
                 ) : settings.logoUrl ? (
@@ -335,10 +341,10 @@ export default function DisplaySettingsModal({
               </div>
               <Button
                 onClick={() => fileInputRef.current?.click()}
-                variant="primary"
+                variant="action"
                 mode="rectangle"
                 size="sm"
-                className="absolute -bottom-2 left-1/2 -translate-x-1/2 !rounded-full px-4 border-2 border-white shadow-lg !bg-[#16a34a] hover:!bg-[#15803d]"
+                className="absolute -bottom-2 left-1/2 -translate-x-1/2 !rounded-full px-4 border-2 border-white shadow-lg"
                 icon={<Lucide.Camera size={16} className="text-white" />}
               >
                 <span className="text-[10px] font-bold text-white normal-case">Düzenle</span>

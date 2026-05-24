@@ -1,5 +1,5 @@
 import React from 'react';
-import { Check } from 'lucide-react';
+import * as Lucide from 'lucide-react';
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   icon?: React.ReactNode;
@@ -109,7 +109,7 @@ export default function Button({
       )}
       {selected && (
         <div className="absolute top-4 right-4 w-6 h-6 bg-white rounded-full flex items-center justify-center shadow-lg animate-in zoom-in duration-300">
-          <Check size={14} className="text-stone-900" strokeWidth={3} />
+          <Lucide.Check size={14} className="text-stone-900" strokeWidth={3} />
         </div>
       )}
       {badge && (

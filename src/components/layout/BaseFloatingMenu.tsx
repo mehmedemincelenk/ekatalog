@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef, useCallback, ReactNode } from 'reac
 import { motion, AnimatePresence } from 'framer-motion';
 import Button from '../ui/Button';
 import { MarqueeText } from '../ui/MarqueeText';
-import { X, LayoutGrid } from 'lucide-react';
+import * as Lucide from 'lucide-react';
 
 /**
  * BASE FLOATING MENU (DIAMOND FRAME)
@@ -46,8 +46,8 @@ interface BaseFloatingMenuProps {
 export default function BaseFloatingMenu({
   actions,
   autoCloseDelay = 5000,
-  mainIcon = <LayoutGrid className="w-full h-full p-0.5" strokeWidth={3} />,
-  activeMainIcon = <X className="w-full h-full p-0.5" strokeWidth={3} />,
+  mainIcon = <Lucide.LayoutGrid className="w-full h-full p-0.5" strokeWidth={3} />,
+  activeMainIcon = <Lucide.X className="w-full h-full p-0.5" strokeWidth={3} />,
   labelText = 'MENÜ',
 }: BaseFloatingMenuProps) {
   // Override icon strokeWidth to 3 (max bold) dynamically for layoutGrid and custom icons
@@ -115,7 +115,7 @@ export default function BaseFloatingMenu({
     >
       <div
         className={`
-          flex flex-col items-center p-1 pb-0 rounded-2xl transition-all duration-300 ease-in-out overflow-hidden w-[110px]
+          flex flex-col items-center p-1 rounded-2xl transition-all duration-300 ease-in-out overflow-hidden w-[110px]
           bg-stone-900/60 backdrop-blur-xl border border-white/20 shadow-[0_20px_50px_rgba(0,0,0,0.3)]
         `}
       >
@@ -239,7 +239,16 @@ export default function BaseFloatingMenu({
               }
             `}
             aria-label={isExpanded ? 'Menüyü Kapat' : 'Menüyü Aç'}
-          />
+          >
+            <div className="flex flex-row items-center justify-center gap-2.5 w-full h-full px-1">
+              <span className="text-[11px] font-black uppercase tracking-tight leading-none">
+                {labelText}
+              </span>
+              <div className="w-4 h-4 flex items-center justify-center shrink-0">
+                {isExpanded ? renderedActiveMainIcon : renderedMainIcon}
+              </div>
+            </div>
+          </Button>
         </div>
       </div>
     </div>
