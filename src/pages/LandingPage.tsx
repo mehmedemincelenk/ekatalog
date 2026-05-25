@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import * as Lucide from 'lucide-react';
 import Button from '../components/ui/Button';
 import { THEME } from '../data/config';
 import { useResponsiveShadow } from '../hooks/useCommon';
@@ -64,20 +63,6 @@ export default function LandingPage() {
           <p className="max-w-2xl mx-auto text-lg text-stone-500 font-medium leading-relaxed">
             değişen fiyatların angaryasına son.
           </p>
-
-          <div className="flex justify-center pt-2">
-            <Button
-              variant="primary"
-              mode="rectangle"
-              size="lg"
-              className="group !rounded-full !px-8 !py-4"
-            >
-              <span className="font-black tracking-tight text-xl">
-                ekatalogunu kur
-              </span>
-              <Lucide.ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
-            </Button>
-          </div>
 
           <div className="pt-4 flex justify-center relative">
             <div className="max-w-[280px] rounded-2xl overflow-hidden shadow-2xl border-4 border-green-600 bg-white ring-8 ring-green-600/5 relative">
