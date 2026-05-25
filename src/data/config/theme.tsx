@@ -214,11 +214,11 @@ export const THEME = {
   },
 
   heroCarousel: {
-    layout: `relative w-full group/carousel overflow-hidden ${BR.md} aspect-[16/9]`,
+    layout: `relative w-full group/carousel overflow-hidden ${BR.md}`,
     container: 'max-w-7xl mx-auto px-4 mt-6',
     slide: {
-      base: 'absolute inset-0 transition-opacity duration-700 ease-in-out',
-      image: 'absolute inset-0 w-full h-full object-cover',
+      base: 'transition-opacity duration-700 ease-in-out',
+      image: 'w-full h-auto object-cover',
       placeholderBg: 'bg-stone-200',
       overlay:
         'absolute inset-0 z-30 flex items-center justify-center bg-black/10',

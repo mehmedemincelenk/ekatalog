@@ -31,6 +31,7 @@ export function useDisplaySettingsFlow(
     key: string;
     value: string;
     title: string;
+    maxLength?: number;
   } | null>(null);
 
   // FIX: Anti-Pattern Removed. Using useEffect instead of render-phase mutation.
@@ -142,21 +143,55 @@ export function useDisplaySettingsFlow(
       key: option.key,
       value: option.value,
       title: option.label,
+      maxLength: option.key === 'subtitle' ? 35 : undefined,
     });
   };
 
-  const handleQuickSave = (newVal: string) => {
+  const handleQuickSave = async (newVal: string) => {
     if (!quickEdit) return;
-    if (quickEdit.key === 'instagram') {
-      const sanitized = newVal.trim().replace(/^@/, '');
-      updateSetting(
-        'instagram',
-        sanitized ? `https://www.instagram.com/${sanitized}` : '',
-      );
-    } else {
-      updateSetting(quickEdit.key as any, newVal);
+    try {
+      if (quickEdit.key === 'slug') {
+        const sanitized = newVal.trim().toLowerCase().replace(/[^a-z0-9-_]/g, '');
+        if (!sanitized) {
+          showFeedback('error', 'Geçersiz dükkan linki');
+          return;
+        }
+        if (sanitized === settings?.slug) {
+          setQuickEdit(null);
+          return;
+        }
+
+        const confirmChange = window.confirm(
+          `Dükkan linkiniz "${sanitized}" olarak güncellenecektir. Yeni adrese otomatik olarak yönlendirileceksiniz. Onaylıyor musunuz?`
+        );
+        if (!confirmChange) return;
+
+        await updateSetting('slug', sanitized);
+        showFeedback('success', 'Dükkan adresi başarıyla güncellendi!');
+        
+        setTimeout(() => {
+          window.location.replace('/' + sanitized);
+        }, 1200);
+      } else if (quickEdit.key === 'instagram') {
+        const sanitized = newVal.trim().replace(/^@/, '');
+        await updateSetting(
+          'instagram',
+          sanitized ? `https://www.instagram.com/${sanitized}` : '',
+        );
+      } else if (quickEdit.key === 'subtitle') {
+        await updateSetting('subtitle', newVal.slice(0, 35));
+      } else {
+        await updateSetting(quickEdit.key as any, newVal);
+      }
+      setQuickEdit(null);
+    } catch (err: any) {
+      console.error(err);
+      if (err.message?.includes('duplicate key') || err.message?.includes('stores_slug_key')) {
+        showFeedback('error', 'Bu dükkan adresi zaten başka bir işletme tarafından kullanılıyor!');
+      } else {
+        showFeedback('error', 'Güncelleme sırasında bir hata oluştu');
+      }
     }
-    setQuickEdit(null);
   };
 
   return {

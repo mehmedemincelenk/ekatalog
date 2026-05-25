@@ -105,7 +105,7 @@ export default function HeroCarousel({ isAdminModeActive }: HeroCarouselProps) {
           drag={isAdminModeActive ? false : 'x'}
           dragConstraints={{ left: 0, right: 0 }}
           onDragEnd={flow.handleDragEnd}
-          className="flex w-full h-full touch-pan-y"
+          className="flex w-full touch-pan-y items-start"
           animate={{ x: `-${flow.currentIndex * 100}%` }}
           transition={
             flow.isTransitioning
@@ -115,7 +115,7 @@ export default function HeroCarousel({ isAdminModeActive }: HeroCarouselProps) {
           onAnimationComplete={() => flow.setIsTransitioning(false)}
         >
           {flow.marketingSlides.map((slideItem, index) => (
-            <div key={index} className="relative w-full h-full shrink-0">
+            <div key={index} className="relative w-full shrink-0">
               <CarouselSlideUnit
                 slideData={slideItem}
                 isCurrentlyActive={index === flow.currentIndex}
@@ -144,8 +144,8 @@ export default function HeroCarousel({ isAdminModeActive }: HeroCarouselProps) {
               <Button
                 variant="glass"
                 mode="square"
-                className="!w-10 !h-10 !bg-stone-900/60 backdrop-blur-md border-white/20 hover:!bg-stone-900/80 text-white shadow-2xl transition-all active:scale-90 !rounded-lg"
-                icon={<Lucide.ChevronLeft size={24} strokeWidth={2.5} />}
+                className="!w-7 !h-7 !bg-stone-900/60 backdrop-blur-md border-white/20 hover:!bg-stone-900/80 text-white shadow-2xl transition-all active:scale-90 !rounded-md flex items-center justify-center"
+                icon={<Lucide.ChevronLeft size={16} strokeWidth={2.5} />}
                 onClick={flow.handlePrev}
               />
             </div>
@@ -153,8 +153,8 @@ export default function HeroCarousel({ isAdminModeActive }: HeroCarouselProps) {
               <Button
                 variant="glass"
                 mode="square"
-                className="!w-10 !h-10 !bg-stone-900/60 backdrop-blur-md border-white/20 hover:!bg-stone-900/80 text-white shadow-2xl transition-all active:scale-90 !rounded-lg"
-                icon={<Lucide.ChevronRight size={24} strokeWidth={2.5} />}
+                className="!w-7 !h-7 !bg-stone-900/60 backdrop-blur-md border-white/20 hover:!bg-stone-900/80 text-white shadow-2xl transition-all active:scale-90 !rounded-md flex items-center justify-center"
+                icon={<Lucide.ChevronRight size={16} strokeWidth={2.5} />}
                 onClick={flow.handleNext}
               />
             </div>

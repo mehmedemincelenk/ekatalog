@@ -61,6 +61,22 @@ const Navbar = memo(
               contentEditable={flow.isAdmin && isInlineEnabled}
               suppressContentEditableWarning
               onBlur={flow.handleAnnouncementBlur}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  e.preventDefault();
+                  e.currentTarget.blur();
+                  return;
+                }
+                if (
+                  e.currentTarget.textContent &&
+                  e.currentTarget.textContent.length >= 60 &&
+                  !['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].includes(e.key) &&
+                  !e.metaKey &&
+                  !e.ctrlKey
+                ) {
+                  e.preventDefault();
+                }
+              }}
             >
               {announcementConfig.text ||
                 (flow.isAdmin ? 'Duyuru metnini buraya yazın...' : '')}
@@ -117,12 +133,18 @@ const Navbar = memo(
                           flow.handleLogoUpload(e.target.files[0])
                         }
                       />
-                      <SmartImage
-                        src={flow.settings.logoUrl || DEFAULT_COMPANY.logoUrl}
-                        alt="Store Logo"
-                        className="w-9 h-9 rounded-md"
-                        objectFit="contain"
-                      />
+                      {flow.settings.logoUrl ? (
+                        <SmartImage
+                          src={flow.settings.logoUrl}
+                          alt="Store Logo"
+                          className="w-9 h-9 rounded-md"
+                          objectFit="contain"
+                        />
+                      ) : (
+                        <span className="w-9 h-9 flex items-center justify-center text-2xl select-none rounded-md bg-stone-100">
+                          📦
+                        </span>
+                      )}
                     </div>
                   )}
 
@@ -168,13 +190,25 @@ const Navbar = memo(
                         onBlur={(e) =>
                           flow.updateSetting(
                             'subtitle',
-                            e.currentTarget.textContent || '',
+                            (e.currentTarget.textContent || '').slice(0, 20),
                           )
                         }
-                        onKeyDown={(e) =>
-                          e.key === 'Enter' &&
-                          (e.preventDefault(), e.currentTarget.blur())
-                        }
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter') {
+                            e.preventDefault();
+                            e.currentTarget.blur();
+                            return;
+                          }
+                          const text = e.currentTarget.textContent || '';
+                          if (
+                            text.length >= 20 &&
+                            !['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Tab'].includes(e.key) &&
+                            !e.ctrlKey &&
+                            !e.metaKey
+                          ) {
+                            e.preventDefault();
+                          }
+                        }}
                         onClick={(e) => {
                           if (!flow.isAdmin) return;
                           e.stopPropagation();
@@ -182,6 +216,7 @@ const Navbar = memo(
                             'subtitle',
                             flow.settings!.subtitle || DEFAULT_COMPANY.tagline,
                             'Slogan/Açıklama',
+                            20,
                           );
                         }}
                         className={`!text-[0.55rem] text-stone-400 font-medium ${editStyle} ${flow.isAdmin ? 'pointer-events-auto' : ''}`}
@@ -214,15 +249,16 @@ const Navbar = memo(
               </div>
 
               {isRightSideVisible && (
-                <div className="flex flex-col items-end gap-0.5 shrink-0">
+                <div className="flex flex-col items-end gap-0.5 shrink-0 min-w-0">
                   {/* Desktop Address */}
                   {flow.settings.displayConfig.showAddress && (
                     <div
                       contentEditable={flow.isAdmin && isInlineEnabled}
                       suppressContentEditableWarning
+                      title={flow.settings.address}
                       onBlur={(e) =>
                         flow.updateSetting(
-                          'address',
+                          'shortAddress',
                           e.currentTarget.textContent || '',
                         )
                       }
@@ -232,14 +268,14 @@ const Navbar = memo(
                       }
                       onClick={() =>
                         flow.handleTextEdit(
-                          'address',
-                          flow.settings!.address,
-                          'Adres',
+                          'shortAddress',
+                          flow.settings!.shortAddress || '',
+                          'Şehir / Semt (Navbarda Gözükür)',
                         )
                       }
-                      className={`order-2 !text-[0.7rem] text-stone-600 hover:text-stone-900 transition-colors font-bold text-right leading-tight px-1 ${editStyle}`}
+                      className={`order-2 !text-[0.7rem] text-stone-600 hover:text-stone-900 transition-colors font-bold text-right leading-tight px-1 truncate max-w-[10rem] xs:max-w-[14rem] sm:max-w-[20rem] md:max-w-[28rem] block ${editStyle}`}
                     >
-                      {flow.settings.address}
+                      {flow.settings.shortAddress || flow.settings.address}
                     </div>
                   )}
 
@@ -288,6 +324,7 @@ const Navbar = memo(
           onSave={flow.handleQuickSave}
           initialValue={flow.quickEdit?.value || ''}
           placeholder={`${flow.quickEdit?.title} girin...`}
+          maxLength={flow.quickEdit?.maxLength}
         />
       </>
     );

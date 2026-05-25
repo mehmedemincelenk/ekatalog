@@ -4,52 +4,20 @@ import Button from '../components/ui/Button';
 import { THEME } from '../data/config';
 import { useResponsiveShadow } from '../hooks/useCommon';
 
-const PRICING_PHRASES = [
-  'aylık bir porsiyon karışık kebap fiyatına',
-  'aylık bir oto yıkama fiyatına',
-  'aylık bir koli bandı seti fiyatına',
-  'aylık bir paket A4 kağıdı fiyatına',
-  'aylık bir berber tıraşı fiyatına',
-  'aylık bir tepsi baklava fiyatına',
-  'aylık bir otopark aboneliği fiyatına',
-  'aylık bir damacana su seti fiyatına',
-  'aylık sinema bileti ve mısır fiyatına',
-  'aylık bir asma kilit fiyatına',
-  'aylık bir tornavida seti fiyatına',
-  'aylık bir WD-40 ve bez fiyatına',
-  'aylık bir silecek takımı fiyatına',
-  'aylık bir koli yumurta fiyatına',
-  'aylık bir tüp gazın yarısı fiyatına',
-  'aylık bir kedi maması paketi fiyatına',
-  'aylık bir çırak yevmiyesi fiyatına',
-  'aylık bir paket kaliteli çay fiyatına',
-  'aylık bir vantilatör kayışı fiyatına',
-  'aylık bir çift pazar terliği fiyatına',
-  'aylık bir sinyal kolu tamiri fiyatına',
-  'aylık bir dükkan önü dubası fiyatına',
-  'aylık bir çay ocağı aylık hesabı fiyatına',
-];
-
 const DOMAIN_EXTENSIONS = ['site', 'shop', 'co', 'cafe', 'me'];
 
 export default function LandingPage() {
-  const [index, setIndex] = useState(0);
   const [domainIndex, setDomainIndex] = useState(0);
 
   // Diamond Shadow Engine: Now powered by a reusable Hook! 🚀
   const shadowOffset = useResponsiveShadow(30, 15);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setIndex((prev) => (prev + 1) % PRICING_PHRASES.length);
-    }, 2300);
-
     const domainInterval = setInterval(() => {
       setDomainIndex((prev) => (prev + 1) % DOMAIN_EXTENSIONS.length);
     }, 1000);
 
     return () => {
-      clearInterval(interval);
       clearInterval(domainInterval);
     };
   }, []);
@@ -92,9 +60,8 @@ export default function LandingPage() {
             ekatalog.
           </h1>
 
-          <p className="max-w-2xl mx-auto text-base text-stone-500 font-medium leading-relaxed">
-            Fiyatlar zamlandığında kataloglarınızı saniyeler içinde güncelleyin.
-            Angaryaya değil, işinize odaklanın.
+          <p className="max-w-2xl mx-auto text-lg text-stone-500 font-medium leading-relaxed">
+            değişen fiyatların angaryasına son.
           </p>
 
           <div className="pt-4 flex justify-center relative">
@@ -108,43 +75,37 @@ export default function LandingPage() {
           </div>
 
           {/* THE ROADMAP - Transparent Backdrop Panel */}
-          <div className="pt-10 max-w-3xl mx-auto">
-            <div className="grid grid-cols-3 gap-2 bg-white/60 backdrop-blur-md p-4 rounded-xl border border-stone-100 shadow-xl shadow-stone-200/50">
-              <div className="space-y-1 p-2">
-                <div className="w-8 h-8 bg-stone-900 rounded-xl flex items-center justify-center text-white mx-auto text-sm font-black">
+          <div className="pt-12 max-w-3xl mx-auto flex flex-col items-center">
+            <p className="text-[11px] font-black text-stone-400 uppercase tracking-[0.3em] mb-4">
+              plan
+            </p>
+            <div className="w-full grid grid-cols-3 gap-3 bg-white/60 backdrop-blur-md p-6 rounded-2xl border border-stone-100 shadow-xl shadow-stone-200/50">
+              <div className="flex flex-col items-center p-2">
+                <div className="w-11 h-11 bg-stone-900 rounded-2xl flex items-center justify-center text-white text-base font-black shadow-md">
                   1
                 </div>
-                <h3 className="text-[10px] font-black tracking-tight text-stone-900 leading-tight">
-                  Listenizi Atın
+                <h3 className="text-sm sm:text-base font-black tracking-tight text-stone-900 mt-3 text-center">
+                  Excel / PDF Atın
                 </h3>
-                <p className="text-stone-500 text-[10px] leading-tight font-medium hidden">
-                  WhatsApp'tan gönderin.
-                </p>
               </div>
-              <div className="space-y-1 p-2">
-                <div className="w-8 h-8 bg-stone-900 rounded-xl flex items-center justify-center text-white mx-auto text-sm font-black">
+              <div className="flex flex-col items-center p-2">
+                <div className="w-11 h-11 bg-stone-900 rounded-2xl flex items-center justify-center text-white text-base font-black shadow-md">
                   2
                 </div>
-                <h3 className="text-[10px] font-black tracking-tight text-stone-900 leading-tight">
+                <h3 className="text-sm sm:text-base font-black tracking-tight text-stone-900 mt-3 text-center">
                   Biz Kuralım
                 </h3>
-                <p className="text-stone-500 text-[10px] leading-tight font-medium hidden">
-                  Aynı gün teslim.
-                </p>
               </div>
-              <div className="space-y-1 p-2">
+              <div className="flex flex-col items-center p-2">
                 <div
-                  className="w-8 h-8 rounded-xl flex items-center justify-center text-white mx-auto text-sm font-black shadow-lg shadow-green-500/20"
+                  className="w-11 h-11 rounded-2xl flex items-center justify-center text-white shadow-lg shadow-green-500/20"
                   style={{ backgroundColor: THEME.colors.marketing.primary }}
                 >
-                  <div className="w-4 h-4">{THEME.icons.check}</div>
+                  <div className="w-5 h-5">{THEME.icons.check}</div>
                 </div>
-                <h3 className="text-[10px] font-black tracking-tight text-stone-900 leading-tight">
-                  Siz Yönetin
+                <h3 className="text-sm sm:text-base font-black tracking-tight text-stone-900 mt-3 text-center">
+                  Kolayca Yönetin
                 </h3>
-                <p className="text-stone-500 text-[10px] leading-tight font-medium hidden italic">
-                  Fiyatları anında güncelleyin.
-                </p>
               </div>
             </div>
           </div>
@@ -157,43 +118,25 @@ export default function LandingPage() {
                 className="absolute -top-8 -left-1 text-white text-[9px] font-black px-3 py-1 rounded-lg -rotate-2 shadow-xl whitespace-nowrap z-40"
                 style={{ backgroundColor: THEME.colors.marketing.primary }}
               >
-                İLK AY BEDAVA 🎁
+                1 AY DENEME SÜRESİ BİZDEN 🎁
               </div>
 
               <div
                 className="absolute -top-14 -left-14 text-white text-[9px] font-black px-3 py-1 rounded-lg -rotate-12 shadow-xl whitespace-nowrap z-30"
                 style={{ backgroundColor: THEME.colors.marketing.secondary }}
               >
-                TEMMUZ'A KADAR %20 İNDİRİM 🏷️
+                LANSMANA ÖZEL %60 İNDİRİM 🏷️
               </div>
 
               <p className="text-[10px] font-black text-stone-300 uppercase tracking-[0.3em] line-through mb-1">
-                ₺500 / AY
+                ₺499 / AY
               </p>
               <p className="text-7xl font-black text-stone-900 tracking-tighter leading-none pr-1">
-                ₺399
+                ₺199
                 <span className="text-xl font-bold opacity-30 ml-2">
                   &nbsp;/&nbsp;ay&nbsp;
                 </span>
               </p>
-              <div className="relative h-4 w-full mt-2 overflow-visible">
-                <AnimatePresence mode="wait">
-                  <motion.p
-                    key={PRICING_PHRASES[index]}
-                    initial={{ y: 10, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    exit={{ y: -10, opacity: 0 }}
-                    transition={{
-                      duration: 0.3,
-                      ease: 'easeInOut',
-                    }}
-                    className="font-black text-[8px] uppercase tracking-[0.4em] text-center whitespace-nowrap absolute inset-0 flex items-center justify-center"
-                    style={{ color: THEME.colors.marketing.primary }}
-                  >
-                    {PRICING_PHRASES[index]}
-                  </motion.p>
-                </AnimatePresence>
-              </div>
             </div>
           </div>
         </div>
@@ -206,9 +149,14 @@ export default function LandingPage() {
           style={{ backgroundColor: THEME.colors.marketing.brand }}
         >
           <div className="absolute inset-0 bg-gradient-to-tr from-white/5 to-transparent"></div>
-          <h2 className="text-4xl font-black text-white tracking-tighter leading-none relative z-10 w-full text-center">
-            Şimdi Ürünlerinizi Gönderin
-          </h2>
+          <div className="space-y-2 relative z-10 w-full text-center">
+            <h2 className="text-4xl font-black text-white tracking-tighter leading-none">
+              Şimdi Ürünlerinizi Gönderin
+            </h2>
+            <p className="text-sm font-black text-emerald-400 uppercase tracking-[0.25em]">
+              ÜCRETSİZ BAŞLAYIN
+            </p>
+          </div>
           <div className="relative z-20 flex justify-center w-full">
             <a
               href="https://wa.me/905373420161"

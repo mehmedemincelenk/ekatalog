@@ -51,6 +51,7 @@ export function useSettingsQuery() {
           announcementBar: { enabled: false, text: '' },
           exchangeRates: { usd: 0, eur: 0 },
           whatsapp: '',
+          phoneCall: '',
           address: '',
           instagram: '',
           subtitle: '',
@@ -72,42 +73,40 @@ export function useSettingsQuery() {
 
       // 1. FALLBACK TO PLACEHOLDERS IF NOT FOUND
       if (!settingsRes.data) {
-        // Eğer veritabanında yoksa ama localhost veya varsayılan slug ise dükkanı göster.
-        if (STORE_SLUG === 'toptanambalajcim' || STORE_SLUG === 'landing') {
-          return {
-            id: 'placeholder',
-            name: 'Mağaza Adı',
-            title: 'Mağaza Adı',
-            subtitle: 'Sloganınızı buraya yazın',
-            logoUrl: '',
-            activeCurrency: 'TRY',
-            categoryOrder: DEFAULT_ORDER,
-            carouselData: { slides: [] },
-            referencesData: [],
-            displayConfig: {
-              showLogo: true,
-              showSearch: true,
-              showAddress: true,
-              showInstagram: true,
-              showWhatsapp: true,
-              showReferences: true,
-              showPrice: true,
-              showCarousel: true,
-              showCoupons: true,
-              showPriceList: true,
-              showCurrency: true,
-              showCategories: true,
-              showSubtitle: true,
-            },
-            announcementBar: { enabled: false, text: '' },
-            exchangeRates: rates || { usd: 0, eur: 0 },
-            whatsapp: '05XX XXX XX XX',
-            address: 'Adres Bilgisi',
-            instagram: '',
-            maintenanceMode: { enabled: false, message: '' },
-          } as CompanySettings;
-        }
-        return null;
+        return {
+          id: 'placeholder',
+          slug: STORE_SLUG,
+          name: 'Mağaza Adı',
+          title: 'Mağaza Adı',
+          subtitle: 'Sloganınızı buraya yazın',
+          logoUrl: '',
+          activeCurrency: 'TRY',
+          categoryOrder: DEFAULT_ORDER,
+          carouselData: { slides: [] },
+          referencesData: [],
+          displayConfig: {
+            showLogo: true,
+            showSearch: true,
+            showAddress: true,
+            showInstagram: true,
+            showWhatsapp: true,
+            showReferences: true,
+            showPrice: true,
+            showCarousel: true,
+            showCoupons: true,
+            showPriceList: true,
+            showCurrency: true,
+            showCategories: true,
+            showSubtitle: true,
+          },
+          announcementBar: { enabled: false, text: '' },
+          exchangeRates: rates || { usd: 0, eur: 0 },
+          whatsapp: '05XX XXX XX XX',
+          phoneCall: '05XX XXX XX XX',
+          address: 'Adres Bilgisi',
+          instagram: '',
+          maintenanceMode: { enabled: false, message: '' },
+        } as CompanySettings;
       }
 
       const raw = settingsRes.data;
@@ -126,7 +125,9 @@ export function useSettingsQuery() {
         },
         exchangeRates: rates || { usd: 0, eur: 0 },
         whatsapp: raw.phone || '05XX XXX XX XX',
+        phoneCall: raw.display_config?.phoneCall || raw.phone || '05XX XXX XX XX',
         address: raw.address || 'Adres Bilgisi Girilmemiş',
+        shortAddress: raw.short_address || '',
         instagram: raw.instagram_url || '',
         subtitle: raw.tagline || 'Sloganınızı buraya yazın',
         name: raw.name || 'Mağaza Adı',
@@ -143,6 +144,7 @@ export function useSettingsQuery() {
         subscription_tier: raw.subscription_tier || 'free',
         subscription_expires_at: raw.subscription_expires_at,
         created_at: raw.created_at,
+        slug: raw.slug || '',
       };
 
       return settings;
@@ -183,22 +185,37 @@ export function useSettings(isAdmin: boolean) {
         socialProofCards: 'social_proof_cards',
         whatsapp: 'phone',
         address: 'address',
+        shortAddress: 'short_address',
         instagram: 'instagram_url',
         subtitle: 'tagline',
         name: 'name',
         displayConfig: 'display_config',
         announcementBar: 'announcement_bar',
         visitor_leads: 'visitor_leads',
+        slug: 'slug',
       };
 
       if (!adminPin) throw new Error('Yetkisiz işlem: PIN gerekli');
 
-      const { error } = await supabase.rpc('secure_update_store', {
-        p_id: settings.id,
-        p_pin: adminPin,
-        p_changes: { [dbMap[key] || key]: value },
-      });
-      if (error) throw error;
+      if (key === 'phoneCall') {
+        const updatedDisplayConfig = {
+          ...(settings.displayConfig || {}),
+          phoneCall: value,
+        };
+        const { error } = await supabase.rpc('secure_update_store', {
+          p_id: settings.id,
+          p_pin: adminPin,
+          p_changes: { display_config: updatedDisplayConfig },
+        });
+        if (error) throw error;
+      } else {
+        const { error } = await supabase.rpc('secure_update_store', {
+          p_id: settings.id,
+          p_pin: adminPin,
+          p_changes: { [dbMap[key] || key]: value },
+        });
+        if (error) throw error;
+      }
     },
     onSuccess: () =>
       queryClient.invalidateQueries({ queryKey: ['settings', STORE_SLUG] }),
@@ -226,6 +243,15 @@ export function useSettings(isAdmin: boolean) {
 
       if (error) throw error;
       queryClient.invalidateQueries({ queryKey: ['settings', STORE_SLUG] });
+    },
+    changePin: async (currentPin: string, newPin: string) => {
+      if (!settings?.id) throw new Error('Dükkan bilgileri yüklenemedi.');
+      const { error } = await supabase.rpc('secure_update_store_pin', {
+        p_store_id: settings.id,
+        p_current_pin: currentPin,
+        p_new_pin: newPin,
+      });
+      if (error) throw error;
     },
     retry: () =>
       queryClient.invalidateQueries({ queryKey: ['settings', STORE_SLUG] }),

@@ -39,6 +39,7 @@ export function useNavbarFlow(
     key: keyof CompanySettings;
     value: string;
     title: string;
+    maxLength?: number;
   } | null>(null);
 
   const logoPressStartTimeRef = useRef<number>(0);
@@ -91,12 +92,14 @@ export function useNavbarFlow(
     key: keyof CompanySettings,
     current: string,
     label: string,
+    maxLength?: number,
   ) => {
     if (!isAdmin || isInlineEnabled) return;
     setQuickEdit({
       key,
       value: current,
       title: label,
+      maxLength,
     });
   };
 
@@ -109,6 +112,9 @@ export function useNavbarFlow(
         'instagram',
         sanitized ? `https://www.instagram.com/${sanitized}` : '',
       );
+    } else if (quickEdit.key === 'subtitle') {
+      const sliced = newVal.slice(0, 20);
+      updateSetting('subtitle', sliced);
     } else {
       updateSetting(quickEdit.key as any, newVal);
     }
@@ -117,7 +123,11 @@ export function useNavbarFlow(
 
   const handleAnnouncementBlur = (e: React.FocusEvent<HTMLSpanElement>) => {
     if (!settings?.announcementBar) return;
-    const newText = e.currentTarget.textContent?.trim() || '';
+    let newText = e.currentTarget.textContent?.trim() || '';
+    if (newText.length > 60) {
+      newText = newText.slice(0, 60);
+      e.currentTarget.textContent = newText;
+    }
     if (newText !== settings.announcementBar.text) {
       updateSetting('announcementBar', {
         ...settings.announcementBar,

@@ -156,12 +156,14 @@ export function ContactModal({
   isOpen,
   onClose,
   phone,
+  whatsapp,
   storeName,
   isStatic = false,
 }: {
   isOpen: boolean;
   onClose: () => void;
   phone: string;
+  whatsapp: string;
   storeName: string;
   isStatic?: boolean;
 }) {
@@ -170,7 +172,7 @@ export function ContactModal({
   };
   const handleWhatsApp = () => {
     const text = `Selam ${storeName}, Ürünleriniz hakkında bilgi almak istiyorum.`;
-    openWhatsApp(phone, text);
+    openWhatsApp(whatsapp, text);
   };
   return (
     <BaseModal
@@ -294,13 +296,19 @@ export function QuickEditModal({
   placeholder = '',
   type = 'text',
   isStatic = false,
+  maxLength,
+  keyName,
 }: QuickEditModalProps) {
-  const [value, setValue] = useState(initialValue);
+  const parsedInitial = keyName === 'slug'
+    ? initialValue.replace(/^www\./i, '').replace(/\.ekatalog\.site$/i, '')
+    : initialValue;
+
+  const [value, setValue] = useState(parsedInitial);
   const [prevInitial, setPrevInitial] = useState(initialValue);
   const inputRef = useRef<HTMLInputElement>(null);
 
   if (initialValue !== prevInitial) {
-    setValue(initialValue);
+    setValue(parsedInitial);
     setPrevInitial(initialValue);
   }
   useEffect(() => {
@@ -322,20 +330,45 @@ export function QuickEditModal({
       subtitle={subtitle}
     >
       <div className="flex flex-col gap-6 py-2">
-        <FormInput
-          id="quick-edit-input"
-          ref={inputRef}
-          type={type}
-          value={value}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setValue(e.target.value)
-          }
-          onKeyDown={(e: React.KeyboardEvent) =>
-            e.key === 'Enter' && handleSave()
-          }
-          placeholder={placeholder}
-          className="!text-center !py-6 focus:!border-emerald-500 !text-sm !rounded-3xl shadow-inner"
-        />
+        <div className="relative flex flex-col gap-1 w-full">
+          {keyName === 'slug' ? (
+            <div className="flex items-center w-full border border-stone-200 focus-within:border-emerald-500 rounded-3xl bg-stone-50/50 shadow-inner px-4 py-4 transition-all">
+              <span className="text-stone-400 font-bold select-none text-sm pr-1">www.</span>
+              <input
+                ref={inputRef as any}
+                type="text"
+                value={value}
+                onChange={(e) => setValue(e.target.value.toLowerCase().replace(/[^a-z0-9-_]/g, ''))}
+                onKeyDown={(e) => e.key === 'Enter' && handleSave()}
+                placeholder="dukkan-adi"
+                className="flex-1 bg-transparent border-none outline-none text-stone-900 font-black text-sm text-center tracking-wide"
+                maxLength={30}
+              />
+              <span className="text-stone-400 font-bold select-none text-sm pl-1">.ekatalog.site</span>
+            </div>
+          ) : (
+            <FormInput
+              id="quick-edit-input"
+              ref={inputRef}
+              type={type}
+              value={value}
+              maxLength={maxLength}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setValue(e.target.value)
+              }
+              onKeyDown={(e: React.KeyboardEvent) =>
+                e.key === 'Enter' && handleSave()
+              }
+              placeholder={placeholder}
+              className="!text-center !py-6 focus:!border-emerald-500 !text-sm !rounded-3xl shadow-inner w-full"
+            />
+          )}
+          {maxLength && (
+            <div className="text-[9px] text-stone-400 font-black tracking-widest text-right pr-4 select-none">
+              {value.length}/{maxLength}
+            </div>
+          )}
+        </div>
         <div className="flex gap-3 w-full">
           <Button
             onClick={onClose}

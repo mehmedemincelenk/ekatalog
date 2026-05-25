@@ -103,6 +103,7 @@ export function FloatingGuestMenu({
   } = useStore();
 
   const whatsappNumber = settings?.whatsapp || '';
+  const callingNumber = settings?.phoneCall || whatsappNumber;
 
   const guestActions: FloatingAction[] = [
     {
@@ -188,7 +189,7 @@ export function FloatingGuestMenu({
     {
       id: 'call',
       icon: <Lucide.Phone className="w-5 h-5" strokeWidth={2.5} />,
-      action: () => callPhone(whatsappNumber),
+      action: () => callPhone(callingNumber),
       label: '',
       variant: 'phone',
     },

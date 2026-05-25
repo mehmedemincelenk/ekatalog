@@ -111,7 +111,9 @@ export interface ProductDetailModalProps {
 export interface CompanySettings {
   id: string;
   whatsapp: string;
+  phoneCall: string;
   address: string;
+  shortAddress?: string;
   instagram: string;
   title: string;
   subtitle: string;
@@ -588,6 +590,8 @@ export interface QuickEditModalProps {
   placeholder?: string;
   type?: 'text' | 'number' | 'tel' | 'url';
   isStatic?: boolean;
+  maxLength?: number;
+  keyName?: string;
 }
 
 export interface OffHoursNoticeProps {
@@ -625,6 +629,7 @@ export type ModalType =
   | 'LOCATION'
   | 'CONTACT'
   | 'SOCIAL_EXPORT'
+  | 'CHANGE_PIN'
   | null;
 
 export interface StoreState {

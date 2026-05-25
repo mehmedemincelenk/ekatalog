@@ -11,6 +11,7 @@ import {
   GlobalAddMenuModal,
 } from './UtilityModals';
 import DisplaySettingsModal from './DisplaySettingsModal';
+import ChangePinModal from './ChangePinModal';
 import PriceListModal from './PriceListModal';
 
 import SocialExportModal from './SocialExportModal';
@@ -143,6 +144,12 @@ const AppModals = memo(() => {
             failedAttempts={failedAttempts}
           />
         )}
+        {activeModal === 'CHANGE_PIN' && (
+          <ChangePinModal
+            isOpen={true}
+            onClose={closeModal}
+          />
+        )}
       </AnimatePresence>
 
       <CouponModal
@@ -176,7 +183,8 @@ const AppModals = memo(() => {
       <ContactModal
         isOpen={activeModal === 'CONTACT'}
         onClose={closeModal}
-        phone={settings?.whatsapp || ''}
+        phone={settings?.phoneCall || settings?.whatsapp || ''}
+        whatsapp={settings?.whatsapp || ''}
         storeName={settings?.title || 'Katalog'}
       />
 

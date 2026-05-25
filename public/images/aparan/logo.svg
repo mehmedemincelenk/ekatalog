@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 100" width="100%" height="100%">
+  <defs>
+    <!-- Gradient for the icon (Sparkle / Droplet) -->
+    <linearGradient id="iconGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00539C" />
+      <stop offset="100%" stop-color="#38bdf8" />
+    </linearGradient>
+    <!-- Accent Sparkle Gold Gradient -->
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFD662" />
+      <stop offset="100%" stop-color="#fb923c" />
+    </linearGradient>
+  </defs>
+
+  <!-- Group containing Logo Icon (Sparkle + Droplet) -->
+  <g transform="translate(10, 10)">
+    <!-- Droplet background with beautiful curve -->
+    <path d="M 40,10 C 65,40 70,60 55,75 C 40,90 10,85 5,65 C 0,45 15,40 40,10 Z" fill="url(#iconGrad)" opacity="0.9" />
+    <!-- Dynamic inner white shine -->
+    <path d="M 38,18 C 50,38 52,50 44,60 C 40,65 30,65 25,58" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" opacity="0.6" />
+    <!-- Golden Sparkle 1 -->
+    <path d="M 52,22 L 54,32 L 64,34 L 54,36 L 52,46 L 50,36 L 40,34 L 50,32 Z" fill="url(#goldGrad)" />
+    <!-- Golden Sparkle 2 (Smaller) -->
+    <path d="M 68,48 L 69,53 L 74,54 L 69,55 L 68,60 L 67,55 L 62,54 L 67,53 Z" fill="url(#goldGrad)" opacity="0.8" />
+  </g>
+
+  <!-- Typography Group -->
+  <g transform="translate(95, 20)">
+    <!-- Primary Brand Name "APARAN" in Bold Deep Corporate Blue -->
+    <text x="0" y="32" font-family="'Outfit', 'Inter', 'Segoe UI', sans-serif" font-size="34" font-weight="900" fill="#00539C" letter-spacing="1">APARAN</text>
+    <!-- Subtitle "TEMİZLİK & HİJYEN" with gold tracking -->
+    <text x="2" y="58" font-family="'Inter', 'Segoe UI', sans-serif" font-size="12" font-weight="700" fill="#FFD662" letter-spacing="4">TEMİZLİK &amp; HİJYEN</text>
+  </g>
+</svg>

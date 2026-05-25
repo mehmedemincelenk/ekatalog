@@ -49,13 +49,14 @@ const CarouselSlideUnit = memo(
         className={`${carouselTheme.slide.base} overflow-hidden rounded-none relative`}
       >
         {/* VISUAL ASSET LAYER */}
-        <div className="relative w-full h-full">
+        <div className="relative w-full h-auto">
           <SmartImage
             src={resolveVisualAssetUrl(slideData.src)}
             alt={slideData.label}
-            aspectRatio="rectangle"
+            aspectRatio="none"
             priority={true}
             className={`
+            w-full h-auto
             ${carouselTheme.slide.image} 
             ${isCurrentlyUploading && editingTargetSlideId === slideData.id ? carouselTheme.slide.loadingBlur : ''}
           `}
@@ -69,7 +70,7 @@ const CarouselSlideUnit = memo(
             >
               {/* INTERACTIVE SEQUENCE BADGE */}
               <div
-                className={`${carouselTheme.slide.changeBadge} !static !pointer-events-auto flex items-center relative w-10 h-10 justify-center !rounded-lg border border-white/20 shadow-xl bg-stone-900/60 backdrop-blur-md`}
+                className={`${carouselTheme.slide.changeBadge} !static !pointer-events-auto flex items-center relative w-7 h-7 justify-center !rounded-md border border-white/20 shadow-xl bg-stone-900/60 backdrop-blur-md`}
                 onClick={(e) => e.stopPropagation()}
               >
                 <select
@@ -97,7 +98,7 @@ const CarouselSlideUnit = memo(
                   ))}
                 </select>
                 {isUpdatingOrder ? (
-                  <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                  <div className="w-3 h-3 border-2 border-white/30 border-t-white rounded-full animate-spin" />
                 ) : showSuccess ? (
                   <motion.div
                     initial={{ scale: 0.5, opacity: 0 }}
@@ -105,13 +106,13 @@ const CarouselSlideUnit = memo(
                     className="flex items-center justify-center"
                   >
                     <Lucide.Check
-                      size={16}
+                      size={12}
                       className="text-emerald-400"
                       strokeWidth={4}
                     />
                   </motion.div>
                 ) : (
-                  <span className="text-white text-[13px] font-black">
+                  <span className="text-white text-[10px] font-black">
                     {currentIndex + 1}.
                   </span>
                 )}
@@ -131,9 +132,9 @@ const CarouselSlideUnit = memo(
                   }}
                   variant="glass"
                   mode="square"
-                  className="w-10 h-10 shadow-xl border border-white/20 !rounded-lg !bg-stone-900/60 backdrop-blur-md !p-0"
+                  className="w-7 h-7 shadow-xl border border-white/20 !rounded-md !bg-stone-900/60 backdrop-blur-md !p-0 flex items-center justify-center"
                   icon={
-                    <div className="w-4 h-4 text-white hover:text-red-400 transition-colors">
+                    <div className="w-3.5 h-3.5 text-white hover:text-red-400 transition-colors flex items-center justify-center">
                       {globalIcons.trash}
                     </div>
                   }

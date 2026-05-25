@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ekatalog | B2B Outreach Pazarlama Paneli</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Supabase JS Client -->
+  <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            outfit: ['Outfit', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* Premium Harmonious HSL Dark Theme */
+    :root {
+      --bg-base: #0c0d0e;
+      --bg-surface: #141619;
+      --bg-surface-hover: #1b1e22;
+      --accent-emerald: #10b981;
+      --accent-emerald-hover: #059669;
+      --text-primary: #f3f4f6;
+      --text-secondary: #9ca3af;
+      --border-color: #272a30;
+    }
+
+    body {
+      background-color: var(--bg-base);
+      color: var(--text-primary);
+      font-family: 'Inter', sans-serif;
+    }
+
+    .glass-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .glass-card:hover {
+      background: var(--bg-surface-hover);
+      border-color: #3b424c;
+      transform: translateY(-2px);
+      box-shadow: 0 12px 24px -10px rgba(0, 0, 0, 0.6);
+    }
+
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: var(--bg-base);
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: var(--border-color);
+      border-radius: 3px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+      background: #4b5563;
+    }
+
+    /* Tab styles */
+    .tab-btn {
+      position: relative;
+      transition: all 0.2s ease;
+    }
+    .tab-btn.active {
+      color: var(--accent-emerald);
+    }
+    .tab-btn.active::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background-color: var(--accent-emerald);
+      border-radius: 2px;
+    }
+
+    /* Micro-interactions */
+    .btn-emerald {
+      background-color: var(--accent-emerald);
+      color: #050505;
+      font-weight: 600;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .btn-emerald:hover {
+      background-color: var(--accent-emerald-hover);
+      box-shadow: 0 0 16px rgba(16, 185, 129, 0.4);
+      transform: scale(1.02);
+    }
+    .btn-emerald:active {
+      transform: scale(0.98);
+    }
+  </style>
+</head>
+<body class="custom-scrollbar min-h-screen pb-12 selection:bg-emerald-500 selection:text-black">
+
+  <!-- Header -->
+  <header class="border-b border-[#272a30] bg-[#0c0d0e]/80 backdrop-blur-md sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+      <div>
+        <div class="flex items-center gap-2">
+          <span class="font-outfit text-2xl font-extrabold tracking-tight text-white">sade. basit. <span class="text-emerald-500 font-black">ekatalog.</span></span>
+          <span class="bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs px-2 py-0.5 rounded-full font-semibold font-outfit uppercase tracking-wider">Outreach Dashboard</span>
+        </div>
+        <p class="text-xs text-gray-400 mt-1 font-sans">B2B Lead Yönetim & Soğuk WhatsApp Pazarlama Kontrol Paneli</p>
+      </div>
+
+      <!-- Stats Summary -->
+      <div class="flex items-center gap-6">
+        <div class="bg-[#141619] border border-[#272a30] px-4 py-2 rounded-xl flex items-center gap-3">
+          <div class="p-2 bg-emerald-500/10 rounded-lg">
+            <i data-lucide="award" class="w-5 h-5 text-emerald-400"></i>
+          </div>
+          <div>
+            <div class="text-[10px] text-gray-400 font-sans uppercase font-medium">Gold (Sıcak)</div>
+            <div id="stat-gold" class="text-lg font-bold font-outfit text-white">0</div>
+          </div>
+        </div>
+        <div class="bg-[#141619] border border-[#272a30] px-4 py-2 rounded-xl flex items-center gap-3">
+          <div class="p-2 bg-blue-500/10 rounded-lg">
+            <i data-lucide="zap" class="w-5 h-5 text-blue-400"></i>
+          </div>
+          <div>
+            <div class="text-[10px] text-gray-400 font-sans uppercase font-medium font-outfit">Silver & Bronze</div>
+            <div id="stat-potentials" class="text-lg font-bold font-outfit text-white">0</div>
+          </div>
+        </div>
+        <div class="bg-[#141619] border border-[#272a30] px-4 py-2 rounded-xl flex items-center gap-3">
+          <div class="p-2 bg-purple-500/10 rounded-lg">
+            <i data-lucide="party-popper" class="w-5 h-5 text-purple-400"></i>
+          </div>
+          <div>
+            <div class="text-[10px] text-gray-400 font-sans uppercase font-medium">Aktif e-Katalog</div>
+            <div id="stat-done" class="text-lg font-bold font-outfit text-white">0</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="max-w-7xl mx-auto px-6 mt-8">
+    <!-- Controls (Search + Tabs) -->
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8 border-b border-[#272a30] pb-4">
+      
+      <!-- Tabs -->
+      <div class="flex items-center gap-6 overflow-x-auto custom-scrollbar whitespace-nowrap pb-2">
+        <button id="tab-gold" class="tab-btn active text-sm font-semibold pb-4 flex items-center gap-2" onclick="switchTab('gold')">
+          <i data-lucide="award" class="w-4 h-4 text-emerald-400"></i>
+          🥇 Gold (Sıcak)
+          <span id="badge-gold" class="bg-emerald-500/10 text-emerald-400 text-xs px-2 py-0.5 rounded-md font-medium border border-emerald-500/25">0</span>
+        </button>
+        <button id="tab-silver" class="tab-btn text-sm font-semibold pb-4 flex items-center gap-2 text-gray-400 hover:text-white" onclick="switchTab('silver')">
+          <i data-lucide="globe" class="w-4 h-4 text-blue-400"></i>
+          🥈 Silver (Sadece Web)
+          <span id="badge-silver" class="bg-[#272a30] text-gray-300 text-xs px-2 py-0.5 rounded-md font-medium">0</span>
+        </button>
+        <button id="tab-bronze" class="tab-btn text-sm font-semibold pb-4 flex items-center gap-2 text-gray-400 hover:text-white" onclick="switchTab('bronze')">
+          <i data-lucide="smartphone" class="w-4 h-4 text-indigo-400"></i>
+          🥉 Bronze (Sadece Wp)
+          <span id="badge-bronze" class="bg-[#272a30] text-gray-300 text-xs px-2 py-0.5 rounded-md font-medium">0</span>
+        </button>
+        <button id="tab-other" class="tab-btn text-sm font-semibold pb-4 flex items-center gap-2 text-gray-400 hover:text-white" onclick="switchTab('other')">
+          <i data-lucide="phone-off" class="w-4 h-4 text-gray-500"></i>
+          ❌ Pasif (Sabit Hat)
+          <span id="badge-other" class="bg-[#272a30] text-gray-300 text-xs px-2 py-0.5 rounded-md font-medium">0</span>
+        </button>
+        <button id="tab-completed" class="tab-btn text-sm font-semibold pb-4 flex items-center gap-2 text-gray-400 hover:text-white" onclick="switchTab('completed')">
+          <i data-lucide="party-popper" class="w-4 h-4 text-purple-400"></i>
+          🎉 Aktif e-Kataloglar
+          <span id="badge-completed" class="bg-purple-500/20 text-purple-400 text-xs px-2 py-0.5 rounded-md font-medium">0</span>
+        </button>
+      </div>
+
+      <!-- Search Input -->
+      <div class="relative w-full md:w-80">
+        <span class="absolute inset-y-0 left-3 flex items-center text-gray-500">
+          <i data-lucide="search" class="w-4 h-4"></i>
+        </span>
+        <input 
+          type="text" 
+          id="search-input" 
+          placeholder="Firma, telefon veya adres ara..." 
+          class="w-full bg-[#141619] border border-[#272a30] text-white pl-10 pr-4 py-2.5 rounded-xl text-sm focus:outline-none focus:border-emerald-500 transition-colors"
+          oninput="handleSearch(this.value)"
+        >
+      </div>
+    </div>
+
+    <!-- Active Filter Info -->
+    <div class="flex items-center justify-between text-xs text-gray-400 mb-4 px-2">
+      <div class="flex items-center gap-1.5">
+        <i data-lucide="list" class="w-4 h-4 text-emerald-500"></i>
+        <span id="list-count-text">Taratılan toptancılar yükleniyor...</span>
+      </div>
+      <div>Göstermek için aşağı kaydırın</div>
+    </div>
+
+    <!-- Leads Grid -->
+    <div id="leads-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- Cards will be populated dynamically -->
+    </div>
+
+    <!-- Empty State -->
+    <div id="empty-state" class="hidden flex-col items-center justify-center py-20 text-center">
+      <div class="p-4 bg-[#141619] border border-[#272a30] rounded-full mb-4">
+        <i data-lucide="inbox" class="w-8 h-8 text-gray-500"></i>
+      </div>
+      <h3 class="text-lg font-semibold font-outfit text-white">Eşleşen Firma Bulunamadı</h3>
+      <p class="text-sm text-gray-500 mt-1">Arama teriminizi değiştirmeyi veya filtreleri kontrol etmeyi deneyin.</p>
+    </div>
+
+  </main>
+
+  <script>
+    // Supabase Connection Settings
+    const supabaseUrl = 'https://qadfjqvtpknjojfymxdq.supabase.co';
+    const supabaseKey = 'sb_publishable_RY7LFkG6EiGucqmGHbXn-A_aW9n4ahz';
+    const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
+
+    // App State
+    let rawLeadsGold = [];
+    let rawLeadsSilver = [];
+    let rawLeadsBronze = [];
+    let rawLeadsOther = [];
+    
+    let leadsGold = [];
+    let leadsSilver = [];
+    let leadsBronze = [];
+    let leadsOther = [];
+    let leadsCompleted = [];
+    
+    let activeTab = 'gold'; // 'gold', 'silver', 'bronze', 'other', 'completed'
+    let searchQuery = '';
+
+    // Initialize application
+    async function init() {
+      try {
+        // Fetch raw JSON lists from segments
+        const resGold = await fetch('leads_gold.json');
+        rawLeadsGold = await resGold.json();
+
+        const resSilver = await fetch('leads_silver.json');
+        rawLeadsSilver = await resSilver.json();
+
+        const resBronze = await fetch('leads_bronze.json');
+        rawLeadsBronze = await resBronze.json();
+
+        const resOther = await fetch('leads_other.json');
+        rawLeadsOther = await resOther.json();
+
+        // Fetch live active stores from Supabase
+        await refreshData();
+        
+      } catch (err) {
+        console.error('Error loading leads:', err);
+        document.getElementById('list-count-text').innerText = 'Hata: Veriler yüklenemedi.';
+      }
+    }
+
+    // Refresh and sync data from Supabase live state
+    async function refreshData() {
+      try {
+        // Get all active store slugs in database
+        const { data: dbStores, error } = await supabaseClient
+          .from('stores')
+          .select('slug, name, phone, address, tagline');
+
+        if (error) throw error;
+        
+        const activeSlugs = new Set((dbStores || []).map(s => s.slug.toLowerCase()));
+        
+        // Populate Completed Tab
+        leadsCompleted = (dbStores || []).map(s => ({
+          name: s.name,
+          phone: s.phone || '',
+          website: '',
+          address: s.address || 'Adres Belirtilmemiş',
+          slug: s.slug,
+          isCompleted: true,
+          has_website: true
+        }));
+
+        // Filter out completed ones from target lists
+        leadsGold = rawLeadsGold.filter(l => !activeSlugs.has(l.slug.toLowerCase()));
+        leadsSilver = rawLeadsSilver.filter(l => !activeSlugs.has(l.slug.toLowerCase()));
+        leadsBronze = rawLeadsBronze.filter(l => !activeSlugs.has(l.slug.toLowerCase()));
+        leadsOther = rawLeadsOther.filter(l => !activeSlugs.has(l.slug.toLowerCase()));
+
+        // Update stats top counters
+        document.getElementById('stat-gold').innerText = leadsGold.length;
+        document.getElementById('stat-potentials').innerText = leadsSilver.length + leadsBronze.length;
+        document.getElementById('stat-done').innerText = leadsCompleted.length;
+        
+        // Update tab badges
+        document.getElementById('badge-gold').innerText = leadsGold.length;
+        document.getElementById('badge-silver').innerText = leadsSilver.length;
+        document.getElementById('badge-bronze').innerText = leadsBronze.length;
+        document.getElementById('badge-other').innerText = leadsOther.length;
+        document.getElementById('badge-completed').innerText = leadsCompleted.length;
+
+        // Render current list
+        renderLeads();
+
+      } catch (err) {
+        console.error('Supabase fetch failed, falling back to JSON files:', err);
+        leadsGold = [...rawLeadsGold];
+        leadsSilver = [...rawLeadsSilver];
+        leadsBronze = [...rawLeadsBronze];
+        leadsOther = [...rawLeadsOther];
+        renderLeads();
+      }
+    }
+
+    // Switch active tab
+    function switchTab(tab) {
+      if (activeTab === tab) return;
+      activeTab = tab;
+      
+      // Update tab active classes
+      const tabsList = ['gold', 'silver', 'bronze', 'other', 'completed'];
+      tabsList.forEach(t => {
+        const btn = document.getElementById(`tab-${t}`);
+        if (t === tab) {
+          btn.classList.add('active');
+          btn.classList.remove('text-gray-400');
+        } else {
+          btn.classList.remove('active');
+          btn.classList.add('text-gray-400');
+        }
+      });
+
+      renderLeads();
+    }
+
+    // Handle search input
+    function handleSearch(query) {
+      searchQuery = query.toLowerCase().trim();
+      renderLeads();
+    }
+
+    // Copy phone number
+    function copyPhone(phone, btnId) {
+      navigator.clipboard.writeText(phone).then(() => {
+        const btn = document.getElementById(btnId);
+        const originalHtml = btn.innerHTML;
+        btn.innerHTML = `<i data-lucide="check" class="w-4 h-4 text-emerald-400"></i>`;
+        lucide.createIcons();
+        setTimeout(() => {
+          btn.innerHTML = originalHtml;
+          lucide.createIcons();
+        }, 1500);
+      });
+    }
+
+    // Render list based on current active tab and filters
+    function renderLeads() {
+      const grid = document.getElementById('leads-grid');
+      const emptyState = document.getElementById('empty-state');
+      grid.innerHTML = '';
+      
+      let rawLeads = [];
+      if (activeTab === 'gold') rawLeads = leadsGold;
+      else if (activeTab === 'silver') rawLeads = leadsSilver;
+      else if (activeTab === 'bronze') rawLeads = leadsBronze;
+      else if (activeTab === 'other') rawLeads = leadsOther;
+      else rawLeads = leadsCompleted;
+      
+      // Filter leads by search query
+      const filteredLeads = rawLeads.filter(lead => {
+        if (!searchQuery) return true;
+        const name = lead.name.toLowerCase();
+        const address = lead.address.toLowerCase();
+        const phone = lead.phone.toLowerCase();
+        const website = (lead.website || '').toLowerCase();
+        const slug = lead.slug.toLowerCase();
+        return name.includes(searchQuery) || address.includes(searchQuery) || phone.includes(searchQuery) || website.includes(searchQuery) || slug.includes(searchQuery);
+      });
+
+      // Update count text
+      document.getElementById('list-count-text').innerText = `${filteredLeads.length} / ${rawLeads.length} toptancı listeleniyor`;
+
+      if (filteredLeads.length === 0) {
+        emptyState.classList.remove('hidden');
+        grid.classList.add('hidden');
+        return;
+      }
+
+      emptyState.classList.add('hidden');
+      grid.classList.remove('hidden');
+
+      filteredLeads.forEach((lead, index) => {
+        const card = document.createElement('div');
+        card.className = `glass-card p-6 flex flex-col justify-between ${lead.isCompleted ? 'border-purple-500/20 bg-purple-500/[0.02]' : ''}`;
+        
+        // Clean display phone number
+        const displayPhone = lead.phone.startsWith('+') ? lead.phone : '+' + lead.phone;
+        const btnId = `copy-btn-${activeTab}-${index}`;
+
+        // Construct cold outreach message depending on website presence
+        let rawMessage = '';
+        if (lead.has_website) {
+          rawMessage = `Merhaba ${lead.name} yetkilisi,
+
+Telefon numaranıza Google Haritalar üzerinden ulaştım. WhatsApp'tan müşterilerinize sürekli değişen fiyat listeleri, eskiyen PDF kataloglar gönderme ve telefonla fiyat sorulma angaryasına son vermek için size özel bir e-katalog hazırladık.
+
+Mevcut web sitenizdeki ürünlerle oluşturduğumuz 1 ay ücretsiz deneme e-kataloğunuzu buradan inceleyebilirsiniz:
+👉 https://ekatalog.site/${lead.slug}
+
+PDF değil, saniyeler içinde güncellenen akıllı katalog. Kolaylığı keşfetmek için bu mesajı yanıtlamanız yeterli.`;
+        } else {
+          rawMessage = `Merhaba ${lead.name} yetkilisi,
+
+Telefon numaranıza Google Haritalar üzerinden ulaştım. WhatsApp'tan müşterilerinize sürekli değişen fiyat listeleri, eskiyen PDF kataloglar gönderme ve telefonla fiyat sorulma angaryasına son vermek için size özel bir e-katalog hazırlayabiliriz.
+
+Sizin için hazırlayabileceğimiz örnek dijital dükkan ve akıllı kataloğumuzu buradan inceleyebilirsiniz:
+👉 https://ekatalog.site/ceymop
+
+PDF değil, saniyeler içinde güncellenen akıllı katalog. Dükkanınızı hemen açıp 1 ay ücretsiz denemek için bu mesajı yanıtlamanız yeterli.`;
+        }
+
+        const waLink = `https://api.whatsapp.com/send?phone=${lead.phone.replace('+', '')}&text=${encodeURIComponent(rawMessage)}`;
+
+        // Web site link markup
+        const websiteMarkup = lead.website 
+          ? `<a href="${lead.website}" target="_blank" class="text-xs text-blue-400 hover:underline inline-flex items-center gap-1 mt-1 font-sans">
+               <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+               ${lead.website.replace('http://', '').replace('https://', '').replace('www.', '').split('/')[0]}
+             </a>`
+          : (lead.isCompleted ? `<span class="text-xs text-purple-400 font-sans font-semibold mt-1">Supabase'de Aktif</span>` : `<span class="text-xs text-gray-500 font-sans mt-1">Web Sitesi Yok</span>`);
+
+        // Completed action buttons
+        let actionButtonMarkup = '';
+        if (lead.isCompleted) {
+          actionButtonMarkup = `
+            <div class="flex items-center gap-2 w-full">
+              <a 
+                href="/${lead.slug}" 
+                target="_blank" 
+                class="flex-1 bg-purple-600 hover:bg-purple-700 text-white py-3 px-4 rounded-xl flex items-center justify-center gap-2 text-xs font-bold uppercase tracking-wider transition-colors cursor-pointer"
+              >
+                <i data-lucide="eye" class="w-4 h-4"></i>
+                Mağazayı Gör
+              </a>
+              <a 
+                href="${waLink}" 
+                target="_blank" 
+                class="bg-emerald-600 hover:bg-emerald-700 text-white p-3 rounded-xl flex items-center justify-center transition-colors cursor-pointer"
+                title="Yeniden WhatsApp Mesajı Gönder"
+              >
+                <i data-lucide="message-square" class="w-5 h-5"></i>
+              </a>
+            </div>
+            `;
+        } else if (activeTab === 'silver' || activeTab === 'other') {
+          // Landline: no direct WhatsApp action as main primary button (can still copy or try, but highlight landline badge)
+          actionButtonMarkup = `
+            <div class="flex items-center gap-2 w-full">
+              <a 
+                href="tel:${lead.phone}" 
+                class="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-3 px-4 rounded-xl flex items-center justify-center gap-2 text-xs font-bold uppercase tracking-wider transition-colors cursor-pointer"
+              >
+                <i data-lucide="phone-call" class="w-4 h-4"></i>
+                Sabit Hattı Ara
+              </a>
+              <a 
+                href="${waLink}" 
+                target="_blank" 
+                class="bg-[#272a30] hover:bg-[#3b424c] text-gray-300 p-3 rounded-xl flex items-center justify-center transition-colors cursor-pointer"
+                title="WhatsApp Business Numarası Olabilir - WP ile Dene"
+              >
+                <i data-lucide="message-square" class="w-5 h-5 text-emerald-400"></i>
+              </a>
+            </div>
+            `;
+        } else {
+          // Mobile / WhatsApp active
+          actionButtonMarkup = `
+            <a 
+              href="${waLink}" 
+              target="_blank" 
+              class="btn-emerald py-3 px-4 rounded-xl flex items-center justify-center gap-2 text-sm font-bold uppercase tracking-wider cursor-pointer"
+            >
+              <i data-lucide="message-square" class="w-4 h-4 fill-current"></i>
+              WhatsApp'tan Gönder
+            </a>
+            `;
+        }
+
+        // Add class colors for tag badges depending on segment
+        let priorityTagMarkup = '';
+        if (activeTab === 'gold') {
+          priorityTagMarkup = `<span class="text-[9px] uppercase font-bold text-emerald-500 tracking-wider bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded">🥇 Gold (Mobil)</span>`;
+        } else if (activeTab === 'silver') {
+          priorityTagMarkup = `<span class="text-[9px] uppercase font-bold text-blue-400 tracking-wider bg-blue-500/10 border border-blue-500/20 px-2 py-0.5 rounded">🥈 Silver (Sabit)</span>`;
+        } else if (activeTab === 'bronze') {
+          priorityTagMarkup = `<span class="text-[9px] uppercase font-bold text-indigo-400 tracking-wider bg-indigo-500/10 border border-indigo-500/20 px-2 py-0.5 rounded">🥉 Bronze (Mobil)</span>`;
+        } else if (activeTab === 'other') {
+          priorityTagMarkup = `<span class="text-[9px] uppercase font-bold text-gray-400 tracking-wider bg-gray-500/10 border border-gray-500/20 px-2 py-0.5 rounded">❌ Pasif (Sabit)</span>`;
+        } else {
+          priorityTagMarkup = `<span class="text-[9px] uppercase font-bold text-purple-400 tracking-wider bg-purple-500/10 border border-purple-500/20 px-2 py-0.5 rounded">🎉 Aktif e-Katalog</span>`;
+        }
+
+        card.innerHTML = `
+          <div>
+            <div class="flex items-start justify-between gap-4 mb-4">
+              <span class="text-xs font-bold font-outfit text-gray-500 uppercase tracking-widest bg-[#272a30]/30 border border-[#272a30] px-2 py-0.5 rounded">#${index + 1}</span>
+              <div class="text-right">
+                <span class="text-[10px] uppercase font-bold text-emerald-500 tracking-wider">Ekatalog Linki</span>
+                <a href="/${lead.slug}" target="_blank" class="block text-xs font-semibold text-emerald-400 hover:text-emerald-300 transition-colors mt-0.5 font-outfit">
+                  ekatalog.site/${lead.slug}
+                </a>
+              </div>
+            </div>
+            
+            <h4 class="text-lg font-bold font-outfit text-white tracking-tight leading-snug mb-2 line-clamp-2" title="${lead.name}">${lead.name}</h4>
+            <div class="mb-3">${priorityTagMarkup}</div>
+            
+            <div class="space-y-2 mt-4 text-xs text-gray-400">
+              <div class="flex items-center gap-2">
+                <i data-lucide="phone" class="w-3.5 h-3.5 text-gray-500 flex-shrink-0"></i>
+                <span class="font-sans font-medium text-gray-300">${displayPhone}</span>
+                <button id="${btnId}" class="p-1 hover:bg-[#272a30] rounded text-gray-500 hover:text-white transition-colors" onclick="copyPhone('${lead.phone}', '${btnId}')" title="Kopyala">
+                  <i data-lucide="copy" class="w-3 h-3"></i>
+                </button>
+              </div>
+              <div class="flex items-start gap-2">
+                <i data-lucide="map-pin" class="w-3.5 h-3.5 text-gray-500 mt-0.5 flex-shrink-0"></i>
+                <span class="font-sans leading-relaxed line-clamp-2" title="${lead.address}">${lead.address}</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <i data-lucide="globe-2" class="w-3.5 h-3.5 text-gray-500 flex-shrink-0"></i>
+                ${websiteMarkup}
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-6 pt-4 border-t border-[#272a30] flex flex-col gap-2">
+            ${actionButtonMarkup}
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+
+      // Rerender icons
+      lucide.createIcons();
+    }
+
+    // Run init
+    init();
+  </script>
+</body>
+</html>
