@@ -1,0 +1,350 @@
+{
+  "name": "E-Katalog Optimized B2B Smart Scraper & Supabase Seeder",
+  "nodes": [
+    {
+      "parameters": {
+        "operation": "select",
+        "table": "leads",
+        "returnAll": false,
+        "limit": 1,
+        "filters": {
+          "conditions": [
+            {
+              "key": "onboarded",
+              "operator": "equal",
+              "value": false
+            },
+            {
+              "key": "website",
+              "operator": "notEmpty"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "e8fb29ba-8a19-4809-b68e-5b1234567890",
+      "name": "Fetch Pending Leads from DB",
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [250, 360]
+    },
+    {
+      "parameters": {
+        "batchSize": 1,
+        "options": {}
+      },
+      "id": "b8fb29ba-8a19-4809-b68e-5b1234567891",
+      "name": "Process Store One-by-One",
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 1,
+      "position": [450, 360]
+    },
+    {
+      "parameters": {
+        "url": "={{$json.website}}/sitemap.xml",
+        "options": {
+          "redirect": {
+            "redirect": {
+              "followRedirects": true
+            }
+          }
+        }
+      },
+      "id": "f8fb29ba-8a19-4809-b68e-5b1234567892",
+      "name": "Fetch Sitemap XML",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [650, 360]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "const xml = $json.data || $json.body || '';\nconst infoPages = [];\nconst catalogPages = [];\nconst matches = xml.match(/<loc>(.*?)<\\/loc>/g);\n\nconst infoRegex = /(iletisim|contact|ulasin|about|hakkimizda|biz-kimiz|kurumsal|adres|phone|tel)/i;\nconst catalogRegex = /(urun|product|kategori|category|shop|hizmet|servis|portfolio|item|store|p-)/i;\n\nif (matches) {\n  for (let match of matches) {\n    let u = match.replace('<loc>', '').replace('</loc>', '').trim();\n    // Separate pages by purpose using fuzzy regex matching\n    if (infoRegex.test(u) || u === $node[\"Process Store One-by-One\"].json.website) {\n      infoPages.push(u);\n    } else if (catalogRegex.test(u)) {\n      catalogPages.push(u);\n    }\n  }\n}\n\nreturn [{\n  json: {\n    website: $node[\"Process Store One-by-One\"].json.website,\n    store_name: $node[\"Process Store One-by-One\"].json.company_name,\n    infoPages: infoPages.slice(0, 5),\n    catalogPages: catalogPages.slice(0, 10)\n  }\n}];"
+      },
+      "id": "a8fb29ba-8a19-4809-b68e-5b1234567893",
+      "name": "Smart Sitemap Separator",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [850, 360]
+    },
+    {
+      "parameters": {
+        "url": "={{$json.infoPages[0]}}",
+        "options": {
+          "redirect": {
+            "redirect": {
+              "followRedirects": true
+            }
+          }
+        }
+      },
+      "id": "c8fb29ba-8a19-4809-b68e-5b1234567894",
+      "name": "Fetch Corporate Info HTML",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [1050, 240]
+    },
+    {
+      "parameters": {
+        "url": "={{$node[\"Smart Sitemap Separator\"].json.catalogPages[0]}}",
+        "options": {
+          "redirect": {
+            "redirect": {
+              "followRedirects": true
+            }
+          }
+        }
+      },
+      "id": "d8fb29ba-8a19-4809-b68e-5b1234567895",
+      "name": "Fetch Catalog List HTML",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [1050, 480]
+    },
+    {
+      "parameters": {
+        "model": "gpt-4o",
+        "prompt": "Analyze the provided HTML files for the company '{{$node[\"Smart Sitemap Separator\"].json.store_name}}'.\n\n1. From the Corporate Info HTML, extract company phone, address, logo URL, a clean slogan, and about us description.\n2. From the Catalog List HTML, identify all product lists including product names, images, prices, and their parent categories.\n\nReturn EXACTLY a valid JSON object matching this schema in a single call to minimize API costs:\n{\n  \"metadata\": {\n    \"slogan\": \"string\",\n    \"about_us\": \"string\",\n    \"address\": \"string\",\n    \"phone\": \"string\",\n    \"logo_url\": \"string\"\n  },\n  \"products\": [\n    {\n      \"name\": \"string\",\n      \"category\": \"string\",\n      \"image_url\": \"string\",\n      \"description\": \"string\",\n      \"price\": 0\n    }\n  ]\n}\n\nCorporate HTML:\n{{$node[\"Fetch Corporate Info HTML\"].json.data}}\n\nCatalog HTML:\n{{$node[\"Fetch Catalog List HTML\"].json.data}}",
+        "options": {}
+      },
+      "id": "f8fb29ba-8a19-4809-b68e-5b1234567896",
+      "name": "Unified AI Store Brain",
+      "type": "n8n-nodes-base.basicLlmanalyzer",
+      "typeVersion": 1,
+      "position": [1300, 360]
+    },
+    {
+      "parameters": {
+        "operation": "upsert",
+        "table": "stores",
+        "columns": "name, slogan, description, address, phone, logo_url, website",
+        "values": {
+          "name": "={{$node[\"Smart Sitemap Separator\"].json.store_name}}",
+          "slogan": "={{$json.metadata.slogan}}",
+          "description": "={{$json.metadata.about_us}}",
+          "address": "={{$json.metadata.address}}",
+          "phone": "={{$json.metadata.phone}}",
+          "logo_url": "={{$json.metadata.logo_url}}",
+          "website": "={{$node[\"Smart Sitemap Separator\"].json.website}}"
+        },
+        "options": {}
+      },
+      "id": "a8fb29ba-8a19-4809-b68e-5b1234567897",
+      "name": "Upsert Storefront Metadata",
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [1500, 360]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "const products = $node[\"Unified AI Store Brain\"].json.products || [];\nconst store_id = $node[\"Upsert Storefront Metadata\"].json.id;\nreturn products.map(p => ({\n  json: {\n    ...p,\n    store_id: store_id\n  }\n}));"
+      },
+      "id": "b8fb29ba-8a19-4809-b68e-5b1234567898",
+      "name": "Map Products with Store ID",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1700, 360]
+    },
+    {
+      "parameters": {
+        "operation": "upsert",
+        "table": "prods",
+        "columns": "store_id, name, category, image_url, description, price",
+        "values": {
+          "store_id": "={{$json.store_id}}",
+          "name": "={{$json.name}}",
+          "category": "={{$json.category}}",
+          "image_url": "={{$json.image_url}}",
+          "description": "={{$json.description}}",
+          "price": "={{$json.price}}"
+        },
+        "options": {}
+      },
+      "id": "c8fb29ba-8a19-4809-b68e-5b1234567899",
+      "name": "Bulk Inject Products to DB",
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [1900, 360]
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "table": "leads",
+        "id": "={{$node[\"Process Store One-by-One\"].json.id}}",
+        "values": {
+          "onboarded": true
+        },
+        "options": {}
+      },
+      "id": "d8fb29ba-8a19-4809-b68e-5b1234567900",
+      "name": "Mark Lead as Onboarded",
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [2100, 360]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "boolean": [
+            {
+              "value1": "={{$node[\"Process Store One-by-One\"].context.noItemsLeft}}",
+              "value2": true
+            }
+          ]
+        }
+      },
+      "id": "e8fb29ba-8a19-4809-b68e-5b1234567901",
+      "name": "Next Store Controller",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [2300, 360]
+    }
+  ],
+  "connections": {
+    "Fetch Pending Leads from DB": {
+      "main": [
+        [
+          {
+            "node": "Process Store One-by-One",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Process Store One-by-One": {
+      "main": [
+        [
+          {
+            "node": "Fetch Sitemap XML",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch Sitemap XML": {
+      "main": [
+        [
+          {
+            "node": "Smart Sitemap Separator",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Smart Sitemap Separator": {
+      "main": [
+        [
+          {
+            "node": "Fetch Corporate Info HTML",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Fetch Catalog List HTML",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch Corporate Info HTML": {
+      "main": [
+        [
+          {
+            "node": "Unified AI Store Brain",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch Catalog List HTML": {
+      "main": [
+        [
+          {
+            "node": "Unified AI Store Brain",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Unified AI Store Brain": {
+      "main": [
+        [
+          {
+            "node": "Upsert Storefront Metadata",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Upsert Storefront Metadata": {
+      "main": [
+        [
+          {
+            "node": "Map Products with Store ID",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Map Products with Store ID": {
+      "main": [
+        [
+          {
+            "node": "Bulk Inject Products to DB",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Bulk Inject Products to DB": {
+      "main": [
+        [
+          {
+            "node": "Mark Lead as Onboarded",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mark Lead as Onboarded": {
+      "main": [
+        [
+          {
+            "node": "Next Store Controller",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Next Store Controller": {
+      "main": [
+        null,
+        [
+          {
+            "node": "Process Store One-by-One",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {},
+  "staticData": null,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "tags": []
+}
