@@ -9,11 +9,13 @@ export default function SmartImage({
   src,
   alt,
   className = '',
+  imgClassName = '',
   aspectRatio = 'square',
   objectFit = 'cover',
   fallbackIcon,
   fallbackSrc,
   priority = false,
+  rounded = false,
 }: SmartImageProps) {
   const [status, setStatus] = useState<'loading' | 'loaded' | 'error'>(
     src ? 'loading' : 'error',
@@ -54,7 +56,7 @@ export default function SmartImage({
           src={resolvedSrc || ''}
           alt={alt}
           loading={priority ? 'eager' : 'lazy'}
-          className={`w-full ${aspectRatio === 'none' ? 'h-auto' : 'h-full'} transition-all duration-700 ease-out ${objectFit === 'cover' ? 'object-cover' : 'object-contain'} ${status === 'loaded' ? 'opacity-100 scale-100 blur-0' : 'opacity-0 scale-105 blur-sm'}`}
+          className={`w-full ${aspectRatio === 'none' ? 'h-auto' : 'h-full'} transition-all duration-700 ease-out ${objectFit === 'cover' ? 'object-cover' : 'object-contain'} ${status === 'loaded' ? 'opacity-100 scale-100 blur-0' : 'opacity-0 scale-105 blur-sm'} ${rounded ? 'rounded-lg' : ''} ${imgClassName}`}
           onLoad={() => setStatus('loaded')}
           onError={() => setStatus('error')}
         />
