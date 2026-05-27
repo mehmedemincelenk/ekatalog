@@ -35,6 +35,7 @@
     /* RASYONEL FLUID ROOT: Katsayıyı 1.0vw yaparak dükkanın "büyüme hızını" laptop ekranları için rasyonelleştiriyorum. */
     font-size: clamp(14px, 0.9vw, 24px);
     scroll-behavior: smooth;
+    overflow-x: hidden;
   }
 
   /* MASAÜSTÜ KİLİDİ: PC'de telefon çerçevesi içindeki içerik, mobil boyutlarda kalmalı. */
@@ -48,6 +49,7 @@
     /* Sitenin genel zemin rengi ve ana yazı tipi - Added Inter and standard system fonts for full Turkish support */
     background-color: var(--bg-main);
     color: var(--text-main);
+    overflow-x: hidden;
     font-family:
       'Inter',
       -apple-system,
@@ -170,7 +172,19 @@
     transition: all 0.2s ease-in-out;
   }
 
-  /* GİZLİ SCROLLBAR: Kaydırma işlevini bozmadan görsel kalabalığı engeller. */
+  /* PHONE FRAME BASE (Mobile-First Layout Security) */
+  .phone-frame-container {
+    width: 100%;
+    max-width: 100vw;
+    overflow-x: hidden !important;
+  }
+
+  .phone-frame-content {
+    width: 100%;
+    position: relative;
+    overflow-x: hidden !important;
+  }
+
   @media (min-width: 768px) {
     .phone-frame-container {
       width: 360px !important;
@@ -181,11 +195,9 @@
     }
 
     .phone-frame-content {
-      width: 100%;
       height: 100%;
       overflow: hidden !important;
       border-radius: 1.5rem !important;
-      position: relative;
     }
   }
 

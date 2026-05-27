@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef, useCallback, ReactNode } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import * as Lucide from 'lucide-react';
 import Button from '../ui/Button';
 import { MarqueeText } from '../ui/MarqueeText';
 
@@ -46,7 +45,6 @@ interface BaseFloatingMenuProps {
 export default function BaseFloatingMenu({
   actions,
   autoCloseDelay = 5000,
-  activeMainIcon,
 }: BaseFloatingMenuProps) {
   const [isExpanded, setIsExpanded] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);

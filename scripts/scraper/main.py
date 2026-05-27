@@ -249,6 +249,15 @@ def main():
         if "/wp-content/" in url_l and "/uploads/" not in url_l:
             return False
             
+        # Geliştirici ve placeholder/tema/tasarım/demo varlıklarını filtrele (Diamond Standard Heuristic 💎)
+        dev_placeholder_keywords = [
+            "localhost", "127.0.0.1", "themetechmount", "boldman", "/themes/", "/wp-content/themes/",
+            "404-page", "uconstruction", "coming-soon", "login-bg", "floatingbar-bg", "placeholder",
+            "dummy", "default-", "bg-", "-bg", "bg.", "slider-bg", "banner-bg", "slider", "banner"
+        ]
+        if any(p in url_l or p in alt_l for p in dev_placeholder_keywords):
+            return False
+            
         # Kesinlikle çöp sosyal medya ve dil bayrakları/ikonları
         strict_trash_keywords = [
             "tr.png", "en.png", "flag", "instagram", "facebook", "twitter", "linkedin", 
@@ -401,6 +410,15 @@ def main():
             "amex", "secure", "lock", "sepet", "cart", "basket", "search", "ara"
         ]
         if any(k in url_l or k in alt_l for k in nav_footer_keywords):
+            return True
+            
+        # 4. Geliştirici ve placeholder/tema/tasarım/demo varlıklarını filtrele (Diamond Standard Heuristic 💎)
+        dev_placeholder_keywords = [
+            "localhost", "127.0.0.1", "themetechmount", "boldman", "/themes/", "/wp-content/themes/",
+            "404-page", "uconstruction", "coming-soon", "login-bg", "floatingbar-bg", "placeholder",
+            "dummy", "default-", "bg-", "-bg", "bg.", "slider-bg", "banner-bg"
+        ]
+        if any(p in url_l for p in dev_placeholder_keywords):
             return True
             
         return False

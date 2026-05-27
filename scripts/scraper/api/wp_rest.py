@@ -312,16 +312,48 @@ def try_wp_rest_extract(base_url, store_name):
         if not media_url:
             continue
             
-        content_html = item.get("content", {}).get("rendered", "") or item.get("excerpt", {}).get("rendered", "")
+        excerpt_html = item.get("excerpt", {}).get("rendered", "") or ""
+        content_html = item.get("content", {}).get("rendered", "") or ""
+        
         desc = ""
-        if content_html:
-            clean_desc = re.sub(r'<[^>]+>', ' ', content_html)
-            clean_desc = html.unescape(clean_desc).strip()
-            clean_desc = re.sub(r'\s+', ' ', clean_desc).strip()
-            if len(clean_desc) > 300:
-                desc = clean_desc[:297] + "..."
-            else:
-                desc = clean_desc
+        # 1. Önce WooCommerce kısa açıklaması (excerpt) değerlendirilir
+        if excerpt_html:
+            clean_excerpt = re.sub(r'<h[1-6][^>]*>.*?</h[1-6]>', ' ', excerpt_html, flags=re.I|re.S)
+            clean_excerpt = re.sub(r'<[^>]+>', ' ', clean_excerpt)
+            clean_excerpt = html.unescape(clean_excerpt).strip()
+            clean_excerpt = re.sub(r'\s+', ' ', clean_excerpt).strip()
+            
+            # Ürün başlığı ile aynı olan kısımları temizle
+            title_pat = re.escape(title)
+            clean_excerpt = re.sub(r'^' + title_pat + r'\s*[:\-–—\s]*', '', clean_excerpt, flags=re.I).strip()
+            
+            if len(clean_excerpt) > 10:
+                desc = clean_excerpt
+
+        # 2. Eğer kısa açıklama yoksa, uzun içerikten (content) düz metin ayıklanır
+        if not desc and content_html:
+            clean_content = content_html
+            # Hem tablo hem de paragraf varsa tablo kısmını temizle (sadece pazarlama metni kalsın)
+            if "<p" in clean_content.lower() and "<table" in clean_content.lower():
+                clean_content = re.sub(r'<table[^>]*>.*?</table>', ' ', clean_content, flags=re.I|re.S)
+                
+            clean_content = re.sub(r'<h[1-6][^>]*>.*?</h[1-6]>', ' ', clean_content, flags=re.I|re.S)
+            clean_content = re.sub(r'<[^>]+>', ' ', clean_content)
+            clean_content = html.unescape(clean_content).strip()
+            clean_content = re.sub(r'\s+', ' ', clean_content).strip()
+            
+            title_pat = re.escape(title)
+            clean_content = re.sub(r'^' + title_pat + r'\s*[:\-–—\s]*', '', clean_content, flags=re.I).strip()
+            
+            if len(clean_content) > 10:
+                desc = clean_content
+
+        # Karakter limiti koruması
+        if desc:
+            if len(desc) > 300:
+                desc = desc[:297] + "..."
+        else:
+            desc = ""
 
         title_norm = title.lower()
         if title_norm not in seen_prods:

@@ -301,7 +301,7 @@ export default function CatalogPage() {
         </div>
       </div>
 
-      <div className="relative flex-1 md:flex-none md:w-[650px] flex justify-center md:bg-black/40 md:backdrop-blur-md md:border-l md:border-white/10 z-10 md:overflow-y-auto custom-scrollbar">
+      <div className="relative flex-1 md:flex-none md:w-[650px] flex justify-center md:bg-black/40 md:backdrop-blur-md md:border-l md:border-white/10 z-10 md:overflow-y-auto custom-scrollbar w-full max-w-full overflow-x-hidden">
         <div
           className={`
             relative transition-all duration-700 ease-in-out 
@@ -310,7 +310,7 @@ export default function CatalogPage() {
             md:shadow-[0_0_0_12px_#1c1917,0_0_0_13px_rgba(255,255,255,0.1),0_40px_100px_rgba(0,0,0,0.8)] 
             md:z-10 md:scale-[0.95] lg:scale-[1.05]
             md:my-24
-            w-full min-h-screen 
+            w-full max-w-full overflow-x-hidden min-h-screen 
             ${UI.layout.bodyBg}
           `}
           style={{ transformOrigin: 'top center' }}
@@ -322,7 +322,7 @@ export default function CatalogPage() {
             <div className="absolute -right-[12px] top-40 w-[4px] h-20 bg-stone-800 rounded-r shadow-sm" />
           </div>
 
-          <div className="phone-frame-content bg-transparent">
+          <div className="phone-frame-content bg-transparent w-full max-w-full overflow-x-hidden">
             {mobileContent}
             <div className="hidden md:block absolute bottom-2 left-1/2 -translate-x-1/2 w-28 h-1 bg-stone-900/10 rounded-full z-[500] hover:bg-stone-900/20 transition-colors" />
           </div>

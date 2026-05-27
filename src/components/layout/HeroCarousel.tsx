@@ -273,8 +273,8 @@ export default function HeroCarousel({ isAdminModeActive }: HeroCarouselProps) {
               </>
             )}
 
-            {/* Instagram Stories Style Top Indicators */}
-            <div className="absolute top-3.5 left-4 right-4 z-50 flex gap-1.5 pointer-events-auto">
+            {/* Instagram Stories Style Top Indicators (Instagram Perfection) */}
+            <div className="absolute top-2.5 left-3.5 right-3.5 z-50 flex gap-1 pointer-events-auto">
               {flow.marketingSlides.map((_, dotIndex) => {
                 const isActive = flow.currentIndex === dotIndex;
                 const isCompleted = dotIndex < flow.currentIndex;
@@ -286,17 +286,16 @@ export default function HeroCarousel({ isAdminModeActive }: HeroCarouselProps) {
                       flow.setIsTransitioning(true);
                       flow.setCurrentIndex(dotIndex);
                     }}
-                    className="h-[3px] w-full rounded-full cursor-pointer bg-white/35 backdrop-blur-[0.5px] hover:bg-white/60 relative overflow-hidden"
+                    className="h-[2px] w-full rounded-full cursor-pointer bg-white/20 relative overflow-hidden"
                   >
                     {/* Active dynamic progress bar */}
                     {isActive ? (
                       <motion.div
-                        key={flow.currentIndex} // Re-mounts and resets animation on index change
-                        initial={{ scaleX: 0 }}
-                        animate={{ scaleX: 1 }}
-                        style={{ transformOrigin: 'left' }}
-                        transition={{ duration: 6, ease: 'linear' }}
-                        className="absolute inset-0 bg-white shadow-sm shadow-black/20"
+                        key={`${flow.currentIndex}-${flow.isPaused}`} // Re-mount and reset on index or pause state change
+                        initial={{ width: '0%' }}
+                        animate={{ width: flow.isPaused ? '0%' : '100%' }}
+                        transition={{ duration: flow.isPaused ? 0 : 6, ease: 'linear' }}
+                        className="absolute inset-y-0 left-0 bg-white"
                       />
                     ) : isCompleted ? (
                       <div className="absolute inset-0 bg-white" />
