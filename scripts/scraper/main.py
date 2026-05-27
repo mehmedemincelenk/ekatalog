@@ -309,10 +309,10 @@ def main():
                 "coop", "referanslar", "temsilcilik", "uretici", "markalarimiz", "our-brands",
                 "servis", "unox", "remta", "kitchenaid", "robotcoupe", "oztiryakiler", "inoksan",
                 "rational", "hobart", "winterhalter", "fagor", "brema", "scotsman",
-                "endustriyel", "industrial", "mutfak", "kitchen", "otel", "hotel", "restaurant",
-                "cafe", "pastane", "bakery", "distribütör", "üretici", "is-ortak"
+                "distribütör", "üretici", "is-ortak"
             ]
-            has_keyword = any(k in url_l or k in alt_l for k in ref_keywords)
+            url_path = urllib.parse.urlparse(url_str).path.lower()
+            has_keyword = any(k in url_path or k in alt_l for k in ref_keywords)
             if not has_keyword:
                 return False
 
@@ -327,8 +327,8 @@ def main():
                 # En-boy oranı kontrolü: 0.3 ile 4.0 arasında olmalı (Geniş logo standartı 💎)
                 if 0.3 <= aspect <= 4.0:
                     if is_on_reference_page:
-                        # Referans sayfasında daha büyük görsellere izin ver (Örn: 30px-1200px)
-                        if 30 <= w <= 1200 and 30 <= h <= 1000:
+                        # Referans sayfasında daha büyük görsellere izin ver (Örn: 30px-550px)
+                        if 30 <= w <= 550 and 30 <= h <= 300:
                             return True
                     else:
                         # Normal sayfalarda sadece küçük logo boyutlarını kabul et
@@ -359,7 +359,7 @@ def main():
                     if 0.3 <= aspect <= 4.0:
                         if is_on_reference_page:
                             # Referans sayfasında daha büyük görsellere izin ver
-                            if 30 <= w <= 1200 and 30 <= h <= 1000:
+                            if 30 <= w <= 550 and 30 <= h <= 300:
                                 return True
                         else:
                             # Normal sayfalarda küçük logo boyutları
