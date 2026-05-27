@@ -108,11 +108,11 @@ const ProductCard = memo(
                   theme.image.fit === 'object-cover' ? 'cover' : 'contain'
                 }
                 className={`
-                w-full h-full p-2 rounded-[calc(var(--radius-card)-4px)] ${theme.image.transition} 
+                w-full h-full p-2 rounded-xl ${theme.image.transition} 
                 ${product.out_of_stock ? theme.image.outOfStock : ''} 
                 ${isUploadingImage ? 'opacity-20 blur-sm' : ''}
               `}
-                imgClassName="rounded-[calc(var(--radius-card)-6px)]"
+                imgClassName="rounded-lg"
               />
 
               {/* LOADING OVERLAY (ONLY FOR UPLOADS) */}
