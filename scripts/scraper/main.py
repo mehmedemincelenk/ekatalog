@@ -248,16 +248,16 @@ def main():
         # WordPress Tema, Eklenti veya statik arayüz varlıklarını filtrele (Diamond Standard Heuristic 💎)
         if "/wp-content/" in url_l and "/uploads/" not in url_l:
             return False
-            
-        # Geliştirici ve placeholder/tema/tasarım/demo varlıklarını filtrele (Diamond Standard Heuristic 💎)
-        dev_placeholder_keywords = [
-            "localhost", "127.0.0.1", "themetechmount", "boldman", "/themes/", "/wp-content/themes/",
-            "404-page", "uconstruction", "coming-soon", "login-bg", "floatingbar-bg", "placeholder",
-            "dummy", "default-", "bg-", "-bg", "bg.", "slider-bg", "banner-bg", "slider", "banner"
-        ]
-        if any(p in url_l or p in alt_l for p in dev_placeholder_keywords):
-            return False
-            
+
+        # 2. REFERANS SAYFASI VE DOĞRUDAN ANAHTAR KELİME TESPİTİ
+        is_on_reference_page = False
+        if source_page_url:
+            sp_url_l = source_page_url.lower()
+            if any(ref_slug in sp_url_l for ref_slug in ["referans", "reference", "brand", "marka", "partner", "sponsor", "bayi", "musteri", "müşteri", "customer", "isortag", "is-ortak"]):
+                is_on_reference_page = True
+                
+        has_direct_ref_keyword = any(k in url_l or k in alt_l for k in ["referans", "reference", "referanslar", "referanslarimiz", "references"])
+
         # Kesinlikle çöp sosyal medya ve dil bayrakları/ikonları
         strict_trash_keywords = [
             "tr.png", "en.png", "flag", "instagram", "facebook", "twitter", "linkedin", 
@@ -266,17 +266,6 @@ def main():
             "bg", "pattern", "check", "close", "cancel", "next", "prev", "icon"
         ]
         if any(k in url_l or k in alt_l for k in strict_trash_keywords):
-            return False
-
-        # Kampanya, reklam, fırsat, iletişim ve kategori afişlerini dışla
-        ui_and_promo_keywords = [
-            "taksit", "kargo", "fiyat", "enuygun", "odeme", "ödeme", "kredikarti", "kredi-karti", "credit-card",
-            "firsat", "fırsat", "kampanya", "indirim", "discount", "promo", "banner", "reklam", "ad-", "adsense", 
-            "slider", "vitrin", "pop-up", "popup", "tel", "phone", "adres", "address", "iletisim", "contact", 
-            "ulas", "ulaş", "hakkimizda", "hakkımızda", "about", "default", "widget", "sidebar", "theme", "plugin", 
-            "yazfirsati", "yazfırsatı", "kategori", "category", "urun-kategori", "product-category", "tag", "etiket"
-        ]
-        if any(k in url_l or k in alt_l for k in ui_and_promo_keywords):
             return False
 
         # Kesinlikle referans logosu olamayacak B2B ürün ve kategori isimleri (Diamond Standard Heuristic 💎)
@@ -291,13 +280,6 @@ def main():
         if any(k in url_l or k in alt_l for k in product_trash_keywords):
             return False
 
-        # 2. REFERANS SAYFASI KONTROLÜ
-        is_on_reference_page = False
-        if source_page_url:
-            sp_url_l = source_page_url.lower()
-            if any(ref_slug in sp_url_l for ref_slug in ["referans", "reference", "brand", "marka", "partner", "sponsor", "bayi", "musteri", "müşteri", "customer", "isortag", "is-ortak"]):
-                is_on_reference_page = True
-
         # 3. ÜRÜN RESMİ KONTROLÜ
         try:
             if "product_images_set" in locals() or "product_images_set" in globals():
@@ -310,20 +292,79 @@ def main():
         if any(pk in url_l for pk in product_keywords):
             return False
 
-        # 4. ANAHTAR KELİME KONTROLÜ (Normal sayfalardaki görseller için)
-        if not is_on_reference_page:
-            ref_keywords = [
-                "logo", "marka", "brand", "ref", "referans", "partner", "sponsor", 
-                "client", "customer", "bayi", "distributor", "isortag", "ortak", "cooperation",
-                "coop", "referanslar", "temsilcilik", "uretici", "markalarimiz", "our-brands",
-                "servis", "unox", "remta", "kitchenaid", "robotcoupe", "oztiryakiler", "inoksan",
-                "rational", "hobart", "winterhalter", "fagor", "brema", "scotsman",
-                "distribütör", "üretici", "is-ortak"
-            ]
-            url_path = urllib.parse.urlparse(url_str).path.lower()
-            has_keyword = any(k in url_path or k in alt_l for k in ref_keywords)
-            if not has_keyword:
+        # EĞER REFERANS SAYFASINDAYSAK VEYA GÖRSELİN İSMİNDE DOĞRUDAN REFERANS KELİMESİ GEÇİYORSA:
+        # Katı boyut ve placeholder filtrelerini aşarak DİREKT kabul ediyoruz (Diamond Standard 💎)
+        if is_on_reference_page or has_direct_ref_keyword:
+            dev_trash = ["localhost", "127.0.0.1", "dummy", "placeholder", "404-page"]
+            if any(p in url_l or p in alt_l for p in dev_trash):
                 return False
+                
+            size_match = re.search(r'-(\d+)x(\d+)\.(?:jpg|jpeg|png|webp|gif|svg)', url_l)
+            if size_match:
+                try:
+                    w = int(size_match.group(1))
+                    h = int(size_match.group(2))
+                    aspect = w / h
+                    if 0.3 <= aspect <= 5.0:
+                        if 30 <= w <= 2500 and 30 <= h <= 2000:
+                            return True
+                    return False
+                except ValueError:
+                    pass
+
+            if url_l.endswith(".svg"):
+                return True
+
+            try:
+                from PIL import ImageFile
+                req = urllib.request.Request(url_str, headers={'User-Agent': 'Mozilla/5.0'})
+                with urllib.request.urlopen(req, timeout=1.0) as response:
+                    chunk = response.read(16384)
+                    p = ImageFile.Parser()
+                    p.feed(chunk)
+                    if p.image:
+                        w, h = p.image.size
+                        aspect = w / h
+                        if 0.3 <= aspect <= 5.0:
+                            if 30 <= w <= 2500 and 30 <= h <= 2000:
+                                return True
+                        return False
+            except Exception:
+                return True
+            return True
+
+        # EĞER NORMAL BİR SAYFADAYSAK (Klasik sıkı denetimler)
+        dev_placeholder_keywords = [
+            "localhost", "127.0.0.1", "themetechmount", "boldman", "/themes/", "/wp-content/themes/",
+            "404-page", "uconstruction", "coming-soon", "login-bg", "floatingbar-bg", "placeholder",
+            "dummy", "default-", "bg-", "-bg", "bg.", "slider-bg", "banner-bg", "slider", "banner"
+        ]
+        if any(p in url_l or p in alt_l for p in dev_placeholder_keywords):
+            return False
+
+        ui_and_promo_keywords = [
+            "taksit", "kargo", "fiyat", "enuygun", "odeme", "ödeme", "kredikarti", "kredi-karti", "credit-card",
+            "firsat", "fırsat", "kampanya", "indirim", "discount", "promo", "banner", "reklam", "ad-", "adsense", 
+            "slider", "vitrin", "pop-up", "popup", "tel", "phone", "adres", "address", "iletisim", "contact", 
+            "ulas", "ulaş", "hakkimizda", "hakkımızda", "about", "default", "widget", "sidebar", "theme", "plugin", 
+            "yazfirsati", "yazfırsatı", "kategori", "category", "urun-kategori", "product-category", "tag", "etiket"
+        ]
+        if any(k in url_l or k in alt_l for k in ui_and_promo_keywords):
+            return False
+
+        # 4. ANAHTAR KELİME KONTROLÜ (Normal sayfalardaki görseller için)
+        ref_keywords = [
+            "logo", "marka", "brand", "ref", "referans", "partner", "sponsor", 
+            "client", "customer", "bayi", "distributor", "isortag", "ortak", "cooperation",
+            "coop", "referanslar", "temsilcilik", "uretici", "markalarimiz", "our-brands",
+            "servis", "unox", "remta", "kitchenaid", "robotcoupe", "oztiryakiler", "inoksan",
+            "rational", "hobart", "winterhalter", "fagor", "brema", "scotsman",
+            "distribütör", "üretici", "is-ortak"
+        ]
+        url_path = urllib.parse.urlparse(url_str).path.lower()
+        has_keyword = any(k in url_path or k in alt_l for k in ref_keywords)
+        if not has_keyword:
+            return False
 
         # 5. PİKSEL VE BOYUT KONTROLLERİ (En-boy oranı ve ideal aralık)
         # 5.1 URL içerisindeki WordPress boyut eklerini yakalayalım (Örn: -150x150.png)
@@ -333,16 +374,10 @@ def main():
                 w = int(size_match.group(1))
                 h = int(size_match.group(2))
                 aspect = w / h
-                # En-boy oranı kontrolü: 0.3 ile 4.0 arasında olmalı (Geniş logo standartı 💎)
+                # En-boy oranı kontrolü: 0.3 ile 4.0 arasında olmalı
                 if 0.3 <= aspect <= 4.0:
-                    if is_on_reference_page:
-                        # Referans sayfasında daha büyük görsellere izin ver (Örn: 30px-550px)
-                        if 30 <= w <= 550 and 30 <= h <= 300:
-                            return True
-                    else:
-                        # Normal sayfalarda sadece küçük logo boyutlarını kabul et
-                        if 30 <= w <= 300 and 30 <= h <= 200:
-                            return True
+                    if 30 <= w <= 300 and 30 <= h <= 200:
+                        return True
                 return False
             except ValueError:
                 pass
@@ -356,7 +391,6 @@ def main():
             from PIL import ImageFile
             
             req = urllib.request.Request(url_str, headers={'User-Agent': 'Mozilla/5.0'})
-            # Çok hızlı timeout ile ilk 16KB okuyoruz (Logo dosyaları için fazlasıyla yeterli)
             with urllib.request.urlopen(req, timeout=1.0) as response:
                 chunk = response.read(16384)
                 p = ImageFile.Parser()
@@ -364,21 +398,13 @@ def main():
                 if p.image:
                     w, h = p.image.size
                     aspect = w / h
-                    # En-boy oranı kontrolü: 0.3 ile 4.0 arasında olmalı (Geniş logo standartı 💎)
                     if 0.3 <= aspect <= 4.0:
-                        if is_on_reference_page:
-                            # Referans sayfasında daha büyük görsellere izin ver
-                            if 30 <= w <= 550 and 30 <= h <= 300:
-                                return True
-                        else:
-                            # Normal sayfalarda küçük logo boyutları
-                            if 30 <= w <= 400 and 30 <= h <= 250:
-                                return True
+                        if 30 <= w <= 400 and 30 <= h <= 250:
+                            return True
                     return False
                 else:
                     return False
         except Exception:
-            # İnternet/bağlantı hatası durumunda, güvenli bir şekilde metin eşleşmesi fallback'ine dönüyoruz
             return True
 
     def is_navbar_footer_or_logo(url_str, alt_str=""):
