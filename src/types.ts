@@ -159,6 +159,7 @@ export interface SmartImageProps {
   src: string | null;
   alt: string;
   className?: string;
+  imgClassName?: string;
   aspectRatio?: 'square' | 'rectangle' | 'none';
   objectFit?: 'cover' | 'contain';
   fallbackIcon?: React.ReactNode;
