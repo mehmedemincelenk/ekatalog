@@ -19,3 +19,15 @@ import-products.js
 # Sadece .env.example (örnek şablon) yollanır.
 .env
 .env.local
+
+# Python Caching & Compilation Artifacts
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.venv/
+venv/
+result_*.json
+result_*.md
+

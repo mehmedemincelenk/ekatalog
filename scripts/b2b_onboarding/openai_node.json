@@ -1,0 +1,39 @@
+{
+  "nodes": [
+    {
+      "parameters": {
+        "resource": "chat",
+        "model": "gpt-4o",
+        "prompt": {
+          "messages": [
+            {
+              "content": "=Analyze the provided HTML files for the company '{{ $json.store_name }}'.  1. From the Corporate Info HTML, extract company phone, address, logo URL, a clean slogan, and about us description. 2. From the Catalog List HTML, identify all product lists including product names, images, prices, and their parent categories.  Return EXACTLY a valid JSON object matching this schema in a single call to minimize API costs: {   \"metadata\": {     \"slogan\": \"string\",     \"about_us\": \"string\",     \"address\": \"string\",     \"phone\": \"string\",     \"logo_url\": \"string\"   },   \"products\": [     {       \"name\": \"string\",       \"category\": \"string\",       \"image_url\": \"string\",       \"description\": \"string\",       \"price\": 0     }   ] }  Corporate HTML: {{ $json.corporate_html }}  Catalog HTML: {{ $json.catalog_html }}"
+            }
+          ]
+        },
+        "options": {},
+        "requestOptions": {}
+      },
+      "id": "137e4761-82e9-47a8-93dc-75c0b8b19a8c",
+      "name": "Unified AI Store Brain1",
+      "type": "n8n-nodes-base.openAi",
+      "typeVersion": 1,
+      "position": [
+        1632,
+        -96
+      ],
+      "credentials": {
+        "openAiApi": {
+          "id": "r2BN2uuCxJXx47PI",
+          "name": "OpenAI account"
+        }
+      }
+    }
+  ],
+  "connections": {},
+  "pinData": {},
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "37a3dfaba7b05cd57f5b2cf6fc20b2f54984c50188a88d634ad97d356988bd9c"
+  }
+}

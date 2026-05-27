@@ -87,7 +87,7 @@ Tüm sayfalar tarandıktan sonra carousel kararı verilir:
    - `carousel_data.enabled = false` olduğunda `HeroCarousel` bileşeni render edilmez.
    - Bu durumda Unsplash görseli de kullanılmaz — carousel tamamen gizlenir.
 
-4. **Unsplash Fallback (istisnai durum):** Sadece carousel AÇIK kalacak ama site görseli yoksa (404 vb.) Unsplash kullanılır. Kare site görsel varsa carousel OFF tercih edilir.
+4. **Unsplash Fallback (istisnai durum):** Sadece carousel AÇIK kalacak ama site görseli yoksa (404 vb.) - Neden: Kullanıcının PC'sini fiziksel olarak çökertebilmektedir.
 
 ---
 

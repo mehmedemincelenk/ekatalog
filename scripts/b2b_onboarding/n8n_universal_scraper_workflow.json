@@ -2,31 +2,53 @@
   "name": "E-Katalog Optimized B2B Smart Scraper & Supabase Seeder",
   "nodes": [
     {
+      "parameters": {},
+      "id": "e8fb29ba-8a19-4809-b68e-5b1234567907",
+      "name": "When clicking ‘Test workflow’",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        50,
+        360
+      ]
+    },
+    {
       "parameters": {
-        "operation": "select",
-        "table": "leads",
+        "operation": "getAll",
+        "tableId": "leads",
         "returnAll": false,
         "limit": 1,
+        "filterType": "manual",
+        "matchType": "allFilters",
         "filters": {
           "conditions": [
             {
-              "key": "onboarded",
-              "operator": "equal",
-              "value": false
+              "keyName": "onboarded",
+              "condition": "eq",
+              "keyValue": "false"
             },
             {
-              "key": "website",
-              "operator": "notEmpty"
+              "keyName": "website",
+              "condition": "neq",
+              "keyValue": ""
             }
           ]
-        },
-        "options": {}
+        }
       },
       "id": "e8fb29ba-8a19-4809-b68e-5b1234567890",
       "name": "Fetch Pending Leads from DB",
       "type": "n8n-nodes-base.supabase",
       "typeVersion": 1,
-      "position": [250, 360]
+      "position": [
+        250,
+        360
+      ],
+      "credentials": {
+        "supabaseApi": {
+          "id": "k4tP7D04HQrdKbOY",
+          "name": "Supabase account"
+        }
+      }
     },
     {
       "parameters": {
@@ -37,7 +59,10 @@
       "name": "Process Store One-by-One",
       "type": "n8n-nodes-base.splitInBatches",
       "typeVersion": 1,
-      "position": [450, 360]
+      "position": [
+        450,
+        360
+      ]
     },
     {
       "parameters": {
@@ -50,22 +75,29 @@
           }
         }
       },
+      "continueOnFail": true,
       "id": "f8fb29ba-8a19-4809-b68e-5b1234567892",
       "name": "Fetch Sitemap XML",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4,
-      "position": [650, 360]
+      "position": [
+        650,
+        360
+      ]
     },
     {
       "parameters": {
         "mode": "runOnceForEachItem",
-        "jsCode": "const xml = $json.data || $json.body || '';\nconst infoPages = [];\nconst catalogPages = [];\nconst matches = xml.match(/<loc>(.*?)<\\/loc>/g);\n\nconst infoRegex = /(iletisim|contact|ulasin|about|hakkimizda|biz-kimiz|kurumsal|adres|phone|tel)/i;\nconst catalogRegex = /(urun|product|kategori|category|shop|hizmet|servis|portfolio|item|store|p-)/i;\n\nif (matches) {\n  for (let match of matches) {\n    let u = match.replace('<loc>', '').replace('</loc>', '').trim();\n    // Separate pages by purpose using fuzzy regex matching\n    if (infoRegex.test(u) || u === $node[\"Process Store One-by-One\"].json.website) {\n      infoPages.push(u);\n    } else if (catalogRegex.test(u)) {\n      catalogPages.push(u);\n    }\n  }\n}\n\nreturn [{\n  json: {\n    website: $node[\"Process Store One-by-One\"].json.website,\n    store_name: $node[\"Process Store One-by-One\"].json.company_name,\n    infoPages: infoPages.slice(0, 5),\n    catalogPages: catalogPages.slice(0, 10)\n  }\n}];"
+        "jsCode": "const xml = $json.data || $json.body || '';\nconst infoPages = [];\nconst catalogPages = [];\nconst matches = typeof xml === 'string' ? xml.match(/<loc>(.*?)<\\/loc>/g) : null;\n\nconst infoRegex = /(iletisim|contact|ulasin|about|hakkimizda|biz-kimiz|kurumsal|adres|phone|tel)/i;\nconst catalogRegex = /(urun|product|kategori|category|shop|hizmet|servis|portfolio|item|store|p-)/i;\n\nif (matches) {\n  for (let match of matches) {\n    let u = match.replace('<loc>', '').replace('</loc>', '').trim();\n    if (infoRegex.test(u) || u === $node[\"Process Store One-by-One\"].json.website) {\n      infoPages.push(u);\n    } else if (catalogRegex.test(u)) {\n      catalogPages.push(u);\n    }\n  }\n}\n\nconst website = $node[\"Process Store One-by-One\"].json.website || '';\nif (infoPages.length === 0 && website) {\n  infoPages.push(website);\n}\nif (catalogPages.length === 0 && website) {\n  catalogPages.push(website);\n}\n\nreturn {\n  website: website,\n  store_name: $node[\"Process Store One-by-One\"].json.company_name,\n  infoPages: infoPages.slice(0, 5),\n  catalogPages: catalogPages.slice(0, 10)\n};"
       },
       "id": "a8fb29ba-8a19-4809-b68e-5b1234567893",
       "name": "Smart Sitemap Separator",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [850, 360]
+      "position": [
+        850,
+        360
+      ]
     },
     {
       "parameters": {
@@ -78,11 +110,15 @@
           }
         }
       },
+      "continueOnFail": true,
       "id": "c8fb29ba-8a19-4809-b68e-5b1234567894",
       "name": "Fetch Corporate Info HTML",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4,
-      "position": [1050, 240]
+      "position": [
+        1050,
+        240
+      ]
     },
     {
       "parameters": {
@@ -95,100 +131,237 @@
           }
         }
       },
+      "continueOnFail": true,
       "id": "d8fb29ba-8a19-4809-b68e-5b1234567895",
       "name": "Fetch Catalog List HTML",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4,
-      "position": [1050, 480]
-    },
-    {
-      "parameters": {
-        "model": "gpt-4o",
-        "prompt": "Analyze the provided HTML files for the company '{{$node[\"Smart Sitemap Separator\"].json.store_name}}'.\n\n1. From the Corporate Info HTML, extract company phone, address, logo URL, a clean slogan, and about us description.\n2. From the Catalog List HTML, identify all product lists including product names, images, prices, and their parent categories.\n\nReturn EXACTLY a valid JSON object matching this schema in a single call to minimize API costs:\n{\n  \"metadata\": {\n    \"slogan\": \"string\",\n    \"about_us\": \"string\",\n    \"address\": \"string\",\n    \"phone\": \"string\",\n    \"logo_url\": \"string\"\n  },\n  \"products\": [\n    {\n      \"name\": \"string\",\n      \"category\": \"string\",\n      \"image_url\": \"string\",\n      \"description\": \"string\",\n      \"price\": 0\n    }\n  ]\n}\n\nCorporate HTML:\n{{$node[\"Fetch Corporate Info HTML\"].json.data}}\n\nCatalog HTML:\n{{$node[\"Fetch Catalog List HTML\"].json.data}}",
-        "options": {}
-      },
-      "id": "f8fb29ba-8a19-4809-b68e-5b1234567896",
-      "name": "Unified AI Store Brain",
-      "type": "n8n-nodes-base.basicLlmanalyzer",
-      "typeVersion": 1,
-      "position": [1300, 360]
-    },
-    {
-      "parameters": {
-        "operation": "upsert",
-        "table": "stores",
-        "columns": "name, slogan, description, address, phone, logo_url, website",
-        "values": {
-          "name": "={{$node[\"Smart Sitemap Separator\"].json.store_name}}",
-          "slogan": "={{$json.metadata.slogan}}",
-          "description": "={{$json.metadata.about_us}}",
-          "address": "={{$json.metadata.address}}",
-          "phone": "={{$json.metadata.phone}}",
-          "logo_url": "={{$json.metadata.logo_url}}",
-          "website": "={{$node[\"Smart Sitemap Separator\"].json.website}}"
-        },
-        "options": {}
-      },
-      "id": "a8fb29ba-8a19-4809-b68e-5b1234567897",
-      "name": "Upsert Storefront Metadata",
-      "type": "n8n-nodes-base.supabase",
-      "typeVersion": 1,
-      "position": [1500, 360]
+      "position": [
+        1050,
+        480
+      ]
     },
     {
       "parameters": {
         "mode": "runOnceForEachItem",
-        "jsCode": "const products = $node[\"Unified AI Store Brain\"].json.products || [];\nconst store_id = $node[\"Upsert Storefront Metadata\"].json.id;\nreturn products.map(p => ({\n  json: {\n    ...p,\n    store_id: store_id\n  }\n}));"
+        "jsCode": "const cleanHtmlForAI = (html) => {\n  if (!html || typeof html !== 'string') return '';\n  \n  let cleaned = html\n    .replace(/<head[^>]*>[\\s\\S]*?<\\/head>/gi, '')\n    .replace(/<script[^>]*>[\\s\\S]*?<\\/script>/gi, '')\n    .replace(/<style[^>]*>[\\s\\S]*?<\\/style>/gi, '')\n    .replace(/<svg[^>]*>[\\s\\S]*?<\\/svg>/gi, '')\n    .replace(/<nav[^>]*>[\\s\\S]*?<\\/nav>/gi, '')\n    .replace(/<header[^>]*>[\\s\\S]*?<\\/header>/gi, '')\n    .replace(/<footer[^>]*>[\\s\\S]*?<\\/footer>/gi, '')\n    .replace(/<iframe[^>]*>[\\s\\S]*?<\\/iframe>/gi, '')\n    .replace(/<noscript[^>]*>[\\s\\S]*?<\\/noscript>/gi, '')\n    .replace(/<!--[\\s\\S]*?-->/gi, '');\n\n  cleaned = cleaned\n    .replace(/\\s(id|class|data-[a-z0-9\\-]+|aria-[a-z0-9\\-]+|style|onclick|target|rel|width|height|loading|onerror|tabindex|role)=\"[^\"]*\"/gi, '')\n    .replace(/\\s(id|class|data-[a-z0-9\\-]+|aria-[a-z0-9\\-]+|style|onclick|target|rel|width|height|loading|onerror|tabindex|role)='[^']*'/gi, '');\n\n  cleaned = cleaned.replace(/\\s+/g, ' ').trim();\n\n  if (cleaned.length > 25000) {\n    cleaned = cleaned.substring(0, 25000) + '... [TRUNCATED]';\n  }\n\n  return cleaned;\n};\n\nlet corporate_html = '';\nlet catalog_html = '';\nlet store_name = '';\nlet website = '';\n\ntry {\n  corporate_html = cleanHtmlForAI($node[\"Fetch Corporate Info HTML\"].json.data || '');\n} catch (e) {}\n\ntry {\n  catalog_html = cleanHtmlForAI($node[\"Fetch Catalog List HTML\"].json.data || '');\n} catch (e) {}\n\ntry {\n  store_name = $node[\"Smart Sitemap Separator\"].json.store_name || '';\n  website = $node[\"Smart Sitemap Separator\"].json.website || '';\n} catch (e) {}\n\nreturn {\n  store_name,\n  website,\n  corporate_html,\n  catalog_html,\n  html_fetched: !!(corporate_html || catalog_html)\n};"
       },
-      "id": "b8fb29ba-8a19-4809-b68e-5b1234567898",
-      "name": "Map Products with Store ID",
+      "id": "e8fb29ba-8a19-4809-b68e-5b1234567905",
+      "name": "Prepare AI Inputs",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [1700, 360]
-    },
-    {
-      "parameters": {
-        "operation": "upsert",
-        "table": "prods",
-        "columns": "store_id, name, category, image_url, description, price",
-        "values": {
-          "store_id": "={{$json.store_id}}",
-          "name": "={{$json.name}}",
-          "category": "={{$json.category}}",
-          "image_url": "={{$json.image_url}}",
-          "description": "={{$json.description}}",
-          "price": "={{$json.price}}"
-        },
-        "options": {}
-      },
-      "id": "c8fb29ba-8a19-4809-b68e-5b1234567899",
-      "name": "Bulk Inject Products to DB",
-      "type": "n8n-nodes-base.supabase",
-      "typeVersion": 1,
-      "position": [1900, 360]
-    },
-    {
-      "parameters": {
-        "operation": "update",
-        "table": "leads",
-        "id": "={{$node[\"Process Store One-by-One\"].json.id}}",
-        "values": {
-          "onboarded": true
-        },
-        "options": {}
-      },
-      "id": "d8fb29ba-8a19-4809-b68e-5b1234567900",
-      "name": "Mark Lead as Onboarded",
-      "type": "n8n-nodes-base.supabase",
-      "typeVersion": 1,
-      "position": [2100, 360]
+      "position": [
+        1125,
+        360
+      ]
     },
     {
       "parameters": {
         "conditions": {
           "boolean": [
             {
-              "value1": "={{$node[\"Process Store One-by-One\"].context.noItemsLeft}}",
+              "value1": "={{$json.html_fetched}}",
+              "value2": true
+            }
+          ]
+        }
+      },
+      "id": "f8fb29ba-8a19-4809-b68e-5b1234567902",
+      "name": "Check HTML Content",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        1250,
+        360
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "chat",
+        "operation": "complete",
+        "model": "gpt-4o",
+        "messages": {
+          "values": [
+            {
+              "role": "user",
+              "content": "Analyze the provided HTML files for the company '{{$json.store_name}}'.\n\n1. From the Corporate Info HTML, extract company phone, address, logo URL, a clean slogan, and about us description.\n2. From the Catalog List HTML, identify all product lists including product names, images, prices, and their parent categories.\n\nReturn EXACTLY a valid JSON object matching this schema in a single call to minimize API costs:\n{\n  \"metadata\": {\n    \"slogan\": \"string\",\n    \"about_us\": \"string\",\n    \"address\": \"string\",\n    \"phone\": \"string\",\n    \"logo_url\": \"string\"\n  },\n  \"products\": [\n    {\n      \"name\": \"string\",\n      \"category\": \"string\",\n      \"image_url\": \"string\",\n      \"description\": \"string\",\n      \"price\": 0\n    }\n  ]\n}\n\nCorporate HTML:\n{{$json.corporate_html}}\n\nCatalog HTML:\n{{$json.catalog_html}}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "f8fb29ba-8a19-4809-b68e-5b1234567896",
+      "name": "Unified AI Store Brain",
+      "type": "n8n-nodes-base.openAi",
+      "typeVersion": 1,
+      "position": [
+        1400,
+        360
+      ],
+      "credentials": {
+        "openAiApi": {
+          "id": "r2BN2uuCxJXx47PI",
+          "name": "OpenAI account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "create",
+        "tableId": "stores",
+        "dataToSend": "defineBelow",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "name",
+              "fieldValue": "={{$node[\"Smart Sitemap Separator\"].json.store_name}}"
+            },
+            {
+              "fieldId": "slug",
+              "fieldValue": "={{$node[\"Smart Sitemap Separator\"].json.store_name.toLowerCase().replace(/[çğışöü]/g, function(m) { return { 'ç':'c', 'ğ':'g', 'ı':'i', 'ö':'o', 'ş':'s', 'ü':'u' }[m]; }).replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '')}}"
+            },
+            {
+              "fieldId": "tagline",
+              "fieldValue": "={{(() => { const content = $node[\"Unified AI Store Brain\"].json.message.content; const start = content.indexOf('{'); const end = content.lastIndexOf('}'); if (start === -1 || end === -1) return ''; try { return JSON.parse(content.substring(start, end + 1)).metadata.slogan || ''; } catch(e) { return ''; } })()}}"
+            },
+            {
+              "fieldId": "address",
+              "fieldValue": "={{(() => { const content = $node[\"Unified AI Store Brain\"].json.message.content; const start = content.indexOf('{'); const end = content.lastIndexOf('}'); if (start === -1 || end === -1) return ''; try { return JSON.parse(content.substring(start, end + 1)).metadata.address || ''; } catch(e) { return ''; } })()}}"
+            },
+            {
+              "fieldId": "phone",
+              "fieldValue": "={{(() => { const content = $node[\"Unified AI Store Brain\"].json.message.content; const start = content.indexOf('{'); const end = content.lastIndexOf('}'); if (start === -1 || end === -1) return ''; try { return JSON.parse(content.substring(start, end + 1)).metadata.phone || ''; } catch(e) { return ''; } })()}}"
+            },
+            {
+              "fieldId": "logo_url",
+              "fieldValue": "={{(() => { const content = $node[\"Unified AI Store Brain\"].json.message.content; const start = content.indexOf('{'); const end = content.lastIndexOf('}'); if (start === -1 || end === -1) return ''; try { return JSON.parse(content.substring(start, end + 1)).metadata.logo_url || ''; } catch(e) { return ''; } })()}}"
+            }
+          ]
+        }
+      },
+      "id": "a8fb29ba-8a19-4809-b68e-5b1234567897",
+      "name": "Upsert Storefront Metadata",
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        1800,
+        480
+      ],
+      "credentials": {
+        "supabaseApi": {
+          "id": "k4tP7D04HQrdKbOY",
+          "name": "Supabase account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const rawContent = $('Unified AI Store Brain').first().json.message.content || \"\";\n\n// Bulletproof JSON extractor: extract everything between the first '{' and the last '}'\nlet cleanContent = \"\";\nconst firstBrace = rawContent.indexOf(\"{\");\nconst lastBrace = rawContent.lastIndexOf(\"}\");\nif (firstBrace !== -1 && lastBrace !== -1) {\n  cleanContent = rawContent.substring(firstBrace, lastBrace + 1).trim();\n} else {\n  cleanContent = rawContent.trim();\n}\n\nconst parsed = JSON.parse(cleanContent);\nconst products = parsed.products || [];\n\nlet store_id = \"\";\ntry {\n  store_id = $('Check If Store Exists').first().json.id;\n} catch (e) {}\n\nif (!store_id) {\n  try {\n    store_id = $('Upsert Storefront Metadata').first().json.id;\n  } catch (e) {}\n}\nif (!store_id) {\n  try {\n    store_id = $('Update Storefront Metadata').first().json.id;\n  } catch (e) {}\n}\n\nreturn products.map(p => ({\n  json: {\n    store_id: store_id,\n    name: p.name || \"\",\n    category: p.category || \"\",\n    image_url: p.image_url || \"\",\n    description: p.description || \"\",\n    price: Number(p.price) || 0\n  }\n}));"
+      },
+      "id": "b8fb29ba-8a19-4809-b68e-5b1234567898",
+      "name": "Map Products with Store ID",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1700,
+        360
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "create",
+        "tableId": "prods",
+        "dataToSend": "defineBelow",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "store_id",
+              "fieldValue": "={{$json.store_id}}"
+            },
+            {
+              "fieldId": "name",
+              "fieldValue": "={{$json.name}}"
+            },
+            {
+              "fieldId": "category",
+              "fieldValue": "={{$json.category}}"
+            },
+            {
+              "fieldId": "image_url",
+              "fieldValue": "={{$json.image_url}}"
+            },
+            {
+              "fieldId": "description",
+              "fieldValue": "={{$json.description}}"
+            },
+            {
+              "fieldId": "price",
+              "fieldValue": "={{$json.price}}"
+            }
+          ]
+        }
+      },
+      "id": "c8fb29ba-8a19-4809-b68e-5b1234567899",
+      "name": "Bulk Inject Products to DB",
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        1900,
+        360
+      ],
+      "credentials": {
+        "supabaseApi": {
+          "id": "k4tP7D04HQrdKbOY",
+          "name": "Supabase account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "tableId": "leads",
+        "filterType": "manual",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "id",
+              "condition": "eq",
+              "keyValue": "={{$('Process Store One-by-One').first().json.id}}"
+            }
+          ]
+        },
+        "dataToSend": "defineBelow",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "onboarded",
+              "fieldValue": "true"
+            }
+          ]
+        }
+      },
+      "id": "d8fb29ba-8a19-4809-b68e-5b1234567900",
+      "name": "Mark Lead as Onboarded",
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        2100,
+        360
+      ],
+      "credentials": {
+        "supabaseApi": {
+          "id": "k4tP7D04HQrdKbOY",
+          "name": "Supabase account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "boolean": [
+            {
+              "value1": "={{$('Process Store One-by-One').context.noItemsLeft}}",
               "value2": true
             }
           ]
@@ -198,10 +371,132 @@
       "name": "Next Store Controller",
       "type": "n8n-nodes-base.if",
       "typeVersion": 1,
-      "position": [2300, 360]
+      "position": [
+        2300,
+        360
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "tableId": "stores",
+        "returnAll": false,
+        "limit": 1,
+        "filterType": "manual",
+        "matchType": "allFilters",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "slug",
+              "condition": "eq",
+              "keyValue": "={{$node[\"Smart Sitemap Separator\"].json.store_name.toLowerCase().replace(/[çğışöü]/g, function(m) { return { 'ç':'c', 'ğ':'g', 'ı':'i', 'ö':'o', 'ş':'s', 'ü':'u' }[m]; }).replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '')}}"
+            }
+          ]
+        }
+      },
+      "id": "b8fb29ba-8a19-4809-b68e-5b1234567910",
+      "name": "Check If Store Exists",
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        1460,
+        360
+      ],
+      "credentials": {
+        "supabaseApi": {
+          "id": "k4tP7D04HQrdKbOY",
+          "name": "Supabase account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "boolean": [
+            {
+              "value1": "={{$json.id !== undefined}}",
+              "value2": true
+            }
+          ]
+        }
+      },
+      "id": "b8fb29ba-8a19-4809-b68e-5b1234567911",
+      "name": "Store Exists?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        1620,
+        360
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "tableId": "stores",
+        "filterType": "manual",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "slug",
+              "condition": "eq",
+              "keyValue": "={{$node[\"Smart Sitemap Separator\"].json.store_name.toLowerCase().replace(/[çğışöü]/g, function(m) { return { 'ç':'c', 'ğ':'g', 'ı':'i', 'ö':'o', 'ş':'s', 'ü':'u' }[m]; }).replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '')}}"
+            }
+          ]
+        },
+        "dataToSend": "defineBelow",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "name",
+              "fieldValue": "={{$node[\"Smart Sitemap Separator\"].json.store_name}}"
+            },
+            {
+              "fieldId": "tagline",
+              "fieldValue": "={{(() => { const content = $node[\"Unified AI Store Brain\"].json.message.content; const start = content.indexOf('{'); const end = content.lastIndexOf('}'); if (start === -1 || end === -1) return ''; try { return JSON.parse(content.substring(start, end + 1)).metadata.slogan || ''; } catch(e) { return ''; } })()}}"
+            },
+            {
+              "fieldId": "address",
+              "fieldValue": "={{(() => { const content = $node[\"Unified AI Store Brain\"].json.message.content; const start = content.indexOf('{'); const end = content.lastIndexOf('}'); if (start === -1 || end === -1) return ''; try { return JSON.parse(content.substring(start, end + 1)).metadata.address || ''; } catch(e) { return ''; } })()}}"
+            },
+            {
+              "fieldId": "phone",
+              "fieldValue": "={{(() => { const content = $node[\"Unified AI Store Brain\"].json.message.content; const start = content.indexOf('{'); const end = content.lastIndexOf('}'); if (start === -1 || end === -1) return ''; try { return JSON.parse(content.substring(start, end + 1)).metadata.phone || ''; } catch(e) { return ''; } })()}}"
+            },
+            {
+              "fieldId": "logo_url",
+              "fieldValue": "={{(() => { const content = $node[\"Unified AI Store Brain\"].json.message.content; const start = content.indexOf('{'); const end = content.lastIndexOf('}'); if (start === -1 || end === -1) return ''; try { return JSON.parse(content.substring(start, end + 1)).metadata.logo_url || ''; } catch(e) { return ''; } })()}}"
+            }
+          ]
+        }
+      },
+      "id": "b8fb29ba-8a19-4809-b68e-5b1234567912",
+      "name": "Update Storefront Metadata",
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        1800,
+        240
+      ],
+      "credentials": {
+        "supabaseApi": {
+          "id": "k4tP7D04HQrdKbOY",
+          "name": "Supabase account"
+        }
+      }
     }
   ],
   "connections": {
+    "When clicking ‘Test workflow’": {
+      "main": [
+        [
+          {
+            "node": "Fetch Pending Leads from DB",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
     "Fetch Pending Leads from DB": {
       "main": [
         [
@@ -242,11 +537,6 @@
             "node": "Fetch Corporate Info HTML",
             "type": "main",
             "index": 0
-          },
-          {
-            "node": "Fetch Catalog List HTML",
-            "type": "main",
-            "index": 0
           }
         ]
       ]
@@ -255,7 +545,7 @@
       "main": [
         [
           {
-            "node": "Unified AI Store Brain",
+            "node": "Fetch Catalog List HTML",
             "type": "main",
             "index": 0
           }
@@ -266,29 +556,36 @@
       "main": [
         [
           {
-            "node": "Unified AI Store Brain",
-            "type": "main",
-            "index": 1
-          }
-        ]
-      ]
-    },
-    "Unified AI Store Brain": {
-      "main": [
-        [
-          {
-            "node": "Upsert Storefront Metadata",
+            "node": "Prepare AI Inputs",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Upsert Storefront Metadata": {
+    "Prepare AI Inputs": {
       "main": [
         [
           {
-            "node": "Map Products with Store ID",
+            "node": "Check HTML Content",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check HTML Content": {
+      "main": [
+        [
+          {
+            "node": "Unified AI Store Brain",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Mark Lead as Onboarded",
             "type": "main",
             "index": 0
           }
@@ -308,13 +605,7 @@
     },
     "Bulk Inject Products to DB": {
       "main": [
-        [
-          {
-            "node": "Mark Lead as Onboarded",
-            "type": "main",
-            "index": 0
-          }
-        ]
+        []
       ]
     },
     "Mark Lead as Onboarded": {
@@ -334,6 +625,78 @@
         [
           {
             "node": "Process Store One-by-One",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Unified AI Store Brain": {
+      "main": [
+        [
+          {
+            "node": "Check If Store Exists",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check If Store Exists": {
+      "main": [
+        [
+          {
+            "node": "Store Exists?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Store Exists?": {
+      "main": [
+        [
+          {
+            "node": "Update Storefront Metadata",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Upsert Storefront Metadata",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update Storefront Metadata": {
+      "main": [
+        [
+          {
+            "node": "Map Products with Store ID",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Mark Lead as Onboarded",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Upsert Storefront Metadata": {
+      "main": [
+        [
+          {
+            "node": "Map Products with Store ID",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Mark Lead as Onboarded",
             "type": "main",
             "index": 0
           }

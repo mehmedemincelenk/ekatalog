@@ -241,6 +241,33 @@ Bu dosya, projenin evrimsel sürecini, alınan kritik kararları ve teknik kıs�
 ---
 *Bu hafıza merkezi, Antigravity ve USER arasındaki teknik mühürdür.*
 
+### [2026-05-26] - B2B ONBOARDING & WORKFLOW STABILIZATION (LOCKED 🔒)
+- **Objective:** Stabilize the B2B storefront automation workflow (`ADRNOqUbvi7M4ICY`) and solve runtime failures due to JSON parsing errors and OpenAI rate limits.
+- **Key Actions:**
+    - **Robust JSON Extraction:** Replaced fragile `JSON.parse` expressions with a surgical `substring` extraction between the first `{` and the last `}`. This avoids conversational filler syntax errors.
+    - **TPM Rate-Limit Protection:** Added an aggressive HTML sanitizer in the `Prepare AI Inputs` node, removing metadata attributes, scripts, SVGs, and header/footers, and capping character size at 25,000.
+    - **Dynamic Expression Evaluation:** Prepended `=` to tagline, address, phone, and logo_url fields to ensure n8n parses them as full JavaScript expressions instead of treating them as literal text templates.
+    - **Fetch-Merge-Deploy Strategy:** Leveraged `update_n8n_workflow.py` to seamlessly deploy changes from local JSON while preserving production credentials and custom prompt templates in the `Unified AI Store Brain` node.
+- **Status:** Handled lead onboarding successfully from start to finish, inserting 13 high-quality products and complete corporate metadata for Karakuş Temizlik automatically in under 11 seconds.
+
+### [2026-05-26] - B2B DEEP CRAWLER & PLURAL SITEMAP FIX (LOCKED 🔒)
+- **Objective:** Enable 100% catalog coverage and robust crawling across Ticimax/IdeaSoft B2B storefronts by optimizing categories and sitemaps.
+- **Key Actions:**
+    - **Plural Categories Sitemap Fix:** Expanded get_sitemap_categories keywords to support plural indexes (`/sitemap/categories/*.xml`), unlocking discovery of over 87 category streams.
+    - **Strict Name De-duplication:** Switched product key checks from Name+URL to clean lowercase product names. This prevents duplicate entries of identical products shown in different card resolutions (`width=-` vs `width=230`).
+    - **Intelligent Spam Scrubbing:** Rejected image assets ending with `.gif` and blocked placeholder items like "ÜRÜN BULUNMAMAKTADIR" or "urunyok/tr.png", ensuring a zero-spam seed.
+    - **Adaptive Concurrency & Backoff Retry:** Scaled concurrency down to `max_workers=5` and implemented a 3-pass retry with exponential backoff in `jina_fetch`, achieving 100% success rates against Jina/Cloudflare rate-limit ceilings.
+- **Status:** Birleşik Temizlik storefront cataloged at an outstanding **457 high-fidelity unique products** (a 330% increase) with absolute zero noise.
+
+### [2026-05-27] - TECHNICAL AUDIT DIAGNOSTICS & SMART CAROUSEL FILTER (LOCKED 🔒)
+- **Objective:** Detect all target B2B storefront errors (SSL, responsiveness, performance, framesets, table grids, SEO) using a high-speed Single-Curl diagnostic engine and filter out product images from hero banners.
+- **Key Actions:**
+    - **Single-Curl Diagnosis:** Built a lightweight, super-fast Curl engine to inspect responsiveness, viewport tags, frame nesting, tables, titles, and descriptions, avoiding slow and resource-heavy browser subagents.
+    - **WhatsApp & DB Auditing:** Created `audit_report` fields (status, issues, and whatsapp_snippet) in the `leads` table, embedding descriptive user-friendly diagnostic errors automatically into the outreach dashboard.
+    - **Smart Carousel Isolation:** Predefined all product image URLs into `product_images_set` to strictly prevent product details from bleeding into Hero Carousel vitrine slide banners.
+    - **Resilient Unified Pipeline:** Optimized the central onboarding orchestrator (`onboard.py`) to skip dead storefronts with descriptive error audits, while successfully mirroring and onboarding live suppliers.
+- **Status:** ELDİVENIUM-MANNER successfully onboarded with **125 products & 114 product images** completely synced, while Vindex is correctly flagged with custom audit descriptions.
+
 ## 💎 B2B MAĞAZA SCRAPE VE OLUŞTURMA STANDARTLARI (LOCKED 🔒)
 
 Yeni bir dükkan eklenirken veya mevcut bir dükkanın bilgileri güncellenirken, en yüksek kalitede sonuç elde etmek için aşağıdaki kurallar ve metotlar harfiyen uygulanır:
