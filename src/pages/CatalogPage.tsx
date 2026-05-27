@@ -304,7 +304,7 @@ export default function CatalogPage() {
       <div className="relative flex-1 md:flex-none md:w-[650px] flex justify-center md:bg-black/40 md:backdrop-blur-md md:border-l md:border-white/10 z-10 md:overflow-y-auto custom-scrollbar w-full max-w-full overflow-x-hidden">
         <div
           className={`
-            relative transition-all duration-700 ease-in-out 
+            relative md:transition-all md:duration-700 md:ease-in-out 
             phone-frame-container
             md:rounded-[2.5rem] 
             md:shadow-[0_0_0_12px_#1c1917,0_0_0_13px_rgba(255,255,255,0.1),0_40px_100px_rgba(0,0,0,0.8)] 

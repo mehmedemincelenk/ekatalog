@@ -110,23 +110,49 @@ def extract_description_from_markdown(page_md, target_name):
     content_lines = []
     found_header = False
     
+    # WooCommerce ve UI gürültü kelimeleri (Diamond Standard 💎)
+    noise_keywords = [
+        "sepet", "giris", "uye ol", "menu", "anasayfa", "copyright", "telefon", "adres",
+        "stokta", "stok var", "sku:", "kategori:", "fiyat:", "taksit", "kargo", "yorum",
+        "inceleme", "sepete ekle", "whatsapp ile", "hakkımızda", "iletisim", "ürün açıklaması",
+        "change language", "english", "turkish", "dil seçin", "müşteri incelemesi", "stars",
+        "rating", "kullanılabilirlik", "click to", "enlarge", "facebook", "twitter", "instagram"
+    ]
+    
     for line in lines:
         line_clean = line.strip()
         if not line_clean:
             continue
             
-        # Başlık mı?
-        if line_clean.startswith("#"):
-            header_text = make_neutral_lower(line_clean.lstrip("#"))
-            if target_neutral in header_text or header_text in target_neutral:
+        # Başlık tespiti: hem markdown başlığı (#) hem de kalın/büyük harf veya tam eşleşen satırlar
+        line_stripped_meta = line_clean.strip("*_#[] ").strip()
+        line_neutral = make_neutral_lower(line_stripped_meta)
+        
+        # Eğer henüz başlık bulunmadıysa ve bu satır hedef adımıza çok benziyorsa
+        if not found_header:
+            is_header = False
+            if line_clean.startswith("#"):
+                header_text = make_neutral_lower(line_clean.lstrip("#"))
+                if target_neutral in header_text or header_text in target_neutral:
+                    is_header = True
+            elif line_clean.startswith("**") and line_clean.endswith("**"):
+                inner = make_neutral_lower(line_clean.strip("* "))
+                if target_neutral == inner or (len(inner) > 3 and target_neutral in inner):
+                    is_header = True
+            elif line_neutral == target_neutral:
+                is_header = True
+                
+            if is_header:
                 found_header = True
                 continue
-            elif found_header:
-                # Başka bir ana başlığa geçildiyse dur
-                if line_clean.startswith("#") and not line_clean.startswith("####"):
-                    break
         
+        # Başlık bulunduktan sonraki anlamlı satırları topla
         if found_header:
+            # Eğer başka bir ana başlığa geçildiyse dur
+            if line_clean.startswith("#") and not line_clean.startswith("####"):
+                if content_lines:
+                    break
+            
             # Markdown linklerini, resimlerini ve biçimlendirmelerini temizle
             clean_text = re.sub(r'!\[.*?\]\(.*?\)', '', line_clean) # Resimleri sil
             clean_text = re.sub(r'\[(.*?)\]\(.*?\)', r'\1', clean_text) # Linkleri düz metne çevir
@@ -135,20 +161,48 @@ def extract_description_from_markdown(page_md, target_name):
             
             clean_neutral = make_neutral_lower(clean_text)
             
-            # Metadata satırlarını kesinlikle atla
+            # Metadata veya gürültü satırlarını atla
             if any(k in clean_neutral for k in ["url source:", "published time:", "markdown content:", "author:", "reading time:", "original url:"]):
                 continue
                 
+            if any(k in clean_neutral for k in noise_keywords):
+                continue
+                
             # Menü, footer, veya buton gibi duran kısa şeyleri es geç
-            if clean_text and len(clean_text) > 20 and not any(k in clean_neutral for k in ["sepet", "giris", "uye ol", "menu", "anasayfa", "copyright", "telefon", "adres"]):
+            if clean_text and len(clean_text) > 15:
                 content_lines.append(clean_text)
                 if len(content_lines) >= 3: # En fazla 3 paragraf alalım
                     break
                     
     if content_lines:
-        return "\n\n".join(content_lines)
+        combined = "\n\n".join(content_lines)
+        if len(combined) > 300:
+            combined = combined[:297] + "..."
+        return combined
         
-    # 2. Eğer başlık eşleşmesi bulunamadıysa, sayfanın genelindeki ilk uzun anlamlı metin bloğunu al
+    # 2. Eğer başlık eşleşmesi bulunamadıysa, sayfa genelinde hedef adı içeren bir metin bloğu bulmaya çalış
+    for line in lines:
+        line_clean = line.strip()
+        if not line_clean or line_clean.startswith("#"):
+            continue
+            
+        clean_text = re.sub(r'!\[.*?\]\(.*?\)', '', line_clean)
+        clean_text = re.sub(r'\[(.*?)\]\(.*?\)', r'\1', clean_text)
+        clean_text = re.sub(r'[*_`#]', '', clean_text).strip()
+        
+        clean_neutral = make_neutral_lower(clean_text)
+        
+        if any(k in clean_neutral for k in ["url source:", "published time:", "markdown content:", "author:", "reading time:", "original url:"]):
+            continue
+            
+        if any(k in clean_neutral for k in noise_keywords):
+            continue
+            
+        # Eğer bu satır hedef adını içeriyor ve makul bir uzunluktaysa, harika bir açıklamadır!
+        if target_neutral in clean_neutral and 25 < len(clean_text) < 300:
+            return clean_text
+            
+    # 3. Son çare olarak, sayfanın genelindeki ilk uzun anlamlı metin bloğunu al
     fallback_lines = []
     for line in lines:
         line_clean = line.strip()
@@ -162,13 +216,18 @@ def extract_description_from_markdown(page_md, target_name):
             if any(k in clean_neutral for k in ["url source:", "published time:", "markdown content:", "author:", "reading time:", "original url:"]):
                 continue
                 
-            # Spam olabilecek ya da menü elemanı olabilecek satırları ele
-            if len(clean_text) > 40 and not any(k in clean_neutral for k in ["menu", "sepet", "giris", "copyright", "tum haklari"]):
+            if any(k in clean_neutral for k in noise_keywords):
+                continue
+                
+            if len(clean_text) > 40:
                 fallback_lines.append(clean_text)
                 if len(fallback_lines) >= 2:
                     break
                     
-    return "\n\n".join(fallback_lines)
+    combined_fallback = "\n\n".join(fallback_lines)
+    if len(combined_fallback) > 300:
+        combined_fallback = combined_fallback[:297] + "..."
+    return combined_fallback
 
 def parse_products_from_markdown(pages, base_url, brand_name=""):
     """Ürünleri ve resimleri markdown çıktısından tamamen ÜCRETSİZ ve yüksek doğrulukla süzen regex parser."""

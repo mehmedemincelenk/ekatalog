@@ -102,7 +102,7 @@ export default function BaseFloatingMenu({
       style={{ transform: 'scale(0.95)' }}
     >
       <div
-        className="flex flex-col items-center rounded-2xl overflow-hidden bg-black/25 border border-white/15 shadow-[0_20px_50px_rgba(0,0,0,0.4)]"
+        className="flex flex-col items-center rounded-2xl overflow-hidden bg-black/55 border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.4)]"
         style={{
           width: '110px',
           padding: '5px',

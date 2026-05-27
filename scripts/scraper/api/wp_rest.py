@@ -199,9 +199,9 @@ def try_wp_rest_extract(base_url, store_name):
 
     # Sunucuyu yormamak için sayfa başı 30 ürün ve sıralı (sequential) çekim
     per_page = 30
-    total_pages = (total_posts + per_page - 1) // per_page
+    total_pages = min((total_posts + per_page - 1) // per_page, 15)  # E-Katalog üst limiti (maksimum 450 ürün)
     
-    print(f"  📥 {total_posts} ürün {total_pages} sayfa halinde sıralı (sequential) olarak çekiliyor...")
+    print(f"  📥 {total_posts} ürün {total_pages} sayfa halinde (max 15 sayfa) sıralı olarak çekiliyor...")
     
     all_data = []
     for page_num in range(1, total_pages + 1):

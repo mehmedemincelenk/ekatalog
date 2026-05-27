@@ -170,10 +170,10 @@ export const THEME = {
 
   navbar: {
     layout:
-      'w-full min-h-0 px-3 pt-3 pb-1 select-none bg-transparent',
+      'w-full min-h-0 select-none bg-transparent',
     container: 'w-full h-full flex items-center',
     innerWrapper:
-      'flex justify-between items-center w-full bg-black/45 border border-white/15 rounded-2xl px-4 py-2.5 pointer-events-auto',
+      'flex justify-between items-center w-full bg-black/55 border-b border-white/10 px-4 py-3 pointer-events-auto',
     brand: {
       wrapper: 'flex items-center gap-1.5 shrink-0',
       logoWrapper:
