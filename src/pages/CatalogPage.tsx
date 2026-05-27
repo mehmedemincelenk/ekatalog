@@ -135,20 +135,20 @@ export default function CatalogPage() {
   const mobileContent = (
     <>
       <div className="relative w-full h-full overflow-hidden flex flex-col">
+        {/* FLOATING GLASS NAVBAR OVERLAY - Fixed on mobile, absolute inside phone frame on desktop */}
+        <div className="print:hidden fixed md:absolute top-0 left-0 right-0 z-[100] w-full pointer-events-none">
+          <Navbar
+            onLogoPointerDown={handleLogoPointerDown}
+            onLogoPointerUp={handleLogoPointerUp}
+            isInlineEnabled={isInlineEnabled}
+          />
+        </div>
+
         {/* SCROLLABLE LAYER */}
         <div
           id="mobile-viewport-scroll"
           className="flex-1 overflow-y-auto overflow-x-hidden no-scrollbar scroll-smooth relative z-10"
         >
-          {/* FLOATING GLASS NAVBAR OVERLAY - Sticky top-0 with zero height to float seamlessly without shifting content */}
-          <div className="print:hidden sticky top-0 h-0 overflow-visible z-[100] w-full pointer-events-none">
-            <Navbar
-              onLogoPointerDown={handleLogoPointerDown}
-              onLogoPointerUp={handleLogoPointerUp}
-              isInlineEnabled={isInlineEnabled}
-            />
-          </div>
-
           <main className="bg-stone-50">
             {/* Spacer to offset the floating capsule navbar */}
             <div className="h-[72px] shrink-0" />
