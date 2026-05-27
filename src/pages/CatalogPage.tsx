@@ -150,8 +150,8 @@ export default function CatalogPage() {
           className="flex-1 overflow-y-auto overflow-x-hidden no-scrollbar scroll-smooth relative z-10"
         >
           <main className="bg-stone-50">
-            {/* Spacer to offset the floating capsule navbar */}
-            <div className="h-[72px] shrink-0" />
+            {/* Spacer to offset the flat full-width navbar */}
+            <div className="h-[65px] shrink-0" />
             {storeSettings?.displayConfig?.showCarousel !== false && (
               <HeroCarousel isAdminModeActive={isAdmin} />
             )}

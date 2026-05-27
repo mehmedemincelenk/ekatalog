@@ -226,5 +226,231 @@ def extract_raw_images_from_url(page_url):
         abs_url = urljoin(page_url, m_clean)
         if abs_url not in candidates:
             candidates.append(abs_url)
-
+ 
     return candidates
+
+def is_reference_logo(url_str, alt_str="", source_page_url="", logo_url="", company_slug="", company_name="", product_images_set=None):
+    """
+    Görselin kurumsal bir referans logosu olup olmadığını Diamond Standard 💎 kriterlerine göre denetler.
+    """
+    import urllib.parse
+    url_l = urllib.parse.unquote(url_str).lower()
+    alt_l = alt_str.lower()
+    
+    # 1. TEMEL KARA LİSTELER (0ms): Kesinlikle referans logosu olamayacak durumlar
+    if not url_str:
+        return False
+        
+    # Ana logo mu?
+    if logo_url and (url_str == logo_url or url_l == logo_url.lower()):
+        return False
+        
+    # Ana logonun dosya adı ile aynı mı? (Örn: noix-logo-zeminli vs noix-logo)
+    if logo_url:
+        logo_filename = logo_url.split("/")[-1].split("?")[0].lower()
+        img_filename = url_str.split("/")[-1].split("?")[0].lower()
+        if logo_filename and img_filename:
+            if logo_filename in img_filename or img_filename in logo_filename:
+                return False
+            
+    # Şirket ismini/slugını barındıran ana logo mu?
+    c_slug = company_slug.lower() if company_slug else (company_name.lower().replace(" ", "") if company_name else "")
+    if c_slug and c_slug in url_l and "logo" in url_l:
+        return False
+
+    # WordPress Tema, Eklenti veya statik arayüz varlıklarını filtrele (Diamond Standard Heuristic 💎)
+    if "/wp-content/" in url_l and "/uploads/" not in url_l:
+        return False
+
+    # 2. REFERANS SAYFASI VE DOĞRUDAN ANAHTAR KELİME TESPİTİ
+    is_on_reference_page = False
+    if source_page_url:
+        sp_url_l = source_page_url.lower()
+        if any(ref_slug in sp_url_l for ref_slug in ["referans", "reference", "brand", "marka", "partner", "sponsor", "bayi", "musteri", "müşteri", "customer", "isortag", "is-ortak"]):
+            is_on_reference_page = True
+            
+    has_direct_ref_keyword = any(k in url_l or k in alt_l for k in ["referans", "reference", "referanslar", "referanslarimiz", "references"])
+
+    # Kesinlikle çöp sosyal medya ve dil bayrakları/ikonları
+    strict_trash_keywords = [
+        "tr.png", "en.png", "flag", "instagram", "facebook", "twitter", "linkedin", 
+        "youtube", "social", "whatsapp", "phone", "mail", "email", "secure", "lock", "cart", "basket",
+        "search", "user", "avatar", "profile", "loading", "spinner", "arrow", "chevron", "bullet", 
+        "bg", "pattern", "check", "close", "cancel", "next", "prev", "icon"
+    ]
+    if any(k in url_l or k in alt_l for k in strict_trash_keywords):
+        return False
+
+    # Kesinlikle referans logosu olamayacak B2B ürün ve kategori isimleri (Diamond Standard Heuristic 💎)
+    product_trash_keywords = [
+        "kulluk", "küllük", "bardak", "tabak", "dolap", "makinesi", "makine", "tava", "ekipman", 
+        "bicak", "bıçak", "kasik", "kaşık", "catal", "çatal", "spatula", "tost", "mixer", "mikser",
+        "serbet", "şerbet", "ayran", "firin", "fırın", "evrak", "masa", "sandalye", "buz", "temizlik", 
+        "hali", "halı", "yikama", "yıkama", "baca", "vantilator", "vantilatör", "kanal", "kase", "kâse", 
+        "tencere", "temizleme", "pastasi", "paspas", "deterjan", "bulasik", "bulaşık", "tezgah", "tezgâh",
+        "evye", "kuzine", "benmari", "ızgara", "izgara", "ocak", "fritöz", "fritoz", "blender", "sebil"
+    ]
+    if any(k in url_l or k in alt_l for k in product_trash_keywords):
+        return False
+
+    # 3. ÜRÜN RESMİ KONTROLÜ
+    if product_images_set and (url_str in product_images_set or url_l in product_images_set):
+        return False
+    
+    product_keywords = ["/product/", "/urun/", "/shop/"]
+    if any(pk in url_l for pk in product_keywords):
+        return False
+
+    # EĞER REFERANS SAYFASINDAYSAK VEYA GÖRSELİN İSMİNDE DOĞRUDAN REFERANS KELİMESİ GEÇİYORSA:
+    # Katı boyut ve placeholder filtrelerini aşarak DİREKT kabul ediyoruz (Diamond Standard 💎)
+    if is_on_reference_page or has_direct_ref_keyword:
+        dev_trash = ["localhost", "127.0.0.1", "dummy", "placeholder", "404-page"]
+        if any(p in url_l or p in alt_l for p in dev_trash):
+            return False
+            
+        size_match = re.search(r'-(\d+)x(\d+)\.(?:jpg|jpeg|png|webp|gif|svg)', url_l)
+        if size_match:
+            try:
+                w = int(size_match.group(1))
+                h = int(size_match.group(2))
+                aspect = w / h
+                if 0.3 <= aspect <= 5.0:
+                    if 30 <= w <= 2500 and 30 <= h <= 2000:
+                        return True
+                return False
+            except ValueError:
+                pass
+
+        if url_l.endswith(".svg"):
+            return True
+
+        try:
+            from PIL import ImageFile
+            req = urllib.request.Request(url_str, headers={'User-Agent': 'Mozilla/5.0'})
+            with urllib.request.urlopen(req, timeout=1.0) as response:
+                chunk = response.read(16384)
+                p = ImageFile.Parser()
+                p.feed(chunk)
+                if p.image:
+                    w, h = p.image.size
+                    aspect = w / h
+                    if 0.3 <= aspect <= 5.0:
+                        if 30 <= w <= 2500 and 30 <= h <= 2000:
+                            return True
+                    return False
+        except Exception:
+            return True
+        return True
+
+    # EĞER NORMAL BİR SAYFADAYSAK (Klasik sıkı denetimler)
+    dev_placeholder_keywords = [
+        "localhost", "127.0.0.1", "themetechmount", "boldman", "/themes/", "/wp-content/themes/",
+        "404-page", "uconstruction", "coming-soon", "login-bg", "floatingbar-bg", "placeholder",
+        "dummy", "default-", "bg-", "-bg", "bg.", "slider-bg", "banner-bg", "slider", "banner"
+    ]
+    if any(p in url_l or p in alt_l for p in dev_placeholder_keywords):
+        return False
+
+    ui_and_promo_keywords = [
+        "taksit", "kargo", "fiyat", "enuygun", "odeme", "ödeme", "kredikarti", "kredi-karti", "credit-card",
+        "firsat", "fırsat", "kampanya", "indirim", "discount", "promo", "banner", "reklam", "ad-", "adsense", 
+        "slider", "vitrin", "pop-up", "popup", "tel", "phone", "adres", "address", "iletisim", "contact", 
+        "ulas", "ulaş", "hakkimizda", "hakkımızda", "about", "default", "widget", "sidebar", "theme", "plugin", 
+        "yazfirsati", "yazfırsatı", "kategori", "category", "urun-kategori", "product-category", "tag", "etiket"
+    ]
+    if any(k in url_l or k in alt_l for k in ui_and_promo_keywords):
+        return False
+
+    # 4. ANAHTAR KELİME KONTROLÜ (Normal sayfalardaki görseller için)
+    ref_keywords = [
+        "logo", "marka", "brand", "ref", "referans", "partner", "sponsor", 
+        "client", "customer", "bayi", "distributor", "isortag", "ortak", "cooperation",
+        "coop", "referanslar", "temsilcilik", "uretici", "markalarimiz", "our-brands",
+        "servis", "unox", "remta", "kitchenaid", "robotcoupe", "oztiryakiler", "inoksan",
+        "rational", "hobart", "winterhalter", "fagor", "brema", "scotsman",
+        "distribütör", "üretici", "is-ortak"
+    ]
+    url_path = urllib.parse.urlparse(url_str).path.lower()
+    has_keyword = any(k in url_path or k in alt_l for k in ref_keywords)
+    if not has_keyword:
+        return False
+
+    # 5. PİKSEL VE BOYUT KONTROLLERİ (En-boy oranı ve ideal aralık)
+    size_match = re.search(r'-(\d+)x(\d+)\.(?:jpg|jpeg|png|webp|gif|svg)', url_l)
+    if size_match:
+        try:
+            w = int(size_match.group(1))
+            h = int(size_match.group(2))
+            aspect = w / h
+            if 0.3 <= aspect <= 4.0:
+                if 30 <= w <= 300 and 30 <= h <= 200:
+                    return True
+            return False
+        except ValueError:
+            pass
+
+    if url_l.endswith(".svg"):
+        return True
+
+    try:
+        from PIL import ImageFile
+        req = urllib.request.Request(url_str, headers={'User-Agent': 'Mozilla/5.0'})
+        with urllib.request.urlopen(req, timeout=1.0) as response:
+            chunk = response.read(16384)
+            p = ImageFile.Parser()
+            p.feed(chunk)
+            if p.image:
+                w, h = p.image.size
+                aspect = w / h
+                if 0.3 <= aspect <= 4.0:
+                    if 30 <= w <= 400 and 30 <= h <= 250:
+                        return True
+                return False
+    except Exception:
+        return True
+    return False
+
+def is_navbar_footer_or_logo(url_str, alt_str="", logo_url="", company_slug="", company_name=""):
+    """
+    Görselin menü, footer, sosyal medya veya ana logo gibi arayüz parçası olup olmadığını doğrular.
+    """
+    url_l = url_str.lower()
+    alt_l = alt_str.lower()
+    
+    # 1. Ana logo veya türevleri mi?
+    if logo_url and (url_str == logo_url or url_l == logo_url.lower()):
+        return True
+        
+    if logo_url:
+        logo_filename = logo_url.split("/")[-1].split("?")[0].lower()
+        img_filename = url_str.split("/")[-1].split("?")[0].lower()
+        if logo_filename and img_filename:
+            if logo_filename in img_filename or img_filename in logo_filename:
+                return True
+                
+    # 2. Şirket slugı + logo kelimesi mi?
+    c_slug = company_slug.lower() if company_slug else (company_name.lower().replace(" ", "") if company_name else "")
+    if c_slug and c_slug in url_l and "logo" in url_l:
+        return True
+        
+    # 3. Navbar / Footer / Sosyal Medya / Kart / İkon kelimeleri
+    nav_footer_keywords = [
+        "logo", "brand", "header", "footer", "nav-", "navbar", "menu", 
+        "logo-", "-logo", "social", "instagram", "facebook", "twitter", 
+        "youtube", "linkedin", "whatsapp", "icon", "avatar", "profile",
+        "flag", "payment", "kartlar", "visa", "mastercard", "maestro", "troy",
+        "amex", "secure", "lock", "sepet", "cart", "basket", "search", "ara"
+    ]
+    if any(k in url_l or k in alt_l for k in nav_footer_keywords):
+        return True
+        
+    # 4. Geliştirici ve placeholder/tema/tasarım/demo varlıklarını filtrele (Diamond Standard Heuristic 💎)
+    dev_placeholder_keywords = [
+        "localhost", "127.0.0.1", "themetechmount", "boldman", "/themes/", "/wp-content/themes/",
+        "404-page", "uconstruction", "coming-soon", "login-bg", "floatingbar-bg", "placeholder",
+        "dummy", "default-", "bg-", "-bg", "bg.", "slider-bg", "banner-bg"
+    ]
+    if any(p in url_l for p in dev_placeholder_keywords):
+        return True
+        
+    return False

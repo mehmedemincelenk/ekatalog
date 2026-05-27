@@ -172,7 +172,7 @@ export default function HeroCarousel({ isAdminModeActive }: HeroCarouselProps) {
       />
 
       <motion.div
-        className={`${carouselTheme.layout} rounded-lg`}
+        className={`${carouselTheme.layout} rounded-none`}
         animate={{ height: activeHeight }}
         transition={{ duration: 0.22, ease: [0.25, 1, 0.5, 1] }}
         style={{ overflow: 'hidden', isolation: 'isolate' }}
@@ -274,7 +274,7 @@ export default function HeroCarousel({ isAdminModeActive }: HeroCarouselProps) {
             )}
 
             {/* Instagram Stories Style Top Indicators (Instagram Perfection) */}
-            <div className="absolute top-2.5 left-3.5 right-3.5 z-50 flex gap-1 pointer-events-auto">
+            <div className="absolute top-3.5 left-3.5 right-3.5 z-50 flex gap-1 pointer-events-auto">
               {flow.marketingSlides.map((_, dotIndex) => {
                 const isActive = flow.currentIndex === dotIndex;
                 const isCompleted = dotIndex < flow.currentIndex;
