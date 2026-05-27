@@ -86,12 +86,11 @@ const ProductCard = memo(
           data-product-id={product.id}
           className={`${theme.container} ${THEME.radius.card} h-fit flex-shrink-0 overflow-hidden ${product.out_of_stock ? theme.outOfStockBorder : theme.activeBorder} ${theme.shadow}`}
         >
-          {/* IMAGE VISUAL SECTION - FLOATING IN LIGHT GRAY BOX */}
+          {/* IMAGE VISUAL SECTION - FLOATING IN LIGHT GRAY BOX (MATCHES ZOOM MODAL) */}
           <div className="p-3 pb-0">
             <div
-              className={`${theme.image.wrapper} w-full overflow-hidden ${theme.image.bg} ${!isAdmin ? theme.image.cursorUser : theme.image.cursorAdmin}`}
+              className={`relative aspect-square bg-stone-50 overflow-hidden rounded-[var(--radius-card)] border border-stone-100 shadow-inner ${!isAdmin ? theme.image.cursorUser : theme.image.cursorAdmin}`}
               style={{
-                aspectRatio: '1/1',
                 flexShrink: 0,
               }}
               onClick={() => {
@@ -108,11 +107,11 @@ const ProductCard = memo(
                   theme.image.fit === 'object-cover' ? 'cover' : 'contain'
                 }
                 className={`
-                w-full h-full p-2 rounded-xl ${theme.image.transition} 
+                w-full h-full ${theme.image.transition} 
                 ${product.out_of_stock ? theme.image.outOfStock : ''} 
                 ${isUploadingImage ? 'opacity-20 blur-sm' : ''}
               `}
-                imgClassName="rounded-lg"
+                imgClassName="rounded-[var(--radius-card)]"
               />
 
               {/* LOADING OVERLAY (ONLY FOR UPLOADS) */}

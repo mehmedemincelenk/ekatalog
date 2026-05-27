@@ -12,7 +12,7 @@ export function useReferencesFlow(isAdmin: boolean = false) {
   } | null>(null);
 
   const activeReferences =
-    settings.referencesData && settings.referencesData.length > 0
+    settings && settings.referencesData && settings.referencesData.length > 0
       ? settings.referencesData
       : isAdmin
         ? []
@@ -35,7 +35,7 @@ export function useReferencesFlow(isAdmin: boolean = false) {
       }
     } else {
       const updated = activeReferences.map((r) =>
-        r.id === activeQuickEdit.id ? { ...r, name: newName } : r,
+          r.id === activeQuickEdit.id ? { ...r, name: newName } : r
       );
       updateSetting('referencesData', updated);
     }

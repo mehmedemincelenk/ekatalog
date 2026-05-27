@@ -13,19 +13,19 @@ if parent_dir not in sys.path:
 
 from core.crawler import resolve_url
 
+DEFAULT_HEADERS = {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+}
+
 def generate_unified_logos_banner(logo_urls, output_path, title="Referanslarımız"):
     """
     Logo URL listesini indirir ve tek bir şık, minimal, birleştirilmiş banner görseli oluşturur.
     En-boy oranlarını korur, logoları ortalar ve beyaz arka plan üzerine padding ile yerleştirir.
     """
-    headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
-    }
-    
     downloaded_images = []
     for url in logo_urls:
         try:
-            req = urllib.request.Request(url, headers=headers)
+            req = urllib.request.Request(url, headers=DEFAULT_HEADERS)
             with urllib.request.urlopen(req, timeout=5) as res:
                 img_data = res.read()
                 img = Image.open(io.BytesIO(img_data))
@@ -110,13 +110,9 @@ def extract_background_sliders(base_url):
     CSS veya inline style ile yüklenen Swiper/Elementor slider arka plan resimlerini 
     HTML ve CSS dosyalarını tarayarak akıllıca yakalar (Prestashop/WordPress uyumlu).
     """
-    headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
-    }
-    
     candidates = []
     try:
-        req = urllib.request.Request(base_url, headers=headers)
+        req = urllib.request.Request(base_url, headers=DEFAULT_HEADERS)
         with urllib.request.urlopen(req, timeout=4) as res:
             html_text = res.read().decode('utf-8', errors='ignore')
     except Exception as e:
@@ -147,34 +143,88 @@ def extract_background_sliders(base_url):
             continue
             
     for name, css_text in all_css_sources:
-        for cls in repeater_classes:
-            if cls in css_text:
-                pattern = rf"\.{cls}[^{{]*\{{[^}}]*background-image:[^;}}]*url\(['\"]?([^'\"]+?)['\"]?\)"
-                matches = re.findall(pattern, css_text, re.IGNORECASE)
-                for m in matches:
-                    m_clean = m.replace("\\", "")
-                    abs_img = urljoin(base_url, m_clean)
-                    if abs_img not in candidates:
-                        candidates.append(abs_img)
-                        print(f"  🎯 [Background Slider] Slayt görseli bulundu: {abs_img}")
+        # Split by curly braces safely to avoid catastrophic backtracking
+        blocks = css_text.split("}")
+        for block in blocks:
+            if "{" not in block:
+                continue
+            parts_b = block.split("{", 1)
+            if len(parts_b) < 2:
+                continue
+            selector, properties = parts_b
+            if any(cls in selector for cls in repeater_classes):
+                if "background-image" in properties.lower() or "background:" in properties.lower():
+                    match = re.search(r"url\(['\"]?([^'\"]+?)['\"]?\)", properties, re.IGNORECASE)
+                    if match:
+                        m_clean = match.group(1).replace("\\", "").strip()
+                        abs_img = urljoin(base_url, m_clean)
+                        if abs_img not in candidates:
+                            candidates.append(abs_img)
+                            print(f"  🎯 [Background Slider] Slayt görseli bulundu: {abs_img}")
                         
     return candidates
 
 def is_widescreen_banner(img_url):
     """Görselin en-boy oranını kontrol ederek 16:9 veya benzeri yatay geniş formatta olup olmadığını belirler."""
-    headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
-    }
+    from PIL import ImageFile
     try:
-        req = urllib.request.Request(img_url, headers=headers)
-        with urllib.request.urlopen(req, timeout=3) as res:
-            img_data = res.read()
-            img = Image.open(io.BytesIO(img_data))
-            w, h = img.size
-            if w >= 500 and h >= 200:
-                aspect = w / h
-                if aspect >= 1.4: # 16:9 veya benzeri yatay geniş format
-                    return True
+        req = urllib.request.Request(img_url, headers=DEFAULT_HEADERS)
+        with urllib.request.urlopen(req, timeout=1.5) as res:
+            img_data = res.read(16384) # Sadece ilk 16KB'ı indir
+            p = ImageFile.Parser()
+            p.feed(img_data)
+            if p.image:
+                w, h = p.image.size
+                if w >= 500 and h >= 200:
+                    aspect = w / h
+                    if aspect >= 1.4: # 16:9 veya benzeri yatay geniş format
+                        return True
     except Exception:
         pass
     return False
+
+def extract_raw_images_from_url(page_url):
+    """
+    Page URL'inin ham HTML kodunu indirip regex ile tüm olası görsel adreslerini (lazy-loaded, data-src, src, inline background vb.) yakalar.
+    """
+    candidates = []
+    try:
+        req = urllib.request.Request(page_url, headers=DEFAULT_HEADERS)
+        with urllib.request.urlopen(req, timeout=5) as res:
+            html_text = res.read().decode('utf-8', errors='ignore')
+    except Exception as e:
+        print(f"  ℹ️ [Raw Image Extractor] HTML çekilemedi (Pas geçiliyor): {e}")
+        return candidates
+
+    # 1. <img> taglarındaki her türlü src/data-src varyantını bul
+    img_attrs = ["src", "data-src", "data-lazy-src", "data-lazy", "data-lazyload", "data-original", "srcset"]
+    for attr in img_attrs:
+        pattern = rf'{attr}\s*=\s*["\']([^"\']+\.(?:png|jpg|jpeg|webp|gif|svg)(?:\?[^"\']*)?)["\']'
+        matches = re.findall(pattern, html_text, re.IGNORECASE)
+        for m in matches:
+            abs_url = urljoin(page_url, m.strip())
+            if abs_url not in candidates:
+                candidates.append(abs_url)
+
+    # srcset içindeki virgülle ayrılmış URL'leri de yakala
+    srcset_pattern = r'srcset\s*=\s*["\']([^"\']+)["\']'
+    srcset_matches = re.findall(srcset_pattern, html_text, re.IGNORECASE)
+    for srcset in srcset_matches:
+        parts = srcset.split(",")
+        for part in parts:
+            part = part.strip().split(" ")[0].strip()
+            if part:
+                if any(ext in part.lower() for ext in [".png", ".jpg", ".jpeg", ".webp", ".gif", ".svg"]):
+                    abs_url = urljoin(page_url, part)
+                    if abs_url not in candidates:
+                        candidates.append(abs_url)
+
+    # 2. background-image: url(...) veya style="..." içinde url(...) olanları bul
+    bg_matches = re.findall(r"url\(['\"]?([^'\"]+?\.(?:png|jpg|jpeg|webp|gif|svg)(?:\?[^'\"]*)?)['\"]?\)", html_text, re.IGNORECASE)
+    for m in bg_matches:
+        m_clean = m.replace("\\", "").strip()
+        abs_url = urljoin(page_url, m_clean)
+        if abs_url not in candidates:
+            candidates.append(abs_url)
+
+    return candidates

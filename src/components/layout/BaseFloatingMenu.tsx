@@ -104,11 +104,13 @@ export default function BaseFloatingMenu({
       style={{ transform: 'scale(0.95)' }}
     >
       <div
-        className="flex flex-col items-center rounded-md transition-all duration-300 ease-in-out overflow-hidden bg-stone-900/60 backdrop-blur-xl border border-white/20 shadow-[0_20px_50px_rgba(0,0,0,0.3)]"
+        className="flex flex-col items-center rounded-2xl overflow-hidden bg-black/25 border border-white/15 shadow-[0_20px_50px_rgba(0,0,0,0.4)]"
         style={{
           width: '110px',
           padding: '5px',
-          gap: isExpanded ? '6px' : '0px',
+          gap: '6px',
+          backdropFilter: 'blur(30px)',
+          WebkitBackdropFilter: 'blur(30px)',
         }}
       >
         {/* ACTION CLUSTER (Above toggle, no gap) */}
@@ -116,64 +118,44 @@ export default function BaseFloatingMenu({
           {isExpanded && (
             <motion.div
               key="action-cluster"
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
-              exit={{ opacity: 0, height: 0 }}
+              initial={{ height: 0 }}
+              animate={{ height: 'auto' }}
+              exit={{ height: 0 }}
               transition={{ duration: 0.2, ease: 'easeInOut' }}
               className="w-full flex flex-col items-center overflow-hidden"
             >
-              <motion.div
-                initial="closed"
-                animate="open"
-                exit="closed"
-                variants={{
-                  open: {
-                    transition: { staggerChildren: 0.04, delayChildren: 0.05 },
-                  },
-                  closed: {
-                    transition: { staggerChildren: 0.02, staggerDirection: -1 },
-                  },
-                }}
-                className="flex flex-col gap-1.5 items-center w-full"
-              >
+              <div className="flex flex-col gap-1.5 items-center w-full">
                 {/* LABELED ACTIONS */}
                 {actions.some((a) => a.label) && (
                   <div className="flex flex-col gap-1 items-center w-full">
                     {actions
                       .filter((a) => a.label)
                       .map((btn) => (
-                        <motion.div
-                          key={btn.id}
-                          variants={{
-                            open: { opacity: 1, y: 0, scale: 1 },
-                            closed: { opacity: 0, y: 10, scale: 0.8 },
-                          }}
-                          className="w-full"
-                        >
+                        <div key={btn.id} className="w-full">
                           <Button
                             onClick={() => handleAction(btn)}
                             icon={btn.icon}
-                            variant={btn.variant || 'secondary'}
+                            variant={btn.variant === 'secondary' ? 'ghost' : (btn.variant || 'ghost')}
                             size="sm"
                             mode="rectangle"
                             className={`
-                            shrink-0 !rounded-lg ${btn.className || ''} w-full !justify-center px-1 gap-2 h-[40px] transition-all !text-white backdrop-blur-md !shadow-none
+                            shrink-0 !rounded-lg ${btn.className || ''} w-full !justify-center px-1 gap-2 h-[40px] !text-white [transition-property:transform] backdrop-blur-md !shadow-none
                             ${
-                              !btn.variant || btn.variant === 'secondary'
+                              !btn.variant || btn.variant === 'secondary' || btn.variant === 'ghost'
                                 ? '!bg-white/10 !border-white/10 hover:!bg-white/20'
                                 : ''
                             }
                           `}
                           >
                             <div className="flex-1 min-w-0 text-center px-1">
-                              <MarqueeText
+                               <MarqueeText
                                 text={btn.label}
                                 textClass="text-[11px] font-black uppercase tracking-normal text-white"
                                 isAdmin={false}
                               />
                             </div>
                           </Button>
-                        </motion.div>
+                        </div>
                       ))}
                   </div>
                 )}
@@ -183,55 +165,53 @@ export default function BaseFloatingMenu({
                   {actions
                     .filter((a) => !a.label)
                     .map((btn) => (
-                      <motion.div
-                        key={btn.id}
-                        variants={{
-                          open: { opacity: 1, y: 0, scale: 1 },
-                          closed: { opacity: 0, y: 10, scale: 0.8 },
-                        }}
-                        className="w-full"
-                      >
+                      <div key={btn.id} className="w-full">
                         <Button
                           onClick={() => handleAction(btn)}
                           icon={btn.icon}
-                          variant={btn.variant || 'secondary'}
+                          variant={btn.variant === 'secondary' ? 'ghost' : (btn.variant || 'ghost')}
                           size="sm"
                           mode="rectangle"
                           className={`
-                          shrink-0 !rounded-lg ${btn.className || ''} w-full h-[46px] !p-0 transition-all !text-white backdrop-blur-md !shadow-none
+                          shrink-0 !rounded-lg ${btn.className || ''} w-full h-[46px] !p-0 !text-white [transition-property:transform] backdrop-blur-md !shadow-none
                           ${
-                            !btn.variant || btn.variant === 'secondary'
+                            !btn.variant || btn.variant === 'secondary' || btn.variant === 'ghost'
                               ? '!bg-white/10 !border-white/10 hover:!bg-white/20'
                               : 'hover:scale-[1.05]'
                           }
                         `}
                         />
-                      </motion.div>
+                      </div>
                     ))}
                 </div>
-              </motion.div>
+              </div>
             </motion.div>
           )}
         </AnimatePresence>
 
         {/* MASTER TOGGLE */}
         <div className="w-full flex">
-          <button
+          <div
             onClick={() => {
               clearTimer();
               setIsExpanded((prev) => !prev);
             }}
+            role="button"
+            tabIndex={0}
             style={{
               width: '100px',
-              height: '20px',
+              height: '32px',
             }}
-            className="hover:scale-[1.02] active:scale-95 transition-all relative overflow-hidden flex items-center justify-center bg-white border border-white/20 shadow-lg backdrop-blur-md p-0 rounded-[2px] cursor-pointer outline-none select-none"
+            className="hover:scale-[1.02] active:scale-95 transition-all relative overflow-hidden flex items-center justify-center bg-white border border-white/20 shadow-lg backdrop-blur-md p-0 rounded-xl cursor-pointer outline-none select-none"
             aria-label={isExpanded ? 'Menüyü Kapat' : 'Menüyü Aç'}
-          >
-            {isExpanded ? (
-              activeMainIcon || <Lucide.X size={10} className="text-stone-900 animate-in spin-in duration-200" />
-            ) : null}
-          </button>
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                clearTimer();
+                setIsExpanded((prev) => !prev);
+              }
+            }}
+          />
         </div>
       </div>
     </div>

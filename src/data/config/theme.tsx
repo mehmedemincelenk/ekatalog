@@ -137,7 +137,7 @@ export const THEME = {
       kraft:
         'bg-kraft-600 text-white border-kraft-700 shadow-xl hover:bg-kraft-700',
       glass:
-        'bg-white/40 backdrop-blur-md text-stone-900 border-white/20 hover:bg-white shadow-xl transition-standard',
+        'bg-white/20 backdrop-blur-xl text-stone-900 border-white/30 hover:bg-white/45 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.4),0_8px_24px_-6px_rgba(0,0,0,0.08)] transition-standard',
       danger:
         'bg-red-500/90 text-white backdrop-blur-md border-white/20 hover:bg-red-600 shadow-xl',
       ghost:
@@ -170,9 +170,10 @@ export const THEME = {
 
   navbar: {
     layout:
-      'bg-white/80 backdrop-blur-xl border-b border-stone-100 sticky top-0 z-[100] w-full min-h-0 py-2',
-    container: 'w-full px-2 h-full flex items-center',
-    innerWrapper: 'flex justify-between items-center w-full',
+      'w-full min-h-0 px-3 pt-3 pb-1 select-none bg-transparent',
+    container: 'w-full h-full flex items-center',
+    innerWrapper:
+      'flex justify-between items-center w-full bg-black/45 border border-white/15 rounded-2xl px-4 py-2.5 pointer-events-auto',
     brand: {
       wrapper: 'flex items-center gap-1.5 shrink-0',
       logoWrapper:
@@ -218,7 +219,7 @@ export const THEME = {
     container: 'max-w-7xl mx-auto px-4 mt-6',
     slide: {
       base: 'transition-opacity duration-700 ease-in-out',
-      image: 'w-full h-auto object-cover',
+      image: 'w-full h-full object-cover',
       placeholderBg: 'bg-stone-200',
       overlay:
         'absolute inset-0 z-30 flex items-center justify-center bg-black/10',
@@ -337,9 +338,9 @@ export const THEME = {
       adminActionsInactive: 'opacity-0 scale-90 pointer-events-none',
     },
     image: {
-      wrapper: 'relative w-full transition-smooth overflow-hidden group/img rounded-xl',
+      wrapper: 'relative w-full transition-smooth overflow-hidden group/img rounded-t-[var(--radius-card)] rounded-b-none',
       aspect: 'aspect-square',
-      bg: 'bg-stone-100',
+      bg: 'bg-transparent',
       fit: 'object-contain',
       transition: 'transition-smooth',
       outOfStock: 'grayscale opacity-40',

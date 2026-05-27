@@ -142,9 +142,29 @@ Markdown to analyze:
                 meta["phone"] = validate_and_clean_phone(phone_match.group(1))
 
     if not meta["address"]:
-        address_match = re.search(r'(?:adres|fabrik|merkez|ofis|depo)[:\s\-\/]*([^.\n]{15,150})', homepage_md, re.I)
+        # Clean markdown links to prevent matching inside URLs
+        clean_text = re.sub(r'!\[.*?\]\(.*?\)', '', homepage_md) # Remove image links
+        clean_text = re.sub(r'\[(.*?)\]\(.*?\)', r'\1', clean_text) # Convert links to plain text
+        
+        # 1. First priority: look for explicit "adres" / "address"
+        address_match = re.search(r'\b(?:adres|address)\b[:\s\-\/]*([^.\n\[\]()]{15,150})', clean_text, re.I)
         if address_match:
-            meta["address"] = address_match.group(1).strip()
+            meta["address"] = address_match.group(1).strip().strip(" :-–—")
+            
+        # 2. Second priority: look for other location keywords, but only if they contain typical Turkish address terms
+        if not meta["address"]:
+            other_match = re.search(r'\b(?:fabrik|merkez|ofis|depo)\b[:\s\-\/]*([^.\n\[\]()]{15,150})', clean_text, re.I)
+            if other_match:
+                cand = other_match.group(1).strip().strip(" :-–—")
+                cand_lower = cand.lower()
+                if any(x in cand_lower for x in ["mah", "cad", "sok", "sk", "no:", "yolu", "bulvar", "ist", "ank", "izm", "turk", "organize"]):
+                    meta["address"] = cand
+                    
+        # 3. Third priority: look directly for Turkish address patterns
+        if not meta["address"]:
+            direct_match = re.search(r'([^.\n\[\]()]{5,100}\b(?:mahallesi|mah|caddesi|cad|sokak|sok|sk|organize sanayi|osb)\b[^.\n\[\]()]{10,100})', clean_text, re.I)
+            if direct_match:
+                meta["address"] = direct_match.group(1).strip().strip(" :-–—")
 
     # Enforce district and city formatting on address
     addr_val = meta.get("address", "")

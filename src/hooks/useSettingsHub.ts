@@ -137,6 +137,7 @@ export function useSettingsQuery() {
           showAddress: true,
           showInstagram: true,
           showWhatsapp: true,
+          showReferences: true,
           ...raw.display_config,
         },
         announcementBar: raw.announcement_bar || { enabled: false, text: '' },

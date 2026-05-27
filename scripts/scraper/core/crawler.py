@@ -116,7 +116,9 @@ def discover_pages(homepage_md, base_url):
         if any(url_lower.endswith(ext) for ext in [".pdf", ".png", ".jpg", ".jpeg", ".zip", ".docx"]):
             continue
 
-        if any(kw in url_lower for kw in ["urunler", "products", "shop", "katalog", "catalog", "urunlerimiz", "magaza"]):
+        if any(kw in url_lower for kw in ["iletisim", "iletişim", "contact", "hakkimizda", "hakkımızda", "about", "referans", "reference", "brand", "marka", "partner", "sponsor", "bayi", "musteri", "müşteri", "customer", "isortag", "is-ortak"]) or (any(kw in url_lower for kw in ["/ulas/", "/ulaş/", "/ulasim/", "/ulaşim/", "-ulas-", "-ulaş-", "/ulas-bize", "/ulaş-bize"]) or url_lower.endswith("/ulas") or url_lower.endswith("/ulaş") or url_lower.endswith("ulasim") or url_lower.endswith("ulaşim")):
+            high_priority.insert(0, url)
+        elif any(kw in url_lower for kw in ["urunler", "products", "shop", "katalog", "catalog", "urunlerimiz", "magaza"]):
             high_priority.append(url)
         elif any(kw in url_lower for kw in ["kategori", "category", "urun-kategori", "product-category"]):
             medium_priority.append(url)
@@ -149,16 +151,6 @@ def get_sitemap_categories(base_url):
         elif re.search(r'/[a-z]{2}/\d+-', u_lower) or re.search(r'/\d+-', u_lower):
             if not any(x in u_lower for x in ["contact", "about", "hakkimizda", "iletisim", "sepet", "cart", "checkout", "login", "register", ".jpg", ".png", ".jpeg", ".gif", ".pdf"]):
                 category_urls.append(u)
-            
-    for u in urls:
-        u_lower = u.lower()
-        if any(kw in u_lower for kw in ["/kategori/", "/category/", "/urun-kategori/", "/product-category/"]):
-            if u not in category_urls:
-                category_urls.append(u)
-        elif re.search(r'/[a-z]{2}/\d+-', u_lower) or re.search(r'/\d+-', u_lower):
-            if not any(x in u_lower for x in ["contact", "about", "hakkimizda", "iletisim", "sepet", "cart", "checkout", "login", "register", ".jpg", ".png", ".jpeg", ".gif", ".pdf"]):
-                if u not in category_urls:
-                    category_urls.append(u)
                 
     unique_categories = list(set(category_urls))
     print(f"  ✅ Sitemap üzerinden {len(unique_categories)} adet kategori/katalog adresi keşfedildi.")

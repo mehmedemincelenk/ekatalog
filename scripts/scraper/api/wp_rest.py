@@ -12,6 +12,156 @@ parent_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 if parent_dir not in sys.path:
     sys.path.append(parent_dir)
 
+def build_wp_category_map(base_url, context):
+    """
+    WordPress sitemap veya kategori sayfalarını tarayarak, 
+    her bir ürün URL'sini hangi kategorilere ait olduğunu eşleştiren bir sözlük döner.
+    """
+    clean_base = base_url.rstrip("/")
+    cat_mapping = {}
+    
+    # 1. Sitemap'leri tarayarak kategori sitemap URL'sini bul veya doğrudan tahmin et
+    sitemap_candidates = [
+        f"{clean_base}/product_cat-sitemap.xml",
+        f"{clean_base}/category-sitemap.xml",
+        f"{clean_base}/sitemap.xml",
+        f"{clean_base}/sitemap_index.xml"
+    ]
+    
+    cat_urls = []
+    
+    for s_url in sitemap_candidates:
+        req = urllib.request.Request(s_url, headers={'User-Agent': 'Mozilla/5.0'})
+        try:
+            with urllib.request.urlopen(req, context=context, timeout=4) as r:
+                content = r.read().decode("utf-8")
+                # Eğer sitemap index ise, içindeki kategori sitemap'lerini bul
+                if "sitemap" in s_url:
+                    sub_sitemaps = re.findall(r"<loc>([^<]*(?:category|product_cat)[^<]*\.xml)</loc>", content, re.I)
+                    if sub_sitemaps:
+                        for sub_s in sub_sitemaps:
+                            try:
+                                sub_req = urllib.request.Request(sub_s, headers={'User-Agent': 'Mozilla/5.0'})
+                                with urllib.request.urlopen(sub_req, context=context, timeout=4) as sub_r:
+                                    sub_content = sub_r.read().decode("utf-8")
+                                    locs = re.findall(r"<loc>([^<]+)</loc>", sub_content)
+                                    cat_urls.extend(locs)
+                            except:
+                                pass
+                        if cat_urls:
+                            break
+                
+                # Doğrudan kategori URL'lerini bul
+                locs = re.findall(r"<loc>([^<]+)</loc>", content)
+                filtered = [l for l in locs if any(x in l.lower() for x in ["/urun-kategori/", "/product-category/", "/category/", "/kategori/"])]
+                if filtered:
+                    cat_urls.extend(filtered)
+                    break
+        except Exception:
+            continue
+            
+    # Eğer sitemap'lerden hiç kategori çıkmadıysa, boş döneriz.
+    if not cat_urls:
+        print("  ℹ️ Kategori sitemap'i bulunamadı veya taranamadı.")
+        return {}
+        
+    cat_urls = list(set(cat_urls))
+    print(f"  📂 Kategori Sitemap aktif! {len(cat_urls)} adet kategori sayfası taranıyor...")
+    
+    # 2. Kategori sayfalarını paralel olarak tarayarak ürün eşleştirmelerini topla
+    from concurrent.futures import ThreadPoolExecutor
+    
+    def fetch_and_parse_cat(url):
+        req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
+        try:
+            with urllib.request.urlopen(req, context=context, timeout=6) as r:
+                html_content = r.read().decode("utf-8")
+                slug = url.rstrip("/").split("/")[-1]
+                cat_name = slug.replace("-", " ").title()
+                
+                # Ürün linklerini bul (mutlak ve göreceli)
+                links = re.findall(r'href=["\'](https?://[^"\'\s>]+/urun/[^"\'\s>]+)["\']', html_content)
+                links += re.findall(r'href=["\'](https?://[^"\'\s>]+/product/[^"\'\s>]+)["\']', html_content)
+                
+                relative_urun = re.findall(r'href=["\'](/urun/[^"\'\s>]+)["\']', html_content)
+                for r_ur in relative_urun:
+                    links.append(f"{clean_base}{r_ur}")
+                    
+                relative_prod = re.findall(r'href=["\'](/product/[^"\'\s>]+)["\']', html_content)
+                for r_pr in relative_prod:
+                    links.append(f"{clean_base}{r_pr}")
+                    
+                normalized = {l.rstrip("/").lower() for l in links if not any(x in l.lower() for x in ["/urun-kategori/", "/product-category/"])}
+                
+                # Sayfalama kontrolü
+                pages = re.findall(r'/page/(\d+)', html_content)
+                max_page = 1
+                if pages:
+                    max_page = max(int(p) for p in pages)
+                    
+                return cat_name, normalized, max_page, url
+        except Exception:
+            return None, set(), 1, url
+            
+    # İlk parti (Page 1) taraması
+    first_batch_urls = cat_urls[:300] # Genişletilmiş üst sınır
+    with ThreadPoolExecutor(max_workers=20) as executor:
+        results = list(executor.map(fetch_and_parse_cat, first_batch_urls))
+        
+    paginated_tasks = []
+    for cat_name, products_set, max_page, original_url in results:
+        if not cat_name:
+            continue
+            
+        # Mapping'e ekle
+        for prod_url in products_set:
+            if prod_url not in cat_mapping:
+                cat_mapping[prod_url] = []
+            if cat_name not in cat_mapping[prod_url]:
+                cat_mapping[prod_url].append(cat_name)
+                
+        # Eğer sayfalama varsa ikinci parti için planla
+        if max_page > 1:
+            for p_num in range(2, min(max_page + 1, 8)): # Max 7. sayfaya kadar çek
+                paginated_urls = f"{original_url}page/{p_num}/" if original_url.endswith("/") else f"{original_url}/page/{p_num}/"
+                paginated_tasks.append((cat_name, paginated_urls))
+                
+    # İkinci parti (Pagination Pages) taraması
+    if paginated_tasks:
+        print(f"  📄 Kategorilerde sayfalama bulundu. {len(paginated_tasks)} adet sayfa paralel taranıyor...")
+        def fetch_page_only(task):
+            cat_name, p_url = task
+            req = urllib.request.Request(p_url, headers={'User-Agent': 'Mozilla/5.0'})
+            try:
+                with urllib.request.urlopen(req, context=context, timeout=6) as r:
+                    html_content = r.read().decode("utf-8")
+                    links = re.findall(r'href=["\'](https?://[^"\'\s>]+/urun/[^"\'\s>]+)["\']', html_content)
+                    links += re.findall(r'href=["\'](https?://[^"\'\s>]+/product/[^"\'\s>]+)["\']', html_content)
+                    relative_urun = re.findall(r'href=["\'](/urun/[^"\'\s>]+)["\']', html_content)
+                    for r_ur in relative_urun:
+                        links.append(f"{clean_base}{r_ur}")
+                    relative_prod = re.findall(r'href=["\'](/product/[^"\'\s>]+)["\']', html_content)
+                    for r_pr in relative_prod:
+                        links.append(f"{clean_base}{r_pr}")
+                    
+                    normalized = {l.rstrip("/").lower() for l in links if not any(x in l.lower() for x in ["/urun-kategori/", "/product-category/"])}
+                    return cat_name, normalized
+            except Exception:
+                return cat_name, set()
+                
+        with ThreadPoolExecutor(max_workers=20) as executor:
+            p_results = list(executor.map(fetch_page_only, paginated_tasks))
+            
+        for cat_name, products_set in p_results:
+            for prod_url in products_set:
+                if prod_url not in cat_mapping:
+                    cat_mapping[prod_url] = []
+                if cat_name not in cat_mapping[prod_url]:
+                    cat_mapping[prod_url].append(cat_name)
+                    
+    print(f"  📊 Kategori Eşleştirme Sözlüğü Hazırlandı! Toplam {len(cat_mapping)} ürün eşleştirildi.")
+    return cat_mapping
+
 def try_wp_rest_extract(base_url, store_name):
     """
     WordPress REST API üzerinden tüm ürünleri, resimleri ve kategorileri saniyeler içinde çeker.
@@ -19,6 +169,10 @@ def try_wp_rest_extract(base_url, store_name):
     """
     context = ssl._create_unverified_context()
     clean_base = base_url.rstrip("/")
+    
+    # Kategori eşleştirme tablosunu oluştur
+    cat_mapping = build_wp_category_map(base_url, context)
+    
     endpoints = ["/wp-json/wp/v2/product", "/wp-json/wp/v2/posts"]
     api_url = None
     total_posts = 0
@@ -124,6 +278,10 @@ def try_wp_rest_extract(base_url, store_name):
                     if cat_name.lower() not in ["genel", "uncategorized", "ürünler", "products", "haberler", "blog", "e-katalog", "e katalog"]:
                         categories.append(cat_name)
         
+        product_link = item.get("link", "").rstrip("/").lower()
+        if (not categories or all(c.lower() in ["genel", "uncategorized"] for c in categories)) and product_link in cat_mapping:
+            categories = cat_mapping[product_link]
+            
         category = "Genel"
         if categories:
             category = categories[0]
@@ -154,6 +312,17 @@ def try_wp_rest_extract(base_url, store_name):
         if not media_url:
             continue
             
+        content_html = item.get("content", {}).get("rendered", "") or item.get("excerpt", {}).get("rendered", "")
+        desc = ""
+        if content_html:
+            clean_desc = re.sub(r'<[^>]+>', ' ', content_html)
+            clean_desc = html.unescape(clean_desc).strip()
+            clean_desc = re.sub(r'\s+', ' ', clean_desc).strip()
+            if len(clean_desc) > 300:
+                desc = clean_desc[:297] + "..."
+            else:
+                desc = clean_desc
+
         title_norm = title.lower()
         if title_norm not in seen_prods:
             seen_prods.add(title_norm)
@@ -161,7 +330,8 @@ def try_wp_rest_extract(base_url, store_name):
                 "name": title,
                 "image_url": media_url,
                 "category": category,
-                "price": "0"
+                "price": "0",
+                "description": desc
             })
             
     print(f"  ✅ WordPress REST API ile {len(products)} adet benzersiz ürün başarıyla çıkarıldı!")

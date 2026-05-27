@@ -132,11 +132,11 @@ export default function CatalogPage() {
     );
   }
 
-  // 3. RENDER ENGINE
   const mobileContent = (
     <>
       <div className="relative w-full h-full overflow-hidden flex flex-col">
-        <div className="print:hidden flex-shrink-0 z-[100]">
+        {/* FLOATING GLASS NAVBAR OVERLAY - Placed outside scroll container to ensure hardware-accelerated GPU backdrop blur */}
+        <div className="print:hidden absolute top-0 left-0 right-0 z-[100] w-full pointer-events-none">
           <Navbar
             onLogoPointerDown={handleLogoPointerDown}
             onLogoPointerUp={handleLogoPointerUp}
@@ -150,8 +150,13 @@ export default function CatalogPage() {
           className="flex-1 overflow-y-auto overflow-x-hidden no-scrollbar scroll-smooth relative z-10"
         >
           <main className="bg-stone-50">
+            {/* Spacer to offset the floating capsule navbar */}
+            <div className="h-[72px] shrink-0" />
             {storeSettings?.displayConfig?.showCarousel !== false && (
               <HeroCarousel isAdminModeActive={isAdmin} />
+            )}
+            {storeSettings?.displayConfig?.showReferences && (
+              <References isInlineEnabled={isInlineEnabled} isAdmin={isAdmin} />
             )}
             <SearchFilter
               sortedList={sortedList}
@@ -191,9 +196,6 @@ export default function CatalogPage() {
                 />
               )}
             </div>
-            {storeSettings?.displayConfig?.showReferences && (
-              <References isInlineEnabled={isInlineEnabled} isAdmin={isAdmin} />
-            )}
           </main>
           <Footer />
 

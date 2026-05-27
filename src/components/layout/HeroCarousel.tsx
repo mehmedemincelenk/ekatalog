@@ -1,8 +1,8 @@
-import { useEffect, useRef } from 'react';
-import { motion } from 'framer-motion';
+import { useEffect, useRef, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { THEME } from '../../data/config';
 import CarouselSlideUnit from './CarouselSlideUnit';
-import Button from '../ui/Button';
+
 
 import * as Lucide from 'lucide-react';
 
@@ -17,6 +17,95 @@ import { useHeroCarouselFlow } from '../../hooks/useHeroCarouselFlow';
 export default function HeroCarousel({ isAdminModeActive }: HeroCarouselProps) {
   const flow = useHeroCarouselFlow(isAdminModeActive);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  const [activeHeight, setActiveHeight] = useState<number | 'auto'>('auto');
+  const slideRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const [direction, setDirection] = useState(1);
+  const prevIndexRef = useRef(flow.currentIndex);
+
+  // Viewport & Tab Visibility Observer (High-Fidelity Engine Optimization)
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el || isAdminModeActive || flow.marketingSlides.length === 0) return;
+
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        flow.setIsPaused(true);
+      } else {
+        const rect = el.getBoundingClientRect();
+        const isInView = rect.top < window.innerHeight && rect.bottom > 0;
+        flow.setIsPaused(!isInView);
+      }
+    };
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        flow.setIsPaused(!entry.isIntersecting);
+      },
+      { threshold: 0 }
+    );
+
+    observer.observe(el);
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+
+    // Initial immediate check on mount
+    const rect = el.getBoundingClientRect();
+    const isInView = rect.top < window.innerHeight && rect.bottom > 0;
+    flow.setIsPaused(!isInView);
+
+    return () => {
+      observer.disconnect();
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+    };
+  }, [flow.setIsPaused, isAdminModeActive, flow.marketingSlides.length]);
+
+  useEffect(() => {
+    if (flow.marketingSlides.length === 0) return;
+    if (flow.currentIndex !== prevIndexRef.current) {
+      const total = flow.marketingSlides.length;
+      const prev = prevIndexRef.current;
+      const curr = flow.currentIndex;
+
+      let dir = 1;
+      if (curr === 0 && prev === total - 1) {
+        dir = 1;
+      } else if (curr === total - 1 && prev === 0) {
+        dir = -1;
+      } else if (curr > prev) {
+        dir = 1;
+      } else {
+        dir = -1;
+      }
+      setDirection(dir);
+      prevIndexRef.current = curr;
+    }
+  }, [flow.currentIndex, flow.marketingSlides.length]);
+
+  // Smooth Height Auto-Optimizer (Diamond Edition)
+  useEffect(() => {
+    const el = slideRefs.current[flow.currentIndex];
+    if (!el || flow.marketingSlides.length === 0) return;
+
+    // Monitor size modifications natively for seamless adjustment (lazy-loaded images, resizing)
+    const resizeObserver = new ResizeObserver((entries) => {
+      for (let entry of entries) {
+        const height = entry.target.getBoundingClientRect().height;
+        if (height > 0) {
+          setActiveHeight(height);
+        }
+      }
+    });
+
+    resizeObserver.observe(el);
+
+    const initialHeight = el.getBoundingClientRect().height;
+    if (initialHeight > 0) {
+      setActiveHeight(initialHeight);
+    }
+
+    return () => resizeObserver.disconnect();
+  }, [flow.currentIndex, flow.marketingSlides]);
 
   // Diamond Logic: Listen for global add event
   useEffect(() => {
@@ -69,7 +158,7 @@ export default function HeroCarousel({ isAdminModeActive }: HeroCarouselProps) {
   if (flow.marketingSlides.length === 0) return null;
 
   return (
-    <div className={carouselTheme.container}>
+    <div ref={containerRef} className={carouselTheme.container}>
       {/* HIDDEN INPUT FOR GLOBAL ADD */}
       <input
         ref={fileInputRef}
@@ -82,7 +171,12 @@ export default function HeroCarousel({ isAdminModeActive }: HeroCarouselProps) {
         }}
       />
 
-      <div className={carouselTheme.layout}>
+      <motion.div
+        className={`${carouselTheme.layout} rounded-lg`}
+        animate={{ height: activeHeight }}
+        transition={{ duration: 0.22, ease: [0.25, 1, 0.5, 1] }}
+        style={{ overflow: 'hidden', isolation: 'isolate' }}
+      >
         {/* LOCALIZED LOADING & SUCCESS OVERLAY */}
         {(flow.isAssetUploading || flow.uploadSuccess) && (
           <div
@@ -101,79 +195,119 @@ export default function HeroCarousel({ isAdminModeActive }: HeroCarouselProps) {
             )}
           </div>
         )}
-        <motion.div
-          drag={isAdminModeActive ? false : 'x'}
-          dragConstraints={{ left: 0, right: 0 }}
-          onDragEnd={flow.handleDragEnd}
-          className="flex w-full touch-pan-y items-start"
-          animate={{ x: `-${flow.currentIndex * 100}%` }}
-          transition={
-            flow.isTransitioning
-              ? { duration: 0.7, ease: [0.22, 1, 0.36, 1] }
-              : { duration: 0 }
-          }
-          onAnimationComplete={() => flow.setIsTransitioning(false)}
-        >
-          {flow.marketingSlides.map((slideItem, index) => (
-            <div key={index} className="relative w-full shrink-0">
-              <CarouselSlideUnit
-                slideData={slideItem}
-                isCurrentlyActive={index === flow.currentIndex}
-                isAdmin={isAdminModeActive}
-                isCurrentlyUploading={flow.isAssetUploading}
-                currentIndex={index}
-                totalSlides={flow.marketingSlides.length}
-                editingTargetSlideId={flow.activeEditingSlideId}
-                onOrderChange={(newPos) =>
-                  flow.reorderSlides(slideItem.id, newPos)
-                }
-                onUpload={(e) => {
-                  flow.setActiveEditingSlideId(slideItem.id);
-                  flow.handleFileUploadAction(e);
-                }}
-                onDeleteTrigger={flow.deleteSlide}
-              />
-            </div>
-          ))}
-        </motion.div>
+
+        <AnimatePresence mode="popLayout" initial={false}>
+          <motion.div
+            key={flow.currentIndex}
+            drag={isAdminModeActive ? false : 'x'}
+            dragConstraints={{ left: 0, right: 0 }}
+            dragElastic={0.2}
+            onDragEnd={(_, info) => {
+              const swipeThreshold = 50;
+              if (info.offset.x < -swipeThreshold) {
+                flow.handleNext();
+              } else if (info.offset.x > swipeThreshold) {
+                flow.handlePrev();
+              }
+            }}
+            initial={{ 
+              x: direction === 1 ? '100%' : '-100%', 
+              filter: 'blur(8px)',
+              opacity: 0
+            }}
+            animate={{ 
+              x: '0%', 
+              filter: 'blur(0px)',
+              opacity: 1 
+            }}
+            exit={{ 
+              x: direction === 1 ? '-100%' : '100%', 
+              filter: 'blur(8px)',
+              opacity: 0
+            }}
+            transition={{ 
+              x: { type: 'spring', stiffness: 450, damping: 42, mass: 0.8 },
+              filter: { duration: 0.22, ease: 'easeOut' },
+              opacity: { duration: 0.22, ease: 'easeInOut' }
+            }}
+            className="w-full relative touch-pan-y"
+            ref={(el) => {
+              slideRefs.current[flow.currentIndex] = el;
+            }}
+          >
+            <CarouselSlideUnit
+              slideData={flow.marketingSlides[flow.currentIndex]}
+              isCurrentlyActive={true}
+              isAdmin={isAdminModeActive}
+              isCurrentlyUploading={flow.isAssetUploading}
+              currentIndex={flow.currentIndex}
+              totalSlides={flow.marketingSlides.length}
+              editingTargetSlideId={flow.activeEditingSlideId}
+              onOrderChange={(newPos) =>
+                flow.reorderSlides(flow.marketingSlides[flow.currentIndex].id, newPos)
+              }
+              onUpload={(e) => {
+                flow.setActiveEditingSlideId(flow.marketingSlides[flow.currentIndex].id);
+                flow.handleFileUploadAction(e);
+              }}
+              onDeleteTrigger={flow.deleteSlide}
+            />
+          </motion.div>
+        </AnimatePresence>
 
         {flow.marketingSlides.length > 1 && (
           <>
-            {/* NAVIGATION BUTTONS (DIAMOND BLACK GLASS EDITION) */}
-            <div className="absolute inset-y-0 left-2 z-50 flex items-center">
-              <Button
-                variant="glass"
-                mode="square"
-                className="!w-7 !h-7 !bg-stone-900/60 backdrop-blur-md border-white/20 hover:!bg-stone-900/80 text-white shadow-2xl transition-all active:scale-90 !rounded-md flex items-center justify-center"
-                icon={<Lucide.ChevronLeft size={16} strokeWidth={2.5} />}
-                onClick={flow.handlePrev}
-              />
-            </div>
-            <div className="absolute inset-y-0 right-2 z-50 flex items-center">
-              <Button
-                variant="glass"
-                mode="square"
-                className="!w-7 !h-7 !bg-stone-900/60 backdrop-blur-md border-white/20 hover:!bg-stone-900/80 text-white shadow-2xl transition-all active:scale-90 !rounded-md flex items-center justify-center"
-                icon={<Lucide.ChevronRight size={16} strokeWidth={2.5} />}
-                onClick={flow.handleNext}
-              />
-            </div>
-
-            <div className={carouselTheme.navigation.dotsWrapper}>
-              {flow.marketingSlides.map((_, dotIndex) => (
+            {/* Split-Click Navigation Overlays (Story Mode) */}
+            {!isAdminModeActive && (
+              <>
                 <div
-                  key={dotIndex}
-                  onClick={() => {
-                    flow.setIsTransitioning(true);
-                    flow.setCurrentIndex(dotIndex);
-                  }}
-                  className={`${carouselTheme.navigation.dotBase} ${flow.currentIndex === dotIndex ? carouselTheme.navigation.dotActive : carouselTheme.navigation.dotInactive}`}
+                  onClick={flow.handlePrev}
+                  className="absolute left-0 top-0 bottom-0 w-1/2 z-40 cursor-w-resize"
+                  title="Önceki Görsel"
                 />
-              ))}
+                <div
+                  onClick={flow.handleNext}
+                  className="absolute right-0 top-0 bottom-0 w-1/2 z-40 cursor-e-resize"
+                  title="Sonraki Görsel"
+                />
+              </>
+            )}
+
+            {/* Instagram Stories Style Top Indicators */}
+            <div className="absolute top-3.5 left-4 right-4 z-50 flex gap-1.5 pointer-events-auto">
+              {flow.marketingSlides.map((_, dotIndex) => {
+                const isActive = flow.currentIndex === dotIndex;
+                const isCompleted = dotIndex < flow.currentIndex;
+
+                return (
+                  <div
+                    key={dotIndex}
+                    onClick={() => {
+                      flow.setIsTransitioning(true);
+                      flow.setCurrentIndex(dotIndex);
+                    }}
+                    className="h-[3px] w-full rounded-full cursor-pointer bg-white/35 backdrop-blur-[0.5px] hover:bg-white/60 relative overflow-hidden"
+                  >
+                    {/* Active dynamic progress bar */}
+                    {isActive ? (
+                      <motion.div
+                        key={flow.currentIndex} // Re-mounts and resets animation on index change
+                        initial={{ scaleX: 0 }}
+                        animate={{ scaleX: 1 }}
+                        style={{ transformOrigin: 'left' }}
+                        transition={{ duration: 6, ease: 'linear' }}
+                        className="absolute inset-0 bg-white shadow-sm shadow-black/20"
+                      />
+                    ) : isCompleted ? (
+                      <div className="absolute inset-0 bg-white" />
+                    ) : null}
+                  </div>
+                );
+              })}
             </div>
           </>
         )}
-      </div>
+      </motion.div>
     </div>
   );
 }

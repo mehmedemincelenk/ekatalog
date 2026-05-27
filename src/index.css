@@ -211,4 +211,24 @@
     background-size: 200% 100%;
     animation: shimmer 2s infinite linear;
   }
+
+  /* REFERENCES COMPACT MARQUEE */
+  @keyframes references-marquee {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+  .references-marquee-track {
+    animation: references-marquee 30s linear infinite;
+    display: inline-flex;
+    white-space: nowrap;
+    will-change: transform;
+  }
+  .references-marquee-track:hover {
+    animation-play-state: paused;
+  }
 }
+

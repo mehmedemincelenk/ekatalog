@@ -31,7 +31,13 @@ def onboard_single_lead(candidate):
     web = candidate.get("website")
     company_name = candidate.get("company_name")
     lead_id = candidate.get("id")
-    metadata = candidate.get("metadata") or {}
+    raw_metadata = candidate.get("metadata") or {}
+    slug = extract_slug(web, raw_metadata)
+    
+    # Adres gibi gereksiz ham verileri temizliyor, sadece gereken alanları tutuyoruz
+    metadata = {
+        "slug": slug
+    }
     
     print(f"\n🔎 Sitenin aktifliği ve teknik özellikleri analiz ediliyor: {web}...")
     diag = check_website_diagnostics(web)
@@ -51,8 +57,6 @@ def onboard_single_lead(candidate):
         }
         make_supabase_request(update_url, "PATCH", {"onboarded": False, "phone": "ERIŞILEMEDI", "metadata": metadata})
         return False
-        
-    slug = extract_slug(web, metadata)
         
     print(f"🌟 SEÇİLEN AKTİF ÜRÜN TEDARİKÇİSİ ADAYI: {company_name}")
     print(f"🔗 Web Adresi:  {web}")

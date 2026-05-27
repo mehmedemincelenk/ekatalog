@@ -27,6 +27,7 @@ export function useHeroCarouselFlow(isAdminModeActive: boolean) {
   const [activeEditingSlideId, setActiveEditingSlideId] = useState<
     number | null
   >(null);
+  const [isPaused, setIsPaused] = useState(false);
 
   const persistCarouselData = useCallback(
     async (updatedSlides: CarouselSlide[]) => {
@@ -146,11 +147,11 @@ export function useHeroCarouselFlow(isAdminModeActive: boolean) {
 
   // Auto-scroll effect
   useEffect(() => {
-    if (isAdminModeActive || isAssetUploading || marketingSlides.length <= 1)
+    if (isAdminModeActive || isAssetUploading || marketingSlides.length <= 1 || isPaused)
       return;
     const scrollTimer = setInterval(handleNext, INTERVAL_MS);
     return () => clearInterval(scrollTimer);
-  }, [handleNext, isAdminModeActive, isAssetUploading, marketingSlides.length]);
+  }, [handleNext, isAdminModeActive, isAssetUploading, marketingSlides.length, currentIndex, isPaused]);
 
   const handleFileUploadAction = async (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -223,5 +224,7 @@ export function useHeroCarouselFlow(isAdminModeActive: boolean) {
     handleDragEnd,
     reorderSlides,
     deleteSlide,
+    isPaused,
+    setIsPaused,
   };
 }

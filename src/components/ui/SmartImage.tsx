@@ -29,7 +29,7 @@ export default function SmartImage({
 
   return (
     <div
-      className={`relative overflow-hidden bg-stone-100 ${aspectRatio === 'square' ? 'aspect-square' : aspectRatio === 'rectangle' ? 'aspect-[4/3]' : ''} ${className}`}
+      className={`relative overflow-hidden bg-transparent ${aspectRatio === 'square' ? 'aspect-square' : aspectRatio === 'rectangle' ? 'aspect-[4/3]' : ''} ${className}`}
     >
       <AnimatePresence>
         {status === 'loading' && (
@@ -56,7 +56,7 @@ export default function SmartImage({
           src={resolvedSrc || ''}
           alt={alt}
           loading={priority ? 'eager' : 'lazy'}
-          className={`w-full ${aspectRatio === 'none' ? 'h-auto' : 'h-full'} transition-all duration-700 ease-out ${objectFit === 'cover' ? 'object-cover' : 'object-contain'} ${status === 'loaded' ? 'opacity-100 scale-100 blur-0' : 'opacity-0 scale-105 blur-sm'} ${rounded ? 'rounded-lg' : ''} ${imgClassName}`}
+          className={`w-full ${aspectRatio === 'none' ? 'h-auto' : 'h-full'} ${priority ? 'transition-opacity duration-150 ease-out' : 'transition-all duration-700 ease-out'} ${objectFit === 'cover' ? 'object-cover' : 'object-contain'} ${status === 'loaded' ? 'opacity-100 scale-100 blur-0' : 'opacity-0' + (priority ? ' scale-100 blur-0' : ' scale-105 blur-sm')} ${rounded ? 'rounded-lg' : ''} ${imgClassName}`}
           onLoad={() => setStatus('loaded')}
           onError={() => setStatus('error')}
         />

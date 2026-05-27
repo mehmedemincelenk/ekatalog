@@ -89,6 +89,10 @@ const Navbar = memo(
           <div className={theme.container}>
             <div
               className={`${theme.innerWrapper} ${isTitleOnly ? 'justify-center' : 'justify-between'}`}
+              style={{
+                backdropFilter: 'blur(30px)',
+                WebkitBackdropFilter: 'blur(30px)',
+              }}
             >
               <div className="flex items-center flex-1 gap-0.5 min-w-0">
                 {/* BRAND SECTION */}
@@ -141,7 +145,7 @@ const Navbar = memo(
                           objectFit="contain"
                         />
                       ) : (
-                        <span className="w-9 h-9 flex items-center justify-center text-2xl select-none rounded-md bg-stone-100">
+                        <span className="w-9 h-9 flex items-center justify-center text-2xl select-none rounded-md bg-white/10 text-white">
                           📦
                         </span>
                       )}
@@ -176,7 +180,8 @@ const Navbar = memo(
                             'Mağaza Adı',
                           );
                         }}
-                        className={`!text-[0.85rem] font-black tracking-tighter text-stone-900 ${editStyle} ${flow.isAdmin ? 'pointer-events-auto' : ''}`}
+                        style={{ textShadow: '0 1px 2px rgba(0, 0, 0, 0.4)' }}
+                        className={`!text-[0.85rem] font-black tracking-tighter text-white ${editStyle} ${flow.isAdmin ? 'pointer-events-auto' : ''}`}
                       >
                         {flow.settings.title ||
                           flow.settings.name ||
@@ -219,7 +224,8 @@ const Navbar = memo(
                             20,
                           );
                         }}
-                        className={`!text-[0.55rem] text-stone-400 font-medium ${editStyle} ${flow.isAdmin ? 'pointer-events-auto' : ''}`}
+                        style={{ textShadow: '0 1px 2px rgba(0, 0, 0, 0.4)' }}
+                        className={`!text-[0.55rem] text-stone-200/95 font-semibold ${editStyle} ${flow.isAdmin ? 'pointer-events-auto' : ''}`}
                       >
                         {flow.settings.subtitle || DEFAULT_COMPANY.tagline}
                       </span>
@@ -273,7 +279,8 @@ const Navbar = memo(
                           'Şehir / Semt (Navbarda Gözükür)',
                         )
                       }
-                      className={`order-2 !text-[0.7rem] text-stone-600 hover:text-stone-900 transition-colors font-bold text-right leading-tight px-1 truncate max-w-[10rem] xs:max-w-[14rem] sm:max-w-[20rem] md:max-w-[28rem] block ${editStyle}`}
+                      style={{ textShadow: '0 1px 2px rgba(0, 0, 0, 0.4)' }}
+                      className={`order-2 !text-[0.7rem] text-stone-200 hover:text-white transition-colors font-bold text-right leading-tight px-1 truncate max-w-[10rem] xs:max-w-[14rem] sm:max-w-[20rem] md:max-w-[28rem] block ${editStyle}`}
                     >
                       {flow.settings.shortAddress || flow.settings.address}
                     </div>
@@ -289,7 +296,7 @@ const Navbar = memo(
                         }}
                         variant="glass"
                         mode="rectangle"
-                        className="!bg-stone-900/60 backdrop-blur-md border border-white/20 !text-white !px-3 !py-1 !rounded-lg hover:!bg-stone-900/80 !shadow-xl transition-all"
+                        className="!bg-stone-900/75 backdrop-blur-xl border border-white/10 !text-white !px-3 !py-1.5 !rounded-xl hover:!bg-stone-900/90 hover:scale-[1.03] active:scale-95 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.15),0_6px_20px_-4px_rgba(0,0,0,0.15)] transition-all duration-200"
                       >
                         <div className="flex items-center gap-2">
                           <span

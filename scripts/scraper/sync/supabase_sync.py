@@ -45,59 +45,8 @@ def make_request(url, method="GET", data=None, custom_headers=None):
         return None
 
 def upload_image_to_supabase(image_url, store_slug):
-    """Görseli indirir ve Supabase Storage public bucket'ına yedekler."""
-    if not image_url or not image_url.startswith("http"):
-        return image_url
-        
-    import mimetypes
-    import hashlib
-    import re
-    
-    # 1. Dosya adını ve uzantısını belirle (veya hash oluştur)
-    base_name = image_url.split('?')[0].split('/')[-1]
-    name, ext = os.path.splitext(base_name)
-    if not ext:
-        ext = ".jpg"
-        
-    # URL'nin hash'ini kullanarak çakışmaları önle
-    url_hash = hashlib.md5(image_url.encode('utf-8')).hexdigest()[:10]
-    safe_name = re.sub(r'[^a-zA-Z0-9_\-]', '', name)
-    filename = f"{safe_name}_{url_hash}{ext}"
-    
-    # MIME tipini belirle
-    mime_type, _ = mimetypes.guess_type(filename)
-    if not mime_type:
-        mime_type = "image/jpeg"
-        
-    # 2. Görseli indir
-    headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
-    }
-    try:
-        req_dl = urllib.request.Request(image_url, headers=headers)
-        with urllib.request.urlopen(req_dl, timeout=5) as res_dl:
-            img_data = res_dl.read()
-            
-        # 3. Supabase Storage'a yükle (x-upsert = true ile)
-        upload_url = f"{SUPABASE_URL}/storage/v1/object/stores/{store_slug}/{filename}"
-        
-        headers_ul = {
-            "apikey": SERVICE_ROLE_KEY,
-            "Authorization": f"Bearer {SERVICE_ROLE_KEY}",
-            "Content-Type": mime_type,
-            "x-upsert": "true"
-        }
-        
-        req_ul = urllib.request.Request(upload_url, data=img_data, headers=headers_ul, method="POST")
-        with urllib.request.urlopen(req_ul, timeout=10) as res_ul:
-            res_ul.read()
-            
-        # 4. Public URL'yi döndür
-        public_url = f"{SUPABASE_URL}/storage/v1/object/public/stores/{store_slug}/{filename}"
-        return public_url
-    except Exception as e:
-        print(f"  ⚠ Görsel yedeklenemedi ({image_url}): {e}")
-        return image_url
+    """Görseli doğrudan döndürür (Sadece üye olan dükkanlar için storage'a yedeklenecektir)."""
+    return image_url
 
 def sync_store_to_supabase(slug, name, data):
     """
@@ -234,7 +183,8 @@ def sync_store_to_supabase(slug, name, data):
                 "name": p.get("name", "")[:200],
                 "category": p.get("category", "Genel"),
                 "image_url": mirrored_img,
-                "price": p.get("price", "0")
+                "price": p.get("price", "0"),
+                "description": p.get("description", "")
             })
             
         print(f"  📥 Chunk {idx // chunk_size + 1}: {len(payload)} ürün yükleniyor...")
