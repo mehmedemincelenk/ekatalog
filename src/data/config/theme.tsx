@@ -340,7 +340,7 @@ export const THEME = {
       wrapper: `relative w-full transition-smooth overflow-hidden group/img rounded-[calc(var(--radius-card)-4px)]`,
       aspect: 'aspect-square',
       bg: 'bg-stone-100',
-      fit: 'object-cover',
+      fit: 'object-contain',
       transition: 'transition-smooth',
       outOfStock: 'grayscale opacity-40',
       uploading: 'opacity-50 blur-[2px]',
