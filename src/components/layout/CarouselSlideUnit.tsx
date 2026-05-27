@@ -46,20 +46,20 @@ const CarouselSlideUnit = memo(
 
     return (
       <div
-        className={`${carouselTheme.slide.base} overflow-hidden rounded-lg relative`}
+        className={`${carouselTheme.slide.base} overflow-hidden rounded-none relative`}
       >
         {/* VISUAL ASSET LAYER */}
-        <div className="relative w-full overflow-hidden rounded-lg">
+        <div className="relative w-full overflow-hidden rounded-none">
           <SmartImage
             src={resolveVisualAssetUrl(slideData.src)}
             alt={slideData.label}
             aspectRatio="none"
             priority={true}
             className={`
-              w-full h-auto block object-contain rounded-lg
+              w-full h-auto block object-contain rounded-none
               ${isCurrentlyUploading && editingTargetSlideId === slideData.id ? carouselTheme.slide.loadingBlur : ''}
             `}
-            imgClassName="rounded-lg"
+            imgClassName="rounded-none"
           />
         </div>
 

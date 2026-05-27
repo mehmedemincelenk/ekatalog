@@ -239,7 +239,7 @@ def parse_products_from_markdown(pages, base_url, brand_name=""):
     img_pattern = re.compile(r'!\[([^\]]*)\]\((https?://[^\s\(\)]+(?:\([^\s\(\)]*\)[^\s\(\)]*)*)\)')
     gallery_pattern = re.compile(r'\[\s*!\[([^\]]*)\]\((https?://[^\s\(\)]+(?:\([^\s\(\)]*\)[^\s\(\)]*)*)\)\s*\]\((https?://[^\s\(\)]+(?:\([^\s\(\)]*\)[^\s\(\)]*)*)\)', re.I)
     
-    ignored_keywords = ["logo", "banner", "slider", "bg", "background", "icon", "placeholder", "map", "sepet", "cart", "avatar", "menu", "facebook", "twitter", "instagram", "youtube", "linkedin", "social", "pinterest", "google", "clients", "testimonial", "refresh", "captcha", "code", "reload", "loading"]
+    ignored_keywords = ["logo", "banner", "slider", "bg", "background", "icon", "placeholder", "map", "sepet", "cart", "avatar", "menu", "facebook", "twitter", "instagram", "youtube", "linkedin", "social", "pinterest", "google", "clients", "testimonial", "refresh", "captcha", "code", "reload", "loading", "themes", "plugins", "wp-includes", "cookies", "cookie"]
     districts = [
         "mecidiyekoy", "mecidiyeköy", "sisli", "şişli", "kozyatagi", "kozyatağı", "arnavutkoy", "arnavutköy",
         "avcilar", "avcılar", "atasehir", "ataşehir", "bahcelievler", "bahçelievler", "bagcilar", "bağcılar",
