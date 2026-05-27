@@ -86,47 +86,49 @@ const ProductCard = memo(
           data-product-id={product.id}
           className={`${theme.container} ${THEME.radius.card} h-fit flex-shrink-0 overflow-hidden ${product.out_of_stock ? theme.outOfStockBorder : theme.activeBorder} ${theme.shadow}`}
         >
-          {/* IMAGE VISUAL SECTION - SHARP CORNERS */}
-          <div
-            className={`${theme.image.wrapper} w-full overflow-hidden ${theme.image.bg} rounded-t-[inherit] rounded-b-none ${!isAdmin ? theme.image.cursorUser : theme.image.cursorAdmin}`}
-            style={{
-              aspectRatio: '1/1',
-              flexShrink: 0,
-            }}
-            onClick={() => {
-              if (isAdmin && !isUploadingImage) setIsAdminMenuOpen(true);
-              else if (!isAdmin && primaryImageSource)
-                setIsZoomDetailOpen(true);
-            }}
-          >
-            <SmartImage
-              src={primaryImageSource}
-              alt={product.name}
-              aspectRatio="square"
-              objectFit={
-                theme.image.fit === 'object-cover' ? 'cover' : 'contain'
-              }
-              className={`
-              w-full h-full rounded-none ${theme.image.transition} 
-              ${product.out_of_stock ? theme.image.outOfStock : ''} 
-              ${isUploadingImage ? 'opacity-20 blur-sm' : ''}
-            `}
-            />
+          {/* IMAGE VISUAL SECTION - FLOATING IN LIGHT GRAY BOX */}
+          <div className="p-3 pb-0">
+            <div
+              className={`${theme.image.wrapper} w-full overflow-hidden ${theme.image.bg} ${!isAdmin ? theme.image.cursorUser : theme.image.cursorAdmin}`}
+              style={{
+                aspectRatio: '1/1',
+                flexShrink: 0,
+              }}
+              onClick={() => {
+                if (isAdmin && !isUploadingImage) setIsAdminMenuOpen(true);
+                else if (!isAdmin && primaryImageSource)
+                  setIsZoomDetailOpen(true);
+              }}
+            >
+              <SmartImage
+                src={primaryImageSource}
+                alt={product.name}
+                aspectRatio="square"
+                objectFit={
+                  theme.image.fit === 'object-cover' ? 'cover' : 'contain'
+                }
+                className={`
+                w-full h-full p-2 rounded-none ${theme.image.transition} 
+                ${product.out_of_stock ? theme.image.outOfStock : ''} 
+                ${isUploadingImage ? 'opacity-20 blur-sm' : ''}
+              `}
+              />
 
-            {/* LOADING OVERLAY (ONLY FOR UPLOADS) */}
-            {isUploadingImage && (
-              <div className="absolute inset-0 flex items-center justify-center z-20">
-                <Loading size="sm" label="" variant="white" />
-              </div>
-            )}
+              {/* LOADING OVERLAY (ONLY FOR UPLOADS) */}
+              {isUploadingImage && (
+                <div className="absolute inset-0 flex items-center justify-center z-20">
+                  <Loading size="sm" label="" variant="white" />
+                </div>
+              )}
 
-            <input
-              ref={fileInputRef}
-              type="file"
-              accept="image/*"
-              className="hidden"
-              onChange={handleImageFileChange}
-            />
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept="image/*"
+                className="hidden"
+                onChange={handleImageFileChange}
+              />
+            </div>
           </div>
 
           {/* TEXTUAL CONTENT SECTION */}
