@@ -337,7 +337,7 @@ export const THEME = {
       adminActionsInactive: 'opacity-0 scale-90 pointer-events-none',
     },
     image: {
-      wrapper: `relative w-full transition-smooth overflow-hidden group/img rounded-[calc(var(--radius-card)-4px)]`,
+      wrapper: 'relative w-full transition-smooth overflow-hidden group/img rounded-xl',
       aspect: 'aspect-square',
       bg: 'bg-stone-100',
       fit: 'object-contain',
