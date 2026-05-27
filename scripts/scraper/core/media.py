@@ -135,7 +135,7 @@ def extract_background_sliders(base_url):
     
     for css_url in filtered_css[:6]:
         try:
-            req_css = urllib.request.Request(css_url, headers=headers)
+            req_css = urllib.request.Request(css_url, headers=DEFAULT_HEADERS)
             with urllib.request.urlopen(req_css, timeout=2) as res_css:
                 css_text = res_css.read().decode('utf-8', errors='ignore')
                 all_css_sources.append((css_url, css_text))
