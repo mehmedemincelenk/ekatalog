@@ -122,6 +122,51 @@ export default function References({
 
     let animationFrameId: number;
 
+    const updateHighlights = () => {
+      const children = track.children;
+      if (!children.length) return;
+      
+      const viewportCenter = window.innerWidth / 2;
+      const maxDistance = window.innerWidth < 640 ? 120 : 250;
+
+      for (let i = 0; i < children.length; i++) {
+        const child = children[i] as HTMLElement;
+        const rect = child.getBoundingClientRect();
+        const itemCenter = rect.left + rect.width / 2;
+        const distance = Math.abs(viewportCenter - itemCenter);
+
+        let highlight = 0;
+        if (distance < maxDistance) {
+          // Smooth bell-curve transition using cosine interpolation
+          const ratio = distance / maxDistance;
+          highlight = Math.cos(ratio * Math.PI / 2);
+        }
+
+        const img = child.querySelector('img') as HTMLElement;
+        if (img) {
+          const grayscaleVal = 100 - (highlight * 100);
+          const opacityVal = 0.35 + (highlight * 0.65);
+          const scaleVal = 1.0 + (highlight * 0.12);
+          
+          img.style.filter = `grayscale(${grayscaleVal}%)`;
+          img.style.opacity = `${opacityVal}`;
+          img.style.transform = `scale(${scaleVal})`;
+          img.style.transition = 'filter 0.3s ease-out, opacity 0.3s ease-out, transform 0.3s ease-out';
+        } else {
+          const span = child.querySelector('span') as HTMLElement;
+          if (span) {
+            const opacityVal = 0.45 + (highlight * 0.55);
+            const scaleVal = 1.0 + (highlight * 0.08);
+            
+            span.style.opacity = `${opacityVal}`;
+            span.style.transform = `scale(${scaleVal})`;
+            span.style.color = highlight > 0.5 ? '#1c1917' : '#78716c';
+            span.style.transition = 'opacity 0.3s ease-out, transform 0.3s ease-out, color 0.3s ease-out';
+          }
+        }
+      }
+    };
+
     const animate = (time: number) => {
       if (!lastTime.current) {
         lastTime.current = time;
@@ -163,6 +208,9 @@ export default function References({
         xRef.current += velocity.current * dt;
         track.style.transform = `translate3d(${xRef.current}px, 0, 0)`;
       }
+
+      // Smoothly update visual highlights on every frame
+      updateHighlights();
 
       lastTime.current = time;
       animationFrameId = requestAnimationFrame(animate);

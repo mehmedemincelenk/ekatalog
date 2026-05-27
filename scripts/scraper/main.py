@@ -344,7 +344,6 @@ def main():
 
         # 5.2 Canlı Header/Pillow Analizi
         try:
-            import urllib.request
             from PIL import ImageFile
             
             req = urllib.request.Request(url_str, headers={'User-Agent': 'Mozilla/5.0'})
