@@ -306,7 +306,7 @@ export default function References({
           <div
             ref={trackRef}
             style={{ transform: 'translate3d(0px, 0, 0)' }}
-            className="flex gap-10 py-1.5 items-center shrink-0 w-max"
+            className="flex gap-10 py-1.5 items-center justify-center mx-auto shrink-0 w-max"
           >
             {marqueeItems.map((ref, idx) => (
               <div
