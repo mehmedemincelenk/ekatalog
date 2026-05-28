@@ -2,7 +2,6 @@ import { useState, memo } from 'react';
 import { THEME } from '../../data/config';
 import { useReferencesFlow } from '../../hooks/useReferencesFlow';
 import { useMarqueePhysics } from '../../hooks/useMarqueePhysics';
-import Button from '../ui/Button';
 import { QuickEditModal } from '../modals/UtilityModals';
 import * as Lucide from 'lucide-react';
 import { ReferencesProps, Reference } from '../../types';
@@ -27,79 +26,85 @@ const AdminReferenceCard = memo(
 
     return (
       <div
-        className="relative flex flex-col items-center justify-center p-4 pt-8 border border-stone-200/80 bg-stone-50/50 hover:bg-white hover:border-stone-300 shadow-[0_2px_8px_-3px_rgba(0,0,0,0.03)] hover:shadow-lg hover:shadow-stone-200/60 transition-all duration-300 rounded-xl overflow-hidden w-full h-28 select-none"
+        className="relative group flex flex-col items-center justify-center p-4 pt-10 pb-4 border border-stone-100 bg-white hover:border-stone-200/80 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.04)] hover:shadow-[0_12px_24px_-6px_rgba(0,0,0,0.06)] hover:-translate-y-0.5 transition-all duration-300 rounded-2xl w-full h-32 select-none overflow-hidden"
       >
-        {/* STANDARDIZED ADMINISTRATIVE CONTROLS OVERLAY */}
-        <div className="absolute top-2 right-2 flex items-center gap-1 z-20" onClick={(e) => e.stopPropagation()}>
-          {/* INTERACTIVE SEQUENCE BADGE (SELECT OVERLAY) */}
-          <div className="relative w-6 h-6 flex items-center justify-center rounded-md border border-white/20 shadow-sm bg-stone-900/60 backdrop-blur-md">
-            <select
-              value={currentIndex}
-              onChange={(e) => {
-                const newPos = Number(e.target.value);
-                onOrderChange(refData.id, newPos);
-              }}
-              className="absolute inset-0 cursor-pointer opacity-0 z-10"
-            >
-              {Array.from({ length: totalItems }).map((_, i) => (
-                <option key={i} value={i}>
-                  {i + 1}.
-                </option>
-              ))}
-            </select>
-            <span className="text-white text-[9px] font-black">
-              {currentIndex + 1}.
-            </span>
-          </div>
+        {/* SEQUENCE SELECTION BADGE (TOP-LEFT) */}
+        <div 
+          className="absolute top-3 left-3 z-20 flex items-center justify-center px-2 py-0.5 rounded-full border border-stone-200/60 bg-stone-50/80 hover:bg-stone-100/90 text-stone-600 shadow-xs transition-colors cursor-pointer"
+          onClick={(e) => e.stopPropagation()}
+        >
+          <select
+            value={currentIndex}
+            onChange={(e) => {
+              const newPos = Number(e.target.value);
+              onOrderChange(refData.id, newPos);
+            }}
+            className="absolute inset-0 cursor-pointer opacity-0 z-10"
+          >
+            {Array.from({ length: totalItems }).map((_, i) => (
+              <option key={i} value={i}>
+                {i + 1}. Sıra
+              </option>
+            ))}
+          </select>
+          <span className="text-[10px] font-bold tracking-tight">
+            {currentIndex + 1}. Sıra
+          </span>
+        </div>
 
+        {/* DELETE BUTTON (TOP-RIGHT) */}
+        <div 
+          className="absolute top-2.5 right-2.5 z-20 flex items-center gap-1"
+          onClick={(e) => e.stopPropagation()}
+        >
           {!isDeleteConfirming ? (
-            /* DELETE */
-            <Button
+            <button
               onClick={() => setIsDeleteConfirming(true)}
-              variant="glass"
-              mode="square"
-              className="!w-6 !h-6 !bg-stone-900/60 backdrop-blur-md border border-white/20 text-white shadow-sm !rounded-md !p-0 cursor-pointer hover:!bg-red-500/80"
-              icon={<Lucide.Trash2 size={12} strokeWidth={2.5} />}
+              className="w-6 h-6 rounded-full flex items-center justify-center text-stone-400 hover:text-red-500 hover:bg-red-50/80 border border-transparent hover:border-red-100/60 transition-all duration-200 cursor-pointer"
               title="Referansı Sil"
-            />
+            >
+              <Lucide.Trash2 size={13} strokeWidth={2.2} />
+            </button>
           ) : (
-            <div className="flex gap-1 animate-in slide-in-from-right-1 duration-200">
-              <Button
+            <div className="flex gap-1 items-center bg-stone-50 border border-stone-200/60 p-0.5 rounded-full shadow-xs animate-in slide-in-from-right-1 duration-200">
+              <button
                 onClick={() => {
                   onDelete(refData.id);
                   setIsDeleteConfirming(false);
                 }}
-                variant="action"
-                mode="square"
-                className="!w-6 !h-6 !p-0 !rounded-md shadow-sm"
-                icon={<Lucide.Check size={11} strokeWidth={4} />}
-              />
-              <Button
+                className="w-5 h-5 rounded-full bg-emerald-500 text-white flex items-center justify-center shadow-xs hover:bg-emerald-600 transition-colors cursor-pointer"
+                title="Onayla"
+              >
+                <Lucide.Check size={10} strokeWidth={4} />
+              </button>
+              <button
                 onClick={() => setIsDeleteConfirming(false)}
-                variant="glass"
-                mode="square"
-                className="!w-6 !h-6 !bg-stone-900/60 backdrop-blur-md border border-white/20 text-white shadow-sm !rounded-md !p-0"
-                icon={<Lucide.X size={11} strokeWidth={3} />}
-              />
+                className="w-5 h-5 rounded-full bg-stone-200 text-stone-600 flex items-center justify-center hover:bg-stone-300 transition-colors cursor-pointer"
+                title="İptal"
+              >
+                <Lucide.X size={10} strokeWidth={3} />
+              </button>
             </div>
           )}
         </div>
 
         {/* LOGO IMAGE OR TEXT PLACEHOLDER */}
         {refData.logo && (refData.logo.startsWith('/') || refData.logo.startsWith('http')) ? (
-          <div className="flex flex-col items-center gap-1.5 py-1">
-            <img
-              src={refData.logo}
-              alt={refData.name}
-              className="h-8 w-auto max-w-[80%] object-contain"
-            />
-            <span className="text-[8px] font-black tracking-[0.1em] text-stone-400 uppercase leading-none">
+          <div className="flex flex-col items-center justify-center w-full h-full pt-2">
+            <div className="h-10 flex items-center justify-center w-full">
+              <img
+                src={refData.logo}
+                alt={refData.name}
+                className="h-full w-auto max-w-[85%] object-contain"
+              />
+            </div>
+            <span className="text-[9px] font-black tracking-widest text-stone-400 uppercase mt-2 leading-none">
               {refData.name}
             </span>
           </div>
         ) : (
-          <div className="flex flex-col items-center justify-center gap-1.5 py-1">
-            <div className="w-8 h-8 rounded-full bg-stone-100 border border-stone-200/60 flex items-center justify-center text-[9px] font-black text-stone-600 uppercase shadow-inner">
+          <div className="flex flex-col items-center justify-center w-full h-full pt-2 gap-2">
+            <div className="w-9 h-9 rounded-full bg-gradient-to-br from-stone-50 to-stone-100 border border-stone-200/50 flex items-center justify-center text-[10px] font-bold text-stone-600 uppercase shadow-inner">
               {refData.name.slice(0, 2)}
             </div>
             <span className="text-[10px] font-black text-stone-700 uppercase tracking-widest leading-none">
