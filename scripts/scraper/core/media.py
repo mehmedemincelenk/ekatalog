@@ -3,8 +3,14 @@ import sys
 import re
 import io
 import urllib.request
+import ssl
 from urllib.parse import urljoin
 from PIL import Image
+
+try:
+    _ssl_context = ssl._create_unverified_context()
+except Exception:
+    _ssl_context = None
 
 # Ensure parent directory is in python path
 parent_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -26,7 +32,7 @@ def generate_unified_logos_banner(logo_urls, output_path, title="Referanslarım�
     for url in logo_urls:
         try:
             req = urllib.request.Request(url, headers=DEFAULT_HEADERS)
-            with urllib.request.urlopen(req, timeout=5) as res:
+            with urllib.request.urlopen(req, context=_ssl_context, timeout=5) as res:
                 img_data = res.read()
                 img = Image.open(io.BytesIO(img_data))
                 if img.mode in ('RGBA', 'LA') or (img.mode == 'P' and 'transparency' in img.info):
@@ -113,7 +119,7 @@ def extract_background_sliders(base_url):
     candidates = []
     try:
         req = urllib.request.Request(base_url, headers=DEFAULT_HEADERS)
-        with urllib.request.urlopen(req, timeout=4) as res:
+        with urllib.request.urlopen(req, context=_ssl_context, timeout=4) as res:
             html_text = res.read().decode('utf-8', errors='ignore')
     except Exception as e:
         print(f"  ℹ️ [Background Slider] Ham HTML çekilemedi (Pas geçiliyor): {e}")
@@ -136,7 +142,7 @@ def extract_background_sliders(base_url):
     for css_url in filtered_css[:6]:
         try:
             req_css = urllib.request.Request(css_url, headers=DEFAULT_HEADERS)
-            with urllib.request.urlopen(req_css, timeout=2) as res_css:
+            with urllib.request.urlopen(req_css, context=_ssl_context, timeout=2) as res_css:
                 css_text = res_css.read().decode('utf-8', errors='ignore')
                 all_css_sources.append((css_url, css_text))
         except Exception:
@@ -169,7 +175,7 @@ def is_widescreen_banner(img_url):
     from PIL import ImageFile
     try:
         req = urllib.request.Request(img_url, headers=DEFAULT_HEADERS)
-        with urllib.request.urlopen(req, timeout=1.5) as res:
+        with urllib.request.urlopen(req, context=_ssl_context, timeout=1.5) as res:
             img_data = res.read(16384) # Sadece ilk 16KB'ı indir
             p = ImageFile.Parser()
             p.feed(img_data)
@@ -190,7 +196,7 @@ def extract_raw_images_from_url(page_url):
     candidates = []
     try:
         req = urllib.request.Request(page_url, headers=DEFAULT_HEADERS)
-        with urllib.request.urlopen(req, timeout=5) as res:
+        with urllib.request.urlopen(req, context=_ssl_context, timeout=5) as res:
             html_text = res.read().decode('utf-8', errors='ignore')
     except Exception as e:
         print(f"  ℹ️ [Raw Image Extractor] HTML çekilemedi (Pas geçiliyor): {e}")
@@ -327,7 +333,7 @@ def is_reference_logo(url_str, alt_str="", source_page_url="", logo_url="", comp
         try:
             from PIL import ImageFile
             req = urllib.request.Request(url_str, headers={'User-Agent': 'Mozilla/5.0'})
-            with urllib.request.urlopen(req, timeout=1.0) as response:
+            with urllib.request.urlopen(req, context=_ssl_context, timeout=1.0) as response:
                 chunk = response.read(16384)
                 p = ImageFile.Parser()
                 p.feed(chunk)
@@ -395,7 +401,7 @@ def is_reference_logo(url_str, alt_str="", source_page_url="", logo_url="", comp
     try:
         from PIL import ImageFile
         req = urllib.request.Request(url_str, headers={'User-Agent': 'Mozilla/5.0'})
-        with urllib.request.urlopen(req, timeout=1.0) as response:
+        with urllib.request.urlopen(req, context=_ssl_context, timeout=1.0) as response:
             chunk = response.read(16384)
             p = ImageFile.Parser()
             p.feed(chunk)

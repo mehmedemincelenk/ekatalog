@@ -112,6 +112,7 @@ def main():
                 if cr:
                     pages.append(cr)
     else:
+        products = None
         sitemap_urls = get_sitemap_categories(base_url)
         print("🔍 Ana sayfa link analizi (crawler) başlatılıyor...")
         crawler_urls = discover_pages(homepage_md, base_url)

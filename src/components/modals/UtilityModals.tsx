@@ -651,7 +651,9 @@ export function GlobalAddMenuModal({
             key={option.id}
             onClick={() => {
               onAction(option.id);
-              onClose();
+              if (option.id !== 'PRODUCT') {
+                onClose();
+              }
             }}
             variant="primary"
             mode="rectangle"

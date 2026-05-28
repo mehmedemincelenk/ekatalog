@@ -202,6 +202,63 @@ def extract_category_from_breadcrumbs(page_md):
                         return cand.strip()
     return None
 
+def is_valid_description(desc):
+    """
+    Açıklama metninin kurumsal iletişim bilgileri, GDPR uyarısı veya widget spam'i 
+    içerip içermediğini doğrular (Diamond Standard 💎).
+    """
+    if not desc:
+        return False
+    desc_clean = desc.strip()
+    if len(desc_clean) < 15:
+        return False
+    desc_lower = make_neutral_lower(desc_clean)
+    
+    # 1. E-posta adresi tespiti
+    if re.search(r'[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}', desc_clean):
+        return False
+        
+    # 2. Telefon numarası tespiti (Türkçe / Uluslararası formatlar)
+    phone_pattern = r'(?:\+?90[\s-]?)?\(?0?\d{3}\)?[\s-]?\d{3}[\s-]?\d{2}[\s-]?\d{2}|\b0?\d{3}[\s-]?\d{3}[\s-]?\d{4}\b'
+    if re.search(phone_pattern, desc_clean):
+        return False
+        
+    # 3. İletişim / Adres / Tel spam kelimeleri
+    spam_keywords = [
+        "iletisim@", "info@", "telefon:", "tel:", "gsm:", "whatsapp:", "fax:", "faks:",
+        "mahalle", "mah.", "sokak", "sok.", "sk.", "cadde", "cad.", "bulvar", "blv",
+        "istoç", "istoc", "ticaret merkezi", "no:", "kat:", "kat :", "bölge", "bolge",
+        "call center", "cagri merkezi", "çağrı merkezi", "destek hattı", "musteri hizmetleri",
+        "müsteri hizmetleri", "tüm hakları saklıdır", "copyright", "her hakkı saklıdır",
+        "kvkk", "gizlilik politikası", "mesafeli satış", "teslimat koşulları", "kargo ücreti",
+        "iade koşulları", "çerez politikası", "facebook.com", "instagram.com", "twitter.com",
+        "youtube.com", "linkedin.com", "yol tarifi", "konumumuz", "harita", "tıkla ara",
+        "sipariş hattı", "bize ulaşın", "iletisim formu", "e-bülten", "abone ol", "üye ol"
+    ]
+    if any(k in desc_lower for k in spam_keywords):
+        return False
+        
+    # 4. Kategori listesi veya arayüz navigasyon bloğu tespiti
+    lines = [l.strip() for l in desc_clean.split("\n") if l.strip()]
+    if len(lines) >= 2:
+        menu_words = ["grubu", "kategorisi", "aparatı", "ekipmanı", "ürünleri", "malzemeleri", "bölümü", "sayfası", "hizmetleri", "koku giderici"]
+        short_lines_count = sum(1 for line in lines if len(line) < 35 and any(w in line.lower() for w in menu_words))
+        if short_lines_count / len(lines) >= 0.5:
+            return False
+            
+    # 5. Profesyonel/Açıklayıcı içerik kontrolü
+    descriptive_keywords = [
+        "edilir", "sağlar", "saglar", "tasarlanmıştır", "tasarlanmistir", "kullanılır", "kullanilir",
+        "sahiptir", "sunar", "üretilmiştir", "uretilmistir", "kaliteli", "şık", "ideal", "uygun",
+        "temizlik", "hijyen", "kullanışlı", "kullanisli", "özelliği", "ozelligi", "yapısı", "yapisi",
+        "serisi", "modeli", "fırça", "firca"
+    ]
+    if not any(k in desc_lower for k in descriptive_keywords):
+        if len(desc_clean) < 150:
+            return False
+            
+    return True
+
 def extract_description_from_markdown(page_md, target_name):
     """
     Sayfa markdown içeriğinden, hedeflenen ürün/hizmet ismiyle en çok eşleşen metin bloğunu
@@ -269,7 +326,7 @@ def extract_description_from_markdown(page_md, target_name):
             clean_neutral = make_neutral_lower(clean_text)
             
             # Metadata veya gürültü satırlarını atla
-            if any(k in clean_neutral for k in ["url source:", "published time:", "markdown content:", "author:", "reading time:", "original url:"]):
+            if any(k in clean_neutral for k in ["url source:", "published time:", "markdown content:", "author:", "reading time:", "original url:", "title:"]):
                 continue
                 
             if any(k in clean_neutral for k in noise_keywords):
@@ -277,15 +334,17 @@ def extract_description_from_markdown(page_md, target_name):
                 
             # Menü, footer, veya buton gibi duran kısa şeyleri es geç
             if clean_text and len(clean_text) > 15:
-                content_lines.append(clean_text)
-                if len(content_lines) >= 3: # En fazla 3 paragraf alalım
-                    break
+                if is_valid_description(clean_text):
+                    content_lines.append(clean_text)
+                    if len(content_lines) >= 3: # En fazla 3 paragraf alalım
+                        break
                     
     if content_lines:
         combined = "\n\n".join(content_lines)
         if len(combined) > 300:
             combined = combined[:297] + "..."
-        return combined
+        if is_valid_description(combined):
+            return combined
         
     # 2. Eğer başlık eşleşmesi bulunamadıysa, sayfa genelinde hedef adı içeren bir metin bloğu bulmaya çalış
     for line in lines:
@@ -299,7 +358,7 @@ def extract_description_from_markdown(page_md, target_name):
         
         clean_neutral = make_neutral_lower(clean_text)
         
-        if any(k in clean_neutral for k in ["url source:", "published time:", "markdown content:", "author:", "reading time:", "original url:"]):
+        if any(k in clean_neutral for k in ["url source:", "published time:", "markdown content:", "author:", "reading time:", "original url:", "title:"]):
             continue
             
         if any(k in clean_neutral for k in noise_keywords):
@@ -307,7 +366,8 @@ def extract_description_from_markdown(page_md, target_name):
             
         # Eğer bu satır hedef adını içeriyor ve makul bir uzunluktaysa, harika bir açıklamadır!
         if target_neutral in clean_neutral and 25 < len(clean_text) < 300:
-            return clean_text
+            if is_valid_description(clean_text):
+                return clean_text
             
     # 3. Son çare olarak, sayfanın genelindeki ilk uzun anlamlı metin bloğunu al
     fallback_lines = []
@@ -320,21 +380,24 @@ def extract_description_from_markdown(page_md, target_name):
             
             clean_neutral = make_neutral_lower(clean_text)
             
-            if any(k in clean_neutral for k in ["url source:", "published time:", "markdown content:", "author:", "reading time:", "original url:"]):
+            if any(k in clean_neutral for k in ["url source:", "published time:", "markdown content:", "author:", "reading time:", "original url:", "title:"]):
                 continue
                 
             if any(k in clean_neutral for k in noise_keywords):
                 continue
                 
             if len(clean_text) > 40:
-                fallback_lines.append(clean_text)
-                if len(fallback_lines) >= 2:
-                    break
+                if is_valid_description(clean_text):
+                    fallback_lines.append(clean_text)
+                    if len(fallback_lines) >= 2:
+                        break
                     
     combined_fallback = "\n\n".join(fallback_lines)
     if len(combined_fallback) > 300:
         combined_fallback = combined_fallback[:297] + "..."
-    return combined_fallback
+    if is_valid_description(combined_fallback):
+        return combined_fallback
+    return ""
 
 def parse_products_from_markdown(pages, base_url, brand_name=""):
     """Ürünleri ve resimleri markdown çıktısından tamamen ÜCRETSİZ ve yüksek doğrulukla süzen regex parser."""
@@ -366,7 +429,8 @@ def parse_products_from_markdown(pages, base_url, brand_name=""):
         "iletişim", "galeri", "referanslar", "blog", "anasayfa", "cropped-", "elementor/thumbs",
         "ürün bulunmamaktadır", "urun bulunmamaktadir", "urunyok", "slide-urun", "refresh the code",
         "kodu yenile", "kodunu yenile", "güvenlik kodu", "captcha", "giriş yap", "sepeti güncelle", 
-        "sepetim", "sepetiniz", "hesabım", "profilim", "şifremi unuttum"
+        "sepetim", "sepetiniz", "hesabım", "profilim", "şifremi unuttum", "ürünlerimiz", "lerimiz",
+        "galerilerimiz", "görsellerimiz", "resimlerimiz", "referanslarımız"
     ]
 
     def get_page_priority(p):
@@ -391,6 +455,7 @@ def parse_products_from_markdown(pages, base_url, brand_name=""):
             continue
             
         category_name = "Genel"
+        initial_products_count = len(products)
         
         # 1. Önce ekmek kırıntılarından (breadcrumbs) gerçek kategoriyi çekmeye çalış
         breadcrumb_cat = extract_category_from_breadcrumbs(page_md)
@@ -493,15 +558,28 @@ def parse_products_from_markdown(pages, base_url, brand_name=""):
             if is_invalid_product(prod_name_clean, img_url_clean):
                 return
             prod_name_lower = prod_name_clean.lower()
+            
+            # Contextual/Inline Category Extraction (Diamond Standard 💎)
+            local_cat = category_name
+            lines = page_md.split("\n")
+            for line in lines:
+                if (img_url_clean in line) or (prod_name_clean in line):
+                    cat_match = re.search(r'\[\s*([^\]\n]{3,40})\s*\]\([^\)]*(?:product-category|/kategori/|/category/)[^\)]*\)', line, re.I)
+                    if cat_match:
+                        cand = cat_match.group(1).strip()
+                        if is_valid_category_name(cand):
+                            local_cat = cand
+                            break
+            
             if prod_name_lower not in seen_prods:
                 abs_img_url = resolve_url(base_url, img_url_clean)
                 desc = extract_description_from_markdown(page_md, prod_name_clean)
-                if not desc or len(desc.strip()) < 10:
-                    desc = generate_premium_fallback_description(prod_name_clean, category_name, brand_name)
+                if not desc or not is_valid_description(desc) or len(desc.strip()) < 10:
+                    desc = generate_premium_fallback_description(prod_name_clean, local_cat, brand_name)
                 new_prod = {
                     "name": prod_name_clean,
                     "image_url": abs_img_url,
-                    "category": category_name,
+                    "category": local_cat,
                     "price": "0",
                     "description": desc
                 }
@@ -509,12 +587,12 @@ def parse_products_from_markdown(pages, base_url, brand_name=""):
                 seen_prods[prod_name_lower] = new_prod
             else:
                 existing_prod = seen_prods[prod_name_lower]
-                if existing_prod["category"] == "Genel" and category_name != "Genel":
-                    existing_prod["category"] = category_name
+                if existing_prod["category"] == "Genel" and local_cat != "Genel":
+                    existing_prod["category"] = local_cat
                     # Also regenerate description if it was a fallback to use the new category
                     if existing_prod.get("description", "").startswith(existing_prod["name"] + ", kurumsal ve endüstriyel") or \
                        existing_prod.get("description", "").startswith(existing_prod["name"] + ", profesyonel temizlik"):
-                        existing_prod["description"] = generate_premium_fallback_description(prod_name_clean, category_name, brand_name)
+                        existing_prod["description"] = generate_premium_fallback_description(prod_name_clean, local_cat, brand_name)
 
         # A. ÖNCE DIŞ LİNK + İÇ RESİM KALIPLARINI TARA
         matches_outer_1 = outer_pattern_1.findall(page_md)
@@ -575,5 +653,43 @@ def parse_products_from_markdown(pages, base_url, brand_name=""):
                 continue
                 
             add_product_if_valid(prod_name, target_img_clean)
+            
+        # D. FALLBACK FOR SINGLE PRODUCT PAGES (B2B Deep Product Extraction 💎)
+        if len(products) == initial_products_count:
+            # Sadece derin alt sayfalarda (ana sayfa veya genel bölge sayfaları dışındakilerde) çalışsın
+            clean_url = page_url.rstrip("/")
+            clean_base = base_url.rstrip("/")
+            if clean_url != clean_base and len(clean_url.replace(clean_base, "").strip("/")) > 2:
+                # Sayfa başlığını ürün adı olarak kullanmaya çalış
+                page_title = ""
+                title_match = re.search(r'^#\s+([^\n]+)', page_md, re.M)
+                if title_match:
+                    page_title = title_match.group(1).strip()
+                else:
+                    # Alternatif olarak sayfa başlığını title'dan al
+                    title_tag_match = re.search(r'Title:\s*([^\n]+)', page_md, re.I)
+                    if title_tag_match:
+                        page_title = title_tag_match.group(1).strip()
+                
+                # Başlığı temizle
+                if page_title:
+                    # " – Parça Bez Tedarikçisi" veya " - Brand" kısımlarını temizle
+                    for sep in [" - ", " – ", " — ", " | "]:
+                        if sep in page_title:
+                            page_title = page_title.split(sep)[0].strip()
+                    
+                    page_title = re.sub(r'^(Ürün|Product|Detay)\s*[:\-]*\s*', '', page_title, flags=re.I).strip()
+                    
+                    if page_title and len(page_title) >= 4 and not is_invalid_url_or_text(page_title):
+                        # Sayfadaki ilk geçerli resmi bul
+                        all_imgs = img_pattern.findall(page_md)
+                        main_img = None
+                        for alt, img_url in all_imgs:
+                            if not is_invalid_product(page_title, img_url):
+                                main_img = img_url
+                                break
+                        
+                        if main_img:
+                            add_product_if_valid(page_title, main_img)
                  
     return products

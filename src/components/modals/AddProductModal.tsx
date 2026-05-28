@@ -8,6 +8,8 @@ import StatusOverlay from '../ui/StatusOverlay';
 import Badge from '../ui/Badge';
 import { AddProductModalProps } from '../../types';
 import { useAddProductFlow } from '../../hooks/useAddProductFlow';
+import { useStore } from '../../store';
+import { openWhatsApp } from '../../utils/contact';
 
 const TF = () => (
   <div className="absolute -right-4 -bottom-4 opacity-[0.04] pointer-events-none transform scaleX(-1) rotate-[10deg]">
@@ -61,6 +63,7 @@ export default function AddProductModal({
     onModalClose,
   );
   const theme = THEME.addProductModal;
+  const { settings } = useStore();
   const fileInputRef = useRef<HTMLInputElement>(null);
   if (!isModalOpen) return null;
   const descValues = formState.productDescription.split('\n');
@@ -132,6 +135,41 @@ export default function AddProductModal({
       <div className="flex flex-col">
         {currentStep === 1 && (
           <div className="flex flex-col gap-3 py-2 fade-in">
+            {/* BULK UPLOAD CALLOUT - PREMIUM GLASSMORPHIC */}
+            <div className="bg-emerald-500/[0.04] border border-emerald-500/10 rounded-[1.5rem] p-4 relative overflow-hidden flex flex-col gap-3">
+              <div className="flex gap-3">
+                <span className="text-xl shrink-0 mt-0.5">📊</span>
+                <div className="flex flex-col">
+                  <h4 className="text-[10px] font-black text-emerald-600 tracking-[0.2em] uppercase leading-tight">
+                    Toplu Ürün Yükleme
+                  </h4>
+                  <p className="text-[9px] text-stone-500 font-bold leading-normal mt-1">
+                    Ürünlerinizi tek tek eklemek yerine; CSV, Excel veya PDF listenizi WhatsApp'tan gönderin, sizin yerinize saniyeler içinde yükleyelim!
+                  </p>
+                </div>
+              </div>
+              <Button
+                variant="whatsapp"
+                mode="rectangle"
+                className="w-full !h-10 !rounded-xl"
+                showFingerprint={true}
+                onClick={() => {
+                  const number = settings?.whatsapp || '';
+                  openWhatsApp(
+                    number,
+                    'Merhaba, ürünlerimizi dijital kataloğumuza toplu olarak yüklemek istiyoruz. Excel/PDF/CSV listemizi ekte iletiyoruz. Destek olur musunuz?',
+                  );
+                }}
+              >
+                <div className="flex items-center justify-center gap-2">
+                  <Lucide.Send size={12} strokeWidth={3} className="text-white animate-pulse" />
+                  <span className="text-[9px] font-black tracking-widest text-white uppercase">
+                    WHATSAPP İLE TOPLU YÜKLE
+                  </span>
+                </div>
+              </Button>
+            </div>
+
             <input
               id="p-img"
               ref={fileInputRef}

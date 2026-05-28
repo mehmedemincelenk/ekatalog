@@ -12,7 +12,7 @@ parent_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 if parent_dir not in sys.path:
     sys.path.append(parent_dir)
 
-from core.parser import generate_premium_fallback_description
+from core.parser import generate_premium_fallback_description, is_valid_description
 
 def build_wp_category_map(base_url, context):
     """
@@ -169,6 +169,7 @@ def try_wp_rest_extract(base_url, store_name):
     WordPress REST API üzerinden tüm ürünleri, resimleri ve kategorileri saniyeler içinde çeker.
     Hem '/wp-json/wp/v2/product' (WooCommerce) hem de '/wp-json/wp/v2/posts' endpoint'lerini kontrol eder.
     """
+    brand_name = store_name
     context = ssl._create_unverified_context()
     clean_base = base_url.rstrip("/")
     
@@ -199,13 +200,17 @@ def try_wp_rest_extract(base_url, store_name):
     if not api_url:
         return None
 
-    # Sunucuyu yormamak için sayfa başı 30 ürün ve sıralı (sequential) çekim
-    per_page = 30
-    total_pages = min((total_posts + per_page - 1) // per_page, 15)  # E-Katalog üst limiti (maksimum 450 ürün)
+    # Sunucuyu yormamak için sayfa başı 100 ürün (WordPress standart maksimumu) ve sıralı (sequential) çekim
+    per_page = 100
+    total_pages = min((total_posts + per_page - 1) // per_page, 150)  # E-Katalog üst limiti (maksimum 15000 ürün)
     
-    print(f"  📥 {total_posts} ürün {total_pages} sayfa halinde (max 15 sayfa) sıralı olarak çekiliyor...")
+    print(f"  📥 {total_posts} ürün {total_pages} sayfa halinde sıralı olarak çekiliyor...")
     
     all_data = []
+    secure_mode = False
+    current_timeout = 15
+    current_cooldown = 0.3
+
     for page_num in range(1, total_pages + 1):
         # Önce embed'li deneyelim, başarısız olursa embed'siz deneyeceğiz
         page_url = f"{api_url}?per_page={per_page}&page={page_num}&_embed"
@@ -215,7 +220,7 @@ def try_wp_rest_extract(base_url, store_name):
         for attempt in range(1, 4):
             req = urllib.request.Request(page_url, headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'})
             try:
-                with urllib.request.urlopen(req, context=context, timeout=15) as response:
+                with urllib.request.urlopen(req, context=context, timeout=current_timeout) as response:
                     res_json = json.loads(response.read().decode('utf-8'))
                     if isinstance(res_json, list):
                         all_data.extend(res_json)
@@ -223,7 +228,12 @@ def try_wp_rest_extract(base_url, store_name):
                         break
             except Exception as ex:
                 print(f"      ⚠ Sayfa {page_num} embed deneme {attempt}/3 başarısız: {ex}")
-                time.sleep(1)
+                if not secure_mode and ("timeout" in str(ex).lower() or "timed out" in str(ex).lower() or "503" in str(ex).lower() or "504" in str(ex).lower() or "connection" in str(ex).lower()):
+                    print("  🛡️ [SECURE MODE] Sunucu yavaşlığı veya zaman aşımı tespit edildi! Güvenli Scrape moduna geçiliyor: Zaman aşımı artırılıyor (35sn), bekleme süresi uzatılıyor (3.0sn)...")
+                    secure_mode = True
+                    current_timeout = 35
+                    current_cooldown = 3.0
+                time.sleep(current_cooldown)
                 
         # Eğer embed'li çekim tamamen başarısız olursa, embed'siz deneyelim
         if not success:
@@ -232,7 +242,7 @@ def try_wp_rest_extract(base_url, store_name):
             for attempt in range(1, 4):
                 req = urllib.request.Request(page_url_no_embed, headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'})
                 try:
-                    with urllib.request.urlopen(req, context=context, timeout=12) as response:
+                    with urllib.request.urlopen(req, context=context, timeout=max(current_timeout - 3, 5)) as response:
                         res_json = json.loads(response.read().decode('utf-8'))
                         if isinstance(res_json, list):
                             all_data.extend(res_json)
@@ -240,9 +250,14 @@ def try_wp_rest_extract(base_url, store_name):
                             break
                 except Exception as ex:
                     print(f"      ❌ Sayfa {page_num} embed'siz deneme {attempt}/3 başarısız: {ex}")
-                    time.sleep(1)
+                    if not secure_mode and ("timeout" in str(ex).lower() or "timed out" in str(ex).lower() or "503" in str(ex).lower() or "504" in str(ex).lower() or "connection" in str(ex).lower()):
+                        print("  🛡️ [SECURE MODE] Sunucu yavaşlığı veya zaman aşımı tespit edildi! Güvenli Scrape moduna geçiliyor: Zaman aşımı artırılıyor (35sn), bekleme süresi uzatılıyor (3.0sn)...")
+                        secure_mode = True
+                        current_timeout = 35
+                        current_cooldown = 3.0
+                    time.sleep(current_cooldown)
                     
-        time.sleep(0.3)  # Sayfalar arası hafif gecikme (cool-off)
+        time.sleep(current_cooldown)  # Dinamik sayfa arası cooldown
                 
     if not all_data:
         return None
@@ -350,8 +365,8 @@ def try_wp_rest_extract(base_url, store_name):
             if len(clean_content) > 10:
                 desc = clean_content
 
-        # Karakter limiti koruması ve boş/kısa açıklamalar için Premium Fallback (Diamond Standard 💎)
-        if desc:
+        # Karakter limiti koruması ve boş/kısa/geçersiz açıklamalar için Premium Fallback (Diamond Standard 💎)
+        if desc and is_valid_description(desc):
             if len(desc) > 300:
                 desc = desc[:297] + "..."
             elif len(desc.strip()) < 10:
