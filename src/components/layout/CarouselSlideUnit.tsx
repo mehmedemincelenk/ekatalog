@@ -1,4 +1,4 @@
-import { memo, useState } from 'react';
+import { memo, useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { THEME } from '../../data/config';
 import SmartImage from '../ui/SmartImage';
@@ -40,6 +40,7 @@ const CarouselSlideUnit = memo(
   }) => {
     const [isUpdatingOrder, setIsUpdatingOrder] = useState(false);
     const [showSuccess, setShowSuccess] = useState(false);
+    const fileInputRef = useRef<HTMLInputElement>(null);
 
     const carouselTheme = THEME.heroCarousel;
     const globalIcons = THEME.icons;
@@ -118,6 +119,30 @@ const CarouselSlideUnit = memo(
                 )}
               </div>
 
+              {/* CHANGE IMAGE BUTTON */}
+              <motion.div
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.8 }}
+                className="!pointer-events-auto"
+              >
+                <Button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    fileInputRef.current?.click();
+                  }}
+                  variant="glass"
+                  mode="square"
+                  className="w-7 h-7 shadow-xl border border-white/20 !rounded-md !bg-stone-900/60 backdrop-blur-md !p-0 flex items-center justify-center"
+                  icon={
+                    <div className="w-3.5 h-3.5 text-white hover:text-emerald-400 transition-colors flex items-center justify-center">
+                      <Lucide.ImagePlus size={14} strokeWidth={2.5} />
+                    </div>
+                  }
+                  title="GÖRSELİ DEĞİŞTİR"
+                />
+              </motion.div>
+
               {/* DELETE BUTTON */}
               <motion.div
                 initial={{ opacity: 0, scale: 0.8 }}
@@ -145,13 +170,14 @@ const CarouselSlideUnit = memo(
           )}
         </AnimatePresence>
 
-        {/* FILE INPUT OVERLAY - ADMIN ONLY */}
+        {/* FILE INPUT - ADMIN ONLY */}
         {isAdmin && isCurrentlyActive && (
-          <div className="absolute inset-0 z-20 cursor-pointer group">
+          <>
             <input
+              ref={fileInputRef}
               type="file"
               accept="image/*"
-              className="absolute inset-0 opacity-0 cursor-pointer z-30"
+              className="hidden"
               onChange={(e) => {
                 onUpload(e);
               }}
@@ -160,14 +186,14 @@ const CarouselSlideUnit = memo(
 
             {/* LOCAL LOADING SPINNER WITHIN IMAGE BOUNDS */}
             {isCurrentlyUploading && editingTargetSlideId === slideData.id && (
-              <div className="absolute inset-0 flex flex-col items-center justify-center bg-stone-900/10 backdrop-blur-[2px] transition-all duration-500 z-40">
+              <div className="absolute inset-0 flex flex-col items-center justify-center bg-stone-900/40 backdrop-blur-[2px] transition-all duration-500 z-40">
                 <div className={carouselTheme.slide.loadingSpinner} />
                 <span className="mt-4 text-[10px] font-black text-white tracking-[0.2em] animate-pulse">
                   LÜTFEN BEKLEYİN...
                 </span>
               </div>
             )}
-          </div>
+          </>
         )}
       </div>
     );
