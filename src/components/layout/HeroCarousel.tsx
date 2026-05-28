@@ -258,20 +258,18 @@ export default function HeroCarousel({ isAdminModeActive }: HeroCarouselProps) {
         {flow.marketingSlides.length > 1 && (
           <>
             {/* Split-Click Navigation Overlays (Story Mode) */}
-            {!isAdminModeActive && (
-              <>
-                <div
-                  onClick={flow.handlePrev}
-                  className="absolute left-0 top-0 bottom-0 w-1/2 z-40 cursor-w-resize"
-                  title="Önceki Görsel"
-                />
-                <div
-                  onClick={flow.handleNext}
-                  className="absolute right-0 top-0 bottom-0 w-1/2 z-40 cursor-e-resize"
-                  title="Sonraki Görsel"
-                />
-              </>
-            )}
+            <>
+              <div
+                onClick={flow.handlePrev}
+                className="absolute left-0 top-0 bottom-0 w-1/2 z-40 cursor-w-resize"
+                title="Önceki Görsel"
+              />
+              <div
+                onClick={flow.handleNext}
+                className="absolute right-0 top-0 bottom-0 w-1/2 z-40 cursor-e-resize"
+                title="Sonraki Görsel"
+              />
+            </>
 
             {/* Instagram Stories Style Top Indicators (Instagram Perfection) */}
             <div className="absolute top-3.5 left-3.5 right-3.5 z-50 flex gap-1 pointer-events-auto">
