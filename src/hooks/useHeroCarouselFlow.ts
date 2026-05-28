@@ -147,11 +147,11 @@ export function useHeroCarouselFlow(isAdminModeActive: boolean) {
 
   // Auto-scroll effect
   useEffect(() => {
-    if (isAdminModeActive || isAssetUploading || marketingSlides.length <= 1 || isPaused)
+    if (isAssetUploading || marketingSlides.length <= 1 || isPaused)
       return;
     const scrollTimer = setInterval(handleNext, INTERVAL_MS);
     return () => clearInterval(scrollTimer);
-  }, [handleNext, isAdminModeActive, isAssetUploading, marketingSlides.length, currentIndex, isPaused]);
+  }, [handleNext, isAssetUploading, marketingSlides.length, currentIndex, isPaused]);
 
   const handleFileUploadAction = async (
     event: React.ChangeEvent<HTMLInputElement>,
