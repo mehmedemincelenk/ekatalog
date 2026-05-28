@@ -73,13 +73,18 @@ export const getActiveStoreSlug = (): string => {
     return 'landing';
   }
 
-  // Subdomain resolution for ekatalog.site (handles x.ekatalog.site, www.x.ekatalog.site, etc.)
-  if (hostname.endsWith('.ekatalog.site')) {
-    const subdomain = hostname.slice(0, -'.ekatalog.site'.length);
+  // Subdomain resolution for ekatalog.site and Cloudflare Pages
+  if (hostname.endsWith('.ekatalog.site') || hostname.endsWith('.pages.dev')) {
+    const suffix = hostname.endsWith('.ekatalog.site') ? '.ekatalog.site' : '.pages.dev';
+    const subdomain = hostname.slice(0, -suffix.length);
     if (subdomain.startsWith('www.')) {
       return subdomain.substring(4);
     }
-    if (subdomain === 'www' || subdomain === 'landing') {
+    if (
+      subdomain === 'www' ||
+      subdomain === 'landing' ||
+      subdomain === 'ekatalog'
+    ) {
       return 'landing';
     }
     return subdomain;
