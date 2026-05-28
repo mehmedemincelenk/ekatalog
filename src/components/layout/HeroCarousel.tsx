@@ -261,12 +261,12 @@ export default function HeroCarousel({ isAdminModeActive }: HeroCarouselProps) {
             <>
               <div
                 onClick={flow.handlePrev}
-                className="absolute left-0 top-[76px] bottom-0 w-1/2 z-[100] cursor-w-resize"
+                className="absolute left-0 top-[96px] bottom-0 w-1/2 z-[100] cursor-w-resize"
                 title="Önceki Görsel"
               />
               <div
                 onClick={flow.handleNext}
-                className="absolute right-0 top-[76px] bottom-0 w-1/2 z-[100] cursor-e-resize"
+                className="absolute right-0 top-[96px] bottom-0 w-1/2 z-[100] cursor-e-resize"
                 title="Sonraki Görsel"
               />
             </>
