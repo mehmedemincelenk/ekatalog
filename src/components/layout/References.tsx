@@ -1,4 +1,4 @@
-import { useState, memo } from 'react';
+import { useState, useRef, memo } from 'react';
 import { THEME } from '../../data/config';
 import { useReferencesFlow } from '../../hooks/useReferencesFlow';
 import { useMarqueePhysics } from '../../hooks/useMarqueePhysics';
@@ -12,63 +12,105 @@ import { ReferencesProps, Reference } from '../../types';
 const AdminReferenceCard = memo(
   ({
     refData,
-    isInlineEnabled,
     onDelete,
     onEdit,
+    onUploadLogo,
+    isUploading,
   }: {
     refData: Reference;
-    isInlineEnabled: boolean;
     onDelete: (id: number) => void;
     onEdit: (id: number, name: string) => void;
+    onUploadLogo: (id: number, file: File) => void;
+    isUploading: boolean;
   }) => {
+    const fileInputRef = useRef<HTMLInputElement>(null);
     const [isDeleteConfirming, setIsDeleteConfirming] = useState(false);
-    const referencesTheme = THEME.references;
+
+    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      const file = e.target.files?.[0];
+      if (file) {
+        onUploadLogo(refData.id, file);
+      }
+    };
 
     return (
       <div
-        className={`${referencesTheme.card.base} relative group flex items-center justify-center p-4 text-center border-stone-100 bg-white shadow-[0_2px_15px_-5px_rgba(0,0,0,0.08)] hover:shadow-xl hover:shadow-stone-200/50 transition-all duration-300 rounded-xl overflow-hidden`}
+        className="relative group flex flex-col items-center justify-center p-4 text-center border border-stone-200/80 bg-stone-50/50 hover:bg-white hover:border-stone-300 shadow-[0_2px_8px_-3px_rgba(0,0,0,0.03)] hover:shadow-lg hover:shadow-stone-200/60 transition-all duration-300 rounded-xl overflow-hidden w-full h-24 select-none"
       >
+        {/* LOADING SPINNER OVERLAY */}
+        {isUploading && (
+          <div className="absolute inset-0 bg-white/80 backdrop-blur-xs flex items-center justify-center z-30">
+            <Lucide.Loader2 size={18} className="text-stone-900 animate-spin" />
+          </div>
+        )}
+
+        {/* LOGO IMAGE OR TEXT PLACEHOLDER */}
         {refData.logo && (refData.logo.startsWith('/') || refData.logo.startsWith('http')) ? (
           <div className="flex flex-col items-center gap-1.5 py-1">
             <img
               src={refData.logo}
               alt={refData.name}
-              className="h-6 w-auto object-contain opacity-100"
+              className="h-8 w-auto max-w-[80%] object-contain"
             />
-            <span className="text-[8px] font-black tracking-[0.1em] text-stone-400 uppercase">
+            <span className="text-[8px] font-black tracking-[0.1em] text-stone-400 uppercase leading-none">
               {refData.name}
             </span>
           </div>
         ) : (
-          <span
-            contentEditable={isInlineEnabled}
-            suppressContentEditableWarning
-            onBlur={(e) => {
-              const newName = e.currentTarget.textContent || '';
-              onEdit(refData.id, newName);
-            }}
-            onKeyDown={(e) =>
-              e.key === 'Enter' && (e.preventDefault(), e.currentTarget.blur())
-            }
-            className={`text-[12px] font-black uppercase tracking-[0.2em] text-stone-800 leading-tight outline-none hover:bg-stone-50 focus:bg-stone-50 focus:ring-2 focus:ring-stone-900/10 px-3 py-1 -mx-3 rounded-xl transition-all cursor-text`}
-          >
-            {refData.name}
-          </span>
+          <div className="flex flex-col items-center justify-center gap-1.5 py-1">
+            <div className="w-8 h-8 rounded-full bg-stone-100 border border-stone-200/60 flex items-center justify-center text-[9px] font-black text-stone-600 uppercase shadow-inner">
+              {refData.name.slice(0, 2)}
+            </div>
+            <span className="text-[10px] font-black text-stone-700 uppercase tracking-widest leading-none">
+              {refData.name}
+            </span>
+          </div>
         )}
 
-        {/* DELETE ACTIONS */}
-        <div className="absolute top-2 right-2 z-20 flex gap-1">
+        {/* INTERACTIVE ACTIONS HOVER OVERLAY */}
+        <div className="absolute inset-0 bg-stone-900/60 backdrop-blur-[2px] opacity-0 group-hover:opacity-100 flex items-center justify-center gap-2 transition-all duration-300 z-20">
+          <input
+            type="file"
+            ref={fileInputRef}
+            className="hidden"
+            accept="image/*"
+            onChange={handleFileChange}
+          />
+
           {!isDeleteConfirming ? (
-            <Button
-              onClick={() => setIsDeleteConfirming(true)}
-              variant="glass"
-              mode="square"
-              className="!w-8 !h-8 !bg-stone-900/60 backdrop-blur-md border border-white/20 text-white shadow-xl !rounded-lg !p-0 opacity-0 group-hover:opacity-100 transition-all"
-              icon={<Lucide.Trash2 size={14} strokeWidth={3} />}
-              title="Referansı Sil"
-            />
+            <>
+              {/* CHANGE LOGO */}
+              <Button
+                onClick={() => fileInputRef.current?.click()}
+                variant="glass"
+                mode="square"
+                className="!w-8 !h-8 !bg-white/20 hover:!bg-white/40 border border-white/20 text-white shadow-xl !rounded-lg !p-0 transition-all cursor-pointer"
+                icon={<Lucide.ImagePlus size={14} strokeWidth={2.5} />}
+                title="Logo Yükle/Değiştir"
+              />
+
+              {/* EDIT NAME */}
+              <Button
+                onClick={() => onEdit(refData.id, refData.name)}
+                variant="glass"
+                mode="square"
+                className="!w-8 !h-8 !bg-white/20 hover:!bg-white/40 border border-white/20 text-white shadow-xl !rounded-lg !p-0 transition-all cursor-pointer"
+                icon={<Lucide.Pencil size={13} strokeWidth={2.5} />}
+                title="İsmi Düzenle"
+              />
+
+              {/* DELETE */}
+              <Button
+                onClick={() => setIsDeleteConfirming(true)}
+                variant="glass"
+                mode="square"
+                className="!w-8 !h-8 !bg-white/20 hover:!bg-red-500/80 border border-white/20 text-white shadow-xl !rounded-lg !p-0 transition-all cursor-pointer"
+                icon={<Lucide.Trash2 size={14} strokeWidth={2.5} />}
+                title="Referansı Sil"
+              />
+            </>
           ) : (
-            <div className="flex gap-1 animate-in slide-in-from-right-2 duration-300">
+            <div className="flex gap-1.5 animate-in scale-in duration-200">
               <Button
                 onClick={() => {
                   onDelete(refData.id);
@@ -83,7 +125,7 @@ const AdminReferenceCard = memo(
                 onClick={() => setIsDeleteConfirming(false)}
                 variant="glass"
                 mode="square"
-                className="!w-8 !h-8 !bg-stone-900/60 backdrop-blur-md border border-white/20 text-white shadow-xl !rounded-lg !p-0"
+                className="!w-8 !h-8 !bg-white/20 hover:!bg-white/40 border border-white/20 text-white shadow-xl !rounded-lg !p-0"
                 icon={<Lucide.X size={14} strokeWidth={3} />}
               />
             </div>
@@ -96,7 +138,6 @@ const AdminReferenceCard = memo(
 
 export default function References({
   isAdmin = false,
-  isInlineEnabled = true,
 }: ReferencesProps) {
   const {
     activeReferences,
@@ -104,6 +145,8 @@ export default function References({
     setActiveQuickEdit,
     handleDelete,
     handleSaveEdit,
+    handleUploadLogo,
+    isUploading,
   } = useReferencesFlow(isAdmin);
 
   const {
@@ -139,19 +182,20 @@ export default function References({
             <div className="w-12 h-1 bg-stone-900 mt-4 mb-2 rounded-full opacity-10"></div>
           </div>
 
-          <div className={referencesTheme.grid}>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 items-center justify-items-center w-full">
             {activeReferences.map((ref) => (
               <AdminReferenceCard
                 key={ref.id}
                 refData={ref}
-                isInlineEnabled={isInlineEnabled}
                 onDelete={handleDelete}
                 onEdit={(id, name) => setActiveQuickEdit({ id, name })}
+                onUploadLogo={handleUploadLogo}
+                isUploading={isUploading === ref.id}
               />
             ))}
 
             {activeReferences.length === 0 && (
-              <div className="col-span-full border-2 border-dashed border-stone-100 rounded-xl py-16 flex flex-col items-center justify-center gap-3 text-stone-300 bg-stone-50/50">
+              <div className="col-span-full border-2 border-dashed border-stone-100 rounded-xl py-16 flex flex-col items-center justify-center gap-3 text-stone-300 bg-stone-50/50 w-full">
                 <div className="w-12 h-12 rounded-full bg-white flex items-center justify-center shadow-sm border border-stone-100 mb-2">
                   <span className="text-xl">🤝</span>
                 </div>
