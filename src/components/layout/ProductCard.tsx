@@ -330,7 +330,6 @@ const ProductCard = memo(
           isOpen={isZoomDetailOpen}
           onClose={() => setIsZoomDetailOpen(false)}
           product={product}
-          showPrice={showPrice}
           isPromotionActive={isPromotionActive || false}
           originalPriceLabel={originalPriceLabel}
           discountedPriceLabel={discountedPriceLabel || ''}

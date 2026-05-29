@@ -553,7 +553,6 @@ export function ProductDetailModal({
   isOpen,
   onClose,
   product,
-  showPrice = true,
   isPromotionActive,
   originalPriceLabel,
   discountedPriceLabel,
@@ -595,28 +594,26 @@ export function ProductDetailModal({
             )}
           </div>
         </div>
-        {showPrice && (
-          <div className="absolute bottom-10 left-8 pointer-events-none">
-            <div className="flex flex-col items-start">
-              {isPromotionActive ? (
-                <div className="flex flex-col items-start gap-1">
-                  <span className="text-stone-300 line-through text-sm font-bold">
-                    {originalPriceLabel}
-                  </span>
-                  <span className="text-stone-900 text-2xl font-black tracking-tighter">
-                    {discountedPriceLabel}
-                  </span>
-                </div>
-              ) : (
-                <div className="bg-white/50 backdrop-blur-sm">
-                  <span className="text-stone-900 text-2xl font-black tracking-tighter">
-                    {originalPriceLabel}
-                  </span>
-                </div>
-              )}
-            </div>
+        <div className="absolute bottom-10 left-8 pointer-events-none">
+          <div className="flex flex-col items-start">
+            {isPromotionActive ? (
+              <div className="flex flex-col items-start gap-1">
+                <span className="text-stone-300 line-through text-sm font-bold">
+                  {originalPriceLabel}
+                </span>
+                <span className="text-stone-900 text-2xl font-black tracking-tighter">
+                  {discountedPriceLabel}
+                </span>
+              </div>
+            ) : (
+              <div className="bg-white/50 backdrop-blur-sm">
+                <span className="text-stone-900 text-2xl font-black tracking-tighter">
+                  {originalPriceLabel}
+                </span>
+              </div>
+            )}
           </div>
-        )}
+        </div>
       </div>
     </BaseModal>
   );
