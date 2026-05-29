@@ -40,11 +40,15 @@ interface BaseFloatingMenuProps {
   isPrimaryToggle?: boolean;
   labelText?: string;
   theme?: 'light' | 'dark'; // Diamond: Support multiple visual identities
+  onPointerDown?: () => void;
+  onPointerUp?: () => void;
 }
 
 export default function BaseFloatingMenu({
   actions,
   autoCloseDelay = 5000,
+  onPointerDown,
+  onPointerUp,
 }: BaseFloatingMenuProps) {
   const [isExpanded, setIsExpanded] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -194,6 +198,9 @@ export default function BaseFloatingMenu({
               clearTimer();
               setIsExpanded((prev) => !prev);
             }}
+            onPointerDown={onPointerDown}
+            onPointerUp={onPointerUp}
+            onPointerLeave={onPointerUp}
             role="button"
             tabIndex={0}
             style={{

@@ -53,7 +53,7 @@ export default function CatalogPage() {
     initRates();
   }, [setExchangeRates]);
 
-  const { handleLogoPointerDown, handleLogoPointerUp, isInlineEnabled } =
+  const { handleMenuPointerDown, handleMenuPointerUp, isInlineEnabled } =
     useAdminMode();
 
   const {
@@ -124,8 +124,8 @@ export default function CatalogPage() {
     return (
       <div className="relative z-0">
         <MaintenancePage
-          onLogoPointerDown={handleLogoPointerDown}
-          onLogoPointerUp={handleLogoPointerUp}
+          onPointerDown={handleMenuPointerDown}
+          onPointerUp={handleMenuPointerUp}
         />
         <AppModals />
       </div>
@@ -138,8 +138,6 @@ export default function CatalogPage() {
         {/* FLOATING GLASS NAVBAR OVERLAY - Fixed on mobile, absolute inside phone frame on desktop */}
         <div className="print:hidden fixed md:absolute top-0 left-0 right-0 z-[100] w-full pointer-events-none">
           <Navbar
-            onLogoPointerDown={handleLogoPointerDown}
-            onLogoPointerUp={handleLogoPointerUp}
             isInlineEnabled={isInlineEnabled}
           />
         </div>
@@ -229,6 +227,8 @@ export default function CatalogPage() {
         <div className="fixed inset-0 pointer-events-none z-[400] print:hidden">
           <div className="absolute bottom-3 right-4 pointer-events-auto">
             <FloatingGuestMenu
+              onPointerDown={handleMenuPointerDown}
+              onPointerUp={handleMenuPointerUp}
               onCouponClick={() => openModal('COUPON')}
               onExcelClick={() => openModal('PRICE_LIST')}
               onSearchClick={() => {
@@ -265,6 +265,8 @@ export default function CatalogPage() {
               className="absolute bottom-3 right-4 pointer-events-auto"
             >
               <FloatingAdminMenu
+                onPointerDown={handleMenuPointerDown}
+                onPointerUp={handleMenuPointerUp}
                 onProductAddTrigger={() => openModal('GLOBAL_ADD_MENU')}
                 onBulkUpdateTrigger={() => openModal('BULK_UPDATE')}
                 onSettingsTrigger={() => openModal('DISPLAY_SETTINGS')}

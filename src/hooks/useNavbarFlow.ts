@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { useStore } from '../store';
 import { useSettings } from './useSettingsHub';
 import { CompanySettings } from '../types';
@@ -6,8 +6,6 @@ import { compressVisualToDataUri } from '../utils/image';
 import { openInstagram } from '../utils/contact';
 
 export function useNavbarFlow(
-  onLogoPointerDown: () => void,
-  onLogoPointerUp: () => void,
   isInlineEnabled: boolean,
 ) {
   const {
@@ -19,7 +17,6 @@ export function useNavbarFlow(
 
   const { updateSetting } = useSettings(isAdmin);
 
-  const [isLogoPressed, setIsLogoPressed] = useState(false);
   const [internalSearch, setInternalSearch] = useState(search || '');
 
   useEffect(() => {
@@ -41,25 +38,6 @@ export function useNavbarFlow(
     title: string;
     maxLength?: number;
   } | null>(null);
-
-  const logoPressStartTimeRef = useRef<number>(0);
-
-  const handlePressStart = () => {
-    setIsLogoPressed(true);
-    logoPressStartTimeRef.current = Date.now();
-    onLogoPointerDown();
-  };
-
-  const handlePressEnd = () => {
-    setIsLogoPressed(false);
-    const holdDuration = Date.now() - logoPressStartTimeRef.current;
-    onLogoPointerUp();
-
-    // Short click in Admin Mode -> Trigger Upload
-    if (isAdmin && holdDuration < 300) {
-      document.getElementById('logo-upload-input')?.click();
-    }
-  };
 
   const handleLogoUpload = async (file: File) => {
     try {
@@ -140,13 +118,10 @@ export function useNavbarFlow(
     isAdmin,
     settings,
     updateSetting,
-    isLogoPressed,
     internalSearch,
     setInternalSearch,
     quickEdit,
     setQuickEdit,
-    handlePressStart,
-    handlePressEnd,
     handleLogoUpload,
     handleInstagramAction,
     handleTextEdit,

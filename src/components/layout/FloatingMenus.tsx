@@ -13,6 +13,8 @@ export function FloatingAdminMenu({
   onProductAddTrigger,
   onBulkUpdateTrigger,
   onSettingsTrigger,
+  onPointerDown,
+  onPointerUp,
 }: FloatingAdminMenuProps) {
   const { settings, updateSetting } = useStore();
   const globalIcons = THEME.icons;
@@ -84,6 +86,8 @@ export function FloatingAdminMenu({
       mainIcon={globalIcons.settings}
       labelText="AYARLAR"
       theme="dark"
+      onPointerDown={onPointerDown}
+      onPointerUp={onPointerUp}
     />
   );
 }
@@ -95,6 +99,8 @@ export function FloatingGuestMenu({
   onCouponClick,
   onSearchClick,
   onQRClick,
+  onPointerDown,
+  onPointerUp,
 }: FloatingGuestMenuProps) {
   const {
     visitorCurrency: activeCurrency,
@@ -195,5 +201,12 @@ export function FloatingGuestMenu({
     },
   ];
 
-  return <BaseFloatingMenu actions={guestActions} autoCloseDelay={5000} />;
+  return (
+    <BaseFloatingMenu
+      actions={guestActions}
+      autoCloseDelay={5000}
+      onPointerDown={onPointerDown}
+      onPointerUp={onPointerUp}
+    />
+  );
 }

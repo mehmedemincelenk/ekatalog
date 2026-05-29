@@ -200,8 +200,6 @@ export interface ProductCategorySelectorProps {
  * Component Props: Dükkanın ana parçalarının iletişim protokolleri.
  */
 export interface NavbarProps {
-  onLogoPointerDown: () => void;
-  onLogoPointerUp: () => void;
   isInlineEnabled: boolean;
 }
 
@@ -530,8 +528,8 @@ export interface AppModalsProps {
 }
 
 export interface MaintenancePageProps {
-  onLogoPointerDown: () => void;
-  onLogoPointerUp: () => void;
+  onPointerDown: () => void;
+  onPointerUp: () => void;
 }
 
 export interface GlobalAddMenuModalProps {
@@ -546,12 +544,16 @@ export interface FloatingGuestMenuProps {
   onExcelClick: () => void;
   onSearchClick: () => void;
   onQRClick: () => void;
+  onPointerDown?: () => void;
+  onPointerUp?: () => void;
 }
 
 export interface FloatingAdminMenuProps {
   onProductAddTrigger: () => void;
   onBulkUpdateTrigger?: () => void;
   onSettingsTrigger: () => void;
+  onPointerDown?: () => void;
+  onPointerUp?: () => void;
 }
 
 export interface CouponModalProps {

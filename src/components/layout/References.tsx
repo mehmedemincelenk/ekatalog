@@ -8,6 +8,7 @@ import { ReferencesProps, Reference } from '../../types';
 
 
 // Admin-only ReferenceCard for editing
+// Admin-only ReferenceCard for editing
 const AdminReferenceCard = memo(
   ({
     refData,
@@ -15,12 +16,18 @@ const AdminReferenceCard = memo(
     totalItems,
     onOrderChange,
     onDelete,
+    onUploadLogo,
+    isUploading,
+    onEditClick,
   }: {
     refData: Reference;
     currentIndex: number;
     totalItems: number;
     onOrderChange: (id: number, newIndex: number) => void;
     onDelete: (id: number) => void;
+    onUploadLogo: (id: number, file: File) => Promise<void>;
+    isUploading: boolean;
+    onEditClick: (ref: Reference) => void;
   }) => {
     const [isDeleteConfirming, setIsDeleteConfirming] = useState(false);
 
@@ -28,8 +35,54 @@ const AdminReferenceCard = memo(
       <div
         className="relative group flex flex-row items-center justify-between p-2 border border-stone-200 bg-stone-50/20 hover:bg-white hover:border-stone-300 shadow-[0_2px_12px_-4px_rgba(0,0,0,0.03)] hover:shadow-[0_8px_24px_-6px_rgba(0,0,0,0.06)] hover:-translate-y-0.5 transition-all duration-300 rounded-2xl w-full h-24 select-none overflow-hidden"
       >
-        {/* LEFT SIDE: LOGO CONTAINER (LARGE SQUARE AREA) */}
-        <div className="flex-1 h-full bg-white border border-stone-100/80 rounded-xl flex flex-col items-center justify-center p-2 shadow-[inset_0_1px_3px_rgba(0,0,0,0.01)] min-w-0">
+        {/* LEFT SIDE: LOGO CONTAINER (LARGE SQUARE AREA WITH HOVER OVERLAY) */}
+        <div className="flex-1 h-full bg-white border border-stone-100/80 rounded-xl flex flex-col items-center justify-center p-2 shadow-[inset_0_1px_3px_rgba(0,0,0,0.01)] min-w-0 relative group/logo overflow-hidden">
+          {/* Hidden File Input */}
+          <input
+            type="file"
+            accept="image/*"
+            className="hidden"
+            id={`upload-ref-${refData.id}`}
+            onChange={(e) => {
+              const file = e.target.files?.[0];
+              if (file) {
+                onUploadLogo(refData.id, file);
+              }
+            }}
+          />
+
+          {/* LOADING STATE OVERLAY */}
+          {isUploading && (
+            <div className="absolute inset-0 bg-white/95 backdrop-blur-[1px] z-20 flex items-center justify-center">
+              <div className="w-5 h-5 border-2 border-stone-900 border-t-transparent rounded-full animate-spin" />
+            </div>
+          )}
+
+          {/* PREMIUM GLASSMORPHIC HOVER ACTION OVERLAY */}
+          {!isUploading && (
+            <div className="absolute inset-0 bg-stone-900/60 backdrop-blur-[2px] opacity-0 group-hover/logo:opacity-100 transition-all duration-300 z-10 flex items-center justify-center gap-1.5 p-1">
+              <label
+                htmlFor={`upload-ref-${refData.id}`}
+                className="w-8 h-8 rounded-lg bg-white/20 hover:bg-white text-white hover:text-stone-900 flex items-center justify-center cursor-pointer transition-all duration-200"
+                title="Logo Yükle"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <Lucide.Camera size={14} />
+              </label>
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onEditClick(refData);
+                }}
+                className="w-8 h-8 rounded-lg bg-white/20 hover:bg-white text-white hover:text-stone-900 flex items-center justify-center cursor-pointer transition-all duration-200"
+                title="İsmi Düzenle"
+              >
+                <Lucide.Edit2 size={14} />
+              </button>
+            </div>
+          )}
+
           {refData.logo && (refData.logo.startsWith('/') || refData.logo.startsWith('http')) ? (
             <div className="flex flex-col items-center justify-center w-full h-full">
               <div className="h-9 flex items-center justify-center w-full">
@@ -128,6 +181,8 @@ export default function References({
     handleDelete,
     handleSaveEdit,
     handleOrderChange,
+    handleUploadLogo,
+    isUploading,
   } = useReferencesFlow(isAdmin);
 
   const {
@@ -172,6 +227,9 @@ export default function References({
                 totalItems={activeReferences.length}
                 onOrderChange={handleOrderChange}
                 onDelete={handleDelete}
+                onUploadLogo={handleUploadLogo}
+                isUploading={isUploading === ref.id}
+                onEditClick={(ref) => setActiveQuickEdit(ref)}
               />
             ))}
 

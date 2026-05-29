@@ -268,6 +268,15 @@ Bu dosya, projenin evrimsel sürecini, alınan kritik kararları ve teknik kıs�
     - **Resilient Unified Pipeline:** Optimized the central onboarding orchestrator (`onboard.py`) to skip dead storefronts with descriptive error audits, while successfully mirroring and onboarding live suppliers.
 - **Status:** ELDİVENIUM-MANNER successfully onboarded with **125 products & 114 product images** completely synced, while Vindex is correctly flagged with custom audit descriptions.
 
+### [2026-05-30] - REFERENCES ADMIN CONTROLS FULL INTEGRATION (LOCKED 🔒)
+- **Objective:** Bridge the UI gap by connecting pre-existing backend hooks (`handleUploadLogo` & `QuickEditModal`) directly into `AdminReferenceCard`.
+- **Key Actions:**
+    - **Logo Upload Trigger:** Built a hidden file input `<input type="file" />` dynamically linked to a new glassmorphic camera action overlay on `AdminReferenceCard`'s logo container, allowing instant visual asset uploads to Supabase.
+    - **Hızlı Düzenleme Entegrasyonu:** Wired the click event on the edit button of the new action overlay to trigger `setActiveQuickEdit`, natively initializing the dormant `QuickEditModal` for immediate rename actions.
+    - **Premium Shimmer & Loading State:** Implemented a blurred spinning loading overlay when `isUploading` is true, providing crisp zero-text feedback matching the Diamond Standard.
+    - **TypeScript & Build Health:** Confirmed complete type safety (`tsc --noEmit` exit code 0) across all integrated components.
+- **Status:** Integrated fully functional reference dashboard management with absolute aesthetic alignment and HMR stability.
+
 ## 💎 B2B MAĞAZA SCRAPE VE OLUŞTURMA STANDARTLARI (LOCKED 🔒)
 
 Yeni bir dükkan eklenirken veya mevcut bir dükkanın bilgileri güncellenirken, en yüksek kalitede sonuç elde etmek için aşağıdaki kurallar ve metotlar harfiyen uygulanır:

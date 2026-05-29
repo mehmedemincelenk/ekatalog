@@ -10,6 +10,7 @@ import { AddProductModalProps } from '../../types';
 import { useAddProductFlow } from '../../hooks/useAddProductFlow';
 import { useStore } from '../../store';
 import { openWhatsApp } from '../../utils/contact';
+import { DEFAULT_TEMPLATES } from '../../data/config/constants';
 
 const TF = () => (
   <div className="absolute -right-4 -bottom-4 opacity-[0.04] pointer-events-none transform scaleX(-1) rotate-[10deg]">
@@ -52,6 +53,7 @@ export default function AddProductModal({
     handleCategorySelection,
     handleImageFileSelection,
     handleProductSubmission,
+    selectTemplate,
     nextStep,
     prevStep,
     isStepValid,
@@ -214,6 +216,55 @@ export default function AddProductModal({
                 </span>
               </Button>
             </label>
+
+            {/* HAZIR ŞABLON SEÇ SLIDER */}
+            <div className="flex flex-col gap-2 mt-1">
+              <div className="flex items-center justify-between px-1">
+                <span className="text-[10px] font-black tracking-widest text-stone-900 uppercase">
+                  HAZIR ŞABLON SEÇ
+                </span>
+                <span className="text-[8px] font-black text-emerald-600 bg-emerald-500/10 px-2 py-0.5 rounded-full uppercase animate-pulse">
+                  HIZLI EKLE ⚡
+                </span>
+              </div>
+              
+              <div className="flex gap-3 overflow-x-auto pb-3 pt-1 px-1 scrollbar-thin scrollbar-thumb-stone-200 snap-x snap-mandatory">
+                {DEFAULT_TEMPLATES.map((template) => (
+                  <button
+                    key={template.id}
+                    type="button"
+                    onClick={() => selectTemplate(template)}
+                    className="flex-shrink-0 w-32 bg-white border border-stone-150 rounded-2xl overflow-hidden shadow-sm hover:shadow-md hover:border-emerald-500/30 transition-all text-left snap-start group relative"
+                  >
+                    <div className="relative h-20 w-full overflow-hidden bg-stone-100">
+                      <img
+                        src={template.image_url}
+                        alt={template.name}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        loading="lazy"
+                      />
+                      <div className="absolute top-1.5 right-1.5 bg-black/40 backdrop-blur-md rounded-lg px-1.5 py-0.5 text-[8px] font-bold text-white uppercase tracking-wider">
+                        {template.category.split(' ')[0]}
+                      </div>
+                    </div>
+                    <div className="p-2 flex flex-col gap-0.5 justify-between min-h-[52px]">
+                      <h5 className="text-[10px] font-bold text-stone-900 line-clamp-1 group-hover:text-emerald-600 transition-colors">
+                        {template.name}
+                      </h5>
+                      <div className="flex items-center justify-between mt-0.5">
+                        <span className="text-[9px] font-black text-stone-900">
+                          {template.price} ₺
+                        </span>
+                        <div className="opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center bg-emerald-500 text-white rounded-full p-0.5 shadow-sm">
+                          <Lucide.Zap size={8} strokeWidth={3} fill="currentColor" />
+                        </div>
+                      </div>
+                    </div>
+                  </button>
+                ))}
+              </div>
+            </div>
+
             <Button
               onClick={() => setCurrentStep(2)}
               variant="secondary"

@@ -10,6 +10,7 @@ const INITIAL_FORM_STATE = {
   currency: '₺',
   productDescription: '',
   selectedImageFile: null as File | null,
+  selectedImageUrl: null as string | null,
   isProductInStock: true,
 };
 
@@ -142,7 +143,7 @@ export function useAddProductFlow(
           category: finalizedCategory,
           price: standardizedPriceLabel,
           description: formState.productDescription.trim(),
-          image_url: null,
+          image_url: formState.selectedImageUrl,
           out_of_stock: !formState.isProductInStock,
           is_archived: false,
           store_id: settings.id,
@@ -163,6 +164,21 @@ export function useAddProductFlow(
       setIsSubmittingData(false);
     }
   };
+
+  const selectTemplate = useCallback((template: any) => {
+    setFormState((prev) => ({
+      ...prev,
+      productName: template.name,
+      selectedCategory: template.category,
+      customCategoryName: '',
+      productPrice: template.price,
+      productDescription: template.description,
+      selectedImageFile: null,
+      selectedImageUrl: template.image_url,
+    }));
+    setTemporaryImagePreviewUrl(template.image_url);
+    setCurrentStep(7); // Jump directly to preview step (Step 7)
+  }, []);
 
   const nextStep = () => setCurrentStep((prev) => prev + 1);
   const prevStep = () => setCurrentStep((prev) => prev - 1);
@@ -192,6 +208,7 @@ export function useAddProductFlow(
     handleCategorySelection,
     handleImageFileSelection,
     handleProductSubmission,
+    selectTemplate,
     nextStep,
     prevStep,
     isStepValid,

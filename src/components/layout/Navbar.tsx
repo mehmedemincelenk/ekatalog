@@ -20,10 +20,8 @@ import { useNavbarFlow } from '../../hooks/useNavbarFlow';
 import { NavbarProps } from '../../types';
 
 const Navbar = memo(
-  ({ onLogoPointerDown, onLogoPointerUp, isInlineEnabled }: NavbarProps) => {
+  ({ isInlineEnabled }: NavbarProps) => {
     const flow = useNavbarFlow(
-      onLogoPointerDown,
-      onLogoPointerUp,
       isInlineEnabled,
     );
 
@@ -97,35 +95,34 @@ const Navbar = memo(
               <div className="flex items-center flex-1 gap-0.5 min-w-0">
                 {/* BRAND SECTION */}
                 <div
-                  className={`${theme.brand.wrapper} relative flex items-center transition-all duration-200 ${flow.isLogoPressed ? 'scale-95 opacity-80' : 'scale-100'}`}
+                  className={`${theme.brand.wrapper} relative flex items-center transition-all duration-200`}
                   onContextMenu={(e) => e.preventDefault()}
                   style={{
                     userSelect: 'none',
                     WebkitUserSelect: 'none',
-                    touchAction: 'none',
                   }}
                 >
-                  {/* FALLBACK ADMIN OVERLAY (Only active if logo is hidden) */}
-                  {!flow.settings.displayConfig.showLogo && (
+                  {/* FALLBACK ADMIN OVERLAY (Only active if logo is hidden and we are Admin) */}
+                  {!flow.settings.displayConfig.showLogo && flow.isAdmin && (
                     <div
-                      className="absolute inset-0 z-[40] cursor-pointer touch-none"
-                      onPointerDown={flow.handlePressStart}
-                      onPointerUp={flow.handlePressEnd}
-                      onPointerLeave={flow.handlePressEnd}
+                      className="absolute inset-0 z-[40] cursor-pointer"
+                      onClick={() => document.getElementById('logo-upload-input')?.click()}
                     />
                   )}
 
                   {flow.settings.displayConfig.showLogo && (
                     <div
-                      className={`${theme.brand.logoWrapper} select-none touch-none cursor-pointer overflow-hidden flex items-center justify-center relative z-[30]`}
+                      className={`${theme.brand.logoWrapper} select-none overflow-hidden flex items-center justify-center relative z-[30] ${
+                        flow.isAdmin ? 'cursor-pointer' : 'pointer-events-none'
+                      }`}
                     >
-                      {/* UNIFIED LONG-PRESS DETECTOR OVERLAY (RESTRICTED TO LOGO) */}
-                      <div
-                        className="absolute inset-0 z-[40] cursor-pointer touch-none"
-                        onPointerDown={flow.handlePressStart}
-                        onPointerUp={flow.handlePressEnd}
-                        onPointerLeave={flow.handlePressEnd}
-                      />
+                      {/* SIMPLE CLICK UPLOADER FOR ADMIN */}
+                      {flow.isAdmin && (
+                        <div
+                          className="absolute inset-0 z-[40] cursor-pointer"
+                          onClick={() => document.getElementById('logo-upload-input')?.click()}
+                        />
+                      )}
 
                       <input
                         id="logo-upload-input"

@@ -145,7 +145,7 @@ export function useAdminMode() {
   // SMART TRIGGER LOGIC:
   // 1. Long Press (1.2s) -> Admin PIN / Logout
   // 2. Click then within 1s Long Press (0.8s) -> QR Modal
-  const handleLogoPointerDown = useCallback(() => {
+  const handleMenuPointerDown = useCallback(() => {
     if (longPressTimer.current) clearTimeout(longPressTimer.current);
     pointerDownTime.current = Date.now();
 
@@ -168,7 +168,7 @@ export function useAdminMode() {
     );
   }, [isAdmin, logout, openModal]);
 
-  const handleLogoPointerUp = useCallback(() => {
+  const handleMenuPointerUp = useCallback(() => {
     if (longPressTimer.current) {
       clearTimeout(longPressTimer.current);
       longPressTimer.current = null;
@@ -203,8 +203,8 @@ export function useAdminMode() {
 
   return {
     isAdmin,
-    handleLogoPointerDown,
-    handleLogoPointerUp,
+    handleMenuPointerDown,
+    handleMenuPointerUp,
     logout,
     verifyPinWithServer,
     onPinSuccess,

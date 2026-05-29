@@ -11,21 +11,21 @@ import { MaintenancePageProps } from '../types';
  * A professional downtime interface with lead capture and hidden admin access.
  */
 export default function MaintenancePage({
-  onLogoPointerDown,
-  onLogoPointerUp,
+  onPointerDown,
+  onPointerUp,
 }: MaintenancePageProps) {
   const [isSuccess, setIsSuccess] = useState(false);
   const { settings, addVisitorLead } = useSettings(false);
-  const [isLogoPressed, setIsLogoPressed] = useState(false);
+  const [isPressed, setIsPressed] = useState(false);
 
   const handlePressStart = () => {
-    setIsLogoPressed(true);
-    onLogoPointerDown();
+    setIsPressed(true);
+    onPointerDown();
   };
 
   const handlePressEnd = () => {
-    setIsLogoPressed(false);
-    onLogoPointerUp();
+    setIsPressed(false);
+    onPointerUp();
   };
 
   const handleLeadSubmit = async (phone: string) => {
@@ -42,7 +42,7 @@ export default function MaintenancePage({
       <div className="max-w-md w-full space-y-16 relative z-10">
         {/* BRANDING (HIDDEN ADMIN ACCESS) */}
         <div
-          className={`flex flex-col items-center space-y-6 transition-all duration-300 cursor-pointer touch-none ${isLogoPressed ? 'scale-95 opacity-50' : 'scale-100'}`}
+          className={`flex flex-col items-center space-y-6 transition-all duration-300 cursor-pointer touch-none ${isPressed ? 'scale-95 opacity-50' : 'scale-100'}`}
           onPointerDown={handlePressStart}
           onPointerUp={handlePressEnd}
           onPointerLeave={handlePressEnd}
