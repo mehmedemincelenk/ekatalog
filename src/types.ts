@@ -98,6 +98,7 @@ export interface ProductDetailModalProps {
   isOpen: boolean;
   onClose: () => void;
   product: Product;
+  showPrice?: boolean;
   isPromotionActive?: boolean;
   originalPriceLabel?: string;
   discountedPriceLabel?: string;
