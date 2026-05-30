@@ -20,10 +20,26 @@ export const resolveVisualAssetUrl = (
   )
     return assetPath;
 
-  const applicationBaseUrl = import.meta.env.BASE_URL.replace(/\/$/, '');
   const standardizedPath = assetPath.startsWith('/')
     ? assetPath
     : `/${assetPath}`;
+
+  // If in production/browser, and on a subdomain of ekatalog.site, serve relative assets from the main domain
+  if (typeof window !== 'undefined') {
+    const hostname = window.location.hostname.toLowerCase();
+    if (
+      hostname !== 'ekatalog.site' &&
+      hostname !== 'www.ekatalog.site' &&
+      (hostname.endsWith('.ekatalog.site') || hostname.endsWith('.pages.dev'))
+    ) {
+      const mainDomain = hostname.endsWith('.pages.dev')
+        ? 'https://ekatalog.pages.dev'
+        : 'https://ekatalog.site';
+      return `${mainDomain}${standardizedPath}`;
+    }
+  }
+
+  const applicationBaseUrl = import.meta.env.BASE_URL.replace(/\/$/, '');
   return `${applicationBaseUrl}${standardizedPath}`;
 };
 

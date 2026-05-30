@@ -53,6 +53,7 @@ export default function BaseFloatingMenu({
   const [isExpanded, setIsExpanded] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
+  const pointerDownTime = useRef(0);
 
   const clearTimer = useCallback(() => {
     if (timerRef.current) {
@@ -196,16 +197,25 @@ export default function BaseFloatingMenu({
           <div
             onClick={() => {
               clearTimer();
+              const pressDuration = Date.now() - pointerDownTime.current;
+              if (pressDuration > 800) {
+                // It was a long press, ignore the normal click toggle!
+                return;
+              }
               setIsExpanded((prev) => !prev);
             }}
-            onPointerDown={onPointerDown}
+            onPointerDown={() => {
+              pointerDownTime.current = Date.now();
+              onPointerDown?.();
+            }}
             onPointerUp={onPointerUp}
-            onPointerLeave={onPointerUp}
+            onPointerCancel={onPointerUp}
             role="button"
             tabIndex={0}
             style={{
               width: '100px',
               height: '32px',
+              touchAction: 'none',
             }}
             className="hover:scale-[1.02] active:scale-95 transition-all relative overflow-hidden flex items-center justify-center bg-white border border-white/20 shadow-lg backdrop-blur-md p-0 rounded-xl cursor-pointer outline-none select-none"
             aria-label={isExpanded ? 'Menüyü Kapat' : 'Menüyü Aç'}
