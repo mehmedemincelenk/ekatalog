@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { REFERENCES } from '../data/config';
 import { useSettings } from './useSettingsHub';
 import { useStore } from '../store';
 
@@ -16,30 +15,48 @@ export function useReferencesFlow(isAdmin: boolean = false) {
   const activeReferences =
     settings && settings.referencesData && settings.referencesData.length > 0
       ? settings.referencesData
-      : isAdmin
-        ? []
-        : REFERENCES;
+      : [];
 
-  const handleDelete = (id: number) => {
+  const handleDelete = async (id: number) => {
+    const showFeedback = useStore.getState().showFeedback;
     const updated = activeReferences.filter((r) => r.id !== id);
-    updateSetting('referencesData', updated);
+    try {
+      await updateSetting('referencesData', updated);
+      showFeedback('success', 'Referans silindi');
+    } catch (err: any) {
+      console.error(err);
+      showFeedback('error', 'Hata oluştu');
+    }
   };
 
-  const handleSaveEdit = (newName: string) => {
+  const handleSaveEdit = async (newName: string) => {
     if (!activeQuickEdit) return;
+    const showFeedback = useStore.getState().showFeedback;
 
     if (activeQuickEdit.isNew) {
       if (newName.trim()) {
-        updateSetting('referencesData', [
-          ...activeReferences,
-          { id: Date.now(), name: newName.trim(), logo: '' },
-        ]);
+        try {
+          await updateSetting('referencesData', [
+            ...activeReferences,
+            { id: Date.now(), name: newName.trim(), logo: '' },
+          ]);
+          showFeedback('success', 'Referans eklendi');
+        } catch (err: any) {
+          console.error(err);
+          showFeedback('error', 'Hata oluştu');
+        }
       }
     } else {
       const updated = activeReferences.map((r) =>
           r.id === activeQuickEdit.id ? { ...r, name: newName } : r
       );
-      updateSetting('referencesData', updated);
+      try {
+        await updateSetting('referencesData', updated);
+        showFeedback('success', 'Referans güncellendi');
+      } catch (err: any) {
+        console.error(err);
+        showFeedback('error', 'Hata oluştu');
+      }
     }
     setActiveQuickEdit(null);
   };

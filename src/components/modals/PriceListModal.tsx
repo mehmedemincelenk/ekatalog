@@ -269,7 +269,7 @@ export default function PriceListModal({
                     <img
                       src={settings.logoUrl}
                       alt="watermark"
-                      className={`w-10 h-10 object-contain rounded-lg opacity-40 ${storyTheme === 'DARK' ? 'brightness-125' : ''}`}
+                      className={`w-10 h-10 object-contain rounded-[4px] opacity-40 ${storyTheme === 'DARK' ? 'brightness-125' : ''}`}
                       crossOrigin="anonymous"
                     />
                   )}

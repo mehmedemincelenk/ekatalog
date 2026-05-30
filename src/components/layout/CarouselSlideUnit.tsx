@@ -1,5 +1,5 @@
 import { memo, useState, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence } from 'motion/react';
 import { THEME } from '../../data/config';
 import SmartImage from '../ui/SmartImage';
 import { resolveVisualAssetUrl } from '../../utils/image';

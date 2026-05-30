@@ -103,6 +103,7 @@ export interface ProductDetailModalProps {
   discountedPriceLabel?: string;
   highDefinitionImageSource: string;
   isStatic?: boolean;
+  showPrice?: boolean;
 }
 
 /**

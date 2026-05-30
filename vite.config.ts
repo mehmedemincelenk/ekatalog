@@ -41,6 +41,7 @@ export default defineConfig({
     exclude: ['lucide-react'],
   },
   server: {
+    port: 5180,
     allowedHosts: true,
     proxy: {
       '/api/replicate': {

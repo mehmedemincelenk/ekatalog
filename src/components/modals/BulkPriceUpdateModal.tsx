@@ -1,5 +1,5 @@
 import { memo } from 'react';
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 import Button from '../ui/Button';
 import BaseModal from './BaseModal';
 import * as Lucide from 'lucide-react';

@@ -326,10 +326,12 @@ export async function secureUploadVisualAsset({
     const [lqRes, hqRes] = await Promise.all([
       supabase.storage.from(TECH.storage.bucket).upload(lqPath, lq, {
         upsert: true,
+        contentType: 'image/jpeg',
         cacheControl: TECH.storage.cacheControl,
       }),
       supabase.storage.from(TECH.storage.bucket).upload(hqPath, hq, {
         upsert: true,
+        contentType: 'image/jpeg',
         cacheControl: TECH.storage.cacheControl,
       }),
     ]);
@@ -355,6 +357,7 @@ export async function secureUploadVisualAsset({
       .from(TECH.storage.bucket)
       .upload(filePath, blob, {
         upsert: true,
+        contentType: 'image/jpeg',
         cacheControl: TECH.storage.cacheControl,
       });
     if (error) throw error;

@@ -4,7 +4,7 @@ import { supabase } from '../supabase';
 import { getActiveStoreSlug, reorderArray } from '../utils/core';
 import { CarouselSlide } from '../types';
 import { CAROUSEL, TECH } from '../data/config';
-import { PanInfo } from 'framer-motion';
+import { PanInfo } from 'motion/react';
 
 import { useSettings } from './useSettingsHub';
 

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence } from 'motion/react';
 import * as Lucide from 'lucide-react';
 import { QRCodeSVG } from 'qrcode.react';
 import { THEME } from '../../data/config';
@@ -558,6 +558,7 @@ export function ProductDetailModal({
   discountedPriceLabel,
   highDefinitionImageSource,
   isStatic = false,
+  showPrice = true,
 }: ProductDetailModalProps) {
   return (
     <BaseModal
@@ -594,26 +595,28 @@ export function ProductDetailModal({
             )}
           </div>
         </div>
-        <div className="absolute bottom-10 left-8 pointer-events-none">
-          <div className="flex flex-col items-start">
-            {isPromotionActive ? (
-              <div className="flex flex-col items-start gap-1">
-                <span className="text-stone-300 line-through text-sm font-bold">
-                  {originalPriceLabel}
-                </span>
-                <span className="text-stone-900 text-2xl font-black tracking-tighter">
-                  {discountedPriceLabel}
-                </span>
-              </div>
-            ) : (
-              <div className="bg-white/50 backdrop-blur-sm">
-                <span className="text-stone-900 text-2xl font-black tracking-tighter">
-                  {originalPriceLabel}
-                </span>
-              </div>
-            )}
+        {showPrice && (
+          <div className="absolute bottom-10 left-8 pointer-events-none">
+            <div className="flex flex-col items-start">
+              {isPromotionActive ? (
+                <div className="flex flex-col items-start gap-1">
+                  <span className="text-stone-300 line-through text-sm font-bold">
+                    {originalPriceLabel}
+                  </span>
+                  <span className="text-stone-900 text-2xl font-black tracking-tighter">
+                    {discountedPriceLabel}
+                  </span>
+                </div>
+              ) : (
+                <div className="bg-white/50 backdrop-blur-sm">
+                  <span className="text-stone-900 text-2xl font-black tracking-tighter">
+                    {originalPriceLabel}
+                  </span>
+                </div>
+              )}
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </BaseModal>
   );

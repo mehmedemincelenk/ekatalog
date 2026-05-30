@@ -103,8 +103,6 @@ export function useAdminMode() {
 
   // GESTURE ENGINE REFS
   const longPressTimer = useRef<NodeJS.Timeout | null>(null);
-  const clickCountTimer = useRef<NodeJS.Timeout | null>(null);
-  const clickCount = useRef(0);
   const pointerDownTime = useRef(0);
   const timeoutTimer = useRef<NodeJS.Timeout | null>(null);
 
@@ -144,27 +142,19 @@ export function useAdminMode() {
 
   // SMART TRIGGER LOGIC:
   // 1. Long Press (1.2s) -> Admin PIN / Logout
-  // 2. Click then within 1s Long Press (0.8s) -> QR Modal
   const handleMenuPointerDown = useCallback(() => {
     if (longPressTimer.current) clearTimeout(longPressTimer.current);
     pointerDownTime.current = Date.now();
 
-    const isComboAttempt = clickCount.current === 1;
-
     longPressTimer.current = setTimeout(
       () => {
-        if (isComboAttempt) {
-          openModal('QR');
-          clickCount.current = 0; // Combo consumed
+        if (isAdmin) {
+          logout();
         } else {
-          if (isAdmin) {
-            logout();
-          } else {
-            openModal('PIN');
-          }
+          openModal('PIN');
         }
       },
-      isComboAttempt ? 800 : 1200,
+      1200,
     );
   }, [isAdmin, logout, openModal]);
 
@@ -173,23 +163,6 @@ export function useAdminMode() {
       clearTimeout(longPressTimer.current);
       longPressTimer.current = null;
     }
-
-    const holdDuration = Date.now() - pointerDownTime.current;
-
-    // RULE: Only increment click context if it was a quick "short" press (Diamond UI Standard)
-    // If user held for Logout (1.5s), it clearly shouldn't count as first half of QR combo.
-    if (holdDuration < 300) {
-      clickCount.current += 1;
-      if (clickCountTimer.current) clearTimeout(clickCountTimer.current);
-
-      clickCountTimer.current = setTimeout(() => {
-        clickCount.current = 0;
-      }, 1000); // 1 second window for the combo
-    } else {
-      // Long hold happened (Admin entry/exit), reset any ongoing combo context for hygiene
-      clickCount.current = 0;
-      if (clickCountTimer.current) clearTimeout(clickCountTimer.current);
-    }
   }, []);
 
   const closeModal = useStore((state) => state.closeModal);
@@ -197,8 +170,6 @@ export function useAdminMode() {
   const onPinSuccess = useCallback(() => {
     setIsAdmin(true);
     closeModal();
-    // Reset click counts for hygiene
-    clickCount.current = 0;
   }, [closeModal, setIsAdmin]);
 
   return {

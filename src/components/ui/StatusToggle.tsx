@@ -2,7 +2,7 @@ import { memo } from 'react';
 import * as Lucide from 'lucide-react';
 import Button from './Button';
 import { THEME } from '../../data/config';
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 
 interface StatusToggleProps {
   label?: string;

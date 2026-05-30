@@ -95,7 +95,6 @@ export const getActiveStoreSlug = (): string => {
     const envSlug = import.meta.env.VITE_STORE_SLUG;
     if (envSlug && envSlug !== 'mainsite' && envSlug !== 'landing')
       return envSlug;
-    return 'toptan-ambalajcim'; // Default Dev Shop
   }
 
   // 5. Fallback for custom domains or other hosting platforms

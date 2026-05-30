@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useCallback, ReactNode } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence } from 'motion/react';
 import Button from '../ui/Button';
 import { MarqueeText } from '../ui/MarqueeText';
 

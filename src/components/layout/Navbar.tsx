@@ -138,11 +138,11 @@ const Navbar = memo(
                         <SmartImage
                           src={flow.settings.logoUrl}
                           alt="Store Logo"
-                          className="w-9 h-9 rounded-md"
+                          className="w-9 h-9 rounded-[4px]"
                           objectFit="contain"
                         />
                       ) : (
-                        <span className="w-9 h-9 flex items-center justify-center text-2xl select-none rounded-md bg-white/10 text-white">
+                        <span className="w-9 h-9 flex items-center justify-center text-2xl select-none rounded-[4px] bg-white/10 text-white">
                           📦
                         </span>
                       )}

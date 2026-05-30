@@ -3,7 +3,7 @@
 // CONSUMED BY: AddProductModal, EditProdCard, etc.
 
 import React, { useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence } from 'motion/react';
 import * as Lucide from 'lucide-react';
 import { createPortal } from 'react-dom';
 import Button from '../ui/Button';

@@ -1,5 +1,5 @@
 import { memo } from 'react';
-import { AnimatePresence } from 'framer-motion';
+import { AnimatePresence } from 'motion/react';
 import AddProductModal from './AddProductModal';
 import BulkPriceUpdateModal from './BulkPriceUpdateModal';
 import {
@@ -61,7 +61,7 @@ const AppModals = memo(() => {
     toggleInlineEdit,
   } = useAdminMode();
 
-  const handleGlobalAddAction = (
+  const handleGlobalAddAction = async (
     type: 'PRODUCT' | 'CATEGORY' | 'REFERENCE' | 'CAROUSEL',
   ) => {
     if (type === 'PRODUCT') {
@@ -69,15 +69,28 @@ const AppModals = memo(() => {
       useStore.getState().openModal('ADD_PRODUCT');
     } else if (type === 'CATEGORY') {
       const name = window.prompt('Yeni Kategori Adı:');
-      if (name) addCategory(name);
+      if (name) {
+        try {
+          await addCategory(name);
+          useStore.getState().showFeedback('success', 'Kategori eklendi');
+        } catch (err: any) {
+          useStore.getState().showFeedback('error', err?.message || 'Kategori eklenemedi');
+        }
+      }
     } else if (type === 'REFERENCE') {
       const name = window.prompt('Yeni Referans/İş Ortağı Adı:');
       if (name) {
         const currentRefs = settings?.referencesData || [];
-        updateSetting('referencesData', [
-          ...currentRefs,
-          { id: Date.now(), name, logo: '' },
-        ]);
+        try {
+          await updateSetting('referencesData', [
+            ...currentRefs,
+            { id: Date.now(), name: name.trim(), logo: '' },
+          ]);
+          useStore.getState().showFeedback('success', 'Referans eklendi');
+        } catch (err: any) {
+          console.error(err);
+          useStore.getState().showFeedback('error', err?.message || 'Hata oluştu');
+        }
       }
     } else if (type === 'CAROUSEL') {
       window.dispatchEvent(new CustomEvent('ekatalog:add-carousel-slide'));

@@ -1,7 +1,7 @@
 import { memo } from 'react';
 import * as Lucide from 'lucide-react';
 import { THEME, LABELS } from '../../data/config';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence } from 'motion/react';
 import Button from '../ui/Button';
 import CategoryFilterChip from '../ui/CategoryFilterChip';
 import { QuickEditModal } from '../modals/UtilityModals';
@@ -145,7 +145,7 @@ const SearchFilter = memo(
                   variant="glass"
                   mode="square"
                   className="h-11 w-11 flex-none !rounded-lg !bg-stone-900/60 backdrop-blur-md border-white/20 text-white shadow-xl hover:!bg-stone-900/80 transition-all !p-0"
-                  icon={<Lucide.LayoutGrid size={20} strokeWidth={2.5} />}
+                  icon={<Lucide.Store size={20} strokeWidth={2.2} />}
                   aria-label={LABELS.filter.categoryBtn}
                 />
               </div>

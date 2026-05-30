@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence } from 'motion/react';
 import { resolveVisualAssetUrl } from '../../utils/image';
 import Loading from './Loading';
 import * as Lucide from 'lucide-react';

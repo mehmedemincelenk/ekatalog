@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence } from 'motion/react';
 import { THEME } from '../../data/config';
 import CarouselSlideUnit from './CarouselSlideUnit';
 

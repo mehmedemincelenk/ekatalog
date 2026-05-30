@@ -8,14 +8,16 @@ const Footer = memo(function Footer() {
 
   return (
     <footer className={footerTheme.layout}>
-      <div className={footerTheme.container}>
-        <div className={footerTheme.grid}>
-          {/* CONTENT REMOVED - Clean design */}
-        </div>
-
+      <div className="max-w-7xl mx-auto px-4 py-8">
         {/* MIDDLE BRANDING SECTION */}
-        <div className="mt-8 mb-4 flex flex-col items-center gap-2">
-          <div className="h-[1px] w-12 bg-stone-200 mb-2"></div>
+        <div className="flex flex-col items-center gap-2">
+          {settings?.logoUrl && (
+            <img
+              src={settings.logoUrl}
+              alt={settings.title || 'Store Logo'}
+              className="w-[72px] h-[72px] object-contain rounded-[4px] select-none pointer-events-none"
+            />
+          )}
           <p className="text-[10px] font-black text-stone-900 uppercase tracking-[0.3em] select-none">
             ekatalog | {settings?.title || 'Dijital Kart'}
           </p>

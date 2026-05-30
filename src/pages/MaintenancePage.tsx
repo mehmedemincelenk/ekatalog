@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 import * as Lucide from 'lucide-react';
 import Numpad from '../components/ui/Numpad';
 import { useSettings } from '../hooks/useSettingsHub';

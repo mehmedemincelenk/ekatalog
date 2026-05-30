@@ -349,7 +349,7 @@ export default function DisplaySettingsModal({
           {/* IDENTITY HEADER (PHOTO) */}
           <div className="flex flex-col items-center py-6">
             <div className="relative group">
-              <div className="w-32 h-32 rounded-3xl border-4 border-stone-100 shadow-xl overflow-hidden bg-stone-50 flex items-center justify-center">
+              <div className="w-32 h-32 rounded-xl border-4 border-stone-100 shadow-xl overflow-hidden bg-stone-50 flex items-center justify-center">
                 {flow.isUploading ? (
                   <Loading size="lg" variant="dark" />
                 ) : settings.logoUrl ? (
@@ -505,7 +505,7 @@ export default function DisplaySettingsModal({
                 YÜZEN MENÜ BİLEŞENLERİ
               </h5>
             </div>
-            <div className="grid grid-cols-2 gap-2">
+            <div className="grid grid-cols-1 gap-2">
               {FLOATING_OPTIONS.map((opt) => (
                 <SettingCard
                   key={opt.key}
@@ -529,7 +529,7 @@ export default function DisplaySettingsModal({
                 VİTRİN VE TASARIM
               </h5>
             </div>
-            <div className="grid grid-cols-2 gap-2">
+            <div className="grid grid-cols-1 gap-2">
               {BRANDING_OPTIONS.map((opt) => (
                 <SettingCard
                   key={opt.key}
@@ -553,7 +553,7 @@ export default function DisplaySettingsModal({
                 SİSTEM YÖNETİMİ
               </h5>
             </div>
-            <div className="grid grid-cols-2 gap-2">
+            <div className="grid grid-cols-1 gap-2">
               {SYSTEM_OPTIONS.map((opt) => (
                 <SettingCard
                   key={opt.key}

@@ -2,7 +2,7 @@
 // DEPENDS ON: THEME, Product Types, Admin Sub-menus, Animation Logic
 // CONSUMED BY: ProductGrid.tsx
 import { useRef, memo } from 'react';
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 import Loading from '../ui/Loading';
 import Badge from '../ui/Badge';
 import { LABELS, THEME } from '../../data/config';
@@ -334,6 +334,7 @@ const ProductCard = memo(
           originalPriceLabel={originalPriceLabel}
           discountedPriceLabel={discountedPriceLabel || ''}
           highDefinitionImageSource={highDefinitionImageSource || ''}
+          showPrice={showPrice}
         />
 
         <QuickEditModal

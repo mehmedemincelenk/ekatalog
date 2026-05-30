@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence } from 'motion/react';
 import * as Lucide from 'lucide-react';
 import { useStore } from '../store';
 import { LABELS, UI } from '../data/config';
@@ -211,10 +211,10 @@ export default function CatalogPage() {
             href="https://ekatalog.site"
             target="_blank"
             rel="noreferrer"
-            className="block w-full bg-[#FFD700] hover:bg-[#FFC800] transition-colors py-2 px-6 text-center cursor-pointer"
+            className="block w-full bg-[#FFD700] hover:bg-[#FFC800] transition-colors py-3 px-6 text-center cursor-pointer"
           >
             <span className="text-[10px] font-black text-black uppercase tracking-[0.2em]">
-              ekatalogunuz hala yoksa tıklayın
+              ekataloğunuzu ücretsiz oluşturmak için tıklayın
             </span>
           </a>
         </div>
