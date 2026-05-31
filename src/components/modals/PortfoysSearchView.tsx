@@ -40,8 +40,6 @@ export default function PortfoysSearchView({
 
   // Location helpers states
   const [cities, setCities] = useState<string[]>([]);
-  const [loadingCities, setLoadingCities] = useState<boolean>(false);
-  const [citySearch, setCitySearch] = useState<string>('');
 
   const [districts, setDistricts] = useState<string[]>([]);
   const [loadingDistricts, setLoadingDistricts] = useState<boolean>(false);
@@ -50,15 +48,13 @@ export default function PortfoysSearchView({
   // Fetch cities when country changes
   useEffect(() => {
     if (country) {
-      setLoadingCities(true);
       fetchCities(country)
         .then((res) => {
           setCities(res || []);
           setCity(''); // Reset selected city
           setDistrict(''); // Reset selected district
         })
-        .catch((err) => console.error('[portfoys] fetchCities error:', err))
-        .finally(() => setLoadingCities(false));
+        .catch((err) => console.error('[portfoys] fetchCities error:', err));
     }
   }, [country]);
 
@@ -237,10 +233,6 @@ export default function PortfoysSearchView({
   }
 
   // Filtered lists for locations
-  const filteredCities = cities.filter((c) =>
-    c.toLowerCase().includes(citySearch.toLowerCase())
-  );
-
   const filteredDistricts = districts.filter((d) =>
     d.toLowerCase().includes(districtSearch.toLowerCase())
   );
@@ -377,34 +369,22 @@ export default function PortfoysSearchView({
               Hangi Şehirde?
             </label>
             
-            <div className="relative">
-              <input
-                type="text"
-                value={citySearch}
-                onChange={(e) => setCitySearch(e.target.value)}
-                placeholder="Şehir adı arayın..."
-                className="w-full px-4 py-3 bg-stone-50 border border-stone-150 rounded-2xl text-xs font-bold text-stone-900 placeholder:text-stone-350 focus:outline-none focus:border-stone-900 focus:bg-white transition-all"
-              />
-              <Lucide.Search size={14} className="absolute right-4 top-1/2 -translate-y-1/2 text-stone-450" />
-            </div>
-
-            {popularCities.length > 0 && !citySearch && (
-              <div className="space-y-1">
+            {popularCities.length > 0 && (
+              <div className="space-y-1.5">
                 <span className="text-[8px] font-black uppercase tracking-widest text-stone-400">Popüler Şehirler</span>
-                <div className="flex flex-wrap gap-1.5">
+                <div className="grid grid-cols-3 gap-1.5">
                   {popularCities.map((pc) => (
                     <button
                       key={pc}
                       type="button"
                       onClick={() => {
                         setCity(pc);
-                        setCitySearch('');
                         setStep(4);
                       }}
-                      className={`px-2.5 py-1 rounded-lg text-[9px] font-black uppercase tracking-wider transition-all duration-200 ${
+                      className={`px-2 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all duration-200 border ${
                         city === pc
-                          ? 'bg-stone-900 text-white shadow-sm'
-                          : 'bg-stone-50 text-stone-500 hover:bg-stone-100'
+                          ? 'bg-stone-900 text-white border-stone-900 shadow-sm'
+                          : 'bg-stone-50 text-stone-600 border-stone-100 hover:bg-stone-100 hover:border-stone-200'
                       }`}
                     >
                       {pc}
@@ -414,23 +394,18 @@ export default function PortfoysSearchView({
               </div>
             )}
 
-            {loadingCities ? (
-              <div className="flex items-center justify-center py-8 gap-2">
-                <div className="w-4 h-4 border-2 border-stone-900 border-t-transparent rounded-full animate-spin" />
-                <span className="text-[9px] font-black uppercase tracking-wider text-stone-400">Şehirler Yükleniyor...</span>
-              </div>
-            ) : (
-              <div className="space-y-1.5">
-                <span className="text-[8px] font-black uppercase tracking-widest text-stone-400">
-                  {citySearch ? 'Arama Sonuçları' : 'Şehir Listesi'}
-                </span>
-                <div className="max-h-[160px] overflow-y-auto border border-stone-100 rounded-2xl p-1.5 bg-stone-50/50 space-y-0.5 custom-scrollbar">
-                  {filteredCities.length === 0 ? (
-                    <div className="text-center py-6 text-[9px] font-black uppercase tracking-widest text-stone-400">
-                      Şehir bulunamadı
-                    </div>
-                  ) : (
-                    filteredCities.map((c) => (
+            <div className="space-y-1.5">
+              <span className="text-[8px] font-black uppercase tracking-widest text-stone-400">
+                Tüm Şehirler
+              </span>
+              <div className="max-h-[190px] overflow-y-auto border border-stone-100 rounded-2xl p-2 bg-stone-50/50 space-y-1 custom-scrollbar">
+                {cities.length === 0 ? (
+                  <div className="text-center py-6 text-[9px] font-black uppercase tracking-widest text-stone-400">
+                    Şehir bulunamadı
+                  </div>
+                ) : (
+                  <div className="grid grid-cols-2 gap-1.5">
+                    {cities.map((c) => (
                       <button
                         key={c}
                         type="button"
@@ -438,22 +413,22 @@ export default function PortfoysSearchView({
                           setCity(c);
                           setStep(4);
                         }}
-                        className={`w-full text-left px-3.5 py-2 text-[10px] font-bold uppercase rounded-xl transition-all ${
+                        className={`text-left px-3.5 py-2.5 text-[10px] font-bold uppercase rounded-xl transition-all border ${
                           city === c
-                            ? 'bg-stone-900 text-white shadow-sm font-black'
-                            : 'text-stone-600 hover:bg-stone-100'
+                            ? 'bg-stone-900 text-white border-stone-900 shadow-sm font-black'
+                            : 'text-stone-600 bg-white border-stone-100/70 hover:bg-stone-100 hover:border-stone-200'
                         }`}
                       >
                         {c}
                       </button>
-                    ))
-                  )}
-                </div>
+                    ))}
+                  </div>
+                )}
               </div>
-            )}
+            </div>
           </div>
 
-          <div className="flex gap-2 pt-2">
+          <div className="flex gap-2 pt-1">
             <Button
               variant="outline"
               size="sm"
