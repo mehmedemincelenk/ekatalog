@@ -145,6 +145,7 @@ export interface CompanySettings {
   slug?: string;
   subscription_tier?: 'free' | 'pro';
   subscription_expires_at?: string | null;
+  portfoys_credits?: number;
   created_at?: string;
 }
 
@@ -634,6 +635,9 @@ export type ModalType =
   | 'CONTACT'
   | 'SOCIAL_EXPORT'
   | 'CHANGE_PIN'
+  | 'PORTFOYS_SEARCH'
+  | 'PORTFOYS_DIRECTORY'
+  | 'FEATURES'
   | null;
 
 export interface StoreState {

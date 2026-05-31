@@ -15,6 +15,8 @@ import ChangePinModal from './ChangePinModal';
 import PriceListModal from './PriceListModal';
 
 import SocialExportModal from './SocialExportModal';
+import PortfoysLeadModal from './PortfoysLeadModal';
+import FeaturesModal from './FeaturesModal';
 
 import { useStore } from '../../store';
 import { useProducts } from '../../hooks/useProductsHub';
@@ -141,6 +143,17 @@ const AppModals = memo(() => {
               isOpen={activeModal === 'GLOBAL_ADD_MENU'}
               onClose={closeModal}
               onAction={handleGlobalAddAction}
+            />
+
+            <PortfoysLeadModal
+              isOpen={activeModal === 'PORTFOYS_SEARCH' || activeModal === 'PORTFOYS_DIRECTORY'}
+              onClose={closeModal}
+              initialTab={activeModal === 'PORTFOYS_DIRECTORY' ? 'directory' : 'search'}
+            />
+
+            <FeaturesModal
+              isOpen={activeModal === 'FEATURES'}
+              onClose={closeModal}
             />
           </>
         )}

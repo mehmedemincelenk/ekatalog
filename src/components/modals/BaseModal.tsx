@@ -17,6 +17,7 @@ interface ExtendedBaseModalProps extends BaseModalProps {
   navY?: 'center' | 'bottom';
   accentColor?: string;
   position?: 'center' | 'bottom-right';
+  centerHeader?: boolean;
 }
 
 export default function BaseModal({
@@ -39,6 +40,7 @@ export default function BaseModal({
   progress,
   footer,
   noPadding = false,
+  centerHeader = false,
 }: ExtendedBaseModalProps) {
   const modalRef = useRef<HTMLDivElement>(null);
   const titleId = React.useId();
@@ -146,7 +148,9 @@ export default function BaseModal({
             <div className="bg-white rounded-3xl overflow-hidden flex flex-col flex-1 border border-stone-100 relative">
               {/* HEADER AREA */}
               {(title || icon) && !progress && (
-                <div className="flex flex-col items-start mt-6 px-6 text-left shrink-0 print:hidden">
+                <div className={`flex flex-col mt-6 px-6 shrink-0 print:hidden ${
+                  centerHeader ? 'items-center text-center' : 'items-start text-left'
+                }`}>
                   {icon && (
                     <div className="w-16 h-16 bg-stone-50 text-stone-500 rounded-full flex items-center justify-center text-3xl mb-4 border border-stone-100 shadow-inner">
                       {icon}
@@ -155,7 +159,7 @@ export default function BaseModal({
                   {title && (
                     <h3
                       id={titleId}
-                      className="text-xl font-black text-stone-900 uppercase tracking-tight leading-tight"
+                      className="text-xl font-black text-stone-900 uppercase tracking-tight leading-tight w-full"
                     >
                       {title}
                     </h3>

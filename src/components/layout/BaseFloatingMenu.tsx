@@ -30,6 +30,7 @@ export interface FloatingAction {
     | 'instagram'
     | 'phone';
   closeOnClick?: boolean; // Diamond logic: Some actions (like currency) shouldn't close the menu
+  dividerAfter?: boolean; // If true, render a premium thin border/line underneath this action
 }
 
 interface BaseFloatingMenuProps {
@@ -134,7 +135,7 @@ export default function BaseFloatingMenu({
                     {actions
                       .filter((a) => a.label)
                       .map((btn) => (
-                        <div key={btn.id} className="w-full">
+                        <div key={btn.id} className="w-full flex flex-col items-center">
                           <Button
                             onClick={() => handleAction(btn)}
                             icon={btn.icon}
@@ -158,6 +159,9 @@ export default function BaseFloatingMenu({
                               />
                             </div>
                           </Button>
+                          {btn.dividerAfter && (
+                            <div className="w-[85%] h-[1px] bg-white/15 my-1.5 shrink-0" />
+                          )}
                         </div>
                       ))}
                   </div>

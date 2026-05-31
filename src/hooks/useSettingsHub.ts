@@ -56,6 +56,7 @@ export function useSettingsQuery() {
           instagram: '',
           subtitle: '',
           name: '',
+          portfoys_credits: 2,
         } as CompanySettings;
       }
 
@@ -106,6 +107,7 @@ export function useSettingsQuery() {
           address: 'Adres Bilgisi',
           instagram: '',
           maintenanceMode: { enabled: false, message: '' },
+          portfoys_credits: 2,
         } as CompanySettings;
       }
 
@@ -146,6 +148,7 @@ export function useSettingsQuery() {
         subscription_expires_at: raw.subscription_expires_at,
         created_at: raw.created_at,
         slug: raw.slug || '',
+        portfoys_credits: raw.portfoys_credits,
       };
 
       return settings;
@@ -194,6 +197,7 @@ export function useSettings(isAdmin: boolean) {
         announcementBar: 'announcement_bar',
         visitor_leads: 'visitor_leads',
         slug: 'slug',
+        portfoys_credits: 'portfoys_credits',
       };
 
       if (!adminPin) throw new Error('Yetkisiz işlem: PIN gerekli');

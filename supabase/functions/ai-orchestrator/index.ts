@@ -23,6 +23,128 @@ serve(async (req) => {
     const GCP_PRIVATE_KEY = Deno.env.get('GCP_PRIVATE_KEY');
     const GCP_LOCATION = Deno.env.get('GCP_LOCATION') || 'us-central1';
 
+    // --- ACTION: PORTFOYS BACKGROUND SEARCH & AUTO-SAVE ---
+    if (action === 'portfoys-search') {
+      const { store_id, keyword, city, district, country } = payload;
+      if (!store_id || !keyword || !city) {
+        throw new Error('store_id, keyword ve city parametreleri zorunludur.');
+      }
+
+      const supabaseUrl = Deno.env.get('SUPABASE_URL') ?? '';
+      const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? '';
+
+      if (!supabaseUrl || !supabaseServiceKey) {
+        throw new Error('Supabase URL or Service Key is missing in Edge Function environment.');
+      }
+
+      const { createClient } = await import('https://esm.sh/@supabase/supabase-js@2.39.8');
+      const supabaseAdmin = createClient(supabaseUrl, supabaseServiceKey);
+
+      // 1. DEDUCT CREDIT SECURELY ON THE SERVER
+      const { data: store, error: storeError } = await supabaseAdmin
+        .from('stores')
+        .select('portfoys_credits')
+        .eq('id', store_id)
+        .single();
+
+      if (storeError || !store) {
+        throw new Error('Mağaza bulunamadı veya yetkisiz erişim.');
+      }
+
+      const currentCredits = store.portfoys_credits ?? 2;
+      if (currentCredits <= 0) {
+        throw new Error('Yıllık arama hakkınız (kalan kota) tükenmiştir.');
+      }
+
+      const newCredits = currentCredits - 1;
+      const { error: updateError } = await supabaseAdmin
+        .from('stores')
+        .update({ portfoys_credits: newCredits })
+        .eq('id', store_id);
+
+      if (updateError) {
+        throw new Error('Arama hakkı düşülürken hata oluştu: ' + updateError.message);
+      }
+
+      // 2. SAVE SEARCH LOG TO THE DB
+      await supabaseAdmin.from('b2b_search_logs').insert({
+        store_id,
+        city,
+        district: district || null,
+        keyword,
+      });
+
+      // 3. EXECUTE HTTP CALL TO PORTFOYS.PRO API
+      const searchRes = await fetch('https://portfoys.pro/api/search', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-internal-key': 'portfoys_secure_key_123456',
+        },
+        body: JSON.stringify({
+          keyword,
+          city,
+          district: district || undefined,
+        }),
+      });
+
+      if (!searchRes.ok) {
+        throw new Error(`Arama motoru bağlantı hatası: ${searchRes.statusText}`);
+      }
+
+      const data = await searchRes.json();
+      const rawLeads = data.leads || [];
+
+      // 4. SANITIZE AND SAVE LEADS DIRECTLY TO THE DATABASE
+      const savedLeads: any[] = [];
+      if (rawLeads.length > 0) {
+        const insertRows = rawLeads.map((l: any) => ({
+          store_id,
+          company_name: l.name || 'İsimsiz İşletme',
+          phone: l.phone || null,
+          website: l.website || null,
+          segment: l.category || keyword,
+          metadata: {
+            address: l.address || 'Adres bilgisi yok',
+            city,
+            district: district || '',
+            country: country || 'Türkiye',
+          },
+        }));
+
+        const { data: inserted, error: insertError } = await supabaseAdmin
+          .from('leads')
+          .insert(insertRows)
+          .select();
+
+        if (insertError) {
+          console.error('Failed to insert background leads:', insertError.message);
+        } else if (inserted) {
+          savedLeads.push(...inserted.map((il: any) => ({
+            id: il.id,
+            name: il.company_name,
+            phone: il.phone,
+            website: il.website,
+            address: il.metadata?.address || 'Adres bilgisi yok',
+            category: il.segment,
+          })));
+        }
+      }
+
+      const finalLeads = savedLeads.length > 0 ? savedLeads : rawLeads.map((l: any) => ({
+        id: l.id || `lead-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+        name: l.name || 'İsimsiz İşletme',
+        phone: l.phone || null,
+        website: l.website || null,
+        address: l.address || 'Adres bilgisi yok',
+        category: l.category || keyword,
+      }));
+
+      return new Response(JSON.stringify({ success: true, leads: finalLeads, newCredits }), {
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      });
+    }
+
     // --- ACTION: VERTEX AI (GCP Imagen) ---
     if (action === 'vertex') {
       if (!GCP_PROJECT_ID || !GCP_PRIVATE_KEY) throw new Error('GCP Credentials missing in secrets');
