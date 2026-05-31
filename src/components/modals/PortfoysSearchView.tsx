@@ -290,25 +290,7 @@ export default function PortfoysSearchView({
                         <Lucide.ExternalLink size={8} />
                       </a>
                     )}
-                  </div>
-
-                  <div className="shrink-0">
-                    {isSaved ? (
-                      <div className="w-8 h-8 rounded-full bg-emerald-50 text-emerald-500 flex items-center justify-center shadow-inner">
-                        <Lucide.Check size={16} strokeWidth={3} />
-                      </div>
-                    ) : (
-                      <Button
-                        variant="action"
-                        size="xs"
-                        mode="circle"
-                        icon={<Lucide.UserPlus size={12} strokeWidth={3} />}
-                        onClick={() => onSaveLead(lead, { country: selectedCountry, city: selectedCity, district: selectedDistrict })}
-                        className="w-8 h-8 hover:scale-110 active:scale-95"
-                        title="Rehbere Kaydet"
-                      />
-                    )}
-                  </div>
+                  </div>                  {/* All leads are automatically saved in the background during search, so no action/checkmark is needed here */}
                 </div>
               );
             })}
