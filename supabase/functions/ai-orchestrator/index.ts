@@ -101,7 +101,7 @@ serve(async (req) => {
         const insertRows = rawLeads.map((l: any) => ({
           store_id,
           company_name: l.name || 'İsimsiz İşletme',
-          phone: l.phone || null,
+          phone: (l.phone && l.phone.trim()) ? l.phone.trim() : 'Telefon Bilgisi Yok',
           website: l.website || null,
           segment: l.category || keyword,
           metadata: {
