@@ -24,6 +24,7 @@ export interface SavedLead {
     city?: string;
     district?: string;
     country?: string;
+    keyword?: string;
   };
 }
 
@@ -148,13 +149,18 @@ export function usePortfoysScraper() {
     setLoadingDirectory(true);
     try {
       const { data, error } = await supabase
-        .from('leads')
-        .select('*')
-        .eq('store_id', storeId)
-        .order('created_at', { ascending: false });
+        .from('stores')
+        .select('b2b_leads')
+        .eq('id', storeId)
+        .single();
 
       if (error) throw error;
-      setSavedDirectory((data as SavedLead[]) || []);
+      const leads = Array.isArray(data?.b2b_leads) ? data.b2b_leads : [];
+      // Sort client-side by created_at descending
+      const sortedLeads = [...leads].sort((a: any, b: any) => {
+        return new Date(b.created_at || 0).getTime() - new Date(a.created_at || 0).getTime();
+      });
+      setSavedDirectory(sortedLeads as SavedLead[]);
     } catch (err: any) {
       console.error('[directory] fetch failed:', err.message);
     } finally {
@@ -229,21 +235,42 @@ export function usePortfoysScraper() {
   const saveLead = useCallback(async (storeId: string, lead: PortfoysLead, locationDetails: { country: string; city: string; district: string }) => {
     if (!storeId) return false;
     try {
-      const { error } = await supabase.from('leads').insert({
+      // Fetch current leads list from stores
+      const { data: store, error: fetchError } = await supabase
+        .from('stores')
+        .select('b2b_leads')
+        .eq('id', storeId)
+        .single();
+
+      if (fetchError) throw fetchError;
+
+      const existingLeads = Array.isArray(store?.b2b_leads) ? store.b2b_leads : [];
+      
+      const newLeadObj: SavedLead = {
+        id: lead.id || `lead-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
         store_id: storeId,
         company_name: lead.name,
-        phone: lead.phone,
-        website: lead.website,
+        phone: lead.phone || '',
+        website: lead.website || null,
         segment: lead.category,
+        created_at: new Date().toISOString(),
         metadata: {
           address: lead.address,
           city: locationDetails.city,
           district: locationDetails.district,
           country: locationDetails.country,
+          keyword: lead.category,
         },
-      });
+      };
 
-      if (error) throw error;
+      const updatedLeads = [...existingLeads, newLeadObj];
+
+      const { error: updateError } = await supabase
+        .from('stores')
+        .update({ b2b_leads: updatedLeads })
+        .eq('id', storeId);
+
+      if (updateError) throw updateError;
       
       // Refresh directory locally
       await fetchDirectory(storeId);

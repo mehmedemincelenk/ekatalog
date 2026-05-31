@@ -40,10 +40,10 @@ serve(async (req) => {
       const { createClient } = await import('https://esm.sh/@supabase/supabase-js@2.39.8');
       const supabaseAdmin = createClient(supabaseUrl, supabaseServiceKey);
 
-      // 1. DEDUCT CREDIT SECURELY ON THE SERVER
+      // 1. DEDUCT CREDIT SECURELY ON THE SERVER AND GET EXISTING LEADS
       const { data: store, error: storeError } = await supabaseAdmin
         .from('stores')
-        .select('portfoys_credits')
+        .select('portfoys_credits, b2b_leads')
         .eq('id', store_id)
         .single();
 
@@ -57,14 +57,7 @@ serve(async (req) => {
       }
 
       const newCredits = currentCredits - 1;
-      const { error: updateError } = await supabaseAdmin
-        .from('stores')
-        .update({ portfoys_credits: newCredits })
-        .eq('id', store_id);
-
-      if (updateError) {
-        throw new Error('Arama hakkı düşülürken hata oluştu: ' + updateError.message);
-      }
+      const existingLeads = Array.isArray(store.b2b_leads) ? store.b2b_leads : [];
 
       // 2. SAVE SEARCH LOG TO THE DB
       await supabaseAdmin.from('b2b_search_logs').insert({
@@ -95,46 +88,68 @@ serve(async (req) => {
       const data = await searchRes.json();
       const rawLeads = data.leads || [];
 
-      // 4. SANITIZE AND SAVE LEADS DIRECTLY TO THE DATABASE
-      const savedLeads: any[] = [];
+      // 4. SANITIZE AND APPEND LEADS DIRECTLY TO THE STORES TABLE
+      const newLeadsList: any[] = [];
+      const returnedLeads: any[] = [];
       if (rawLeads.length > 0) {
-        const insertRows = rawLeads.map((l: any) => ({
-          store_id,
-          company_name: l.name || 'İsimsiz İşletme',
-          phone: (l.phone && l.phone.trim()) ? l.phone.trim() : 'Telefon Bilgisi Yok',
-          website: l.website || null,
-          segment: l.category || keyword,
-          metadata: {
+        rawLeads.forEach((l: any) => {
+          const leadId = l.id || `lead-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+          const leadObj = {
+            id: leadId,
+            company_name: l.name || 'İsimsiz İşletme',
+            phone: l.phone || '',
+            website: l.website || null,
+            segment: l.category || keyword,
+            created_at: new Date().toISOString(),
+            metadata: {
+              address: l.address || 'Adres bilgisi yok',
+              city,
+              district: district || '',
+              country: country || 'Türkiye',
+              keyword: keyword,
+            },
+          };
+          newLeadsList.push(leadObj);
+          
+          returnedLeads.push({
+            id: leadId,
+            name: l.name || 'İsimsiz İşletme',
+            phone: l.phone || '',
+            website: l.website || null,
             address: l.address || 'Adres bilgisi yok',
-            city,
-            district: district || '',
-            country: country || 'Türkiye',
-          },
-        }));
+            category: l.category || keyword,
+          });
+        });
 
-        const { data: inserted, error: insertError } = await supabaseAdmin
-          .from('leads')
-          .insert(insertRows)
-          .select();
+        // Merge and update in stores
+        const updatedLeads = [...existingLeads, ...newLeadsList];
+        const { error: updateError } = await supabaseAdmin
+          .from('stores')
+          .update({ 
+            portfoys_credits: newCredits,
+            b2b_leads: updatedLeads
+          })
+          .eq('id', store_id);
 
-        if (insertError) {
-          console.error('Failed to insert background leads:', insertError.message);
-        } else if (inserted) {
-          savedLeads.push(...inserted.map((il: any) => ({
-            id: il.id,
-            name: il.company_name,
-            phone: il.phone,
-            website: il.website,
-            address: il.metadata?.address || 'Adres bilgisi yok',
-            category: il.segment,
-          })));
+        if (updateError) {
+          console.error('Failed to update b2b_leads on stores:', updateError.message);
+        }
+      } else {
+        // Just update credits if no new leads found
+        const { error: updateError } = await supabaseAdmin
+          .from('stores')
+          .update({ portfoys_credits: newCredits })
+          .eq('id', store_id);
+
+        if (updateError) {
+          console.error('Failed to update credits on stores:', updateError.message);
         }
       }
 
-      const finalLeads = savedLeads.length > 0 ? savedLeads : rawLeads.map((l: any) => ({
+      const finalLeads = returnedLeads.length > 0 ? returnedLeads : rawLeads.map((l: any) => ({
         id: l.id || `lead-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
         name: l.name || 'İsimsiz İşletme',
-        phone: l.phone || null,
+        phone: l.phone || '',
         website: l.website || null,
         address: l.address || 'Adres bilgisi yok',
         category: l.category || keyword,

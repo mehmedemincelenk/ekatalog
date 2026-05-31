@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import BaseModal from './BaseModal';
 import StatusOverlay from '../ui/StatusOverlay';
-import { usePortfoysScraper, PortfoysLead } from '../../hooks/usePortfoysScraper';
+import { usePortfoysScraper } from '../../hooks/usePortfoysScraper';
 import { useStore } from '../../store';
 import PortfoysSearchView from './PortfoysSearchView';
 import PortfoysDirectoryView from './PortfoysDirectoryView';
@@ -28,7 +28,6 @@ export default function PortfoysLeadModal({ isOpen, onClose, initialTab }: Portf
     savedDirectory,
     loadingDirectory,
     fetchDirectory,
-    saveLead,
   } = usePortfoysScraper();
 
   // Navigation states
@@ -38,7 +37,6 @@ export default function PortfoysLeadModal({ isOpen, onClose, initialTab }: Portf
 
   // Status feedback overlay
   const [feedbackStatus, setFeedbackStatus] = useState<'idle' | 'success' | 'error' | 'loading'>('idle');
-  const [feedbackMsg, setFeedbackMsg] = useState<string>('');
 
   // Fetch saved directory when directory tab opens or modal mounts
   useEffect(() => {
@@ -62,39 +60,7 @@ export default function PortfoysLeadModal({ isOpen, onClose, initialTab }: Portf
     onClose();
   };
 
-  // Save single lead to local store directory
-  const handleSaveLead = async (lead: PortfoysLead, context: { country: string; city: string; district: string }) => {
-    if (!storeId) return;
-    setFeedbackStatus('loading');
-    setFeedbackMsg('Kişi kaydediliyor...');
-    
-    // Pass search criteria context
-    const success = await saveLead(storeId, lead, {
-      country: context.country || 'Türkiye',
-      city: context.city,
-      district: context.district,
-    });
 
-    if (success) {
-      setFeedbackStatus('success');
-      setFeedbackMsg('Müşteri Rehbere Kaydedildi!');
-      setTimeout(() => setFeedbackStatus('idle'), 1500);
-    } else {
-      setFeedbackStatus('error');
-      setFeedbackMsg('Kayıt sırasında hata oluştu.');
-      setTimeout(() => setFeedbackStatus('idle'), 2000);
-    }
-  };
-
-  // Check if a search result lead is already saved in the local directory
-  const isLeadAlreadySaved = (phone: string | null) => {
-    if (!phone) return false;
-    const cleanPhone = phone.replace(/\D/g, '');
-    return savedDirectory.some((sl) => {
-      const cleanSlPhone = sl.phone.replace(/\D/g, '');
-      return cleanSlPhone === cleanPhone || cleanSlPhone.endsWith(cleanPhone) || cleanPhone.endsWith(cleanSlPhone);
-    });
-  };
 
   const credits = settings?.portfoys_credits ?? 2;
 
@@ -149,8 +115,6 @@ export default function PortfoysLeadModal({ isOpen, onClose, initialTab }: Portf
                 clearScan={clearScan}
                 getCities={getCities}
                 getDistricts={getDistricts}
-                onSaveLead={handleSaveLead}
-                isLeadAlreadySaved={isLeadAlreadySaved}
                 activeStep={activeStep}
                 setActiveStep={setActiveStep}
                 showConfirm={showConfirm}
@@ -178,7 +142,6 @@ export default function PortfoysLeadModal({ isOpen, onClose, initialTab }: Portf
       {/* Floating Status Feedback Overlay for quick saves */}
       <StatusOverlay
         status={feedbackStatus}
-        message={feedbackMsg}
         onClose={() => setFeedbackStatus('idle')}
         mode="fixed"
       />

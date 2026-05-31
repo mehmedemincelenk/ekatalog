@@ -39,16 +39,45 @@ export default function PortfoysDirectoryView({
 
   // Helper to group by search context
   const getGroupKey = (lead: SavedLead) => {
-    const city = lead.metadata?.city || 'Diğer';
-    const district = lead.metadata?.district || '';
-    const segment = lead.segment || 'Kayıt';
-    const locStr = district ? `${city} (${district})` : city;
+    // 1. Safely handle stringified metadata if any
+    let meta = lead.metadata;
+    if (typeof meta === 'string') {
+      try {
+        meta = JSON.parse(meta);
+      } catch {
+        meta = {};
+      }
+    }
+
+    const country = meta?.country || 'Türkiye';
+    const city = meta?.city || 'Diğer';
+    const district = meta?.district || '';
+    
+    // 2. Resolve keyword with segment fallback
+    let keyword = meta?.keyword || lead.segment || 'Müşteri';
+
+    // 3. Fallback dictionary for historical searches
+    const fallbackKeywords: { [key: string]: string } = {
+      'istanbul_bakırköy': 'Coffee',
+      'ankara_elmadağ': 'Kuaför',
+      'adana_aladağ': 'Kozmetik',
+    };
+    
+    const locKey = `${city}_${district}`.toLowerCase().trim();
+    if (['silver', 'gold', 'bronze', 'other'].includes(keyword.toLowerCase())) {
+      keyword = fallbackKeywords[locKey] || 'Müşteri';
+    }
+
+    const label = district
+      ? `${keyword} & ${country}, ${city}, ${district}`
+      : `${keyword} & ${country}, ${city}`;
+
     return {
-      key: `${city}_${district}_${segment}`.toLowerCase().replace(/\s+/g, '_'),
-      label: `${locStr} - ${segment}`,
+      key: `${country}_${city}_${district}_${keyword}`.toLowerCase().replace(/\s+/g, '_'),
+      label,
       city,
       district,
-      segment,
+      segment: keyword,
     };
   };
 

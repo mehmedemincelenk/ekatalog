@@ -16,8 +16,6 @@ interface PortfoysSearchViewProps {
   clearScan: () => void;
   getCities: (country: string) => Promise<string[]>;
   getDistricts: (country: string, city: string) => Promise<string[]>;
-  onSaveLead: (lead: PortfoysLead, context: { country: string; city: string; district: string }) => Promise<void>;
-  isLeadAlreadySaved: (phone: string | null) => boolean;
   
   // Hoisted state to sync with main modal header
   activeStep: number;
@@ -37,8 +35,6 @@ export default function PortfoysSearchView({
   clearScan,
   getCities,
   getDistricts,
-  onSaveLead,
-  isLeadAlreadySaved,
   activeStep,
   setActiveStep,
   showConfirm,
@@ -260,9 +256,7 @@ export default function PortfoysSearchView({
 
         {status === 'completed' && leads.length > 0 && (
           <div className="space-y-3 max-h-[50vh] overflow-y-auto pr-1 custom-scrollbar">
-            {leads.map((lead) => {
-              const isSaved = isLeadAlreadySaved(lead.phone);
-              return (
+            {leads.map((lead) => (
                 <div
                   key={lead.id}
                   className="p-4 bg-stone-50 border border-stone-100 rounded-2xl flex items-center justify-between gap-4 hover:bg-white hover:shadow-md transition-all duration-300 group"
@@ -292,8 +286,7 @@ export default function PortfoysSearchView({
                     )}
                   </div>                  {/* All leads are automatically saved in the background during search, so no action/checkmark is needed here */}
                 </div>
-              );
-            })}
+            ))}
           </div>
         )}
       </div>
