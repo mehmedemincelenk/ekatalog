@@ -23,8 +23,6 @@ export default function PortfoysLeadModal({ isOpen, onClose, initialTab }: Portf
     error: apiError,
     startScan,
     clearScan,
-    getCities,
-    getDistricts,
     savedDirectory,
     loadingDirectory,
     fetchDirectory,
@@ -32,7 +30,6 @@ export default function PortfoysLeadModal({ isOpen, onClose, initialTab }: Portf
 
   // Navigation states
   const [activeTab, setActiveTab] = useState<'search' | 'directory'>('search');
-  const [activeStep, setActiveStep] = useState<number>(1);
   const [showConfirm, setShowConfirm] = useState<boolean>(false);
 
   // Status feedback overlay
@@ -55,7 +52,6 @@ export default function PortfoysLeadModal({ isOpen, onClose, initialTab }: Portf
   // Reset search when modal closes
   const handleClose = () => {
     clearScan();
-    setActiveStep(1);
     setShowConfirm(false);
     onClose();
   };
@@ -113,10 +109,6 @@ export default function PortfoysLeadModal({ isOpen, onClose, initialTab }: Portf
                 apiError={apiError}
                 startScan={startScan}
                 clearScan={clearScan}
-                getCities={getCities}
-                getDistricts={getDistricts}
-                activeStep={activeStep}
-                setActiveStep={setActiveStep}
                 showConfirm={showConfirm}
                 setShowConfirm={setShowConfirm}
               />

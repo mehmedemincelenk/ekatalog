@@ -1,6 +1,5 @@
 import { useState, useCallback } from 'react';
 import { supabase } from '../supabase';
-import { portfoysSupabase } from '../utils/portfoysSupabase';
 
 export interface PortfoysLead {
   id: string;
@@ -28,31 +27,6 @@ export interface SavedLead {
   };
 }
 
-// Custom simple caching utilities
-const getCache = <T>(key: string): T | null => {
-  if (typeof window === 'undefined') return null;
-  const cached = localStorage.getItem(`cache_loc_${key}`);
-  if (!cached) return null;
-  try {
-    const { data, expiry } = JSON.parse(cached);
-    if (Date.now() > expiry) {
-      localStorage.removeItem(`cache_loc_${key}`);
-      return null;
-    }
-    return data;
-  } catch {
-    return null;
-  }
-};
-
-const setCache = (key: string, data: any, ttl = 1000 * 60 * 60 * 24) => {
-  if (typeof window === 'undefined') return;
-  localStorage.setItem(
-    `cache_loc_${key}`,
-    JSON.stringify({ data, expiry: Date.now() + ttl })
-  );
-};
-
 export function usePortfoysScraper() {
   const [status, setStatus] = useState<'idle' | 'scanning' | 'completed' | 'error'>('idle');
   const [leads, setLeads] = useState<PortfoysLead[]>([]);
@@ -62,105 +36,19 @@ export function usePortfoysScraper() {
   const [savedDirectory, setSavedDirectory] = useState<SavedLead[]>([]);
   const [loadingDirectory, setLoadingDirectory] = useState(false);
 
-  // 1. Fetch Location data with dynamic lookup & cache
-  const getCities = useCallback(async (country: string): Promise<string[]> => {
-    const cacheKey = `cities_${country}_v3`;
-    const cached = getCache<string[]>(cacheKey);
-    if (cached) return cached;
-
-    try {
-      let allCities: string[] = [];
-      let page = 0;
-      const pageSize = 1000;
-      let keepFetching = true;
-
-      while (keepFetching) {
-        const { data, error } = await portfoysSupabase
-          .from('locations')
-          .select('city')
-          .eq('country', country)
-          .range(page * pageSize, (page + 1) * pageSize - 1);
-
-        if (error) throw error;
-
-        if (data && data.length > 0) {
-          const chunk = data.map((d: any) => d.city);
-          allCities = [...allCities, ...chunk];
-          if (data.length < pageSize) keepFetching = false;
-          else page++;
-        } else {
-          keepFetching = false;
-        }
-      }
-
-      const uniqueCities = Array.from(new Set(allCities.filter(Boolean))).sort();
-      setCache(cacheKey, uniqueCities);
-      return uniqueCities;
-    } catch (err: any) {
-      console.error('[portfoys] fetchCities failed:', err.message);
-      return [];
-    }
-  }, []);
-
-  const getDistricts = useCallback(async (country: string, city: string): Promise<string[]> => {
-    if (!city) return [];
-    const cacheKey = `districts_${country}_${city}_v3`;
-    const cached = getCache<string[]>(cacheKey);
-    if (cached) return cached;
-
-    try {
-      let allDistricts: string[] = [];
-      let page = 0;
-      const pageSize = 1000;
-      let keepFetching = true;
-
-      while (keepFetching) {
-        const { data, error } = await portfoysSupabase
-          .from('locations')
-          .select('district')
-          .eq('country', country)
-          .eq('city', city)
-          .range(page * pageSize, (page + 1) * pageSize - 1);
-
-        if (error) throw error;
-
-        if (data && data.length > 0) {
-          const chunk = data.map((d: any) => d.district);
-          allDistricts = [...allDistricts, ...chunk];
-          if (data.length < pageSize) keepFetching = false;
-          else page++;
-        } else {
-          keepFetching = false;
-        }
-      }
-
-      const uniqueDistricts = Array.from(new Set(allDistricts.filter(Boolean))).sort();
-      setCache(cacheKey, uniqueDistricts);
-      return uniqueDistricts;
-    } catch (err: any) {
-      console.error('[portfoys] fetchDistricts failed:', err.message);
-      return [];
-    }
-  }, []);
-
   // 3. Fetch directory leads for the local store
   const fetchDirectory = useCallback(async (storeId: string) => {
     if (!storeId) return;
     setLoadingDirectory(true);
     try {
       const { data, error } = await supabase
-        .from('stores')
-        .select('b2b_leads')
-        .eq('id', storeId)
-        .single();
+        .from('store_contacts')
+        .select('*')
+        .eq('store_id', storeId)
+        .order('created_at', { ascending: false });
 
       if (error) throw error;
-      const leads = Array.isArray(data?.b2b_leads) ? data.b2b_leads : [];
-      // Sort client-side by created_at descending
-      const sortedLeads = [...leads].sort((a: any, b: any) => {
-        return new Date(b.created_at || 0).getTime() - new Date(a.created_at || 0).getTime();
-      });
-      setSavedDirectory(sortedLeads as SavedLead[]);
+      setSavedDirectory((data as SavedLead[]) || []);
     } catch (err: any) {
       console.error('[directory] fetch failed:', err.message);
     } finally {
@@ -168,7 +56,7 @@ export function usePortfoysScraper() {
     }
   }, []);
 
-  // 2. Perform B2B Serper scan using portfoys.pro api search via Edge Function
+  // 2. Perform B2B search using portfoys.pro API via Edge Function
   const startScan = useCallback(async (params: {
     storeId: string;
     country: string;
@@ -235,25 +123,12 @@ export function usePortfoysScraper() {
   const saveLead = useCallback(async (storeId: string, lead: PortfoysLead, locationDetails: { country: string; city: string; district: string }) => {
     if (!storeId) return false;
     try {
-      // Fetch current leads list from stores
-      const { data: store, error: fetchError } = await supabase
-        .from('stores')
-        .select('b2b_leads')
-        .eq('id', storeId)
-        .single();
-
-      if (fetchError) throw fetchError;
-
-      const existingLeads = Array.isArray(store?.b2b_leads) ? store.b2b_leads : [];
-      
-      const newLeadObj: SavedLead = {
-        id: lead.id || `lead-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+      const { error } = await supabase.from('store_contacts').insert({
         store_id: storeId,
         company_name: lead.name,
         phone: lead.phone || '',
         website: lead.website || null,
         segment: lead.category,
-        created_at: new Date().toISOString(),
         metadata: {
           address: lead.address,
           city: locationDetails.city,
@@ -261,16 +136,9 @@ export function usePortfoysScraper() {
           country: locationDetails.country,
           keyword: lead.category,
         },
-      };
+      });
 
-      const updatedLeads = [...existingLeads, newLeadObj];
-
-      const { error: updateError } = await supabase
-        .from('stores')
-        .update({ b2b_leads: updatedLeads })
-        .eq('id', storeId);
-
-      if (updateError) throw updateError;
+      if (error) throw error;
       
       // Refresh directory locally
       await fetchDirectory(storeId);
@@ -291,8 +159,6 @@ export function usePortfoysScraper() {
       setStatus('idle');
       setError(null);
     }, []),
-    getCities,
-    getDistricts,
     
     // Directory integration
     savedDirectory,
