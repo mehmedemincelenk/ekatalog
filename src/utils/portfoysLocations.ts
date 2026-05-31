@@ -1,5 +1,3 @@
-import { portfoysSupabase } from './portfoysSupabase';
-
 // Helper to fetch cache from localStorage
 const getCache = <T>(key: string): T | null => {
   if (typeof window === 'undefined') return null;
@@ -26,86 +24,47 @@ const setCache = (key: string, data: any, ttl = 1000 * 60 * 60 * 24) => {
   );
 };
 
-/** Fetch unique cities for a country with caching */
+/** Fetch unique cities for a country with caching from the official Portfoys location API */
 export async function fetchCities(country: string): Promise<string[]> {
   const cacheKey = `cities_${country}`;
   const cached = getCache<string[]>(cacheKey);
   if (cached) return cached;
 
-  let allCities: string[] = [];
-  let page = 0;
-  const pageSize = 5000;
-  let keepFetching = true;
-
-  while (keepFetching) {
-    const { data, error } = await portfoysSupabase
-      .from('locations')
-      .select('city')
-      .eq('country', country)
-      .range(page * pageSize, (page + 1) * pageSize - 1);
-
-    if (error) {
-      console.error('[locations] fetchCities error:', error.message);
-      break;
+  try {
+    const res = await fetch(`https://portfoys.pro/api/locations?type=cities&country=${encodeURIComponent(country)}`);
+    if (!res.ok) throw new Error(`HTTP error ${res.status}`);
+    const data = await res.json();
+    if (data.success && Array.isArray(data.cities)) {
+      setCache(cacheKey, data.cities);
+      return data.cities;
     }
-
-    if (data && data.length > 0) {
-      const chunk = data.map((d: any) => d.city);
-      allCities = [...allCities, ...chunk];
-      if (data.length < pageSize) keepFetching = false;
-      else page++;
-    } else {
-      keepFetching = false;
-    }
-
-    if (page > 15) keepFetching = false; // Safety cap
+  } catch (err) {
+    console.error('[locations] fetchCities API error:', err);
   }
-
-  const uniqueCities = Array.from(new Set(allCities)).filter(Boolean).sort();
-  setCache(cacheKey, uniqueCities);
-  return uniqueCities;
+  
+  return [];
 }
 
-/** Fetch unique districts for a city with caching */
+/** Fetch unique districts for a city with caching from the official Portfoys location API */
 export async function fetchDistricts(country: string, city: string): Promise<string[]> {
   if (!city) return [];
   const cacheKey = `districts_${country}_${city}`;
   const cached = getCache<string[]>(cacheKey);
   if (cached) return cached;
 
-  let allDistricts: string[] = [];
-  let page = 0;
-  const pageSize = 5000;
-  let keepFetching = true;
-
-  while (keepFetching) {
-    const { data, error } = await portfoysSupabase
-      .from('locations')
-      .select('district')
-      .eq('country', country)
-      .eq('city', city)
-      .range(page * pageSize, (page + 1) * pageSize - 1);
-
-    if (error) {
-      console.error('[locations] fetchDistricts error:', error.message);
-      break;
+  try {
+    const res = await fetch(`https://portfoys.pro/api/locations?type=districts&country=${encodeURIComponent(country)}&city=${encodeURIComponent(city)}`);
+    if (!res.ok) throw new Error(`HTTP error ${res.status}`);
+    const data = await res.json();
+    if (data.success && Array.isArray(data.districts)) {
+      setCache(cacheKey, data.districts);
+      return data.districts;
     }
-
-    if (data && data.length > 0) {
-      const chunk = data.map((d: any) => d.district);
-      allDistricts = [...allDistricts, ...chunk];
-      if (data.length < pageSize) keepFetching = false;
-      else page++;
-    } else {
-      keepFetching = false;
-    }
-
-    if (page > 15) keepFetching = false; // Safety cap
+  } catch (err) {
+    console.error('[locations] fetchDistricts API error:', err);
   }
 
-  const uniqueDistricts = Array.from(new Set(allDistricts)).filter(Boolean).sort();
-  setCache(cacheKey, uniqueDistricts);
-  return uniqueDistricts;
+  return [];
 }
 
 export interface PortfoysCountry {
