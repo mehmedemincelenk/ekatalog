@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import * as Lucide from 'lucide-react';
 import Button from '../ui/Button';
 import { PortfoysLead } from '../../hooks/usePortfoysScraper';
+import { fetchCities, fetchDistricts, PORTFOYS_COUNTRIES, PRESET_CATEGORIES } from '../../utils/portfoysLocations';
 
 interface PortfoysSearchViewProps {
   credits: number;
@@ -13,12 +14,10 @@ interface PortfoysSearchViewProps {
   startScan: (params: { storeId: string; country: string; city: string; district?: string; keyword: string }) => Promise<void>;
   clearScan: () => void;
   
-  // Confirmation state
+  // Keep interface compatibility
   showConfirm: boolean;
   setShowConfirm: (show: boolean) => void;
 }
-
-const PRESET_CATEGORIES = ['Toptancı', 'Kuaför', 'Otel', 'Market', 'Kafe', 'Eczane'];
 
 export default function PortfoysSearchView({
   credits,
@@ -29,27 +28,62 @@ export default function PortfoysSearchView({
   apiError,
   startScan,
   clearScan,
-  showConfirm,
-  setShowConfirm,
 }: PortfoysSearchViewProps) {
+  // Wizard state
+  const [step, setStep] = useState<1 | 2 | 3 | 4>(1);
+
   // Form states
   const [keyword, setKeyword] = useState<string>('');
+  const [country, setCountry] = useState<string>('Türkiye');
   const [city, setCity] = useState<string>('');
   const [district, setDistrict] = useState<string>('');
 
-  // Validate and prompt confirmation
-  const handleSearchSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!keyword.trim() || !city.trim()) return;
-    setShowConfirm(true);
-  };
+  // Location helpers states
+  const [cities, setCities] = useState<string[]>([]);
+  const [loadingCities, setLoadingCities] = useState<boolean>(false);
+  const [citySearch, setCitySearch] = useState<string>('');
+
+  const [districts, setDistricts] = useState<string[]>([]);
+  const [loadingDistricts, setLoadingDistricts] = useState<boolean>(false);
+  const [districtSearch, setDistrictSearch] = useState<string>('');
+
+  // Fetch cities when country changes
+  useEffect(() => {
+    if (country) {
+      setLoadingCities(true);
+      fetchCities(country)
+        .then((res) => {
+          setCities(res || []);
+          setCity(''); // Reset selected city
+          setDistrict(''); // Reset selected district
+        })
+        .catch((err) => console.error('[portfoys] fetchCities error:', err))
+        .finally(() => setLoadingCities(false));
+    }
+  }, [country]);
+
+  // Fetch districts when city changes
+  useEffect(() => {
+    if (country && city) {
+      setLoadingDistricts(true);
+      fetchDistricts(country, city)
+        .then((res) => {
+          setDistricts(res || []);
+          setDistrict(''); // Reset selected district
+        })
+        .catch((err) => console.error('[portfoys] fetchDistricts error:', err))
+        .finally(() => setLoadingDistricts(false));
+    } else {
+      setDistricts([]);
+      setDistrict('');
+    }
+  }, [country, city]);
 
   const confirmAndSearch = async () => {
-    setShowConfirm(false);
     try {
       await startScan({
         storeId,
-        country: 'Türkiye',
+        country,
         city: city.trim(),
         district: district.trim() || undefined,
         keyword: keyword.trim(),
@@ -57,6 +91,11 @@ export default function PortfoysSearchView({
     } catch (err) {
       console.error('[portfoys] failed to start scan:', err);
     }
+  };
+
+  const handleClear = () => {
+    setStep(1);
+    clearScan();
   };
 
   // Lockout screen if quota exhausted
@@ -72,7 +111,7 @@ export default function PortfoysSearchView({
             YILLIK ARAMA KOTANIZ TÜKENMİŞTİR
           </h4>
           <p className="text-[10px] font-bold text-stone-400 max-w-xs mx-auto leading-relaxed">
-            Yıllık 2 arama hakkından oluşan kullanım kotanızı doldurdunuz. Tüm şehir veya Türkiye geneli B2B rehber verilerine sınırsız erişim sağlamak için paketinizi hemen yükseltin!
+            Yıllık kullanım kotanızı doldurdunuz. Tüm şehir veya Türkiye geneli B2B rehber verilerine sınırsız erişim sağlamak için paketinizi hemen yükseltin!
           </p>
         </div>
         <a
@@ -90,44 +129,6 @@ export default function PortfoysSearchView({
             WHATSAPP İLE YÜKSELT
           </Button>
         </a>
-      </div>
-    );
-  }
-
-  // Confirmation step before spending credit
-  if (showConfirm) {
-    return (
-      <div className="space-y-6 py-6 text-center animate-in fade-in duration-300">
-        <div className="w-16 h-16 rounded-full bg-emerald-50 text-emerald-500 flex items-center justify-center mx-auto shadow-inner">
-          <Lucide.HelpCircle size={28} strokeWidth={3} />
-        </div>
-        <div className="space-y-2">
-          <h4 className="text-xs font-black uppercase tracking-wider text-stone-900">
-            Aramayı Başlatmak İstiyor Musunuz?
-          </h4>
-          <p className="text-[10px] font-bold text-stone-400 max-w-xs mx-auto leading-relaxed">
-            <strong>{city} {district ? `(${district})` : ''}</strong> bölgesindeki <strong>"{keyword}"</strong> araması, <strong>yıllık 2 aramalık</strong> kullanım kotanızdan <strong>1 adedini</strong> tüketecektir.
-          </p>
-        </div>
-        <div className="flex gap-2">
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => setShowConfirm(false)}
-            className="flex-1"
-          >
-            İPTAL
-          </Button>
-          <Button
-            variant="action"
-            size="sm"
-            onClick={confirmAndSearch}
-            className="flex-1 text-white"
-            showFingerprint={true}
-          >
-            TAMAM, BAŞLAT
-          </Button>
-        </div>
       </div>
     );
   }
@@ -164,7 +165,7 @@ export default function PortfoysSearchView({
               variant="ghost"
               size="sm"
               mode="circle"
-              onClick={() => clearScan()}
+              onClick={handleClear}
               icon={<Lucide.ArrowLeft size={16} strokeWidth={3} />}
               className="w-8 h-8"
             />
@@ -192,7 +193,7 @@ export default function PortfoysSearchView({
             <div className="w-12 h-12 bg-stone-50 rounded-full flex items-center justify-center">
               <Lucide.UserX size={24} />
             </div>
-            <p className="text-[10px] font-bold uppercase tracking-widest text-stone-400">Aradığınız kriterlerde müşteri bulunamadı</p>
+            <p className="text-[10px] font-bold uppercase tracking-widest text-stone-400">Müşteri bulunamadı</p>
           </div>
         )}
 
@@ -235,85 +236,331 @@ export default function PortfoysSearchView({
     );
   }
 
-  // Pure Minimalist Single-Screen Search Form (No Wizards, No Dropdowns)
+  // Filtered lists for locations
+  const filteredCities = cities.filter((c) =>
+    c.toLowerCase().includes(citySearch.toLowerCase())
+  );
+
+  const filteredDistricts = districts.filter((d) =>
+    d.toLowerCase().includes(districtSearch.toLowerCase())
+  );
+
+  const popularCities = country === 'Türkiye' ? ['İstanbul', 'Ankara', 'İzmir', 'Bursa', 'Antalya', 'Adana'] : [];
+
   return (
-    <form onSubmit={handleSearchSubmit} className="space-y-5 animate-in fade-in duration-300">
-      <div className="text-center space-y-1">
-        <h4 className="text-xs font-black uppercase tracking-widest text-stone-500">Müşteri Bulucu</h4>
-        <p className="text-[9px] font-bold text-stone-400 uppercase tracking-wider">Hedef Sektör ve Bölgenizi Yazıp Aramayı Başlatın</p>
+    <div className="space-y-5 animate-in fade-in duration-300">
+      {/* Sleek Step Indicator Progress Bar */}
+      <div className="w-full flex items-center justify-between gap-1.5 px-1 pb-1">
+        {[1, 2, 3, 4].map((s) => (
+          <div
+            key={s}
+            className={`h-1.5 flex-1 rounded-full transition-all duration-300 ${
+              step >= s ? 'bg-stone-900 shadow-sm' : 'bg-stone-150'
+            }`}
+          />
+        ))}
       </div>
 
-      <div className="space-y-4">
-        {/* Keyword field */}
-        <div className="space-y-1.5">
-          <label className="text-[9px] font-black uppercase tracking-widest text-stone-400">Ne Arıyorsunuz? (Sektör)</label>
-          <div className="relative">
-            <input
-              type="text"
-              required
-              value={keyword}
-              onChange={(e) => setKeyword(e.target.value)}
-              placeholder="Örn: Kuaför, Toptancı, Market, Kırtasiye..."
-              className="w-full px-4 py-3 bg-stone-50 border border-stone-150 rounded-2xl text-xs font-bold text-stone-900 placeholder:text-stone-350 focus:outline-none focus:border-stone-900 focus:bg-white transition-all"
-            />
-            <Lucide.Search size={14} className="absolute right-4 top-1/2 -translate-y-1/2 text-stone-450" />
+      {/* Step 1: Sector / Keyword */}
+      {step === 1 && (
+        <div className="space-y-4 animate-in slide-in-from-right-4 duration-300">
+          <div className="space-y-1.5">
+            <label className="text-[9px] font-black uppercase tracking-widest text-stone-400">
+              Ne Arıyorsunuz? (Sektör)
+            </label>
+            <div className="relative">
+              <input
+                type="text"
+                value={keyword}
+                onChange={(e) => setKeyword(e.target.value)}
+                placeholder="Örn: Kuaför, Butik, Otel, Kafe..."
+                className="w-full px-4 py-3 bg-stone-50 border border-stone-150 rounded-2xl text-xs font-bold text-stone-900 placeholder:text-stone-350 focus:outline-none focus:border-stone-900 focus:bg-white transition-all"
+              />
+              <Lucide.Search size={14} className="absolute right-4 top-1/2 -translate-y-1/2 text-stone-450" />
+            </div>
+            
+            <div className="flex flex-wrap gap-1.5 pt-1">
+              {PRESET_CATEGORIES.map((cat) => (
+                <button
+                  type="button"
+                  key={cat}
+                  onClick={() => setKeyword(cat)}
+                  className={`px-2.5 py-1 rounded-lg text-[9px] font-black uppercase tracking-wider transition-all duration-200 ${
+                    keyword.toLowerCase() === cat.toLowerCase()
+                      ? 'bg-stone-900 text-white shadow-sm'
+                      : 'bg-stone-50 text-stone-500 hover:bg-stone-100 hover:text-stone-700'
+                  }`}
+                >
+                  {cat}
+                </button>
+              ))}
+            </div>
           </div>
-          
-          {/* Quick preset categories */}
-          <div className="flex flex-wrap gap-1.5 pt-1">
-            {PRESET_CATEGORIES.map((cat) => (
-              <button
-                type="button"
-                key={cat}
-                onClick={() => setKeyword(cat)}
-                className={`px-2.5 py-1 rounded-lg text-[9px] font-black uppercase tracking-wider transition-all duration-200 ${
-                  keyword.toLowerCase() === cat.toLowerCase()
-                    ? 'bg-stone-900 text-white shadow-sm'
-                    : 'bg-stone-50 text-stone-500 hover:bg-stone-100 hover:text-stone-700'
-                }`}
-              >
-                {cat}
-              </button>
-            ))}
+
+          <Button
+            type="button"
+            variant="primary"
+            size="md"
+            disabled={!keyword.trim()}
+            onClick={() => setStep(2)}
+            className="w-full py-4 mt-2"
+          >
+            DEVAM
+          </Button>
+        </div>
+      )}
+
+      {/* Step 2: Country Selection */}
+      {step === 2 && (
+        <div className="space-y-4 animate-in slide-in-from-right-4 duration-300">
+          <div className="space-y-2">
+            <label className="text-[9px] font-black uppercase tracking-widest text-stone-400">
+              Müşterilerin Bulunduğu Ülke
+            </label>
+            <div className="space-y-2">
+              {PORTFOYS_COUNTRIES.map((c) => (
+                <button
+                  key={c.code}
+                  type="button"
+                  onClick={() => {
+                    setCountry(c.name);
+                    setStep(3);
+                  }}
+                  className={`w-full flex items-center justify-between p-4 bg-stone-50 border rounded-2xl hover:bg-stone-100 transition-all ${
+                    country === c.name ? 'border-stone-900 bg-stone-50/50 shadow-sm' : 'border-stone-150'
+                  }`}
+                >
+                  <div className="flex items-center gap-3 text-left">
+                    <span className="text-2xl shrink-0">{c.flag}</span>
+                    <div>
+                      <h5 className="text-[11px] font-black uppercase text-stone-900 tracking-tight">{c.name}</h5>
+                      <p className="text-[9px] text-stone-400 font-bold mt-0.5">{c.desc}</p>
+                    </div>
+                  </div>
+                  {country === c.name && (
+                    <div className="w-5 h-5 rounded-full bg-stone-900 flex items-center justify-center animate-in zoom-in duration-200">
+                      <Lucide.Check size={10} className="text-white" strokeWidth={3} />
+                    </div>
+                  )}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div className="flex gap-2 pt-2">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => setStep(1)}
+              className="flex-1"
+            >
+              GERİ
+            </Button>
+            <Button
+              variant="primary"
+              size="sm"
+              disabled={!country}
+              onClick={() => setStep(3)}
+              className="flex-1"
+            >
+              DEVAM
+            </Button>
           </div>
         </div>
+      )}
 
-        {/* Location Row (City + District) */}
-        <div className="grid grid-cols-2 gap-3">
-          <div className="space-y-1.5">
-            <label className="text-[9px] font-black uppercase tracking-widest text-stone-400">Hangi Şehirde?</label>
-            <input
-              type="text"
-              required
-              value={city}
-              onChange={(e) => setCity(e.target.value)}
-              placeholder="Örn: İstanbul, Adana"
-              className="w-full px-4 py-3 bg-stone-50 border border-stone-150 rounded-2xl text-xs font-bold text-stone-900 placeholder:text-stone-350 focus:outline-none focus:border-stone-900 focus:bg-white transition-all"
-            />
+      {/* Step 3: City Selection */}
+      {step === 3 && (
+        <div className="space-y-4 animate-in slide-in-from-right-4 duration-300">
+          <div className="space-y-3">
+            <label className="text-[9px] font-black uppercase tracking-widest text-stone-400">
+              Hangi Şehirde?
+            </label>
+            
+            <div className="relative">
+              <input
+                type="text"
+                value={citySearch}
+                onChange={(e) => setCitySearch(e.target.value)}
+                placeholder="Şehir adı arayın..."
+                className="w-full px-4 py-3 bg-stone-50 border border-stone-150 rounded-2xl text-xs font-bold text-stone-900 placeholder:text-stone-350 focus:outline-none focus:border-stone-900 focus:bg-white transition-all"
+              />
+              <Lucide.Search size={14} className="absolute right-4 top-1/2 -translate-y-1/2 text-stone-450" />
+            </div>
+
+            {popularCities.length > 0 && !citySearch && (
+              <div className="space-y-1">
+                <span className="text-[8px] font-black uppercase tracking-widest text-stone-400">Popüler Şehirler</span>
+                <div className="flex flex-wrap gap-1.5">
+                  {popularCities.map((pc) => (
+                    <button
+                      key={pc}
+                      type="button"
+                      onClick={() => {
+                        setCity(pc);
+                        setCitySearch('');
+                        setStep(4);
+                      }}
+                      className={`px-2.5 py-1 rounded-lg text-[9px] font-black uppercase tracking-wider transition-all duration-200 ${
+                        city === pc
+                          ? 'bg-stone-900 text-white shadow-sm'
+                          : 'bg-stone-50 text-stone-500 hover:bg-stone-100'
+                      }`}
+                    >
+                      {pc}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {loadingCities ? (
+              <div className="flex items-center justify-center py-8 gap-2">
+                <div className="w-4 h-4 border-2 border-stone-900 border-t-transparent rounded-full animate-spin" />
+                <span className="text-[9px] font-black uppercase tracking-wider text-stone-400">Şehirler Yükleniyor...</span>
+              </div>
+            ) : (
+              <div className="space-y-1.5">
+                <span className="text-[8px] font-black uppercase tracking-widest text-stone-400">
+                  {citySearch ? 'Arama Sonuçları' : 'Şehir Listesi'}
+                </span>
+                <div className="max-h-[160px] overflow-y-auto border border-stone-100 rounded-2xl p-1.5 bg-stone-50/50 space-y-0.5 custom-scrollbar">
+                  {filteredCities.length === 0 ? (
+                    <div className="text-center py-6 text-[9px] font-black uppercase tracking-widest text-stone-400">
+                      Şehir bulunamadı
+                    </div>
+                  ) : (
+                    filteredCities.map((c) => (
+                      <button
+                        key={c}
+                        type="button"
+                        onClick={() => {
+                          setCity(c);
+                          setStep(4);
+                        }}
+                        className={`w-full text-left px-3.5 py-2 text-[10px] font-bold uppercase rounded-xl transition-all ${
+                          city === c
+                            ? 'bg-stone-900 text-white shadow-sm font-black'
+                            : 'text-stone-600 hover:bg-stone-100'
+                        }`}
+                      >
+                        {c}
+                      </button>
+                    ))
+                  )}
+                </div>
+              </div>
+            )}
           </div>
 
-          <div className="space-y-1.5">
-            <label className="text-[9px] font-black uppercase tracking-widest text-stone-400">Hangi İlçede?</label>
-            <input
-              type="text"
-              value={district}
-              onChange={(e) => setDistrict(e.target.value)}
-              placeholder="İlçe (İsteğe bağlı)"
-              className="w-full px-4 py-3 bg-stone-50 border border-stone-150 rounded-2xl text-xs font-bold text-stone-900 placeholder:text-stone-350 focus:outline-none focus:border-stone-900 focus:bg-white transition-all"
-            />
+          <div className="flex gap-2 pt-2">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => setStep(2)}
+              className="flex-1"
+            >
+              GERİ
+            </Button>
+            <Button
+              variant="primary"
+              size="sm"
+              disabled={!city}
+              onClick={() => setStep(4)}
+              className="flex-1"
+            >
+              DEVAM
+            </Button>
           </div>
         </div>
-      </div>
+      )}
 
-      <Button
-        type="submit"
-        variant="primary"
-        size="md"
-        disabled={!keyword.trim() || !city.trim()}
-        className="w-full font-black uppercase tracking-widest py-4 mt-2 shadow-lg hover:shadow-stone-200"
-      >
-        Müşterileri Bul
-      </Button>
-    </form>
+      {/* Step 4: District Selection & Confirmation */}
+      {step === 4 && (
+        <div className="space-y-4 animate-in slide-in-from-right-4 duration-300">
+          <div className="space-y-3">
+            <label className="text-[9px] font-black uppercase tracking-widest text-stone-400">
+              Hangi Semt / İlçede?
+            </label>
+            
+            <div className="relative">
+              <input
+                type="text"
+                value={districtSearch}
+                onChange={(e) => setDistrictSearch(e.target.value)}
+                placeholder="İlçe/Semt adı arayın (Örn: Kadıköy)..."
+                className="w-full px-4 py-3 bg-stone-50 border border-stone-150 rounded-2xl text-xs font-bold text-stone-900 placeholder:text-stone-350 focus:outline-none focus:border-stone-900 focus:bg-white transition-all"
+              />
+              <Lucide.Search size={14} className="absolute right-4 top-1/2 -translate-y-1/2 text-stone-450" />
+            </div>
+
+            {loadingDistricts ? (
+              <div className="flex items-center justify-center py-6 gap-2">
+                <div className="w-4 h-4 border-2 border-stone-900 border-t-transparent rounded-full animate-spin" />
+                <span className="text-[9px] font-black uppercase tracking-wider text-stone-400">İlçeler Yükleniyor...</span>
+              </div>
+            ) : (
+              <div className="space-y-1.5">
+                <div className="max-h-[140px] overflow-y-auto border border-stone-100 rounded-2xl p-1.5 bg-stone-50/50 space-y-0.5 custom-scrollbar">
+                  <button
+                    type="button"
+                    onClick={() => setDistrict('')}
+                    className={`w-full text-left px-3.5 py-2 text-[10px] font-bold uppercase rounded-xl transition-all ${
+                      district === ''
+                        ? 'bg-stone-900 text-white shadow-sm font-black'
+                        : 'text-stone-500 hover:bg-stone-100 hover:text-stone-700'
+                    }`}
+                  >
+                    ✨ TÜMÜ (İLÇE FARKETMEZ)
+                  </button>
+
+                  {filteredDistricts.map((d) => (
+                    <button
+                      key={d}
+                      type="button"
+                      onClick={() => setDistrict(d)}
+                      className={`w-full text-left px-3.5 py-2 text-[10px] font-bold uppercase rounded-xl transition-all ${
+                        district === d
+                          ? 'bg-stone-900 text-white shadow-sm font-black'
+                          : 'text-stone-600 hover:bg-stone-100'
+                      }`}
+                    >
+                      {d}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Minimalist Premium Confirmation Card */}
+          <div className="p-4 bg-emerald-500/5 border border-emerald-500/10 rounded-2xl text-center animate-in zoom-in duration-200">
+            <p className="text-[10px] font-bold text-stone-500 leading-relaxed uppercase tracking-wide">
+              <strong>{city}{district ? ` (${district})` : ''}</strong>, <strong>{country}</strong> bölgesindeki <strong>"{keyword}"</strong> araması, 1 kullanım kredinizi tüketecektir. <span className="block text-[9px] text-stone-400 mt-1 font-semibold normal-case">yıllık arama hakkınız 2 adettir. (kalan: {credits}/2)</span>
+            </p>
+          </div>
+
+          <div className="flex gap-2">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => setStep(3)}
+              className="flex-1"
+            >
+              GERİ
+            </Button>
+            <Button
+              variant="action"
+              size="sm"
+              onClick={confirmAndSearch}
+              className="flex-1 text-white"
+              showFingerprint={true}
+            >
+              TAMAM, BAŞLAT
+            </Button>
+          </div>
+        </div>
+      )}
+    </div>
   );
 }
