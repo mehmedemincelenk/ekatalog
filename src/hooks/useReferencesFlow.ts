@@ -94,7 +94,6 @@ export function useReferencesFlow(isAdmin: boolean = false) {
   };
 
   const handleOrderChange = async (id: number, newIndex: number) => {
-    const showFeedback = useStore.getState().showFeedback;
     const itemToMove = activeReferences.find((r) => r.id === id);
     if (!itemToMove) return;
 
@@ -105,7 +104,6 @@ export function useReferencesFlow(isAdmin: boolean = false) {
       ...remaining.slice(newIndex),
     ];
     await updateSetting('referencesData', updated);
-    showFeedback('success', 'Sıralama güncellendi');
   };
 
   return {

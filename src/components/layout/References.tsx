@@ -1,121 +1,165 @@
-import { useState, memo } from 'react';
-import { THEME } from '../../data/config';
+import { useState, useRef, useEffect, memo } from 'react';
 import { useReferencesFlow } from '../../hooks/useReferencesFlow';
 import { useMarqueePhysics } from '../../hooks/useMarqueePhysics';
 import * as Lucide from 'lucide-react';
 import { ReferencesProps, Reference } from '../../types';
 
+interface ReferenceItemProps {
+  refData: Reference;
+  isAdmin?: boolean;
+  currentIndex?: number;
+  totalItems?: number;
+  onOrderChange?: (id: number, newIndex: number) => void;
+  onDelete?: (id: number) => void;
+  onActiveStateChange?: (active: boolean) => void;
+}
 
-// Admin-only ReferenceCard for editing
-// Admin-only ReferenceCard for editing
-const AdminReferenceCard = memo(
+// A single, unified, perfectly aligned component for both Guest and Admin modes
+const ReferenceItem = memo(
   ({
     refData,
-    currentIndex,
-    totalItems,
+    isAdmin = false,
+    currentIndex = 0,
+    totalItems = 0,
     onOrderChange,
     onDelete,
-  }: {
-    refData: Reference;
-    currentIndex: number;
-    totalItems: number;
-    onOrderChange: (id: number, newIndex: number) => void;
-    onDelete: (id: number) => void;
-  }) => {
-    const [isDeleteConfirming, setIsDeleteConfirming] = useState(false);
+    onActiveStateChange,
+  }: ReferenceItemProps) => {
+    const [hasError, setHasError] = useState(false);
+    const [isActive, setIsActive] = useState(false);
+    const timerRef = useRef<NodeJS.Timeout | null>(null);
+    const [isUpdatingOrder, setIsUpdatingOrder] = useState(false);
+    const [showSuccess, setShowSuccess] = useState(false);
+
+    const showTextFallback =
+      !refData.logo ||
+      !(refData.logo.startsWith('/') || refData.logo.startsWith('http')) ||
+      hasError;
+
+    const handleCardClick = () => {
+      if (!isAdmin) return;
+      if (isActive) {
+        setIsActive(false);
+        onActiveStateChange?.(false);
+        if (timerRef.current) clearTimeout(timerRef.current);
+      } else {
+        setIsActive(true);
+        onActiveStateChange?.(true);
+        if (timerRef.current) clearTimeout(timerRef.current);
+        timerRef.current = setTimeout(() => {
+          setIsActive(false);
+          onActiveStateChange?.(false);
+        }, 3000);
+      }
+    };
+
+    useEffect(() => {
+      return () => {
+        if (timerRef.current) clearTimeout(timerRef.current);
+        if (isAdmin) onActiveStateChange?.(false);
+      };
+    }, [isAdmin, onActiveStateChange]);
 
     return (
       <div
-        className="relative group flex flex-row items-center justify-between p-2 border border-stone-200 bg-stone-50/20 hover:bg-white hover:border-stone-300 shadow-[0_2px_12px_-4px_rgba(0,0,0,0.03)] hover:shadow-[0_8px_24px_-6px_rgba(0,0,0,0.06)] hover:-translate-y-0.5 transition-all duration-300 rounded-2xl w-full h-24 select-none overflow-hidden"
+        onClick={handleCardClick}
+        className={`relative flex items-center justify-center h-10 sm:h-12 select-none ${
+          isAdmin ? 'cursor-pointer' : 'pointer-events-none'
+        }`}
       >
-        {/* LEFT SIDE: LOGO CONTAINER */}
-        <div className="flex-1 h-full bg-white border border-stone-100/80 rounded-xl flex flex-col items-center justify-center p-2 shadow-[inset_0_1px_3px_rgba(0,0,0,0.01)] min-w-0 relative overflow-hidden">
-          {refData.logo && (refData.logo.startsWith('/') || refData.logo.startsWith('http')) ? (
-            <div className="flex flex-col items-center justify-center w-full h-full">
-              <div className="h-9 flex items-center justify-center w-full">
-                <img
-                  src={refData.logo}
-                  alt={refData.name}
-                  className="h-full w-auto max-w-[90%] object-contain"
-                />
-              </div>
-              <span className="text-[8px] font-black tracking-widest text-stone-400 uppercase mt-1.5 leading-none truncate w-full text-center px-1">
-                {refData.name}
-              </span>
-            </div>
+        {/* LOGO CONTAINER (BLURS DIRECTLY WHEN ACTIVE WITH GPU ACCELERATION) */}
+        <div
+          className={`flex items-center justify-center h-full transition-all duration-300 ${
+            isActive ? 'blur-[6px] opacity-25 scale-95' : 'blur-0 opacity-100 scale-100'
+          }`}
+        >
+          {showTextFallback ? (
+            <span className="text-[12px] font-black uppercase tracking-[0.2em] text-stone-800 transition-all duration-300 ease-out leading-none">
+              {refData.name}
+            </span>
           ) : (
-            <div className="flex flex-col items-center justify-center w-full h-full gap-1.5">
-              <div className="w-8 h-8 rounded-full bg-gradient-to-br from-stone-50 to-stone-100 border border-stone-200/50 flex items-center justify-center text-[9px] font-bold text-stone-600 uppercase shadow-inner">
-                {refData.name.slice(0, 2)}
-              </div>
-              <span className="text-[9px] font-black text-stone-700 uppercase tracking-widest leading-none truncate w-full text-center px-1">
-                {refData.name}
-              </span>
-            </div>
+            <img
+              src={refData.logo}
+              alt={refData.name}
+              decoding="async"
+              draggable={false}
+              className="h-full w-auto object-contain rounded-[4px] overflow-hidden opacity-100 transition-all duration-300 ease-out"
+              onError={() => setHasError(true)}
+            />
           )}
         </div>
 
-        {/* RIGHT SIDE: CONTROLS COLUMN (STACKED VERTICALLY) */}
-        <div 
-          className="w-9 h-full flex flex-col justify-between items-center py-0.5 shrink-0 ml-2.5"
-          onClick={(e) => e.stopPropagation()}
-        >
-          {/* SLOT 1: SEQUENCE BUTTON (TOP) */}
-          <div className="relative w-9 h-9 rounded-xl bg-white border border-stone-200/80 hover:border-stone-300 hover:bg-stone-50 flex flex-col items-center justify-center shadow-xs transition-all duration-200 cursor-pointer group/seq">
-            <select
-              value={currentIndex}
-              onChange={(e) => {
-                const newPos = Number(e.target.value);
-                onOrderChange(refData.id, newPos);
-              }}
-              className="absolute inset-0 cursor-pointer opacity-0 z-10"
-            >
-              {Array.from({ length: totalItems }).map((_, i) => (
-                <option key={i} value={i}>
-                  {i + 1}. Sıra
-                </option>
-              ))}
-            </select>
-            <span className="text-[11px] font-black text-stone-800 leading-none">
-              {currentIndex + 1}
-            </span>
-            <span className="text-[6px] font-bold uppercase tracking-tight text-stone-400 mt-0.5 leading-none">
-              SIRA
-            </span>
-          </div>
-
-          {/* SLOT 2: TWO-STEP / DOUBLE-TAP DELETE BUTTON (BOTTOM) */}
-          <button
-            type="button"
-            onClick={() => {
-              if (!isDeleteConfirming) {
-                setIsDeleteConfirming(true);
-                // Safety auto-disarm timer after 3 seconds
-                const timer = setTimeout(() => {
-                  setIsDeleteConfirming(false);
-                }, 3000);
-                (window as any)[`delTimer_${refData.id}`] = timer;
-              } else {
-                // Clear active timer and delete
-                const activeTimer = (window as any)[`delTimer_${refData.id}`];
-                if (activeTimer) clearTimeout(activeTimer);
-                onDelete(refData.id);
-                setIsDeleteConfirming(false);
-              }
-            }}
-            className={`w-9 h-9 rounded-xl border shadow-xs transition-all duration-200 cursor-pointer flex items-center justify-center ${
-              isDeleteConfirming
-                ? 'bg-red-500 border-red-600 text-white animate-pulse'
-                : 'bg-white border-stone-200/80 hover:border-red-100 hover:bg-red-50 text-stone-400 hover:text-red-500'
-            }`}
-            title={isDeleteConfirming ? "Silmek için tekrar dokun" : "Referansı Sil"}
+        {/* ADMIN OVERLAY BUTTONS (FADES IN WHEN ACTIVE - FLOATING DIRECTLY ON BLURRED LOGO WITH NO SOLID CARD COVER) */}
+        {isAdmin && isActive && (
+          <div 
+            className="absolute inset-0 flex flex-col items-center justify-center gap-1 z-20 animate-in fade-in zoom-in-95 duration-200"
+            onClick={(e) => e.stopPropagation()}
           >
-            <Lucide.Trash2 size={13} strokeWidth={isDeleteConfirming ? 2.5 : 2.2} />
-          </button>
-        </div>
+            <div className="relative w-8 h-8 flex items-center justify-center rounded-md border border-white/20 shadow-xl bg-stone-900/60 backdrop-blur-md transition-all duration-200 active:scale-95 cursor-pointer hover:bg-stone-900/80">
+              <select
+                value={currentIndex}
+                disabled={isUpdatingOrder}
+                onChange={async (e) => {
+                  e.stopPropagation();
+                  const newPos = Number(e.target.value);
+                  setIsUpdatingOrder(true);
+                  try {
+                    await onOrderChange?.(refData.id, newPos);
+                    setIsUpdatingOrder(false);
+                    setShowSuccess(true);
+                    setTimeout(() => setShowSuccess(false), 1500);
+                  } catch (err) {
+                    console.error(err);
+                  } finally {
+                    setIsUpdatingOrder(false);
+                    setIsActive(false);
+                    onActiveStateChange?.(false);
+                    if (timerRef.current) clearTimeout(timerRef.current);
+                  }
+                }}
+                className={`absolute inset-0 cursor-pointer z-10 ${isUpdatingOrder || showSuccess ? 'opacity-0' : 'opacity-0'}`}
+              >
+                {Array.from({ length: totalItems }).map((_, i) => (
+                  <option key={i} value={i}>
+                    {i + 1}. Sıra
+                  </option>
+                ))}
+              </select>
+              {isUpdatingOrder ? (
+                <div className="w-3.5 h-3.5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+              ) : showSuccess ? (
+                <Lucide.Check
+                  size={14}
+                  className="text-emerald-400"
+                  strokeWidth={4}
+                />
+              ) : (
+                <span className="text-white text-xs font-black leading-none">
+                  {currentIndex + 1}
+                </span>
+              )}
+            </div>
+
+            {/* DELETE ACTION */}
+            <button
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation();
+                onDelete?.(refData.id);
+                setIsActive(false);
+                onActiveStateChange?.(false);
+                if (timerRef.current) clearTimeout(timerRef.current);
+              }}
+              className="w-8 h-8 flex items-center justify-center rounded-md border border-white/20 shadow-xl bg-stone-900/60 backdrop-blur-md text-white hover:text-red-400 transition-all duration-200 active:scale-95 cursor-pointer hover:bg-stone-900/80"
+              title="Referansı Sil"
+            >
+              <Lucide.Trash2 size={14} strokeWidth={2.5} />
+            </button>
+          </div>
+        )}
       </div>
     );
-  },
+  }
 );
 
 export default function References({
@@ -127,77 +171,38 @@ export default function References({
     handleOrderChange,
   } = useReferencesFlow(isAdmin);
 
+  const [isAnyCardActive, setIsAnyCardActive] = useState(false);
+
   const {
     trackRef,
     handlePointerDown,
     handlePointerMove,
     handlePointerUp,
-  } = useMarqueePhysics(activeReferences.length, isAdmin);
+  } = useMarqueePhysics(activeReferences.length, isAdmin, isAnyCardActive);
 
-  if (!isAdmin && activeReferences.length === 0) {
+  if (activeReferences.length === 0) {
+    if (isAdmin) {
+      return (
+        <section className="w-full max-w-full overflow-hidden select-none py-6 bg-white border border-stone-100/50 rounded-2xl flex flex-col items-center justify-center gap-2 text-stone-300">
+          <span className="text-xl">🤝</span>
+          <span className="text-[10px] font-black uppercase tracking-[0.2em]">HENÜZ REFERANS EKLENMEMİŞ</span>
+        </section>
+      );
+    }
     return null;
   }
 
-  // Repeat activeReferences enough times to guarantee perfect seamless scrolling overlay
+  // Repeat activeReferences enough times to guarantee perfect seamless scrolling
   const marqueeItems = [];
-  if (activeReferences.length > 0) {
-    const baseItems = [];
-    const repeatCount = Math.max(1, Math.ceil(12 / activeReferences.length));
-    for (let i = 0; i < repeatCount; i++) {
-      baseItems.push(...activeReferences);
-    }
-    marqueeItems.push(...baseItems, ...baseItems);
+  const baseItems = [];
+  const repeatCount = Math.max(1, Math.ceil(12 / activeReferences.length));
+  for (let i = 0; i < repeatCount; i++) {
+    baseItems.push(...activeReferences);
   }
+  marqueeItems.push(...baseItems, ...baseItems);
 
-
-  // --- ADMIN MODE VIEW ---
-  if (isAdmin) {
-    const referencesTheme = THEME.references;
-    return (
-      <section className={`${referencesTheme.layout} !py-8`}>
-        <div className={referencesTheme.container}>
-          {/* CENTERED HEADER SECTION */}
-          <div className="flex flex-col items-center justify-center mb-10 text-center">
-            <h2 className="text-2xl font-black text-stone-900 tracking-tighter uppercase leading-none">
-              REFERANSLARIMIZ (DÜZENLEME MODU)
-            </h2>
-            <div className="w-12 h-1 bg-stone-900 mt-4 mb-2 rounded-full opacity-10"></div>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 w-full">
-            {activeReferences.map((ref, idx) => (
-              <AdminReferenceCard
-                key={ref.id}
-                refData={ref}
-                currentIndex={idx}
-                totalItems={activeReferences.length}
-                onOrderChange={handleOrderChange}
-                onDelete={handleDelete}
-              />
-            ))}
-
-            {activeReferences.length === 0 && (
-              <div className="col-span-full border-2 border-dashed border-stone-100 rounded-xl py-16 flex flex-col items-center justify-center gap-3 text-stone-300 bg-stone-50/50 w-full">
-                <div className="w-12 h-12 rounded-full bg-white flex items-center justify-center shadow-sm border border-stone-100 mb-2">
-                  <span className="text-xl">🤝</span>
-                </div>
-                <span className="text-[11px] font-black uppercase tracking-[0.3em] text-center px-8 leading-loose opacity-60">
-                  HENÜZ REFERANS EKLENMEMİŞ
-                </span>
-                <p className="text-[9px] font-bold text-stone-400 italic">
-                  Sağ alttaki "+" butonuna basıp "Yeni Referans"ı seçin
-                </p>
-              </div>
-            )}
-          </div>
-        </div>
-      </section>
-    );
-  }
-
-  // --- VISITOR/GUEST MODE VIEW (PREMIUM SLIDING MARQUEE) ---
   return (
-    <section className="w-full max-w-full overflow-hidden select-none py-4 bg-white">
+    <section className="w-full max-w-full overflow-hidden select-none py-4 bg-white relative">
       <div className="w-full max-w-full overflow-hidden relative">
         {/* Subtle premium edge fades */}
         <div className="absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
@@ -214,14 +219,22 @@ export default function References({
           <div
             ref={trackRef}
             style={{ transform: 'translate3d(0px, 0, 0)' }}
-            className="flex gap-10 py-1.5 items-center shrink-0 w-max"
+            className="flex gap-8 py-1.5 items-center shrink-0 w-max"
           >
             {marqueeItems.map((ref, idx) => (
               <div
                 key={`${ref.id}-${idx}`}
-                className="flex items-center justify-center shrink-0 px-2 min-w-0"
+                className="relative flex items-center justify-center shrink-0 h-16 px-3 min-w-0 select-none"
               >
-                <GuestReferenceItem refData={ref} />
+                <ReferenceItem
+                  refData={ref}
+                  isAdmin={isAdmin}
+                  currentIndex={activeReferences.findIndex(r => r.id === ref.id)}
+                  totalItems={activeReferences.length}
+                  onOrderChange={handleOrderChange}
+                  onDelete={handleDelete}
+                  onActiveStateChange={setIsAnyCardActive}
+                />
               </div>
             ))}
           </div>
@@ -230,32 +243,3 @@ export default function References({
     </section>
   );
 }
-
-// Simple Guest-facing ReferenceItem with auto-recovering fallback
-const GuestReferenceItem = memo(({ refData }: { refData: Reference }) => {
-  const [hasError, setHasError] = useState(false);
-
-  const showTextFallback =
-    !refData.logo ||
-    !(refData.logo.startsWith('/') || refData.logo.startsWith('http')) ||
-    hasError;
-
-  if (showTextFallback) {
-    return (
-      <span className="text-[12px] font-black uppercase tracking-[0.2em] text-stone-800 select-none pointer-events-none transition-all duration-300 ease-out">
-        {refData.name}
-      </span>
-    );
-  }
-
-  return (
-    <img
-      src={refData.logo}
-      alt={refData.name}
-      decoding="async"
-      draggable={false}
-      className="h-10 sm:h-12 w-auto object-contain opacity-100 select-none pointer-events-none transition-all duration-300 ease-out"
-      onError={() => setHasError(true)}
-    />
-  );
-});

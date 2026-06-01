@@ -277,18 +277,13 @@ Bu dosya, projenin evrimsel sürecini, alınan kritik kararları ve teknik kıs�
     - **TypeScript & Build Health:** Confirmed complete type safety (`tsc --noEmit` exit code 0) across all integrated components.
 - **Status:** Integrated fully functional reference dashboard management with absolute aesthetic alignment and HMR stability.
 
-### [2026-06-01] - PORTFOYS B2B PARALLEL SCAN & MINIMALIST UX COMPRESSION (LOCKED 🔒)
-- **Objective:** Finalize a high-performance B2B parallel search storefront with zero race conditions and ultra-minimalist visual styling.
+### [2026-06-01] - CONTEXT COMPRESSION & SHIFT: ADMIN MENU COMPONENT (LOCKED 🔒)
+- **Objective:** Compress AI memory, fully archive Portfoys/B2B APIs, and transition entirely to the ekatalog project to redesign and optimize admin menu components with an ultra-minimalist aesthetic.
 - **Key Actions:**
-    - **Race Condition Resolution:** Re-engineered search orchestration by migrating to a sequential `triggerLiveScan` flow. Confirmed `scrape_job_id` is created and locked before initiating the parallel search API flow, avoiding data loss in the `leads` table.
-    - **Stateful Dynamic Progress:** Replaced static 50% progress with stateful, ticking up progress bar during active scan (glides smoothly from 10% to 90%, and instantly locks to 100% when completed).
-    - **Ultra-Minimalist Integration ("Sadelik Zirvedir"):**
-        - Completely removed `ScraperConsole` component and its standalone card.
-        - Integrated the dynamic progress bar (without any numbers or confusing progress statistics) directly inside the main "CANLI ARAMA YAPILIYOR" card during the scan.
-        - Removed legacy blurred background cards and infinite scroll marquee from the `StorefrontToggle` layout to reduce visual noise and container height to 100px.
-        - Cleaned up the wizard button by removing the pulse fingerprint icon from "TAMAM, BAŞLAT".
-        - Configured the "Taramayı Durdur" button to instantly reset all states and return the user to the very first step of the search wizard.
-    - **Pristine Deployment:** Merged and pushed all changes cleanly to Github `main` branch.
+    - **Portfoys Archival:** Closed the Portfoys Lead Finder work completely, pushing all stable changes successfully to `main`.
+    - **Aesthetic Direction:** Unified under "Sadelik Zirvedir" (Simplicity is Peak) design rules. General API discussions are closed.
+    - **Admin Menu Component Focus:** Focus shifting onto `BaseFloatingMenu` and `FloatingAdminMenu` designs, enhancing usability and visual premium-ness in a sleek, glassmorphic container.
+- **Status:** Portfoys and B2B API context compressed and archived; actively designing minimalist admin floating menu systems.
 
 ## 💎 B2B MAĞAZA SCRAPE VE OLUŞTURMA STANDARTLARI (LOCKED 🔒)
 

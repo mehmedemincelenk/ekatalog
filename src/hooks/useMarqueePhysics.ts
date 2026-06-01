@@ -7,11 +7,12 @@ import { useRef, useEffect } from 'react';
  * physics loop for horizontal scrolling marquee with inertial
  * grab-and-drag mechanics and continuous infinite wrapping.
  */
-export function useMarqueePhysics(activeReferencesLength: number, isAdmin: boolean) {
+export function useMarqueePhysics(activeReferencesLength: number, _isAdmin: boolean, isPaused: boolean = false) {
   const trackRef = useRef<HTMLDivElement>(null);
   const xRef = useRef(0);
   const velocity = useRef(0);
   const isDown = useRef(false);
+  const hasCaptured = useRef(false);
   const startX = useRef(0);
   const startXOffset = useRef(0);
   const lastClientX = useRef(0);
@@ -22,7 +23,7 @@ export function useMarqueePhysics(activeReferencesLength: number, isAdmin: boole
 
   useEffect(() => {
     const track = trackRef.current;
-    if (!track || activeReferencesLength === 0 || isAdmin) return;
+    if (!track || activeReferencesLength === 0) return;
 
     let animationFrameId: number;
 
@@ -93,7 +94,7 @@ export function useMarqueePhysics(activeReferencesLength: number, isAdmin: boole
 
       const baseSpeed = baseSpeedRef.current;
 
-      if (!isDown.current) {
+      if (!isDown.current && !isPaused) {
         // INERTIA DECELERATION & AUTO-SCROLL PHYSICS
         if (Math.abs(velocity.current) > Math.abs(baseSpeed)) {
           // Decelerate with time-independent exponential friction
@@ -124,20 +125,17 @@ export function useMarqueePhysics(activeReferencesLength: number, isAdmin: boole
       cancelAnimationFrame(animationFrameId);
       lastTime.current = 0;
     };
-  }, [activeReferencesLength, isAdmin]);
+  }, [activeReferencesLength, isPaused]);
 
   // Unified Pointer Drag Handlers (Cross-platform mouse client coordinates & touch)
   const handlePointerDown = (e: React.PointerEvent) => {
-    if (isAdmin) return;
     isDown.current = true;
-    const el = e.currentTarget as HTMLElement;
-    el.setPointerCapture(e.pointerId);
-
     startX.current = e.clientX;
     startXOffset.current = xRef.current;
     lastClientX.current = e.clientX;
     lastMoveTime.current = performance.now();
     velocity.current = 0;
+    hasCaptured.current = false;
   };
 
   const handlePointerMove = (e: React.PointerEvent) => {
@@ -145,11 +143,20 @@ export function useMarqueePhysics(activeReferencesLength: number, isAdmin: boole
     const track = trackRef.current;
     if (!track) return;
 
+    const totalDragDx = e.clientX - startX.current;
+
+    // Capture pointer only if dragging exceeds a threshold of 5 pixels
+    if (!hasCaptured.current && Math.abs(totalDragDx) > 5) {
+      const el = e.currentTarget as HTMLElement;
+      try {
+        el.setPointerCapture(e.pointerId);
+        hasCaptured.current = true;
+      } catch (err) {}
+    }
+
     const now = performance.now();
     const dt = (now - lastMoveTime.current) / 1000;
-
     const dx = e.clientX - lastClientX.current;
-    const totalDragDx = e.clientX - startX.current;
 
     xRef.current = startXOffset.current + totalDragDx;
     track.style.transform = `translate3d(${xRef.current}px, 0, 0)`;
@@ -168,10 +175,14 @@ export function useMarqueePhysics(activeReferencesLength: number, isAdmin: boole
   const handlePointerUp = (e: React.PointerEvent) => {
     if (!isDown.current) return;
     isDown.current = false;
-    const el = e.currentTarget as HTMLElement;
-    try {
-      el.releasePointerCapture(e.pointerId);
-    } catch (err) {}
+    
+    if (hasCaptured.current) {
+      const el = e.currentTarget as HTMLElement;
+      try {
+        el.releasePointerCapture(e.pointerId);
+      } catch (err) {}
+      hasCaptured.current = false;
+    }
 
     // Adapt automatic scroll direction to the user's drag gesture direction
     const totalDragDx = e.clientX - startX.current;
