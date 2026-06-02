@@ -126,7 +126,7 @@ export default function LandingPage() {
                   </h3>
                 </div>
                 <p className="text-xs text-stone-500 font-medium leading-relaxed">
-                  www.firmaniz.com veya markaniz.ekatalog.site ile 7/24 yayında prestijli bir dükkan.
+                  Markanıza özel web adresiyle 7/24 kesintisiz yayında kalın.
                 </p>
               </div>
 
@@ -139,7 +139,7 @@ export default function LandingPage() {
                   </h3>
                 </div>
                 <p className="text-xs text-stone-500 font-medium leading-relaxed">
-                  Doğrudan dükkandaki ürün fiyatlarına dokunarak cepten anında güncelleyin.
+                  Fiyatlara ve ürün isimlerine ekrandan doğrudan tıklayıp anında güncelleyin.
                 </p>
               </div>
 
@@ -152,7 +152,7 @@ export default function LandingPage() {
                   </h3>
                 </div>
                 <p className="text-xs text-stone-500 font-medium leading-relaxed">
-                  Müşterilerinizin telefonuna tek tıkla uygulama gibi kurulan akıllı kısayol.
+                  Ziyaretçileriniz dükkanı tek tıkla telefonuna uygulama gibi eklesin.
                 </p>
               </div>
 
@@ -165,7 +165,7 @@ export default function LandingPage() {
                   </h3>
                 </div>
                 <p className="text-xs text-stone-500 font-medium leading-relaxed">
-                  Dilediğiniz müşteriye özel indirim kuponları veya özel fiyatlar tanımlayın.
+                  Kupon kodları oluşturarak dilediğiniz müşteriye özel indirimler tanımlayın.
                 </p>
               </div>
 
@@ -178,7 +178,7 @@ export default function LandingPage() {
                   </h3>
                 </div>
                 <p className="text-xs text-stone-500 font-medium leading-relaxed">
-                  Müşterileriniz dükkanınızdaki tüm fiyatları TL, USD veya EUR cinsine tek tıkla çevirsin.
+                  Müşterileriniz fiyatları anlık kurlarla tek tıkla USD veya EUR'ya çevirsin.
                 </p>
               </div>
 
@@ -191,7 +191,7 @@ export default function LandingPage() {
                   </h3>
                 </div>
                 <p className="text-xs text-stone-500 font-medium leading-relaxed">
-                  Şifre yazma derdi olmadan, 4 haneli PIN kodu ile dükkanınıza güvenli ve hızlı erişin.
+                  Uzun şifreler yerine 4 haneli PIN koduyla yönetim panelinize hızlıca bağlanın.
                 </p>
               </div>
 
@@ -204,7 +204,7 @@ export default function LandingPage() {
                   </h3>
                 </div>
                 <p className="text-xs text-stone-500 font-medium leading-relaxed">
-                  Konumunuzdaki potansiyel alıcı dükkanları yılda 2 kez otomatik bulun.
+                  Çevrenizdeki potansiyel alıcı esnafları harita üzerinden otomatik bulun.
                 </p>
               </div>
 
@@ -217,7 +217,7 @@ export default function LandingPage() {
                   </h3>
                 </div>
                 <p className="text-xs text-stone-500 font-medium leading-relaxed">
-                  Ürünlerinizi tek tıkla Instagram ve WhatsApp için hazır reklam görsellerine dönüştürüp indirin.
+                  Ürünlerinizi tek tıkla Instagram ve WhatsApp için hazır reklam afişlerine dönüştürün.
                 </p>
               </div>
 
@@ -230,7 +230,7 @@ export default function LandingPage() {
                   </h3>
                 </div>
                 <p className="text-xs text-stone-500 font-medium leading-relaxed">
-                  Maliyetler mi değişti? Tüm dükkandaki veya kategorideki fiyatları ister yüzde (%) ister birim bazlı tek tıkla toplu artırın ya da düşürün.
+                  Tüm dükkandaki fiyatları ister yüzde (%) ister tutar bazlı tek tıkla toplu güncelleyin.
                 </p>
               </div>
             </div>
