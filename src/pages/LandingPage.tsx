@@ -104,7 +104,7 @@ export default function LandingPage() {
               </div>
               <div className="flex items-center gap-2 bg-stone-50/80 border border-stone-100/80 rounded-full py-1.5 px-4 text-xs font-bold text-stone-600 shadow-sm shadow-stone-100/50 hover:bg-stone-100/50 transition-colors">
                 <span className="text-[10px] text-red-500 font-black">✕</span>
-                <span>fiyat değişince tasarımcı beklemek</span>
+                <span>tasarımcı beklemek</span>
               </div>
               <div className="flex items-center gap-2 bg-stone-50/80 border border-stone-100/80 rounded-full py-1.5 px-4 text-xs font-bold text-stone-600 shadow-sm shadow-stone-100/50 hover:bg-stone-100/50 transition-colors">
                 <span className="text-[10px] text-red-500 font-black">✕</span>
@@ -116,11 +116,7 @@ export default function LandingPage() {
               </div>
               <div className="flex items-center gap-2 bg-stone-50/80 border border-stone-100/80 rounded-full py-1.5 px-4 text-xs font-bold text-stone-600 shadow-sm shadow-stone-100/50 hover:bg-stone-100/50 transition-colors">
                 <span className="text-[10px] text-red-500 font-black">✕</span>
-                <span>güncelleme için yazılımcı beklemek</span>
-              </div>
-              <div className="flex items-center gap-2 bg-stone-50/80 border border-stone-100/80 rounded-full py-1.5 px-4 text-xs font-bold text-stone-600 shadow-sm shadow-stone-100/50 hover:bg-stone-100/50 transition-colors">
-                <span className="text-[10px] text-red-500 font-black">✕</span>
-                <span>kur değişince liste yenilemek</span>
+                <span>yazılımcı beklemek</span>
               </div>
               <div className="flex items-center gap-2 bg-stone-50/80 border border-stone-100/80 rounded-full py-1.5 px-4 text-xs font-bold text-stone-600 shadow-sm shadow-stone-100/50 hover:bg-stone-100/50 transition-colors">
                 <span className="text-[10px] text-red-500 font-black">✕</span>
@@ -140,7 +136,7 @@ export default function LandingPage() {
               </div>
               <div className="flex items-center gap-2 bg-stone-50/80 border border-stone-100/80 rounded-full py-1.5 px-4 text-xs font-bold text-stone-600 shadow-sm shadow-stone-100/50 hover:bg-stone-100/50 transition-colors">
                 <span className="text-[10px] text-red-500 font-black">✕</span>
-                <span>mesai dışında sipariş alamamak</span>
+                <span>mesai dışında fiyat verememek</span>
               </div>
             </div>
           </div>
