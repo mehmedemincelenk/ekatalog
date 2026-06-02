@@ -143,7 +143,7 @@ export default function LandingPage() {
                   </h3>
                 </div>
                 <p className="text-xs text-stone-500 font-medium leading-relaxed">
-                  Bilgisayarsız, saniyeler içinde doğrudan telefonunuzdan fiyatları güncelleyin.
+                  Doğrudan dükkandaki ürün fiyatlarına dokunarak cepten anında güncelleyin.
                 </p>
               </div>
 
@@ -160,20 +160,7 @@ export default function LandingPage() {
                 </p>
               </div>
 
-              {/* Pillar 4: WhatsApp Siparişi */}
-              <div className="space-y-1">
-                <div className="flex items-center gap-2">
-                  <Lucide.MessageSquare size={16} className="text-stone-900 shrink-0" />
-                  <h3 className="text-sm font-black text-stone-900 tracking-tight">
-                    whatsapp siparişi
-                  </h3>
-                </div>
-                <p className="text-xs text-stone-500 font-medium leading-relaxed">
-                  Müşteri sepetini doldursun, sipariş listeniz WhatsApp'ınıza tek tıkla gelsin.
-                </p>
-              </div>
-
-              {/* Pillar 5: Özel İndirim & Fiyat */}
+              {/* Pillar 4: Özel İndirim & Fiyat */}
               <div className="space-y-1">
                 <div className="flex items-center gap-2">
                   <Lucide.Percent size={16} className="text-stone-900 shrink-0" />
@@ -186,7 +173,33 @@ export default function LandingPage() {
                 </p>
               </div>
 
-              {/* Pillar 6: Portföy Genişletici */}
+              {/* Pillar 5: Döviz Çevirici */}
+              <div className="space-y-1">
+                <div className="flex items-center gap-2">
+                  <Lucide.Coins size={16} className="text-stone-900 shrink-0" />
+                  <h3 className="text-sm font-black text-stone-900 tracking-tight">
+                    döviz çevirici
+                  </h3>
+                </div>
+                <p className="text-xs text-stone-500 font-medium leading-relaxed">
+                  Müşterileriniz dükkanınızdaki tüm fiyatları TL, USD veya EUR cinsine tek tıkla çevirsin.
+                </p>
+              </div>
+
+              {/* Pillar 6: Telefon Kilidi Gibi Giriş */}
+              <div className="space-y-1">
+                <div className="flex items-center gap-2">
+                  <Lucide.Lock size={16} className="text-stone-900 shrink-0" />
+                  <h3 className="text-sm font-black text-stone-900 tracking-tight">
+                    telefon kilidi gibi giriş
+                  </h3>
+                </div>
+                <p className="text-xs text-stone-500 font-medium leading-relaxed">
+                  Şifre yazma derdi olmadan, 4 haneli PIN kodu ile dükkanınıza güvenli ve hızlı erişin.
+                </p>
+              </div>
+
+              {/* Pillar 7: Portföy Genişletici */}
               <div className="space-y-1">
                 <div className="flex items-center gap-2">
                   <Lucide.Compass size={16} className="text-stone-900 shrink-0" />
@@ -196,19 +209,6 @@ export default function LandingPage() {
                 </div>
                 <p className="text-xs text-stone-500 font-medium leading-relaxed">
                   Konumunuzdaki potansiyel alıcı dükkanları yılda 2 kez otomatik bulun.
-                </p>
-              </div>
-
-              {/* Pillar 7: Hızlı Kurulum */}
-              <div className="space-y-1">
-                <div className="flex items-center gap-2">
-                  <Lucide.Zap size={16} className="text-stone-900 shrink-0" />
-                  <h3 className="text-sm font-black text-stone-900 tracking-tight">
-                    1 dakikada hazır
-                  </h3>
-                </div>
-                <p className="text-xs text-stone-500 font-medium leading-relaxed">
-                  Excel veya PDF listenizi atın, dükkanınızı biz kuralım, anında yayına geçin.
                 </p>
               </div>
             </div>
