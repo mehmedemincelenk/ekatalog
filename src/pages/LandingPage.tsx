@@ -255,7 +255,7 @@ export default function LandingPage() {
                   variant="whatsapp"
                   mode="rectangle"
                   size="lg"
-                  className="!text-white flex items-center justify-center group border-none !p-8 !rounded-[1.75rem]"
+                  className="!text-white flex items-center justify-center group border-none !p-8 !rounded-[1.75rem] !shadow-none"
                 >
                   <div className="w-12 h-12 fill-white drop-shadow-sm group-hover:scale-110 transition-transform duration-300">
                     {THEME.icons.whatsapp}
@@ -317,7 +317,7 @@ export default function LandingPage() {
                 <p className="text-[10px] font-black text-stone-300 uppercase tracking-[0.3em] line-through">
                   ₺499 / AY
                 </p>
-                <p className="text-7xl font-black text-stone-900 tracking-tighter leading-none pr-1">
+                <p className="text-5xl font-black text-stone-900 tracking-tighter leading-none pr-1">
                   ₺199
                   <span className="text-lg font-bold opacity-30 ml-2">
                     / ay
