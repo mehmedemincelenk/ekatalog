@@ -230,37 +230,6 @@ export default function LandingPage() {
             </div>
           </div>
 
-          {/* THE PLAN (Nasıl Çalışır) - Minimalist 3-Step road map */}
-          <div className="pt-20 max-w-4xl mx-auto space-y-8">
-            <p className="text-[10px] font-black text-stone-300 uppercase tracking-[0.4em]">
-              nasıl çalışır
-            </p>
-            <div className="grid grid-cols-1 gap-y-6 max-w-xl mx-auto text-left px-4">
-              <div className="flex gap-3 items-start">
-                <span className="text-xs font-black text-stone-900 shrink-0 bg-stone-100 w-5 h-5 rounded-full flex items-center justify-center mt-0.5">1</span>
-                <div className="space-y-0.5">
-                  <h3 className="text-sm font-black text-stone-900 tracking-tight">listenizi gönderin</h3>
-                  <p className="text-xs text-stone-500 font-medium leading-relaxed">Mevcut PDF, Excel veya fotoğraf listenizi WhatsApp'tan atın.</p>
-                </div>
-              </div>
-
-              <div className="flex gap-3 items-start">
-                <span className="text-xs font-black text-stone-900 shrink-0 bg-stone-100 w-5 h-5 rounded-full flex items-center justify-center mt-0.5">2</span>
-                <div className="space-y-0.5">
-                  <h3 className="text-sm font-black text-stone-900 tracking-tight">ücretsiz kuralım</h3>
-                  <p className="text-xs text-stone-500 font-medium leading-relaxed">Dükkanınızı aynı gün içinde yayına hazırlayalım.</p>
-                </div>
-              </div>
-
-              <div className="flex gap-3 items-start">
-                <span className="text-xs font-black text-stone-900 shrink-0 bg-stone-100 w-5 h-5 rounded-full flex items-center justify-center mt-0.5">3</span>
-                <div className="space-y-0.5">
-                  <h3 className="text-sm font-black text-stone-900 tracking-tight">anında paylaşın</h3>
-                  <p className="text-xs text-stone-500 font-medium leading-relaxed">Telefonunuzdan fiyatları güncelleyip müşterilerinizle paylaşın.</p>
-                </div>
-              </div>
-            </div>
-          </div>
 
           {/* PRICING & TRUST SECTION - Clean Modernist Layout */}
           <div className="text-center flex flex-col items-center pt-20">
