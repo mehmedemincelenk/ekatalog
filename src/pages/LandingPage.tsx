@@ -208,16 +208,16 @@ export default function LandingPage() {
                 </p>
               </div>
 
-              {/* Pillar 8: Sosyal Medyaya Hazır Fiyat Listesi */}
+              {/* Pillar 8: Sosyal Medya Gönderi Tasarımı */}
               <div className="space-y-1">
                 <div className="flex items-center gap-2">
                   <Lucide.Image size={16} className="text-stone-900 shrink-0" />
                   <h3 className="text-sm font-black text-stone-900 tracking-tight">
-                    sosyal medyaya hazır fiyat listesi
+                    sosyal medya gönderi tasarımı
                   </h3>
                 </div>
                 <p className="text-xs text-stone-500 font-medium leading-relaxed">
-                  Seçtiğiniz kategorileri tek tıkla 9:16 Hikaye formatında görsel fiyat listesine dönüştürüp indirin.
+                  Ürünlerinizi tek tıkla Instagram ve WhatsApp için hazır reklam görsellerine dönüştürüp indirin.
                 </p>
               </div>
 
@@ -230,7 +230,7 @@ export default function LandingPage() {
                   </h3>
                 </div>
                 <p className="text-xs text-stone-500 font-medium leading-relaxed">
-                  Maliyetler mi değişti? Tüm kategorideki fiyatları yüzde (%) bazlı tek tıkla toplu olarak artırın ya da düşürün.
+                  Maliyetler mi değişti? Tüm dükkandaki veya kategorideki fiyatları ister yüzde (%) ister birim bazlı tek tıkla toplu artırın ya da düşürün.
                 </p>
               </div>
             </div>
