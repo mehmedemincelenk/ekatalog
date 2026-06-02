@@ -1,10 +1,9 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import * as Lucide from 'lucide-react';
-import Button from '../components/ui/Button';
 import { THEME } from '../data/config';
 
-const DOMAIN_EXTENSIONS = ['site', 'coffee', 'kafe', 'ltd'];
+const DOMAIN_EXTENSIONS = ['site', 'coffee', 'cafe', 'ltd', 'io'];
 
 export default function LandingPage() {
   const [domainIndex, setDomainIndex] = useState(0);
@@ -50,12 +49,21 @@ export default function LandingPage() {
       </div>
 
       <section className="pt-10 pb-12 px-4 text-center">
-        <div className="max-w-4xl mx-auto space-y-4">
-          <h1 className="text-7xl sm:text-8xl font-black text-stone-900 tracking-tighter leading-none animate-in slide-in-from-bottom-8 duration-700">
+        <div className="max-w-4xl mx-auto space-y-4 relative">
+          {/* Milli Teknoloji Hamlesi Watermark */}
+          <div className="absolute top-[-40px] sm:top-[-80px] left-1/2 -translate-x-[110%] sm:translate-x-[25%] w-56 sm:w-[360px] opacity-[0.07] pointer-events-none select-none z-0">
+            <img
+              src="/images/milli_teknoloji_hamlesi.png"
+              alt="Milli Teknoloji Hamlesi"
+              className="w-full h-auto object-contain"
+            />
+          </div>
+
+          <h1 className="text-7xl sm:text-8xl font-black text-stone-900 tracking-tighter leading-none animate-in slide-in-from-bottom-8 duration-700 relative z-10">
             ekatalog
           </h1>
 
-          <p className="max-w-2xl mx-auto text-lg text-stone-500 font-medium leading-relaxed">
+          <p className="max-w-2xl mx-auto text-lg text-stone-500 font-medium leading-relaxed relative z-10">
             sahada/ofiste <span className="font-black text-stone-900">hız ve kolaylık.</span>
           </p>
 
@@ -72,16 +80,40 @@ export default function LandingPage() {
               </div>
             </div>
 
-            <div className="pt-2">
+            <div className="pt-4 w-full">
               <a
                 href="https://wa.me/905373420161"
                 target="_blank"
                 rel="noreferrer"
-                className="inline-block hover:scale-105 active:scale-95 transition-transform duration-200"
+                className="block hover:scale-[1.02] active:scale-[0.98] transition-transform duration-200 max-w-md mx-auto"
               >
-                <Button variant="primary" size="sm" className="!rounded-full shadow-md">
-                  whatsapp ile başlayın
-                </Button>
+                <div
+                  className="rounded-[2rem] p-5 shadow-2xl relative overflow-hidden w-full"
+                  style={{ backgroundColor: THEME.colors.marketing.brand }}
+                >
+                  <div className="absolute inset-0 bg-gradient-to-tr from-white/5 to-transparent"></div>
+                  
+                  <div className="relative z-10 flex items-center gap-4 text-left">
+                    {/* Left Side: Squircle App Icon Button */}
+                    <div className="shrink-0">
+                      <div className="w-16 h-16 bg-[#25D366] text-white flex items-center justify-center rounded-2xl shadow-none">
+                        <div className="w-8 h-8 fill-white drop-shadow-sm transition-transform duration-300">
+                          {THEME.icons.whatsapp}
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Right Side: Text Copy */}
+                    <div className="flex-1 space-y-1">
+                      <h2 className="text-base sm:text-lg font-black text-white tracking-tight leading-snug">
+                        Sadece eski PDF/Excel listenizi atın
+                      </h2>
+                      <p className="text-[10px] font-bold text-emerald-400 uppercase tracking-wider">
+                        ÜCRETSİZ KURALIM
+                      </p>
+                    </div>
+                  </div>
+                </div>
               </a>
             </div>
           </div>
@@ -234,106 +266,86 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* FINAL CTA */}
-      <section className="pb-10 px-4 -mt-6">
-        <div
-          className="max-w-2xl mx-auto rounded-[2.5rem] p-8 sm:p-10 shadow-3xl relative overflow-hidden w-full"
-          style={{ backgroundColor: THEME.colors.marketing.brand }}
-        >
-          <div className="absolute inset-0 bg-gradient-to-tr from-white/5 to-transparent"></div>
-          
-          <div className="relative z-10 flex flex-col sm:flex-row items-center justify-between gap-8 text-center sm:text-left">
-            {/* Left Side: Squircle App Icon Button */}
-            <div className="shrink-0">
-              <a
-                href="https://wa.me/905373420161"
-                target="_blank"
-                rel="noreferrer"
-                className="block hover:scale-105 active:scale-95 transition-transform duration-200"
-              >
-                <Button
-                  variant="whatsapp"
-                  mode="rectangle"
-                  size="lg"
-                  className="!text-white flex items-center justify-center group border-none !p-8 !rounded-[1.75rem] !shadow-none"
-                >
-                  <div className="w-12 h-12 fill-white drop-shadow-sm group-hover:scale-110 transition-transform duration-300">
-                    {THEME.icons.whatsapp}
-                  </div>
-                </Button>
-              </a>
-            </div>
-
-            {/* Right Side: Text Copy */}
-            <div className="flex-1 space-y-2">
-              <h2 className="text-3xl sm:text-4xl font-black text-white tracking-tighter leading-tight">
-                Sadece eski PDF/Excel listenizi atın
-              </h2>
-              <p className="text-sm font-black text-emerald-400 uppercase tracking-[0.25em]">
-                ÜCRETSİZ KURALIM
+      {/* PRICING & TRUST SECTION - Clean Modernist Layout */}
+      <section className="pb-16 px-4">
+        <div className="text-center flex flex-col items-center animate-in fade-in duration-1000 delay-500">
+          <div className="flex flex-col items-center space-y-2">
+            <div className="space-y-1">
+              <p className="text-[10px] font-black text-stone-300 uppercase tracking-[0.3em] line-through">
+                ₺499 / AY
               </p>
-            </div>
-          </div>
-        </div>
-
-        {/* SECONDARY CONTACT (Direct Line for Trust) */}
-        <div className="mt-8 flex flex-col items-center animate-in fade-in slide-in-from-bottom-2 duration-1000 delay-700">
-          <a
-            href="tel:905373420161"
-            className="block hover:scale-105 active:scale-95 transition-transform duration-200"
-          >
-            <Button
-              variant="primary"
-              size="lg"
-              className="flex items-center gap-4 group !rounded-3xl hover:shadow-2xl !px-8 !py-4"
-              icon={
-                <div className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center text-white shrink-0 group-hover:scale-110 transition-transform">
-                  <div className="w-5 h-5">
-                    <svg
-                      className="w-full h-full fill-none stroke-current stroke-2"
-                      viewBox="0 0 24 24"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
-                  </div>
-                </div>
-              }
-            >
-              <span className="text-xl font-black text-white tracking-tighter transition-colors group-hover:text-stone-300">
-                +90 537 342 01 61
-              </span>
-            </Button>
-          </a>
-
-          {/* PRICING & TRUST SECTION - Clean Modernist Layout */}
-          <div className="text-center flex flex-col items-center pt-10">
-            <div className="flex flex-col items-center space-y-2">
-              <div className="space-y-1">
-                <p className="text-[10px] font-black text-stone-300 uppercase tracking-[0.3em] line-through">
-                  ₺499 / AY
-                </p>
-                <p className="text-5xl font-black text-stone-900 tracking-tighter leading-none pr-1">
-                  ₺199
-                  <span className="text-lg font-bold opacity-30 ml-2">
-                    / ay
-                  </span>
-                </p>
-              </div>
+              <p className="text-5xl font-black text-stone-900 tracking-tighter leading-none pr-1">
+                ₺199
+                <span className="text-lg font-bold opacity-30 ml-2">
+                  / ay
+                </span>
+              </p>
             </div>
           </div>
         </div>
       </section>
 
-      <footer className="text-center border-t border-stone-100 pt-10 flex flex-col items-center gap-4 px-4 pb-4">
-        <p className="text-[10px] font-black text-stone-300 uppercase tracking-[0.5em]">
-          ekatalog.site © 2026 — <span className="text-red-600">#</span>
-          MİLLİTEKNOLOJİHAMLESİ
-        </p>
+      <footer className="border-t border-stone-100 pt-8 flex items-center justify-between gap-4 px-6 pb-8 max-w-3xl mx-auto w-full">
+        <span className="text-xl font-black text-stone-900 tracking-tighter">
+          ekatalog
+        </span>
+        <div className="flex items-center gap-3 text-xs font-bold text-stone-600">
+          <a
+            href="https://wa.me/905373420161"
+            target="_blank"
+            rel="noreferrer"
+            className="flex items-center justify-center hover:scale-110 active:scale-95 transition-transform"
+            title="WhatsApp"
+          >
+            <div className="w-4 h-4 fill-stone-600 hover:fill-emerald-500 transition-colors">
+              {THEME.icons.whatsapp}
+            </div>
+          </a>
+
+          <a
+            href="tel:905373420161"
+            className="hover:text-stone-900 transition-colors font-black tracking-tight"
+          >
+            +90 537 342 01 61
+          </a>
+
+          <span className="text-stone-200 select-none">|</span>
+
+          <a
+            href="mailto:mehmedemincelenk@gmail.com"
+            className="flex items-center justify-center hover:scale-110 active:scale-95 transition-transform"
+            title="E-posta"
+          >
+            <svg
+              className="w-4 h-4 fill-none stroke-current stroke-2 text-stone-600 hover:text-stone-900 transition-colors"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <rect x="2" y="4" width="20" height="16" rx="2" />
+              <path d="M22 6l-10 7L2 6" />
+            </svg>
+          </a>
+
+          <span className="text-stone-200 select-none">|</span>
+
+          <a
+            href="https://www.linkedin.com/in/celenkemin/"
+            target="_blank"
+            rel="noreferrer"
+            className="flex items-center justify-center hover:scale-110 active:scale-95 transition-transform"
+            title="LinkedIn"
+          >
+            <svg
+              className="w-4 h-4 fill-current text-stone-600 hover:text-[#0077B5] transition-colors"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+            </svg>
+          </a>
+        </div>
       </footer>
     </div>
   );
