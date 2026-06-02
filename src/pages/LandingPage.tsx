@@ -3,15 +3,11 @@ import { motion, AnimatePresence } from 'motion/react';
 import * as Lucide from 'lucide-react';
 import Button from '../components/ui/Button';
 import { THEME } from '../data/config';
-import { useResponsiveShadow } from '../hooks/useCommon';
 
 const DOMAIN_EXTENSIONS = ['site', 'coffee', 'kafe', 'ltd'];
 
 export default function LandingPage() {
   const [domainIndex, setDomainIndex] = useState(0);
-
-  // Diamond Shadow Engine: Now powered by a reusable Hook! 🚀
-  const shadowOffset = useResponsiveShadow(30, 15);
 
   useEffect(() => {
     const domainInterval = setInterval(() => {
