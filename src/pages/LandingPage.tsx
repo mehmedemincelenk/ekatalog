@@ -92,9 +92,6 @@ export default function LandingPage() {
               <p className="text-[10px] font-black text-stone-300 uppercase tracking-[0.4em]">
                 kurtulacaklarınız
               </p>
-              <p className="text-sm font-medium text-stone-500 max-w-md mx-auto">
-                Zamanınızı, paranızı ve sabrınızı tüketen tüm o eski usul dertlere veda edin:
-              </p>
             </div>
             <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-3 px-4 pt-2">
               <div className="flex items-center gap-2 bg-stone-50/80 border border-stone-100/80 rounded-full py-1.5 px-4 text-xs font-bold text-stone-600 shadow-sm shadow-stone-100/50 hover:bg-stone-100/50 transition-colors">
@@ -262,12 +259,6 @@ export default function LandingPage() {
             </div>
           </div>
 
-          {/* THE GUIDE (Rehber İmzası) */}
-          <div className="pt-16 pb-8 text-center max-w-md mx-auto">
-            <p className="text-xs font-bold text-stone-400 italic leading-relaxed px-4">
-              "Listenizi dijitalleştirmekle uğraşmayın, bize bırakın. Siz sadece dükkanınızı yönetmeye odaklanın."
-            </p>
-          </div>
         </div>
       </section>
 
