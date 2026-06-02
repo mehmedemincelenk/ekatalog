@@ -96,15 +96,7 @@ export default function LandingPage() {
             <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-3 px-4 pt-2">
               <div className="flex items-center gap-2 bg-stone-50/80 border border-stone-100/80 rounded-full py-1.5 px-4 text-xs font-bold text-stone-600 shadow-sm shadow-stone-100/50 hover:bg-stone-100/50 transition-colors">
                 <span className="text-[10px] text-red-500 font-black">✕</span>
-                <span>matbaa masrafı</span>
-              </div>
-              <div className="flex items-center gap-2 bg-stone-50/80 border border-stone-100/80 rounded-full py-1.5 px-4 text-xs font-bold text-stone-600 shadow-sm shadow-stone-100/50 hover:bg-stone-100/50 transition-colors">
-                <span className="text-[10px] text-red-500 font-black">✕</span>
                 <span>fiyat okuma angaryası</span>
-              </div>
-              <div className="flex items-center gap-2 bg-stone-50/80 border border-stone-100/80 rounded-full py-1.5 px-4 text-xs font-bold text-stone-600 shadow-sm shadow-stone-100/50 hover:bg-stone-100/50 transition-colors">
-                <span className="text-[10px] text-red-500 font-black">✕</span>
-                <span>eski fiyattan zarar etmek</span>
               </div>
               <div className="flex items-center gap-2 bg-stone-50/80 border border-stone-100/80 rounded-full py-1.5 px-4 text-xs font-bold text-stone-600 shadow-sm shadow-stone-100/50 hover:bg-stone-100/50 transition-colors">
                 <span className="text-[10px] text-red-500 font-black">✕</span>
@@ -124,23 +116,19 @@ export default function LandingPage() {
               </div>
               <div className="flex items-center gap-2 bg-stone-50/80 border border-stone-100/80 rounded-full py-1.5 px-4 text-xs font-bold text-stone-600 shadow-sm shadow-stone-100/50 hover:bg-stone-100/50 transition-colors">
                 <span className="text-[10px] text-red-500 font-black">✕</span>
-                <span>baskı hataları</span>
-              </div>
-              <div className="flex items-center gap-2 bg-stone-50/80 border border-stone-100/80 rounded-full py-1.5 px-4 text-xs font-bold text-stone-600 shadow-sm shadow-stone-100/50 hover:bg-stone-100/50 transition-colors">
-                <span className="text-[10px] text-red-500 font-black">✕</span>
-                <span>yanlış fiyat göndermek</span>
-              </div>
-              <div className="flex items-center gap-2 bg-stone-50/80 border border-stone-100/80 rounded-full py-1.5 px-4 text-xs font-bold text-stone-600 shadow-sm shadow-stone-100/50 hover:bg-stone-100/50 transition-colors">
-                <span className="text-[10px] text-red-500 font-black">✕</span>
-                <span>yavaş yüklenen dosyalar</span>
-              </div>
-              <div className="flex items-center gap-2 bg-stone-50/80 border border-stone-100/80 rounded-full py-1.5 px-4 text-xs font-bold text-stone-600 shadow-sm shadow-stone-100/50 hover:bg-stone-100/50 transition-colors">
-                <span className="text-[10px] text-red-500 font-black">✕</span>
                 <span>gruptan liste aramak</span>
               </div>
               <div className="flex items-center gap-2 bg-stone-50/80 border border-stone-100/80 rounded-full py-1.5 px-4 text-xs font-bold text-stone-600 shadow-sm shadow-stone-100/50 hover:bg-stone-100/50 transition-colors">
                 <span className="text-[10px] text-red-500 font-black">✕</span>
                 <span>müşteri bekletmek</span>
+              </div>
+              <div className="flex items-center gap-2 bg-stone-50/80 border border-stone-100/80 rounded-full py-1.5 px-4 text-xs font-bold text-stone-600 shadow-sm shadow-stone-100/50 hover:bg-stone-100/50 transition-colors">
+                <span className="text-[10px] text-red-500 font-black">✕</span>
+                <span>websiteye eleman tutmak</span>
+              </div>
+              <div className="flex items-center gap-2 bg-stone-50/80 border border-stone-100/80 rounded-full py-1.5 px-4 text-xs font-bold text-stone-600 shadow-sm shadow-stone-100/50 hover:bg-stone-100/50 transition-colors">
+                <span className="text-[10px] text-red-500 font-black">✕</span>
+                <span>güncelleme için yazılımcı beklemek</span>
               </div>
             </div>
           </div>
