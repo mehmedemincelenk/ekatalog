@@ -56,7 +56,7 @@ export default function LandingPage() {
           </h1>
 
           <p className="max-w-2xl mx-auto text-lg text-stone-500 font-medium leading-relaxed">
-            sahada/ofiste <span className="font-black text-stone-900">kolaylık.</span>
+            sahada/ofiste <span className="font-black text-stone-900">hız ve kolaylık.</span>
           </p>
 
           <div className="pt-8 flex flex-col items-center justify-center relative z-20">
@@ -118,112 +118,84 @@ export default function LandingPage() {
             </p>
             <div className="grid grid-cols-1 gap-y-6 max-w-xl mx-auto text-left px-4">
               {/* Pillar 1: Web Sitesi */}
-              <div className="space-y-1">
-                <div className="flex items-center gap-2">
-                  <Lucide.Globe size={16} className="text-stone-900 shrink-0" />
-                  <h3 className="text-sm font-black text-stone-900 tracking-tight">
-                    kendi website adresiniz
-                  </h3>
+              <div className="flex gap-3 items-start">
+                <Lucide.Globe size={16} className="text-stone-900 shrink-0 mt-0.5" />
+                <div className="space-y-0.5">
+                  <h3 className="text-sm font-black text-stone-900 tracking-tight">kendi website adresiniz</h3>
+                  <p className="text-xs text-stone-500 font-medium leading-relaxed">www.firmaniz.com veya markaniz.ekatalog.site ile 7/24 yayında prestijli bir dükkan.</p>
                 </div>
-                <p className="text-xs text-stone-500 font-medium leading-relaxed">
-                  www.firmaniz.com veya markaniz.ekatalog.site ile 7/24 yayında prestijli bir dükkan.
-                </p>
               </div>
 
               {/* Pillar 2: Yönetim Paneli */}
-              <div className="space-y-1">
-                <div className="flex items-center gap-2">
-                  <Lucide.Smartphone size={16} className="text-stone-900 shrink-0" />
-                  <h3 className="text-sm font-black text-stone-900 tracking-tight">
-                    telefondan düzenle
-                  </h3>
+              <div className="flex gap-3 items-start">
+                <Lucide.Smartphone size={16} className="text-stone-900 shrink-0 mt-0.5" />
+                <div className="space-y-0.5">
+                  <h3 className="text-sm font-black text-stone-900 tracking-tight">telefondan düzenle</h3>
+                  <p className="text-xs text-stone-500 font-medium leading-relaxed">Doğrudan dükkandaki ürün fiyatlarına dokunarak cepten anında güncelleyin.</p>
                 </div>
-                <p className="text-xs text-stone-500 font-medium leading-relaxed">
-                  Doğrudan dükkandaki ürün fiyatlarına dokunarak cepten anında güncelleyin.
-                </p>
               </div>
 
               {/* Pillar 3: Ana Ekranda Logonuz */}
-              <div className="space-y-1">
-                <div className="flex items-center gap-2">
-                  <Lucide.LayoutGrid size={16} className="text-stone-900 shrink-0" />
-                  <h3 className="text-sm font-black text-stone-900 tracking-tight">
-                    ana ekranda logo
-                  </h3>
+              <div className="flex gap-3 items-start">
+                <Lucide.LayoutGrid size={16} className="text-stone-900 shrink-0 mt-0.5" />
+                <div className="space-y-0.5">
+                  <h3 className="text-sm font-black text-stone-900 tracking-tight">ana ekranda logo</h3>
+                  <p className="text-xs text-stone-500 font-medium leading-relaxed">Müşterilerinizin telefonuna tek tıkla uygulama gibi kurulan akıllı kısayol.</p>
                 </div>
-                <p className="text-xs text-stone-500 font-medium leading-relaxed">
-                  Müşterilerinizin telefonuna tek tıkla uygulama gibi kurulan akıllı kısayol.
-                </p>
               </div>
 
               {/* Pillar 4: Özel İndirim & Fiyat */}
-              <div className="space-y-1">
-                <div className="flex items-center gap-2">
-                  <Lucide.Percent size={16} className="text-stone-900 shrink-0" />
-                  <h3 className="text-sm font-black text-stone-900 tracking-tight">
-                    müşteriye özel fiyat
-                  </h3>
+              <div className="flex gap-3 items-start">
+                <Lucide.Percent size={16} className="text-stone-900 shrink-0 mt-0.5" />
+                <div className="space-y-0.5">
+                  <h3 className="text-sm font-black text-stone-900 tracking-tight">müşteriye özel fiyat</h3>
+                  <p className="text-xs text-stone-500 font-medium leading-relaxed">Dilediğiniz müşteriye özel indirim kuponları veya özel fiyatlar tanımlayın.</p>
                 </div>
-                <p className="text-xs text-stone-500 font-medium leading-relaxed">
-                  Dilediğiniz müşteriye özel indirim kuponları veya özel fiyatlar tanımlayın.
-                </p>
               </div>
 
               {/* Pillar 5: Döviz Çevirici */}
-              <div className="space-y-1">
-                <div className="flex items-center gap-2">
-                  <Lucide.Coins size={16} className="text-stone-900 shrink-0" />
-                  <h3 className="text-sm font-black text-stone-900 tracking-tight">
-                    döviz çevirici
-                  </h3>
+              <div className="flex gap-3 items-start">
+                <Lucide.Coins size={16} className="text-stone-900 shrink-0 mt-0.5" />
+                <div className="space-y-0.5">
+                  <h3 className="text-sm font-black text-stone-900 tracking-tight">döviz çevirici</h3>
+                  <p className="text-xs text-stone-500 font-medium leading-relaxed">Müşterileriniz dükkanınızdaki tüm fiyatları TL, USD veya EUR cinsine tek tıkla çevirsin.</p>
                 </div>
-                <p className="text-xs text-stone-500 font-medium leading-relaxed">
-                  Müşterileriniz dükkanınızdaki tüm fiyatları TL, USD veya EUR cinsine tek tıkla çevirsin.
-                </p>
               </div>
 
               {/* Pillar 6: Telefon Kilidi Gibi Giriş */}
-              <div className="space-y-1">
-                <div className="flex items-center gap-2">
-                  <Lucide.Lock size={16} className="text-stone-900 shrink-0" />
-                  <h3 className="text-sm font-black text-stone-900 tracking-tight">
-                    telefon kilidi gibi giriş
-                  </h3>
+              <div className="flex gap-3 items-start">
+                <Lucide.Lock size={16} className="text-stone-900 shrink-0 mt-0.5" />
+                <div className="space-y-0.5">
+                  <h3 className="text-sm font-black text-stone-900 tracking-tight">telefon kilidi gibi giriş</h3>
+                  <p className="text-xs text-stone-500 font-medium leading-relaxed">Şifre yazma derdi olmadan, 4 haneli PIN kodu ile dükkanınıza güvenli ve hızlı erişin.</p>
                 </div>
-                <p className="text-xs text-stone-500 font-medium leading-relaxed">
-                  Şifre yazma derdi olmadan, 4 haneli PIN kodu ile dükkanınıza güvenli ve hızlı erişin.
-                </p>
               </div>
 
               {/* Pillar 7: Portföy Genişletici */}
-              <div className="space-y-1">
-                <div className="flex items-center gap-2">
-                  <Lucide.Compass size={16} className="text-stone-900 shrink-0" />
-                  <h3 className="text-sm font-black text-stone-900 tracking-tight">
-                    portfoys.pro ile b2b portföy
-                  </h3>
+              <div className="flex gap-3 items-start">
+                <Lucide.Compass size={16} className="text-stone-900 shrink-0 mt-0.5" />
+                <div className="space-y-0.5">
+                  <h3 className="text-sm font-black text-stone-900 tracking-tight">portfoys.pro ile b2b portföy</h3>
+                  <p className="text-xs text-stone-500 font-medium leading-relaxed">Konumunuzdaki potansiyel alıcı dükkanları yılda 2 kez otomatik bulun.</p>
                 </div>
-                <p className="text-xs text-stone-500 font-medium leading-relaxed">
-                  Konumunuzdaki potansiyel alıcı dükkanları yılda 2 kez otomatik bulun.
-                </p>
               </div>
 
               {/* Pillar 8: Sosyal Medya Gönderi Tasarımı */}
-              <div className="space-y-1">
-                <div className="flex items-center gap-2">
-                  <Lucide.Image size={16} className="text-stone-900 shrink-0" />
+              <div className="flex gap-3 items-start">
+                <Lucide.Image size={16} className="text-stone-900 shrink-0 mt-0.5" />
+                <div className="space-y-0.5">
                   <h3 className="text-sm font-black text-stone-900 tracking-tight">sosyal medya gönderi tasarımı</h3>
+                  <p className="text-xs text-stone-500 font-medium leading-relaxed">Ürünlerinizi tek tıkla Instagram ve WhatsApp için hazır reklam görsellerine dönüştürün.</p>
                 </div>
-                <p className="text-xs text-stone-500 font-medium leading-relaxed">Ürünlerinizi tek tıkla Instagram ve WhatsApp için hazır reklam görsellerine dönüştürün.</p>
               </div>
 
               {/* Pillar 9: Toplu Fiyat Güncelleme */}
-              <div className="space-y-1">
-                <div className="flex items-center gap-2">
-                  <Lucide.TrendingUp size={16} className="text-stone-900 shrink-0" />
+              <div className="flex gap-3 items-start">
+                <Lucide.TrendingUp size={16} className="text-stone-900 shrink-0 mt-0.5" />
+                <div className="space-y-0.5">
                   <h3 className="text-sm font-black text-stone-900 tracking-tight">toplu fiyat güncelleme</h3>
+                  <p className="text-xs text-stone-500 font-medium leading-relaxed">Maliyetler mi değişti? Tüm dükkandaki fiyatları ister yüzde ister tutar bazlı tek tıkla toplu güncelleyin.</p>
                 </div>
-                <p className="text-xs text-stone-500 font-medium leading-relaxed">Maliyetler mi değişti? Tüm dükkandaki fiyatları ister yüzde ister tutar bazlı tek tıkla toplu güncelleyin.</p>
               </div>
             </div>
           </div>
@@ -265,11 +237,10 @@ export default function LandingPage() {
                 className="block hover:scale-105 active:scale-95 transition-transform duration-200"
               >
                 <Button
-                  variant="primary"
+                  variant="whatsapp"
                   mode="rectangle"
                   size="lg"
-                  className="!text-white flex items-center justify-center group border-none !p-8 !rounded-[1.75rem] !shadow-none"
-                  style={{ backgroundColor: '#25D366' }}
+                  className="!text-white flex items-center justify-center group border-none !p-8 !rounded-[1.75rem]"
                 >
                   <div className="w-12 h-12 fill-white drop-shadow-sm group-hover:scale-110 transition-transform duration-300">
                     {THEME.icons.whatsapp}
@@ -299,26 +270,34 @@ export default function LandingPage() {
         <div className="mt-8 flex flex-col items-center animate-in fade-in slide-in-from-bottom-2 duration-1000 delay-700">
           <a
             href="tel:905373420161"
-            className="bg-stone-900 rounded-3xl px-8 py-4 flex items-center gap-4 group hover:bg-stone-800 hover:shadow-2xl transition-all cursor-pointer"
+            className="block hover:scale-105 active:scale-95 transition-transform duration-200"
           >
-            <div className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center text-white shrink-0 group-hover:scale-110 transition-transform">
-              <div className="w-5 h-5">
-                <svg
-                  className="w-full h-full fill-none stroke-current stroke-2"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </div>
-            </div>
-            <p className="text-xl font-black text-white tracking-tighter transition-colors group-hover:text-stone-300">
-              +90 537 342 01 61
-            </p>
+            <Button
+              variant="primary"
+              size="lg"
+              className="flex items-center gap-4 group !rounded-3xl hover:shadow-2xl !px-8 !py-4"
+              icon={
+                <div className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center text-white shrink-0 group-hover:scale-110 transition-transform">
+                  <div className="w-5 h-5">
+                    <svg
+                      className="w-full h-full fill-none stroke-current stroke-2"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </div>
+                </div>
+              }
+            >
+              <span className="text-xl font-black text-white tracking-tighter transition-colors group-hover:text-stone-300">
+                +90 537 342 01 61
+              </span>
+            </Button>
           </a>
         </div>
       </section>
