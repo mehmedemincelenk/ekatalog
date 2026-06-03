@@ -145,7 +145,13 @@ const SearchFilter = memo(
                   variant="glass"
                   mode="square"
                   className="h-11 w-11 flex-none !rounded-lg !bg-stone-900/60 backdrop-blur-md border-white/20 text-white shadow-xl hover:!bg-stone-900/80 transition-all !p-0"
-                  icon={<Lucide.Store size={20} strokeWidth={2.2} />}
+                  icon={
+                    flow.isPanelOpen ? (
+                      <Lucide.ChevronUp size={20} strokeWidth={2.2} />
+                    ) : (
+                      <Lucide.ChevronDown size={20} strokeWidth={2.2} />
+                    )
+                  }
                   aria-label={LABELS.filter.categoryBtn}
                 />
               </div>
