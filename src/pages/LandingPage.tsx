@@ -22,7 +22,7 @@ export default function LandingPage() {
     document.title = "ekatalog | Akıllı B2B Dijital Katalog Sistemi";
     const link: HTMLLinkElement | null = document.querySelector("link[rel*='icon']");
     if (link) {
-      link.href = "/favicon.svg";
+      link.href = "/favicon.svg?v=2";
     }
 
     // Body arkaplanını beyaza set ederek tarayıcı kaydırma taşmalarındaki gri rengi önlüyoruz
