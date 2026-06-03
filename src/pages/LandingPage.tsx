@@ -79,7 +79,7 @@ export default function LandingPage() {
           </h1>
 
           <p className="max-w-2xl mx-auto text-lg text-stone-500 font-medium leading-relaxed relative z-10">
-            sahada/ofiste <span className="font-black text-stone-900">hız ve kolaylık.</span>
+            sahada/ofiste <span className="font-black text-stone-900">kolaylık.</span>
           </p>
 
           <div className="pt-8 flex flex-col items-center justify-center relative z-20 space-y-4">
