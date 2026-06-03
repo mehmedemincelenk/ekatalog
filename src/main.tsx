@@ -17,8 +17,12 @@ import { registerSW } from 'virtual:pwa-register';
  *    ve tarayıcıya "Bunu göster" talimatı verilir.
  */
 
-// PWA: Register Service Worker for home screen installation and updates
-registerSW({ immediate: true });
+// PWA: Register Service Worker and automatically reload the page when a new update is detected
+const updateSW = registerSW({
+  onNeedRefresh() {
+    updateSW(true);
+  },
+});
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
