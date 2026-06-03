@@ -20,9 +20,10 @@ import { useNavbarFlow } from '../../hooks/useNavbarFlow';
 import { NavbarProps } from '../../types';
 
 const Navbar = memo(
-  ({ isInlineEnabled }: NavbarProps) => {
+  ({ isInlineEnabled, isPreview }: NavbarProps) => {
     const flow = useNavbarFlow(
       isInlineEnabled,
+      isPreview,
     );
 
     const theme = THEME.navbar;
@@ -292,6 +293,7 @@ const Navbar = memo(
                     {flow.settings.displayConfig.showWhatsapp && (
                       <Button
                         onClick={() => {
+                          if (isPreview) return;
                           useStore.getState().openModal('CONTACT');
                         }}
                         variant="glass"

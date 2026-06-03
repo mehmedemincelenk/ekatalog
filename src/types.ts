@@ -205,6 +205,7 @@ export interface ProductCategorySelectorProps {
  */
 export interface NavbarProps {
   isInlineEnabled: boolean;
+  isPreview?: boolean;
 }
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {

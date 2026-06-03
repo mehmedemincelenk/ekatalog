@@ -7,13 +7,16 @@ import { openInstagram } from '../utils/contact';
 
 export function useNavbarFlow(
   isInlineEnabled: boolean,
+  isPreview?: boolean,
 ) {
   const {
-    isAdmin,
+    isAdmin: storeIsAdmin,
     settings,
     searchQuery: search,
     setSearchQuery: onSearchChange,
   } = useStore();
+
+  const isAdmin = isPreview ? false : storeIsAdmin;
 
   const { updateSetting } = useSettings(isAdmin);
 

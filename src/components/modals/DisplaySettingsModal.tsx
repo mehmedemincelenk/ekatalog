@@ -675,7 +675,7 @@ export default function DisplaySettingsModal({
             {/* Live Tabela Preview */}
             <div className="select-none pointer-events-none w-full my-1">
               <div className="w-full overflow-hidden rounded-xl border border-stone-200/60 shadow-sm bg-white/5">
-                <Navbar isInlineEnabled={false} />
+                <Navbar isInlineEnabled={false} isPreview={true} />
               </div>
             </div>
 
