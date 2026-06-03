@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import * as Lucide from 'lucide-react';
 import { QRCodeSVG } from 'qrcode.react';
-import { THEME } from '../../data/config';
+import { THEME, ANIMATIONS } from '../../data/config/theme';
 import { useStore } from '../../store';
 import {
   PinModalProps,
@@ -424,19 +424,10 @@ export function PinModal({
       className={isStatic ? 'relative z-0' : `${theme.overlay} z-[10000]`}
     >
       <motion.div
-        initial={
-          isStatic
-            ? { opacity: 1, scale: 1 }
-            : { opacity: 0, scale: 0.8, filter: 'blur(10px)' }
-        }
-        animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
-        exit={{ opacity: 0, scale: 1.1, filter: 'blur(20px)' }}
-        transition={{
-          type: 'spring',
-          damping: 25,
-          stiffness: 300,
-          duration: 0.4,
-        }}
+        initial={isStatic ? undefined : ANIMATIONS.pin.initial}
+        animate={isStatic ? undefined : ANIMATIONS.pin.animate}
+        exit={isStatic ? undefined : ANIMATIONS.pin.exit}
+        transition={isStatic ? undefined : ANIMATIONS.pin.transition}
         className={`${isStatic ? 'relative w-full max-w-sm mx-auto' : theme.container} ${flow.hasAuthError ? theme.animations.shake : ''}`}
       >
         <AnimatePresence mode="wait">

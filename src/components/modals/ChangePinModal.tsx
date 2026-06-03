@@ -6,6 +6,7 @@ import BaseModal from './BaseModal';
 import Button from '../ui/Button';
 import * as Lucide from 'lucide-react';
 import StatusOverlay from '../ui/StatusOverlay';
+import FormInput from '../ui/FormInput';
 import { useSettings } from '../../hooks/useSettingsHub';
 import { useStore } from '../../store';
 
@@ -130,53 +131,47 @@ export default function ChangePinModal({ isOpen, onClose }: ChangePinModalProps)
 
           {/* Form */}
           <form onSubmit={handleSave} className="space-y-4">
-            <div className="flex flex-col gap-1 relative">
-              <label className="text-[10px] font-bold text-stone-400 absolute -top-2 left-3 bg-white px-1 z-10">
-                Mevcut Şifre
-              </label>
-              <input
-                type="password"
-                pattern="\d*"
-                maxLength={4}
-                value={currentPin}
-                onChange={(e) => setCurrentPin(e.target.value.replace(/\D/g, ''))}
-                className="w-full h-12 px-3 border border-stone-200 rounded-xl focus:border-stone-950 focus:outline-none text-center text-lg font-black tracking-[0.5em] bg-stone-50/30"
-                placeholder="••••"
-                required
-              />
-            </div>
+            <FormInput
+              id="current-pin"
+              labelText="Mevcut Şifre"
+              type="password"
+              pattern="\d*"
+              maxLength={4}
+              value={currentPin}
+              onlyDigits={true}
+              onChange={(e) => setCurrentPin(e.target.value)}
+              className="!text-center !text-lg !font-black !tracking-[0.5em] !bg-stone-50/30 !h-12"
+              placeholder="••••"
+              required
+            />
 
-            <div className="flex flex-col gap-1 relative">
-              <label className="text-[10px] font-bold text-stone-400 absolute -top-2 left-3 bg-white px-1 z-10">
-                Yeni Şifre
-              </label>
-              <input
-                type="password"
-                pattern="\d*"
-                maxLength={4}
-                value={newPin}
-                onChange={(e) => setNewPin(e.target.value.replace(/\D/g, ''))}
-                className="w-full h-12 px-3 border border-stone-200 rounded-xl focus:border-stone-950 focus:outline-none text-center text-lg font-black tracking-[0.5em] bg-stone-50/30"
-                placeholder="••••"
-                required
-              />
-            </div>
+            <FormInput
+              id="new-pin"
+              labelText="Yeni Şifre"
+              type="password"
+              pattern="\d*"
+              maxLength={4}
+              value={newPin}
+              onlyDigits={true}
+              onChange={(e) => setNewPin(e.target.value)}
+              className="!text-center !text-lg !font-black !tracking-[0.5em] !bg-stone-50/30 !h-12"
+              placeholder="••••"
+              required
+            />
 
-            <div className="flex flex-col gap-1 relative">
-              <label className="text-[10px] font-bold text-stone-400 absolute -top-2 left-3 bg-white px-1 z-10">
-                Yeni Şifre (Tekrar)
-              </label>
-              <input
-                type="password"
-                pattern="\d*"
-                maxLength={4}
-                value={confirmPin}
-                onChange={(e) => setConfirmPin(e.target.value.replace(/\D/g, ''))}
-                className="w-full h-12 px-3 border border-stone-200 rounded-xl focus:border-stone-950 focus:outline-none text-center text-lg font-black tracking-[0.5em] bg-stone-50/30"
-                placeholder="••••"
-                required
-              />
-            </div>
+            <FormInput
+              id="confirm-pin"
+              labelText="Yeni Şifre (Tekrar)"
+              type="password"
+              pattern="\d*"
+              maxLength={4}
+              value={confirmPin}
+              onlyDigits={true}
+              onChange={(e) => setConfirmPin(e.target.value)}
+              className="!text-center !text-lg !font-black !tracking-[0.5em] !bg-stone-50/30 !h-12"
+              placeholder="••••"
+              required
+            />
           </form>
 
           {/* Error Message */}

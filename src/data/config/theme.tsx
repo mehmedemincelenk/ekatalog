@@ -18,6 +18,21 @@ const FS = {
 
 import * as Lucide from 'lucide-react';
 
+export const ANIMATIONS = {
+  modal: {
+    initial: { opacity: 0, scale: 0.95, y: -10 },
+    animate: { opacity: 1, scale: 1, y: 0 },
+    exit: { opacity: 0, scale: 0.95, y: -10 },
+    transition: { type: 'spring' as const, damping: 25, stiffness: 350, duration: 0.3 }
+  },
+  pin: {
+    initial: { opacity: 0, scale: 0.8, filter: 'blur(10px)' },
+    animate: { opacity: 1, scale: 1, filter: 'blur(0px)' },
+    exit: { opacity: 0, scale: 1.1, filter: 'blur(20px)' },
+    transition: { type: 'spring' as const, damping: 25, stiffness: 300, duration: 0.4 }
+  }
+};
+
 export const THEME = {
   radius: {
     card: 'rounded-[var(--radius-card)]',

@@ -1,7 +1,5 @@
-import { memo } from 'react';
+import { memo, lazy, Suspense } from 'react';
 import { AnimatePresence } from 'motion/react';
-import AddProductModal from './AddProductModal';
-import BulkPriceUpdateModal from './BulkPriceUpdateModal';
 import {
   PinModal,
   QRModal,
@@ -10,13 +8,16 @@ import {
   ContactModal,
   GlobalAddMenuModal,
 } from './UtilityModals';
-import DisplaySettingsModal from './DisplaySettingsModal';
-import ChangePinModal from './ChangePinModal';
-import PriceListModal from './PriceListModal';
 
-import SocialExportModal from './SocialExportModal';
-import PortfoysLeadModal from './PortfoysLeadModal';
-import FeaturesModal from './FeaturesModal';
+const AddProductModal = lazy(() => import('./AddProductModal'));
+const BulkPriceUpdateModal = lazy(() => import('./BulkPriceUpdateModal'));
+const DisplaySettingsModal = lazy(() => import('./DisplaySettingsModal'));
+const ChangePinModal = lazy(() => import('./ChangePinModal'));
+const PriceListModal = lazy(() => import('./PriceListModal'));
+
+const SocialExportModal = lazy(() => import('./SocialExportModal'));
+const PortfoysLeadModal = lazy(() => import('./PortfoysLeadModal'));
+const FeaturesModal = lazy(() => import('./FeaturesModal'));
 
 import { useStore } from '../../store';
 import { useProducts } from '../../hooks/useProductsHub';
@@ -100,7 +101,7 @@ const AppModals = memo(() => {
   };
 
   return (
-    <>
+    <Suspense fallback={null}>
       <QRModal isOpen={activeModal === 'QR'} onClose={closeModal} />
 
       <AnimatePresence>
@@ -219,7 +220,7 @@ const AppModals = memo(() => {
         onClose={closeModal}
         products={allProducts}
       />
-    </>
+    </Suspense>
   );
 });
 

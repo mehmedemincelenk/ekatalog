@@ -10,6 +10,7 @@ import Button from '../ui/Button';
 
 import { BaseModalProps } from '../../types';
 import { useModalBehavior } from '../../hooks/useCommon';
+import { ANIMATIONS } from '../../data/config/theme';
 
 interface ExtendedBaseModalProps extends BaseModalProps {
   leftNav?: React.ReactNode;
@@ -87,10 +88,10 @@ export default function BaseModal({
           {/* MODAL CONTAINER */}
           <motion.div
             ref={modalRef}
-            initial={isStatic ? undefined : { opacity: 0, scale: 0.95, y: 10 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={isStatic ? undefined : { opacity: 0, scale: 0.95, y: 10 }}
-            transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+            initial={isStatic ? undefined : ANIMATIONS.modal.initial}
+            animate={isStatic ? undefined : ANIMATIONS.modal.animate}
+            exit={isStatic ? undefined : ANIMATIONS.modal.exit}
+            transition={isStatic ? undefined : ANIMATIONS.modal.transition}
             onClick={(e) => e.stopPropagation()}
             className={`
               relative w-full ${maxWidth} mx-auto
