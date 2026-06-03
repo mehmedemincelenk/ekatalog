@@ -50,16 +50,26 @@ export function usePinFlow(
     setCurrentPinAttempt(newAttempt);
     if (newAttempt.length === 4) {
       setIsVerifying(true);
-      if (await onVerify(newAttempt)) {
-        onAuthenticationSuccess();
-      } else {
+      try {
+        if (await onVerify(newAttempt)) {
+          onAuthenticationSuccess();
+        } else {
+          setHasAuthError(true);
+          setTimeout(() => {
+            setCurrentPinAttempt('');
+            setHasAuthError(false);
+          }, 600);
+        }
+      } catch (err) {
+        console.error('PIN verification error:', err);
         setHasAuthError(true);
         setTimeout(() => {
           setCurrentPinAttempt('');
           setHasAuthError(false);
         }, 600);
+      } finally {
+        setIsVerifying(false);
       }
-      setIsVerifying(false);
     }
   };
 
