@@ -159,22 +159,23 @@ const SearchFilter = memo(
           </div>
 
           {/* EXPANDED PANEL */}
-          {displayConfig.showCategories && flow.isPanelOpen && (
-            <div className="mt-3">
-              <AnimatePresence mode="wait">
+          {displayConfig.showCategories && (
+            <AnimatePresence>
+              {flow.isPanelOpen && (
                 <motion.div
                   key="expanded-categories"
                   initial={{ height: 0, opacity: 0 }}
                   animate={{ height: 'auto', opacity: 1 }}
                   exit={{ height: 0, opacity: 0 }}
-                  className="overflow-hidden"
+                  transition={{ duration: 0.25, ease: 'easeInOut' }}
+                  className="mt-3 overflow-hidden"
                 >
                   <div className="flex flex-wrap justify-start items-center gap-2 py-1 w-full">
                     {renderCategoryList(visibleList)}
                   </div>
                 </motion.div>
-              </AnimatePresence>
-            </div>
+              )}
+            </AnimatePresence>
           )}
 
           {!showAll && flow.isAdmin && (
