@@ -20,16 +20,46 @@ export default function LandingPage() {
 
   useEffect(() => {
     document.title = "ekatalog";
-    const link: HTMLLinkElement | null = document.querySelector("link[rel*='icon']");
-    if (link) {
-      link.href = "/logo-favicon.svg?v=1";
+    
+    // Function to set the correct theme-aware favicon dynamically
+    const updateFavicon = () => {
+      const isDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      
+      // Clean up any existing favicon links
+      const links = document.querySelectorAll("link[rel*='icon']");
+      links.forEach(l => l.remove());
+      
+      // Create new favicon link tag
+      const newLink = document.createElement('link');
+      newLink.rel = 'icon';
+      newLink.type = 'image/svg+xml';
+      newLink.href = isDark ? '/images/logo_dark.svg?v=1' : '/images/logo_light.svg?v=1';
+      document.head.appendChild(newLink);
+    };
+
+    updateFavicon();
+
+    // Listen for theme changes dynamically
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    const listener = () => updateFavicon();
+    
+    if (mediaQuery.addEventListener) {
+      mediaQuery.addEventListener('change', listener);
+    } else if (mediaQuery.addListener) {
+      mediaQuery.addListener(listener);
     }
 
     // Body arkaplanını beyaza set ederek tarayıcı kaydırma taşmalarındaki gri rengi önlüyoruz
     const originalBgColor = document.body.style.backgroundColor;
     document.body.style.backgroundColor = '#ffffff';
+    
     return () => {
       document.body.style.backgroundColor = originalBgColor;
+      if (mediaQuery.removeEventListener) {
+        mediaQuery.removeEventListener('change', listener);
+      } else if (mediaQuery.removeListener) {
+        mediaQuery.removeListener(listener);
+      }
     };
   }, []);
 
@@ -302,7 +332,7 @@ export default function LandingPage() {
 
       <footer className="relative border-t border-stone-100 pt-8 flex items-center justify-between gap-4 px-6 pb-8 max-w-3xl mx-auto w-full">
         <div className="flex items-center select-none">
-          <img src="/images/logo.svg" alt="ekatalog" className="w-6 h-6" />
+          <img src="/images/logo_light.svg" alt="ekatalog" className="w-6 h-6" />
         </div>
         <div className="flex items-center gap-3 text-xs font-bold text-stone-600">
           <a
