@@ -192,7 +192,7 @@ export default function LandingPage() {
                 <Lucide.Globe size={16} className="text-stone-900 shrink-0 mt-0.5" />
                 <div className="space-y-0.5">
                   <h3 className="text-sm font-black text-stone-900 tracking-tight">kendi website adresiniz</h3>
-                  <p className="text-xs text-stone-500 font-medium leading-relaxed">www.firmaniz.com veya markaniz.ekatalog.site ile 7/24 yayında prestijli bir dükkan.</p>
+                  <p className="text-xs text-stone-500 font-medium leading-relaxed">www.firmaniz.com veya markaniz.ekatalog.site ile 7/24 yayında prestijli bir ekatalog.</p>
                 </div>
               </div>
 
@@ -200,8 +200,8 @@ export default function LandingPage() {
               <div className="flex gap-3 items-start">
                 <Lucide.Smartphone size={16} className="text-stone-900 shrink-0 mt-0.5" />
                 <div className="space-y-0.5">
-                  <h3 className="text-sm font-black text-stone-900 tracking-tight">telefondan düzenle</h3>
-                  <p className="text-xs text-stone-500 font-medium leading-relaxed">Doğrudan dükkandaki ürün fiyatlarına dokunarak cepten anında güncelleyin.</p>
+                  <h3 className="text-sm font-black text-stone-900 tracking-tight">kolayca telefondan düzenle</h3>
+                  <p className="text-xs text-stone-500 font-medium leading-relaxed">Doğrudan ürün fiyatlarına dokunarak anında güncelleyin.</p>
                 </div>
               </div>
 
@@ -209,8 +209,8 @@ export default function LandingPage() {
               <div className="flex gap-3 items-start">
                 <Lucide.LayoutGrid size={16} className="text-stone-900 shrink-0 mt-0.5" />
                 <div className="space-y-0.5">
-                  <h3 className="text-sm font-black text-stone-900 tracking-tight">ana ekranda logo</h3>
-                  <p className="text-xs text-stone-500 font-medium leading-relaxed">Müşterilerinizin telefonuna tek tıkla uygulama gibi kurulan akıllı kısayol.</p>
+                  <h3 className="text-sm font-black text-stone-900 tracking-tight">Hem webadresi hem mobil uygulama</h3>
+                  <p className="text-xs text-stone-500 font-medium leading-relaxed">Telefonunlara tek tıkla mobil uygulama olarak kurulabilir.</p>
                 </div>
               </div>
 
@@ -218,8 +218,8 @@ export default function LandingPage() {
               <div className="flex gap-3 items-start">
                 <Lucide.Percent size={16} className="text-stone-900 shrink-0 mt-0.5" />
                 <div className="space-y-0.5">
-                  <h3 className="text-sm font-black text-stone-900 tracking-tight">müşteriye özel fiyat</h3>
-                  <p className="text-xs text-stone-500 font-medium leading-relaxed">Dilediğiniz müşteriye özel indirim kuponları veya özel fiyatlar tanımlayın.</p>
+                  <h3 className="text-sm font-black text-stone-900 tracking-tight">müşteriye özel geçici fiyat tanımlama</h3>
+                  <p className="text-xs text-stone-500 font-medium leading-relaxed">Dilediğiniz müşteriye özel indirim kuponlarıyla özel fiyatlar tanımlayın.</p>
                 </div>
               </div>
 
@@ -236,8 +236,8 @@ export default function LandingPage() {
               <div className="flex gap-3 items-start">
                 <Lucide.Lock size={16} className="text-stone-900 shrink-0 mt-0.5" />
                 <div className="space-y-0.5">
-                  <h3 className="text-sm font-black text-stone-900 tracking-tight">telefon kilidi gibi giriş</h3>
-                  <p className="text-xs text-stone-500 font-medium leading-relaxed">Şifre yazma derdi olmadan, 4 haneli PIN kodu ile dükkanınıza güvenli ve hızlı erişin.</p>
+                  <h3 className="text-sm font-black text-stone-900 tracking-tight">ekatalog PIN Kodunuz</h3>
+                  <p className="text-xs text-stone-500 font-medium leading-relaxed">Uzunca şifre yazma derdi olmadan, 4 haneli PIN kodu ile dükkanınıza güvenli ve hızlı erişin.</p>
                 </div>
               </div>
 
@@ -245,8 +245,8 @@ export default function LandingPage() {
               <div className="flex gap-3 items-start">
                 <Lucide.Compass size={16} className="text-stone-900 shrink-0 mt-0.5" />
                 <div className="space-y-0.5">
-                  <h3 className="text-sm font-black text-stone-900 tracking-tight">portfoys.pro ile b2b portföy</h3>
-                  <p className="text-xs text-stone-500 font-medium leading-relaxed">Konumunuzdaki potansiyel alıcı dükkanları yılda 2 kez otomatik bulun.</p>
+                  <h3 className="text-sm font-black text-stone-900 tracking-tight">portfoys.pro ile işbirliğimiz</h3>
+                  <p className="text-xs text-stone-500 font-medium leading-relaxed">Yurtiçi/yurtdışı herhangi bir ilçedeki tüm toptancıların/çiçekçilerin/kafelerin (veya istediğiniz herhangi bir sektörün) kurumsal iletişim bilgilerine ulaşın.</p>
                 </div>
               </div>
 
@@ -254,7 +254,7 @@ export default function LandingPage() {
               <div className="flex gap-3 items-start">
                 <Lucide.Image size={16} className="text-stone-900 shrink-0 mt-0.5" />
                 <div className="space-y-0.5">
-                  <h3 className="text-sm font-black text-stone-900 tracking-tight">sosyal medya gönderi tasarımı</h3>
+                  <h3 className="text-sm font-black text-stone-900 tracking-tight">sosyal medya içerik tasarımı</h3>
                   <p className="text-xs text-stone-500 font-medium leading-relaxed">Ürünlerinizi tek tıkla Instagram ve WhatsApp için hazır reklam görsellerine dönüştürün.</p>
                 </div>
               </div>
@@ -263,8 +263,8 @@ export default function LandingPage() {
               <div className="flex gap-3 items-start">
                 <Lucide.TrendingUp size={16} className="text-stone-900 shrink-0 mt-0.5" />
                 <div className="space-y-0.5">
-                  <h3 className="text-sm font-black text-stone-900 tracking-tight">toplu fiyat güncelleme</h3>
-                  <p className="text-xs text-stone-500 font-medium leading-relaxed">Maliyetler mi değişti? Tüm dükkandaki fiyatları ister yüzde ister tutar bazlı tek tıkla toplu güncelleyin.</p>
+                  <h3 className="text-sm font-black text-stone-900 tracking-tight">toplu güncelleme</h3>
+                  <p className="text-xs text-stone-500 font-medium leading-relaxed">Tüm dükkandaki fiyatları ister yüzde ister tutar bazlı tek tıkla toplu güncelleyin ve benzeri toplu işlemlerle zaman kazanın.</p>
                 </div>
               </div>
             </div>
@@ -294,9 +294,11 @@ export default function LandingPage() {
       </section>
 
       <footer className="border-t border-stone-100 pt-8 flex items-center justify-between gap-4 px-6 pb-8 max-w-3xl mx-auto w-full">
-        <span className="text-xl font-black text-stone-900 tracking-tighter">
-          ekatalog
-        </span>
+        <img 
+          src="/images/parsomen_x.svg" 
+          alt="Parsomen Logo" 
+          className="h-7 w-auto object-contain select-none"
+        />
         <div className="flex items-center gap-3 text-xs font-bold text-stone-600">
           <a
             href="https://wa.me/905373420161"
