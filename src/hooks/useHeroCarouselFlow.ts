@@ -86,7 +86,7 @@ export function useHeroCarouselFlow(isAdminModeActive: boolean) {
   );
 
   const uploadHeroImage = useCallback(
-    async (slideId: number, visualFile: File) => {
+    async (slideId: number, visualFile: File, extraIndex?: number) => {
       if (!adminPin)
         throw new Error('Security Error: PIN required for storage operations.');
       try {
@@ -103,7 +103,7 @@ export function useHeroCarouselFlow(isAdminModeActive: boolean) {
           adminPin,
           oldUrl,
           slugBaseName: `hero-${activeStoreSlug}`,
-          uniqueIdPrefix: slideId === -1 ? 'new' : String(slideId),
+          uniqueIdPrefix: slideId === -1 ? `new-${extraIndex ?? 0}` : String(slideId),
           isDualQuality: false,
           maxDimension: TECH.storage.heroWidth,
         });
@@ -156,14 +156,17 @@ export function useHeroCarouselFlow(isAdminModeActive: boolean) {
   const handleFileUploadAction = async (
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
-    const file = event.target.files?.[0];
-    if (!file || activeEditingSlideId === null) return;
+    const files = event.target.files;
+    if (!files || files.length === 0 || activeEditingSlideId === null) return;
 
     try {
       setIsAssetUploading(true);
 
       if (activeEditingSlideId === -1) {
-        const uploadedUrl = await uploadHeroImage(-1, file);
+        const filesToUpload = Array.from(files).slice(0, 10);
+        const uploadedUrls = await Promise.all(
+          filesToUpload.map((file, idx) => uploadHeroImage(-1, file, idx)),
+        );
 
         setMarketingSlides((prev) => {
           const currentRealSlides = (prev || []).filter(
@@ -173,20 +176,23 @@ export function useHeroCarouselFlow(isAdminModeActive: boolean) {
             currentRealSlides.length > 0
               ? Math.max(...currentRealSlides.map((s) => s.id)) + 1
               : 1;
-          const newSlide: CarouselSlide = {
-            id: nextId,
-            src: uploadedUrl,
+          
+          const newSlides: CarouselSlide[] = uploadedUrls.map((url, idx) => ({
+            id: nextId + idx,
+            src: url,
             bg: 'bg-stone-200',
             label: 'Yeni Afiş',
             sub: 'Düzenlemek için tıklayın.',
-          };
-          const updatedSlides = [...currentRealSlides, newSlide];
+          }));
+
+          const updatedSlides = [...currentRealSlides, ...newSlides];
           persistCarouselData(updatedSlides);
 
           setTimeout(() => setCurrentIndex(updatedSlides.length - 1), 50);
           return updatedSlides;
         });
       } else {
+        const file = files[0];
         await uploadHeroImage(activeEditingSlideId, file);
       }
       setUploadSuccess(true);

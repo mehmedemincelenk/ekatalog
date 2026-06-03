@@ -146,6 +146,7 @@ export default function HeroCarousel({ isAdminModeActive }: HeroCarouselProps) {
           type="file"
           className="hidden"
           accept="image/*"
+          multiple
           onChange={(e) => {
             flow.setActiveEditingSlideId(-1);
             flow.handleFileUploadAction(e);
@@ -165,6 +166,7 @@ export default function HeroCarousel({ isAdminModeActive }: HeroCarouselProps) {
         type="file"
         className="hidden"
         accept="image/*"
+        multiple
         onChange={(e) => {
           flow.setActiveEditingSlideId(-1);
           flow.handleFileUploadAction(e);
