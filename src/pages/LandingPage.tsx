@@ -24,6 +24,13 @@ export default function LandingPage() {
     if (link) {
       link.href = "/favicon.svg";
     }
+
+    // Body arkaplanını beyaza set ederek tarayıcı kaydırma taşmalarındaki gri rengi önlüyoruz
+    const originalBgColor = document.body.style.backgroundColor;
+    document.body.style.backgroundColor = '#ffffff';
+    return () => {
+      document.body.style.backgroundColor = originalBgColor;
+    };
   }, []);
 
   return (
@@ -297,7 +304,7 @@ export default function LandingPage() {
         <img 
           src="/images/parsomen.svg" 
           alt="ekatalog" 
-          className="absolute left-6 -bottom-[6px] h-32 w-auto object-contain select-none z-10 -rotate-[5deg]" 
+          className="absolute left-6 bottom-0 h-32 w-auto object-contain select-none z-10 -rotate-[5deg]" 
         />
         <div className="flex items-center gap-3 text-xs font-bold text-stone-600">
           <a
