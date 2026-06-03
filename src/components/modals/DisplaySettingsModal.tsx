@@ -198,96 +198,6 @@ const IdentityField = ({ label, icon, isTextArea, rightElement, className = '', 
 };
 
 
-interface SlugFieldProps {
-  value: string;
-  onChange: (val: string) => void;
-  onBlur: () => void;
-  checking: boolean;
-  confirmValue: string | null;
-  onCancel: () => void;
-  onConfirm: () => void;
-  icon: React.ReactNode;
-}
-
-const SlugField = ({
-  value,
-  onChange,
-  onBlur,
-  checking,
-  confirmValue,
-  onCancel,
-  onConfirm,
-  icon,
-}: SlugFieldProps) => {
-  return (
-    <div className="flex items-start gap-4 group">
-      <div className="mt-3.5 text-stone-400 group-focus-within:text-stone-900 transition-colors shrink-0 select-none">
-        {icon}
-      </div>
-      <div className="flex-1 flex flex-col gap-1 relative">
-        <label className="text-[10px] font-bold text-stone-400 absolute -top-2 left-3 bg-white px-1 z-10 select-none transition-colors group-focus-within:text-stone-900">
-          www.<span className="text-emerald-500 font-extrabold">{value || 'slug'}</span>.ekatalog.site
-        </label>
-        <input
-          type="text"
-          value={value}
-          disabled={checking}
-          onChange={(e) => {
-            const cleaned = e.target.value.toLowerCase().replace(/[^a-z0-9-_]/g, '');
-            onChange(cleaned);
-          }}
-          onKeyDown={(e) => {
-            if (e.key === 'Enter') {
-              e.currentTarget.blur();
-            }
-          }}
-          onBlur={onBlur}
-          placeholder="dükkan-linki"
-          className="w-full h-11 px-3 border border-stone-200 focus:border-stone-900 focus:ring-1 focus:ring-stone-900 rounded-xl bg-stone-50/10 text-[12px] font-extrabold text-emerald-500 outline-none transition-all shadow-inner disabled:opacity-50"
-        />
-        {checking && (
-          <div className="absolute right-3 top-3.5 select-none flex items-center gap-1 text-stone-400">
-            <Lucide.Loader className="animate-spin text-stone-400" size={12} />
-            <span className="text-[8px] font-bold">kontrol ediliyor...</span>
-          </div>
-        )}
-        {confirmValue && (
-          <div className="mt-2 p-3 bg-stone-50 border border-stone-100 rounded-xl flex flex-col gap-2 relative overflow-hidden transition-all duration-300">
-            <div className="flex items-start gap-2">
-              <div className="p-1 bg-stone-100 rounded text-stone-600 shrink-0">
-                <Lucide.Globe size={14} />
-              </div>
-              <div className="flex-1">
-                <p className="text-[10px] font-black text-stone-900 leading-tight uppercase tracking-wider">
-                  YENİ DÜKKAN ADRESİNİ ONAYLIYOR MUSUNUZ?
-                </p>
-                <p className="text-[9px] font-bold text-stone-400 mt-0.5 leading-normal">
-                  Linkiniz <span className="text-emerald-500 font-extrabold">www.{confirmValue}.ekatalog.site</span> olarak güncellenecek ve yeni adrese yönlendirileceksiniz.
-                </p>
-              </div>
-            </div>
-            <div className="flex justify-end gap-1.5 mt-1 border-t border-stone-200/40 pt-2 shrink-0">
-              <button
-                onClick={onCancel}
-                className="h-7 px-3 rounded-lg text-[9px] font-bold text-stone-400 hover:text-stone-900 transition-colors bg-white hover:bg-stone-50 border border-stone-100 active:scale-95 duration-150"
-              >
-                İPTAL
-              </button>
-              <button
-                onClick={onConfirm}
-                className="h-7 px-3 rounded-lg text-[9px] font-black text-white hover:bg-emerald-600 bg-emerald-500 transition-all active:scale-95 duration-150 shadow-sm"
-              >
-                TAMAM
-              </button>
-            </div>
-          </div>
-        )}
-      </div>
-    </div>
-  );
-};
-
-
 
 
 const FloatingOptionRow = ({
@@ -592,7 +502,10 @@ export default function DisplaySettingsModal({
           </div>
         }
       >
-        <div className="p-4 flex flex-col gap-4 pb-2 max-h-[70vh] overflow-y-auto custom-scrollbar">
+        <motion.div 
+          layout="position"
+          className="p-4 flex flex-col gap-4 pb-2 max-h-[70vh] overflow-y-auto custom-scrollbar"
+        >
           <input
             type="file"
             ref={fileInputRef}
@@ -632,7 +545,7 @@ export default function DisplaySettingsModal({
           </div>
 
           {/* İŞLETME BİLGİLERİ */}
-          <div className="flex flex-col gap-3">
+          <motion.div layout="position" className="flex flex-col gap-3">
             <div className="w-full flex justify-center gap-2 mt-4 mb-2">
               <h5 className="font-black text-stone-900 text-lg font-serif italic text-center">
                 İşletme Bilgileri
@@ -642,34 +555,86 @@ export default function DisplaySettingsModal({
               {IDENTITY_FIELDS.map((field) => {
                 if (field.isSlug) {
                   return (
-                    <SlugField
-                      key={field.key}
-                      value={formState.slug}
-                      onChange={(cleaned) => handleFieldChange('slug', cleaned)}
-                      onBlur={() => handleSlugCheck(formState.slug)}
-                      checking={checkingSlug}
-                      confirmValue={slugConfirm}
-                      onCancel={() => {
-                        setSlugConfirm(null);
-                        handleFieldChange('slug', settings.slug || '');
-                      }}
-                      onConfirm={async () => {
-                        if (!slugConfirm) return;
-                        try {
-                          await updateSetting('slug', slugConfirm);
-                          useStore.getState().showFeedback('success', 'Dükkan adresi başarıyla güncellendi!');
-                          setTimeout(() => {
-                            window.location.replace('/' + slugConfirm);
-                          }, 1200);
-                        } catch (err: any) {
-                          console.error(err);
-                          useStore.getState().showFeedback('error', 'Güncelleme sırasında bir hata oluştu');
-                          setSlugConfirm(null);
-                          handleFieldChange('slug', settings.slug || '');
-                        }
-                      }}
-                      icon={field.icon}
-                    />
+                    <div key={field.key} className="flex items-start gap-4 group">
+                      <div className="mt-3.5 text-stone-400 group-focus-within:text-stone-900 transition-colors shrink-0 select-none">
+                        {field.icon}
+                      </div>
+                      <div className="flex-1 flex flex-col gap-1 relative">
+                        <label className="text-[10px] font-bold text-stone-400 absolute -top-2 left-3 bg-white px-1 z-10 select-none transition-colors group-focus-within:text-stone-900">
+                          www.<span className="text-emerald-500 font-extrabold">{formState.slug || 'slug'}</span>.ekatalog.site
+                        </label>
+                        <input
+                          type="text"
+                          value={formState.slug}
+                          disabled={checkingSlug}
+                          onChange={(e) => {
+                            const cleaned = e.target.value.toLowerCase().replace(/[^a-z0-9-_]/g, '');
+                            handleFieldChange('slug', cleaned);
+                          }}
+                          onKeyDown={(e) => {
+                            if (e.key === 'Enter') {
+                              e.currentTarget.blur();
+                            }
+                          }}
+                          onBlur={() => handleSlugCheck(formState.slug)}
+                          placeholder="dükkan-linki"
+                          className="w-full h-11 px-3 border border-stone-200 focus:border-stone-900 focus:ring-1 focus:ring-stone-900 rounded-xl bg-stone-50/10 text-[12px] font-extrabold text-emerald-500 outline-none transition-all shadow-inner disabled:opacity-50"
+                        />
+                        {checkingSlug && (
+                          <div className="absolute right-3 top-3.5 select-none flex items-center gap-1 text-stone-400">
+                            <Lucide.Loader className="animate-spin text-stone-400" size={12} />
+                            <span className="text-[8px] font-bold">kontrol ediliyor...</span>
+                          </div>
+                        )}
+                        {slugConfirm && (
+                          <div className="mt-2 p-3 bg-stone-50 border border-stone-100 rounded-xl flex flex-col gap-2 relative overflow-hidden transition-all duration-300">
+                            <div className="flex items-start gap-2">
+                              <div className="p-1 bg-stone-100 rounded text-stone-600 shrink-0">
+                                <Lucide.Globe size={14} />
+                              </div>
+                              <div className="flex-1">
+                                <p className="text-[10px] font-black text-stone-900 leading-tight uppercase tracking-wider">
+                                  YENİ DÜKKAN ADRESİNİ ONAYLIYOR MUSUNUZ?
+                                </p>
+                                <p className="text-[9px] font-bold text-stone-400 mt-0.5 leading-normal">
+                                  Linkiniz <span className="text-emerald-500 font-extrabold">www.{slugConfirm}.ekatalog.site</span> olarak güncellenecek ve yeni adrese yönlendirileceksiniz.
+                                </p>
+                              </div>
+                            </div>
+                            <div className="flex justify-end gap-1.5 mt-1 border-t border-stone-200/40 pt-2 shrink-0">
+                              <button
+                                onClick={() => {
+                                  setSlugConfirm(null);
+                                  handleFieldChange('slug', settings.slug || '');
+                                }}
+                                className="h-7 px-3 rounded-lg text-[9px] font-bold text-stone-400 hover:text-stone-900 transition-colors bg-white hover:bg-stone-50 border border-stone-100 active:scale-95 duration-150"
+                              >
+                                İPTAL
+                              </button>
+                              <button
+                                onClick={async () => {
+                                  try {
+                                    await updateSetting('slug', slugConfirm);
+                                    useStore.getState().showFeedback('success', 'Dükkan adresi başarıyla güncellendi!');
+                                    setTimeout(() => {
+                                      window.location.replace('/' + slugConfirm);
+                                    }, 1200);
+                                  } catch (err: any) {
+                                    console.error(err);
+                                    useStore.getState().showFeedback('error', 'Güncelleme sırasında bir hata oluştu');
+                                    setSlugConfirm(null);
+                                    handleFieldChange('slug', settings.slug || '');
+                                  }
+                                }}
+                                className="h-7 px-3 rounded-lg text-[9px] font-black text-white hover:bg-emerald-600 bg-emerald-500 transition-all active:scale-95 duration-150 shadow-sm"
+                              >
+                                TAMAM
+                              </button>
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    </div>
                   );
                 }
 
@@ -700,10 +665,10 @@ export default function DisplaySettingsModal({
                 );
               })}
             </div>
-          </div>
+          </motion.div>
 
           {/* TABELA */}
-          <div className="flex flex-col gap-3">
+          <motion.div layout="position" className="flex flex-col gap-3">
             <div className="w-full flex justify-center gap-2 mt-4 mb-1">
               <h5 className="text-[10px] uppercase tracking-[0.2em] font-black text-stone-900 text-center">
                 TABELA (NAVBAR BİLEŞENLERİ)
@@ -732,10 +697,10 @@ export default function DisplaySettingsModal({
                 />
               ))}
             </div>
-          </div>
+          </motion.div>
 
           {/* VİTRİN VE TASARIM */}
-          <div className="flex flex-col gap-3">
+          <motion.div layout="position" className="flex flex-col gap-3">
             <div className="w-full flex justify-center gap-2 mt-4">
               <h5 className="text-[10px] uppercase tracking-[0.2em] font-black text-stone-900 text-center">
                 VİTRİN VE TASARIM
@@ -746,23 +711,31 @@ export default function DisplaySettingsModal({
               {/* Live Vitrin Preview */}
               <div className="w-full flex flex-col gap-2 relative overflow-hidden select-none pointer-events-none">
                 <AnimatePresence initial={false} mode="popLayout">
-                  {[
-                    { key: 'showCarousel', keyStr: 'preview-carousel', component: <HeroCarousel isAdminModeActive={false} isStatic={true} /> },
-                    { key: 'showReferences', keyStr: 'preview-references', component: <References isInlineEnabled={false} isAdmin={false} isPaused={true} /> }
-                  ].map(({ key, keyStr, component }) => (
-                    flow.getOptionState(key) && (
-                      <motion.div
-                        key={keyStr}
-                        initial={{ height: 0, opacity: 0, scale: 0.95, y: -10 }}
-                        animate={{ height: 'auto', opacity: 1, scale: 1, y: 0 }}
-                        exit={{ height: 0, opacity: 0, scale: 0.95, y: -10 }}
-                        transition={{ duration: 0.3, ease: [0.25, 1, 0.5, 1] }}
-                        className="w-full overflow-hidden shrink-0 origin-top"
-                      >
-                        {component}
-                      </motion.div>
-                    )
-                  ))}
+                  {flow.getOptionState('showCarousel') && (
+                    <motion.div
+                      key="preview-carousel"
+                      initial={{ height: 0, opacity: 0, scale: 0.95, y: -10 }}
+                      animate={{ height: 'auto', opacity: 1, scale: 1, y: 0 }}
+                      exit={{ height: 0, opacity: 0, scale: 0.95, y: -10 }}
+                      transition={{ duration: 0.3, ease: [0.25, 1, 0.5, 1] }}
+                      className="w-full overflow-hidden shrink-0 origin-top"
+                    >
+                      <HeroCarousel isAdminModeActive={false} isStatic={true} />
+                    </motion.div>
+                  )}
+
+                  {flow.getOptionState('showReferences') && (
+                    <motion.div
+                      key="preview-references"
+                      initial={{ height: 0, opacity: 0, scale: 0.95, y: -10 }}
+                      animate={{ height: 'auto', opacity: 1, scale: 1, y: 0 }}
+                      exit={{ height: 0, opacity: 0, scale: 0.95, y: -10 }}
+                      transition={{ duration: 0.3, ease: [0.25, 1, 0.5, 1] }}
+                      className="w-full overflow-hidden shrink-0 origin-top"
+                    >
+                      <References isInlineEnabled={false} isAdmin={false} isPaused={true} />
+                    </motion.div>
+                  )}
 
                   {(flow.getOptionState('showSearch') || flow.getOptionState('showCategories')) && (
                     <motion.div
@@ -833,10 +806,10 @@ export default function DisplaySettingsModal({
                 ))}
               </div>
             </div>
-          </div>
+          </motion.div>
 
           {/* YÜZEN MENÜ BİLEŞENLERİ */}
-          <div className="flex flex-col gap-3">
+          <motion.div layout="position" className="flex flex-col gap-3">
             <div className="w-full flex justify-center gap-2 mt-4">
               <h5 className="text-[10px] uppercase tracking-[0.2em] font-black text-stone-900 text-center">
                 YÜZEN MENÜ BİLEŞENLERİ
@@ -873,10 +846,10 @@ export default function DisplaySettingsModal({
                 ))}
               </div>
             </div>
-          </div>
+          </motion.div>
 
           {/* SİSTEM YÖNETİMİ */}
-          <div className="flex flex-col gap-3">
+          <motion.div layout="position" className="flex flex-col gap-3">
             <div className="w-full flex justify-center gap-2 mt-4 mb-2">
               <h5 className="text-[10px] uppercase tracking-[0.2em] font-black text-stone-900 text-center">
                 SİSTEM YÖNETİMİ
@@ -898,10 +871,10 @@ export default function DisplaySettingsModal({
                 />
               ))}
             </div>
-          </div>
+          </motion.div>
 
           {/* GÜVENLİK */}
-          <div className="flex flex-col gap-3">
+          <motion.div layout="position" className="flex flex-col gap-3">
             <div className="w-full flex justify-center gap-2 mt-4 mb-2">
               <h5 className="text-[10px] uppercase tracking-[0.2em] font-black text-stone-900 text-center">
                 GÜVENLİK
@@ -924,8 +897,8 @@ export default function DisplaySettingsModal({
                 <Lucide.ChevronRight size={18} className="text-stone-400 group-hover:text-stone-900 transition-transform group-hover:translate-x-0.5" />
               </div>
             </div>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </BaseModal>
 
       <BaseModal
