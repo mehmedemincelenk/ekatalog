@@ -304,7 +304,7 @@ export default function LandingPage() {
         <img 
           src="/images/parsomen.svg" 
           alt="ekatalog" 
-          className="absolute left-6 bottom-0 h-32 w-auto object-contain select-none z-10 -rotate-[5deg]" 
+          className="absolute left-6 bottom-3 h-28 w-auto object-contain select-none z-10" 
         />
         <div className="flex items-center gap-3 text-xs font-bold text-stone-600">
           <a
