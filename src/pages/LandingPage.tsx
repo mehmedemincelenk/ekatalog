@@ -293,11 +293,11 @@ export default function LandingPage() {
         </div>
       </section>
 
-      <footer className="border-t border-stone-100 pt-8 flex items-center justify-between gap-4 px-6 pb-8 max-w-3xl mx-auto w-full">
+      <footer className="relative border-t border-stone-100 pt-8 flex items-center justify-end gap-4 px-6 pb-8 max-w-3xl mx-auto w-full">
         <img 
           src="/images/parsomen.svg" 
           alt="ekatalog" 
-          className="h-7 w-auto object-contain select-none" 
+          className="absolute left-6 bottom-2 h-28 w-auto object-contain select-none z-10 -rotate-[5deg]" 
         />
         <div className="flex items-center gap-3 text-xs font-bold text-stone-600">
           <a
