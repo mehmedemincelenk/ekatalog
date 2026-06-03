@@ -168,9 +168,9 @@ const SearchFilter = memo(
                   animate={{ height: 'auto', opacity: 1 }}
                   exit={{ height: 0, opacity: 0 }}
                   transition={{ duration: 0.25, ease: 'easeInOut' }}
-                  className="mt-3 overflow-hidden"
+                  className="overflow-hidden"
                 >
-                  <div className="flex flex-wrap justify-start items-center gap-2 py-1 w-full">
+                  <div className="flex flex-wrap justify-start items-center gap-2 pt-3 pb-1 w-full">
                     {renderCategoryList(visibleList)}
                   </div>
                 </motion.div>
