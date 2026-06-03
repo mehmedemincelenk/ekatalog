@@ -545,7 +545,7 @@ export default function DisplaySettingsModal({
           </div>
 
           {/* İŞLETME BİLGİLERİ */}
-          <motion.div layout="position" className="flex flex-col gap-3">
+          <div className="flex flex-col gap-3">
             <div className="w-full flex justify-center gap-2 mt-4 mb-2">
               <h5 className="font-black text-stone-900 text-lg font-serif italic text-center">
                 İşletme Bilgileri
@@ -665,10 +665,10 @@ export default function DisplaySettingsModal({
                 );
               })}
             </div>
-          </motion.div>
+          </div>
 
           {/* TABELA */}
-          <motion.div layout="position" className="flex flex-col gap-3">
+          <div className="flex flex-col gap-3">
             <div className="w-full flex justify-center gap-2 mt-4 mb-1">
               <h5 className="text-[10px] uppercase tracking-[0.2em] font-black text-stone-900 text-center">
                 TABELA (NAVBAR BİLEŞENLERİ)
@@ -697,10 +697,10 @@ export default function DisplaySettingsModal({
                 />
               ))}
             </div>
-          </motion.div>
+          </div>
 
           {/* VİTRİN VE TASARIM */}
-          <motion.div layout="position" className="flex flex-col gap-3">
+          <div className="flex flex-col gap-3">
             <div className="w-full flex justify-center gap-2 mt-4">
               <h5 className="text-[10px] uppercase tracking-[0.2em] font-black text-stone-900 text-center">
                 VİTRİN VE TASARIM
@@ -806,10 +806,10 @@ export default function DisplaySettingsModal({
                 ))}
               </div>
             </div>
-          </motion.div>
+          </div>
 
           {/* YÜZEN MENÜ BİLEŞENLERİ */}
-          <motion.div layout="position" className="flex flex-col gap-3">
+          <div className="flex flex-col gap-3">
             <div className="w-full flex justify-center gap-2 mt-4">
               <h5 className="text-[10px] uppercase tracking-[0.2em] font-black text-stone-900 text-center">
                 YÜZEN MENÜ BİLEŞENLERİ
@@ -846,10 +846,10 @@ export default function DisplaySettingsModal({
                 ))}
               </div>
             </div>
-          </motion.div>
+          </div>
 
           {/* SİSTEM YÖNETİMİ */}
-          <motion.div layout="position" className="flex flex-col gap-3">
+          <div className="flex flex-col gap-3">
             <div className="w-full flex justify-center gap-2 mt-4 mb-2">
               <h5 className="text-[10px] uppercase tracking-[0.2em] font-black text-stone-900 text-center">
                 SİSTEM YÖNETİMİ
@@ -871,10 +871,10 @@ export default function DisplaySettingsModal({
                 />
               ))}
             </div>
-          </motion.div>
+          </div>
 
           {/* GÜVENLİK */}
-          <motion.div layout="position" className="flex flex-col gap-3">
+          <div className="flex flex-col gap-3">
             <div className="w-full flex justify-center gap-2 mt-4 mb-2">
               <h5 className="text-[10px] uppercase tracking-[0.2em] font-black text-stone-900 text-center">
                 GÜVENLİK
@@ -897,7 +897,7 @@ export default function DisplaySettingsModal({
                 <Lucide.ChevronRight size={18} className="text-stone-400 group-hover:text-stone-900 transition-transform group-hover:translate-x-0.5" />
               </div>
             </div>
-          </motion.div>
+          </div>
         </motion.div>
       </BaseModal>
 
