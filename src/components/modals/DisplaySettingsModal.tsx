@@ -696,46 +696,6 @@ export default function DisplaySettingsModal({
             </div>
           </div>
 
-          {/* YÜZEN MENÜ BİLEŞENLERİ */}
-          <div className="flex flex-col gap-3">
-            <div className="w-full flex justify-center gap-2 mt-4">
-              <h5 className="text-[10px] uppercase tracking-[0.2em] font-black text-stone-900 text-center">
-                YÜZEN MENÜ BİLEŞENLERİ
-              </h5>
-            </div>
-
-            <div 
-              style={{ gridTemplateColumns: `${menuLayout.width}px 1fr` }}
-              className="grid gap-6 my-2 px-2 items-start"
-            >
-              {/* Sol Taraf: Live Preview */}
-              <div 
-                ref={menuRef}
-                style={{ transform: `scale(${menuLayout.scale})` }} 
-                className="origin-top-left shrink-0 select-none transition-transform duration-300 pointer-events-none"
-              >
-                <BaseFloatingMenu actions={guestActions} forceExpanded={true} isPreview={true} />
-              </div>
-
-              {/* Sağ Taraf: Active Option Row Switches (Toggles in 1 column) */}
-              <div ref={togglesRef} className="flex flex-col gap-1.5 w-full">
-                {FLOATING_OPTIONS.map((opt) => (
-                  <FloatingOptionRow
-                    key={opt.key}
-                    option={{
-                      key: opt.key,
-                      label: opt.label,
-                      icon: opt.icon,
-                      variant: opt.variant,
-                      isOn: flow.getOptionState(opt.key),
-                    }}
-                    onToggle={() => flow.toggleOption(opt.key)}
-                  />
-                ))}
-              </div>
-            </div>
-          </div>
-
           {/* VİTRİN VE TASARIM */}
           <div className="flex flex-col gap-3">
             <div className="w-full flex justify-center gap-2 mt-4">
@@ -839,6 +799,46 @@ export default function DisplaySettingsModal({
                     }}
                     onHelpTrigger={flow.setHelpId}
                     isHiddenHelp={flow.hiddenHelpIds.includes(opt.key)}
+                  />
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* YÜZEN MENÜ BİLEŞENLERİ */}
+          <div className="flex flex-col gap-3">
+            <div className="w-full flex justify-center gap-2 mt-4">
+              <h5 className="text-[10px] uppercase tracking-[0.2em] font-black text-stone-900 text-center">
+                YÜZEN MENÜ BİLEŞENLERİ
+              </h5>
+            </div>
+
+            <div 
+              style={{ gridTemplateColumns: `${menuLayout.width}px 1fr` }}
+              className="grid gap-6 my-2 px-2 items-start"
+            >
+              {/* Sol Taraf: Live Preview */}
+              <div 
+                ref={menuRef}
+                style={{ transform: `scale(${menuLayout.scale})` }} 
+                className="origin-top-left shrink-0 select-none transition-transform duration-300 pointer-events-none"
+              >
+                <BaseFloatingMenu actions={guestActions} forceExpanded={true} isPreview={true} />
+              </div>
+
+              {/* Sağ Taraf: Active Option Row Switches (Toggles in 1 column) */}
+              <div ref={togglesRef} className="flex flex-col gap-1.5 w-full">
+                {FLOATING_OPTIONS.map((opt) => (
+                  <FloatingOptionRow
+                    key={opt.key}
+                    option={{
+                      key: opt.key,
+                      label: opt.label,
+                      icon: opt.icon,
+                      variant: opt.variant,
+                      isOn: flow.getOptionState(opt.key),
+                    }}
+                    onToggle={() => flow.toggleOption(opt.key)}
                   />
                 ))}
               </div>
