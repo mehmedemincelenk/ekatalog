@@ -64,7 +64,7 @@ export default function LandingPage() {
       </div>
 
       <section className="pt-10 pb-12 px-4 text-center">
-        <div className="max-w-4xl mx-auto space-y-4 relative">
+        <div className="max-w-4xl mx-auto space-y-2 relative">
           {/* Milli Teknoloji Hamlesi Watermark */}
           <div className="absolute top-[-40px] sm:top-[-80px] left-1/2 -translate-x-[110%] sm:translate-x-[25%] w-56 sm:w-[360px] opacity-[0.07] pointer-events-none select-none z-0">
             <img
