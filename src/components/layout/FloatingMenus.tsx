@@ -3,6 +3,7 @@ import BaseFloatingMenu, { FloatingAction } from './BaseFloatingMenu';
 import { useStore } from '../../store';
 import { THEME } from '../../data/config';
 import { FloatingAdminMenuProps, FloatingGuestMenuProps } from '../../types';
+import { useSettings } from '../../hooks/useSettingsHub';
 import { getNextCurrency } from '../../utils/price';
 import { openWhatsApp, callPhone, openInstagram } from '../../utils/contact';
 
@@ -16,7 +17,8 @@ export function FloatingAdminMenu({
   onPointerDown,
   onPointerUp,
 }: FloatingAdminMenuProps) {
-  const { settings, updateSetting } = useStore();
+  const { settings } = useStore();
+  const { updateSetting } = useSettings(true);
   const globalIcons = THEME.icons;
 
   if (!settings) return null;
