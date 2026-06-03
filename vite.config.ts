@@ -14,7 +14,7 @@ export default defineConfig({
     react(),
     VitePWA({
       registerType: 'autoUpdate',
-      includeAssets: ['favicon.svg', 'images/*.png'],
+      includeAssets: ['logo-favicon.svg', 'images/*.png'],
       manifest: {
         name: 'Toptan Ambalajcım',
         short_name: 'Toptan Ambalaj',
@@ -24,12 +24,12 @@ export default defineConfig({
         display: 'standalone',
         icons: [
           {
-            src: 'favicon.svg',
+            src: 'logo-favicon.svg',
             sizes: '192x192',
             type: 'image/svg+xml',
           },
           {
-            src: 'favicon.svg',
+            src: 'logo-favicon.svg',
             sizes: '512x512',
             type: 'image/svg+xml',
           },

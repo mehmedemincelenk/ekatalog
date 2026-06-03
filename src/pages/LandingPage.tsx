@@ -22,7 +22,7 @@ export default function LandingPage() {
     document.title = "ekatalog";
     const link: HTMLLinkElement | null = document.querySelector("link[rel*='icon']");
     if (link) {
-      link.href = "/favicon.svg?v=4";
+      link.href = "/logo-favicon.svg?v=1";
     }
 
     // Body arkaplanını beyaza set ederek tarayıcı kaydırma taşmalarındaki gri rengi önlüyoruz
