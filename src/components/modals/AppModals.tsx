@@ -101,43 +101,49 @@ const AppModals = memo(() => {
   };
 
   return (
-    <Suspense fallback={null}>
+    <>
       <QRModal isOpen={activeModal === 'QR'} onClose={closeModal} />
 
       <AnimatePresence>
         {isAdmin && (
           <>
-            <AddProductModal
-              isModalOpen={activeModal === 'ADD_PRODUCT'}
-              onModalClose={closeModal}
-              onProductAddition={async (data, file) => {
-                const newId = await addProduct(data);
-                if (file && newId) {
-                  await uploadImage({ id: newId, file });
-                }
-              }}
-              availableCategories={categoryOrder}
-              initialCategory={(modalData as { category?: string })?.category}
-            />
+            <Suspense fallback={null}>
+              <AddProductModal
+                isModalOpen={activeModal === 'ADD_PRODUCT'}
+                onModalClose={closeModal}
+                onProductAddition={async (data, file) => {
+                  const newId = await addProduct(data);
+                  if (file && newId) {
+                    await uploadImage({ id: newId, file });
+                  }
+                }}
+                availableCategories={categoryOrder}
+                initialCategory={(modalData as { category?: string })?.category}
+              />
+            </Suspense>
 
-            <BulkPriceUpdateModal
-              isOpen={activeModal === 'BULK_UPDATE'}
-              onClose={closeModal}
-              allProducts={allProducts}
-              categories={categoryOrder}
-              onGranularUpdate={executeGranularBulkActions}
-            />
+            <Suspense fallback={null}>
+              <BulkPriceUpdateModal
+                isOpen={activeModal === 'BULK_UPDATE'}
+                onClose={closeModal}
+                allProducts={allProducts}
+                categories={categoryOrder}
+                onGranularUpdate={executeGranularBulkActions}
+              />
+            </Suspense>
 
             {settings && (
-              <DisplaySettingsModal
-                key={activeModal === 'DISPLAY_SETTINGS' ? 'active' : 'inactive'}
-                isOpen={activeModal === 'DISPLAY_SETTINGS'}
-                onClose={closeModal}
-                settings={settings}
-                updateSetting={updateSetting}
-                isInlineEnabled={isInlineEnabled}
-                onToggleInline={toggleInlineEdit}
-              />
+              <Suspense fallback={null}>
+                <DisplaySettingsModal
+                  key={activeModal === 'DISPLAY_SETTINGS' ? 'active' : 'inactive'}
+                  isOpen={activeModal === 'DISPLAY_SETTINGS'}
+                  onClose={closeModal}
+                  settings={settings}
+                  updateSetting={updateSetting}
+                  isInlineEnabled={isInlineEnabled}
+                  onToggleInline={toggleInlineEdit}
+                />
+              </Suspense>
             )}
 
             <GlobalAddMenuModal
@@ -146,16 +152,20 @@ const AppModals = memo(() => {
               onAction={handleGlobalAddAction}
             />
 
-            <PortfoysLeadModal
-              isOpen={activeModal === 'PORTFOYS_SEARCH' || activeModal === 'PORTFOYS_DIRECTORY'}
-              onClose={closeModal}
-              initialTab={activeModal === 'PORTFOYS_DIRECTORY' ? 'directory' : 'search'}
-            />
+            <Suspense fallback={null}>
+              <PortfoysLeadModal
+                isOpen={activeModal === 'PORTFOYS_SEARCH' || activeModal === 'PORTFOYS_DIRECTORY'}
+                onClose={closeModal}
+                initialTab={activeModal === 'PORTFOYS_DIRECTORY' ? 'directory' : 'search'}
+              />
+            </Suspense>
 
-            <FeaturesModal
-              isOpen={activeModal === 'FEATURES'}
-              onClose={closeModal}
-            />
+            <Suspense fallback={null}>
+              <FeaturesModal
+                isOpen={activeModal === 'FEATURES'}
+                onClose={closeModal}
+              />
+            </Suspense>
           </>
         )}
       </AnimatePresence>
@@ -172,10 +182,12 @@ const AppModals = memo(() => {
           />
         )}
         {activeModal === 'CHANGE_PIN' && (
-          <ChangePinModal
-            isOpen={true}
-            onClose={closeModal}
-          />
+          <Suspense fallback={null}>
+            <ChangePinModal
+              isOpen={true}
+              onClose={closeModal}
+            />
+          </Suspense>
         )}
       </AnimatePresence>
 
@@ -189,16 +201,18 @@ const AppModals = memo(() => {
       />
 
       {settings && (
-        <PriceListModal
-          isOpen={activeModal === 'PRICE_LIST'}
-          onClose={closeModal}
-          products={allProducts}
-          categories={categoryOrder}
-          visitorCurrency={visitorCurrency}
-          exchangeRates={settings.exchangeRates}
-          activeDiscount={activeDiscount}
-          storeName={settings.title || 'Katalog'}
-        />
+        <Suspense fallback={null}>
+          <PriceListModal
+            isOpen={activeModal === 'PRICE_LIST'}
+            onClose={closeModal}
+            products={allProducts}
+            categories={categoryOrder}
+            visitorCurrency={visitorCurrency}
+            exchangeRates={settings.exchangeRates}
+            activeDiscount={activeDiscount}
+            storeName={settings.title || 'Katalog'}
+          />
+        </Suspense>
       )}
 
       <LocationModal
@@ -215,12 +229,14 @@ const AppModals = memo(() => {
         storeName={settings?.title || 'Katalog'}
       />
 
-      <SocialExportModal
-        isOpen={activeModal === 'SOCIAL_EXPORT'}
-        onClose={closeModal}
-        products={allProducts}
-      />
-    </Suspense>
+      <Suspense fallback={null}>
+        <SocialExportModal
+          isOpen={activeModal === 'SOCIAL_EXPORT'}
+          onClose={closeModal}
+          products={allProducts}
+        />
+      </Suspense>
+    </>
   );
 });
 
