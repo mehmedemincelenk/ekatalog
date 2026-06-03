@@ -48,13 +48,13 @@ const Navbar = memo(
       text: '',
     };
     const showAnnouncementBar =
-      announcementConfig.enabled && announcementConfig.text;
+      announcementConfig.enabled &&
+      (announcementConfig.text || flow.isAdmin || isPreview);
 
     return (
       <>
         {/* ANNOUNCEMENT BAR */}
-        {(showAnnouncementBar ||
-          (flow.isAdmin && announcementConfig.enabled)) && (
+        {showAnnouncementBar && (
           <div className={announcementBarTheme.wrapper}>
             <span
               className={`${announcementBarTheme.text} ${flow.isAdmin && isInlineEnabled ? announcementBarTheme.adminEditStyle : ''}`}
@@ -79,7 +79,7 @@ const Navbar = memo(
               }}
             >
               {announcementConfig.text ||
-                (flow.isAdmin ? 'Duyuru metnini buraya yazın...' : '')}
+                (flow.isAdmin || isPreview ? 'Duyuru metnini buraya yazın...' : '')}
             </span>
             {/* X Button Removed by request */}
           </div>
