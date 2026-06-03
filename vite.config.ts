@@ -14,7 +14,7 @@ export default defineConfig({
     react(),
     VitePWA({
       registerType: 'autoUpdate',
-      includeAssets: ['logo-favicon.svg', 'images/*.png'],
+      includeAssets: ['logo-favicon.svg', 'images/*.png', 'images/*.svg'],
       manifest: {
         name: 'Toptan Ambalajcım',
         short_name: 'Toptan Ambalaj',

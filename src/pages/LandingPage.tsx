@@ -33,7 +33,7 @@ export default function LandingPage() {
       const newLink = document.createElement('link');
       newLink.rel = 'icon';
       newLink.type = 'image/svg+xml';
-      newLink.href = isDark ? '/images/logo_dark.svg?v=2' : '/images/logo_light.svg?v=2';
+      newLink.href = isDark ? '/images/logo_dark.svg?v=3' : '/images/logo_lg.svg?v=3';
       document.head.appendChild(newLink);
     };
 
@@ -332,7 +332,7 @@ export default function LandingPage() {
 
       <footer className="relative border-t border-stone-100 pt-8 flex items-center justify-between gap-4 px-6 pb-8 max-w-3xl mx-auto w-full">
         <div className="flex items-center select-none">
-          <img src="/images/logo_light.svg?v=2" alt="ekatalog" className="w-6 h-6" />
+          <img src="/images/logo_lg.svg?v=3" alt="ekatalog" className="w-6 h-6" />
         </div>
         <div className="flex items-center gap-3 text-xs font-bold text-stone-600">
           <a
