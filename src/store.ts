@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 import { CompanySettings, StoreState } from './types';
 import { TECH, LABELS } from './data/config';
+import { getNextCurrency } from './utils/price';
 
 /**
  * STORE.TS (DÜKKANIN ORTAK AKLI)
@@ -66,12 +67,7 @@ export const useStore = create<StoreState>((set) => ({
       | 'EUR') || 'TRY',
   toggleVisitorCurrency: () =>
     set((state: StoreState) => {
-      const cycle: Record<string, 'TRY' | 'USD' | 'EUR'> = {
-        TRY: 'USD',
-        USD: 'EUR',
-        EUR: 'TRY',
-      };
-      const next = cycle[state.visitorCurrency] || 'TRY';
+      const next = getNextCurrency(state.visitorCurrency);
       localStorage.setItem('ekatalog_visitor_currency', next);
       return { visitorCurrency: next };
     }),
