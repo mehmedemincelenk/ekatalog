@@ -492,9 +492,7 @@ export function PinModal({
                     className={theme.keyButton}
                     variant="secondary"
                     mode="circle"
-                  >
-                    <span className={theme.typography.keyText}>{num}</span>
-                  </Button>
+                  />
                 ))}
                 <Button
                   onClick={onModalClose}
@@ -509,9 +507,7 @@ export function PinModal({
                   className={theme.keyButton}
                   variant="secondary"
                   mode="circle"
-                >
-                  <span className={theme.typography.keyText}>0</span>
-                </Button>
+                />
                 <Button
                   onClick={() =>
                     flow.setCurrentPinAttempt((prev) => prev.slice(0, -1))
