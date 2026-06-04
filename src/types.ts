@@ -106,6 +106,11 @@ export interface ProductDetailModalProps {
   highDefinitionImageSource: string;
   isStatic?: boolean;
   showPrice?: boolean;
+  isAdmin?: boolean;
+  categories?: string[];
+  onUpdate?: (id: string, changes: Partial<Product>) => void;
+  onDelete?: (id: string) => void;
+  onImageUpload?: (id: string, file: File) => Promise<string | undefined>;
 }
 
 /**

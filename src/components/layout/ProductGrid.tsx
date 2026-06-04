@@ -5,7 +5,6 @@ import { memo, Fragment } from 'react';
 import { THEME, LABELS } from '../../data/config';
 import ProductCard from './ProductCard';
 import Button from '../ui/Button';
-import { EditProdCard } from './EditProdCard';
 import CategoryHeader from './CategoryHeader';
 import { useStore } from '../../store';
 import { useCatalogEngine } from '../../hooks/useProductsHub';
@@ -148,20 +147,6 @@ const ProductGrid = memo(
               </span>
             </Button>
           </div>
-        )}
-
-        {isAdmin && activeAdminProductId && (
-          <EditProdCard
-            product={products.find((p) => p.id === activeAdminProductId)!}
-            categories={categoryOrder}
-            onDelete={onDelete}
-            onUpdate={onUpdate}
-            isOpen={!!activeAdminProductId}
-            setIsOpen={(open) =>
-              setActiveAdminProductId?.(open ? activeAdminProductId : null)
-            }
-            onImageUpload={onImageUpload}
-          />
         )}
       </div>
     );

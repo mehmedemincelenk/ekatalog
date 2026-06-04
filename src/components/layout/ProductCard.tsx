@@ -25,9 +25,11 @@ import * as Lucide from 'lucide-react';
 const ProductCard = memo(
   ({
     product,
+    categories,
     isAdmin,
     isInlineEnabled,
     showPrice = true,
+    onDelete,
     onUpdate,
     onImageUpload,
     activeDiscount,
@@ -49,7 +51,6 @@ const ProductCard = memo(
       setIsZoomDetailOpen,
       quickEdit,
       setQuickEdit,
-      setIsAdminMenuOpen,
       handleImageFileChange,
       handleDataFieldUpdate,
       handlePromptEdit,
@@ -94,9 +95,9 @@ const ProductCard = memo(
                 flexShrink: 0,
               }}
               onClick={() => {
-                if (isAdmin && !isUploadingImage) setIsAdminMenuOpen(true);
-                else if (!isAdmin && primaryImageSource)
+                if (!isUploadingImage && (isAdmin || primaryImageSource)) {
                   setIsZoomDetailOpen(true);
+                }
               }}
             >
               <SmartImage
@@ -335,6 +336,11 @@ const ProductCard = memo(
           discountedPriceLabel={discountedPriceLabel || ''}
           highDefinitionImageSource={highDefinitionImageSource || ''}
           showPrice={showPrice}
+          isAdmin={isAdmin}
+          categories={categories}
+          onUpdate={onUpdate}
+          onDelete={onDelete}
+          onImageUpload={onImageUpload}
         />
 
         <QuickEditModal
