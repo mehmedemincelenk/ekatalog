@@ -444,13 +444,11 @@ export function PinModal({
               <span className="text-[10px] font-black tracking-[0.4em] text-stone-500 uppercase mb-6">
                 GÜVENLİK DOĞRULAMASI
               </span>
-              <div className="flex items-center justify-center w-full h-[95px] overflow-hidden">
-                <div className="scale-[0.75] origin-center flex items-center justify-center">
-                  <Turnstile
-                    onVerify={() => flow.setIsRobotVerified(true)}
-                    options={{ theme: 'light', size: 'compact' }}
-                  />
-                </div>
+              <div className="flex items-center justify-center w-full">
+                <Turnstile
+                  onVerify={() => flow.setIsRobotVerified(true)}
+                  options={{ theme: 'light', size: 'compact' }}
+                />
               </div>
               <button
                 onClick={onModalClose}
@@ -500,7 +498,7 @@ export function PinModal({
                 <Button
                   onClick={onModalClose}
                   variant="ghost"
-                  mode="rectangle"
+                  mode="circle"
                   className={theme.cancelButton}
                 >
                   İPTAL
@@ -514,9 +512,10 @@ export function PinModal({
                   <span className={theme.typography.keyText}>0</span>
                 </Button>
                 <Button
-                  onClick={() =>
-                    flow.setCurrentPinAttempt((prev) => prev.slice(0, -1))
-                  }
+                  onClick={() => {
+                    if (flow.isInputDisabled) return;
+                    flow.setCurrentPinAttempt((prev) => prev.slice(0, -1));
+                  }}
                   variant="ghost"
                   mode="circle"
                   className={theme.deleteButton}
