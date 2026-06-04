@@ -58,7 +58,7 @@ export default function BaseFloatingMenu({
   onMasterClick,
 }: BaseFloatingMenuProps) {
   const [isExpandedState, setIsExpandedState] = useState(false);
-  const isExpanded = forceExpanded || isExpandedState;
+  const isExpanded = actions.length > 0 && (forceExpanded || isExpandedState);
   const containerRef = useRef<HTMLDivElement>(null);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
   const pointerDownTime = useRef(0);
