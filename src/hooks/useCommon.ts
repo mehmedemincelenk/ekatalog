@@ -202,6 +202,57 @@ export function useSyncMetadata(
       document.getElementsByTagName('head')[0].appendChild(link);
     }
     if (settings.logoUrl) link.href = settings.logoUrl;
+
+    let manifestUrl = '';
+    try {
+      const manifest = {
+        name: settings.name || settings.title || 'ekatalog',
+        short_name: settings.name || settings.title || 'ekatalog',
+        description: settings.subtitle || settings.title || 'Katalog',
+        theme_color: '#ffffff',
+        background_color: '#f7f5f2',
+        display: 'standalone',
+        start_url: window.location.origin + window.location.pathname,
+        icons: [
+          {
+            src: settings.logoUrl || '/logo-favicon.svg',
+            sizes: '192x192',
+            type: 'image/png',
+          },
+          {
+            src: settings.logoUrl || '/logo-favicon.svg',
+            sizes: '512x512',
+            type: 'image/png',
+          },
+        ],
+      };
+      
+      const stringManifest = JSON.stringify(manifest);
+      const blob = new Blob([stringManifest], { type: 'application/json' });
+      manifestUrl = URL.createObjectURL(blob);
+
+      let manifestLink = document.querySelector('link[rel="manifest"]');
+      if (!manifestLink) {
+        manifestLink = document.createElement('link');
+        manifestLink.setAttribute('rel', 'manifest');
+        document.head.appendChild(manifestLink);
+      }
+      
+      const prevUrl = manifestLink.getAttribute('href');
+      if (prevUrl && prevUrl.startsWith('blob:')) {
+        URL.revokeObjectURL(prevUrl);
+      }
+      
+      manifestLink.setAttribute('href', manifestUrl);
+    } catch (err) {
+      console.error('Failed to generate dynamic PWA manifest:', err);
+    }
+
+    return () => {
+      if (manifestUrl) {
+        URL.revokeObjectURL(manifestUrl);
+      }
+    };
   }, [isAdmin, settings]);
 }
 
