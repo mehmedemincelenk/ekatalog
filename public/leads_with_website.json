@@ -1,0 +1,3565 @@
+[
+  {
+    "name": "Yalçın Endüstriyel Temizlik Malzemeleri İstoç",
+    "phone": "+902126597471",
+    "website": "http://yalcintemizlik.com/",
+    "address": "Mahmutbey, 31. Yol Sk. No:121, 34218 Bağcılar/İstanbul, Türkiye",
+    "slug": "yalcin"
+  },
+  {
+    "name": "Erva Endüstriyel Temizlik Ürünleri İstoç",
+    "phone": "+902124383298",
+    "website": "http://www.ervaendustriyel.com/",
+    "address": "istoç 21.ada no:80, 34218 Bağcılar/İstanbul, Türkiye",
+    "slug": "erva"
+  },
+  {
+    "name": "ESTEM TEMİZLİK VE ENDÜSTRİYEL ÜRÜNLER",
+    "phone": "+902126592096",
+    "website": "http://estemtemizlik.com/",
+    "address": "İstoç Tic. Merkezi, Mahmutbey, D:34. Ada No:72, 34218 Bağcılar/İstanbul, Türkiye",
+    "slug": "estemurunler"
+  },
+  {
+    "name": "Birleşik Temizlik Malzemeleri",
+    "phone": "+902126595006",
+    "website": "http://www.birlesiktemizlik.com/",
+    "address": "Mahmutbey, 2428. Sk 9.Ada no:85-87, 34218 Bağcılar/İstanbul, Türkiye",
+    "slug": "birlesik"
+  },
+  {
+    "name": "Mürşidoğlu Fırça ve Endüstriyel Temizlik",
+    "phone": "+905356008701",
+    "website": "http://www.mursidoglu.com.tr/",
+    "address": "Mahmutbey, İstoç Çevre Yolu No:165, 34218 Bağcılar/İstanbul, Türkiye",
+    "slug": "mursidoglufirca"
+  },
+  {
+    "name": "Aparan Temizlik",
+    "phone": "+905436574567",
+    "website": "https://aparantemizlik.com.tr/",
+    "address": "Esatpaşa, Pelin Sk No:5, 34440 Ataşehir/İstanbul, Türkiye",
+    "slug": "aparan"
+  },
+  {
+    "name": "Karakuş Temizlik - Fureltem",
+    "phone": "+905468722891",
+    "website": "http://fureltem.com/",
+    "address": "Mahmutbey, 2452. Sk. İstoç 31. Ada no: 35-37, 34000 Bağcılar/İstanbul, Türkiye",
+    "slug": "karakusfureltem"
+  },
+  {
+    "name": "Gül Temizlik",
+    "phone": "+905345175219",
+    "website": "https://gultemizlik.com.tr/",
+    "address": "Mahmutbey, İstoç 11. Ada No: 101, 34218 Bağcılar/İstanbul, Türkiye",
+    "slug": "gul"
+  },
+  {
+    "name": "Karakuş Endüstriyel Temizlik Malzemeleri",
+    "phone": "+902126592008",
+    "website": "http://www.karakustemizlik.com/",
+    "address": "Mahmutbey, 14. Yol Sk. No:94, 34218 Bağcılar/İstanbul, Türkiye",
+    "slug": "karakus"
+  },
+  {
+    "name": "Hizmet Temizlik - İstanbul Temizlik Şirketi",
+    "phone": "+902126569622",
+    "website": "https://www.hizmettemizlik.com/",
+    "address": "Göztepe Mahallesi, Orhangazi Caddesi 2278. Sokak :No:2B, 34218 Bağcılar/İstanbul, Türkiye",
+    "slug": "hizmetistanbul"
+  },
+  {
+    "name": "Protem Endüstriyel Temizlik Ürünleri",
+    "phone": "+902126596969",
+    "website": "http://www.protemtemizlik.com/",
+    "address": "Mahmutbey Mahallesi, istoç toptancılar çarşı 8.ada no 85-87-89-91, 34218 Bağcılar/İstanbul, Türkiye",
+    "slug": "protem"
+  },
+  {
+    "name": "Denizler Temizlik",
+    "phone": "+902126593738",
+    "website": "https://sites.google.com/view/denizlertemizlik",
+    "address": "Mahmutbey mahallesi 2448 sokak no:21, İstoç 27 Ada, 34218 Bağcılar/İstanbul, Türkiye",
+    "slug": "denizler"
+  },
+  {
+    "name": "KMR Endüstriyel Temizlik Makine Sistemleri",
+    "phone": "+905303535261",
+    "website": "https://temizlikmakinesi.com/",
+    "address": "Yenimahalle, 1590.Sokak No:17/A, 34210 Bağcılar/İstanbul, Türkiye",
+    "slug": "kmrmakine"
+  },
+  {
+    "name": "Ural Kurumsal Tedarik Hizmetleri",
+    "phone": "+905078430848",
+    "website": "https://uraltedarik.com/",
+    "address": "Bağlar, 1311. Sk. No:23 Kat:3, 34212 Bağcılar/İstanbul, Türkiye",
+    "slug": "uraltedarik"
+  },
+  {
+    "name": "Mikro Sünger",
+    "phone": "+905321588509",
+    "website": "https://www.toptansunger.com/",
+    "address": "Kirazlı, 1183. Sk No:3, 34210 Bağcılar/İstanbul, Türkiye",
+    "slug": "mikrosunger"
+  },
+  {
+    "name": "CANTASTEMIZLIK HALI YIKAMA",
+    "phone": "+902126784552",
+    "website": "http://www.cantastemizlik.com/",
+    "address": "Yavuz Selim, 1088. Sk. No:3, 34203 Bağcılar/İstanbul, Türkiye",
+    "slug": "cantastemizlikhali"
+  },
+  {
+    "name": "Çınar Endüstriyel Mutfak Teknik Servis",
+    "phone": "+905421912478",
+    "website": "https://endustriyelmutfakservisi.com/",
+    "address": "Demirkapı, 1744 Sk No:54 D:2, 34220 Bağcılar/İstanbul, Türkiye",
+    "slug": "cinarmutfak"
+  },
+  {
+    "name": "GÖKCEM AMBALAJ VE TEMİZLİK ÜRÜNLERİ",
+    "phone": "+905534479184",
+    "website": "http://ekonomikambalaj.com.tr/",
+    "address": "Kemalpaşa, 1944. Sk. 42/C, 34200 Bağcılar/İstanbul, Türkiye",
+    "slug": "gokcem"
+  },
+  {
+    "name": "MEY ~ MEDİKAL TEMİZLİK AMBALAJ",
+    "phone": "+905449177048",
+    "website": "http://meymedikal.com/",
+    "address": "Merkez, 694. Sk. 4A, 34200 Bağcılar/İstanbul, Türkiye",
+    "slug": "meymedikal"
+  },
+  {
+    "name": "İmaj Endüstriyel Temizlik Hizmetleri",
+    "phone": "+902122918800",
+    "website": "http://www.imajtemizlik.com.tr/",
+    "address": "Site caddesi, Kocasinan Merkez, Akbayrak Sok. No:14, 34192 Bahçelievler/İstanbul, Türkiye",
+    "slug": "imaj"
+  },
+  {
+    "name": "Emre YILDIZELİ",
+    "phone": "+905348800851",
+    "website": "https://yildizeliendustriyel.com.tr/",
+    "address": "Temmar Temizlik Maddeleri",
+    "slug": "emreyildizeli"
+  },
+  {
+    "name": "El temizleme kremi",
+    "phone": "+905414935004",
+    "website": "http://www.eltemizlemepastasi.com/",
+    "address": "İstoc 30.ada no:79, D:1, 34218 Bağcılar/İstanbul, Türkiye",
+    "slug": "temizlemekremi"
+  },
+  {
+    "name": "MARİM TEDARİK",
+    "phone": "+905497632271",
+    "website": "http://www.marim.net/",
+    "address": "Güneşli, Fevzi Çakmak Cd No:4, 34212, 34212 Bağcılar/İstanbul, Türkiye",
+    "slug": "marimtedarik"
+  },
+  {
+    "name": "ELDİVENIUM-MANNER ELDİVEN İSTOÇ",
+    "phone": "+905054743526",
+    "website": "http://www.eldivenium.com/",
+    "address": "Mahmutbey mah. 2402 sk. no:2, İstoç 45 ada no:4, 34200 Bağcılar/İstanbul, Türkiye",
+    "slug": "eldiveniummanner"
+  },
+  {
+    "name": "BETA TEMİZLİK MALZEMELERİ",
+    "phone": "+905467795442",
+    "website": "https://www.betatemizlikistoc.com/",
+    "address": "MAHMUTBEY MAH. 2452 SOKAK, İSTOÇ 32.ADA NO:48-50, 34218 Bağcılar/İstanbul, Türkiye",
+    "slug": "beta"
+  },
+  {
+    "name": "Vindex",
+    "phone": "+905301681362",
+    "website": "https://vindex.com.tr/",
+    "address": "Nurol Park, 15 Temmuz, Bahar Cd. No:45 J-Blok Kat:16 No:164, 34212 Bağcılar/İstanbul, Türkiye",
+    "slug": "vindex"
+  },
+  {
+    "name": "Ofis",
+    "phone": "+908503040110",
+    "website": "http://www.sanifoam.com.tr/",
+    "address": "Endüstriyel Temizlik Ürünleri Ev Ve Işyeri Bağlar, 8. Sk. No:34, 34209 Bağcılar/İstanbul, Türkiye",
+    "slug": "ofis"
+  },
+  {
+    "name": "Beykem Temizlik Ürünleri",
+    "phone": "+902163717523",
+    "website": "http://www.beykem.com/",
+    "address": "ALTAYÇEŞME HAH., 105793 SK., 34843 Maltepe, Türkiye",
+    "slug": "beykem"
+  },
+  {
+    "name": "Endüstriyel Baca Temizleme",
+    "phone": "+902163837202",
+    "website": "http://www.atasistemler.com/",
+    "address": "Altayçeşme, Kore Sk. No:14/A, 34843 Maltepe/İstanbul, Türkiye",
+    "slug": "bacatemizleme"
+  },
+  {
+    "name": "İstanbul Baca Temizleme ve İlaçlama",
+    "phone": "+902163707456",
+    "website": "https://istanbulbacatemizleme.org/",
+    "address": "Altayçeşme, Batı Sk. No:5/C, 34843 Maltepe/İstanbul, Türkiye",
+    "slug": "istanbulbaca"
+  },
+  {
+    "name": "Profesyonel Temizlik Ürünleri",
+    "phone": "+902165733252",
+    "website": "http://www.deterjanmarketi.com/index.php?route=information/contact",
+    "address": "Fındıklı, Başıbüyük Yolu Cd NO:37, 34854 Maltepe/İstanbul, Türkiye",
+    "slug": "profesyonel"
+  },
+  {
+    "name": "H&N TEMİZLİK",
+    "phone": "+905322165580",
+    "website": "https://www.hntemizlik.com/",
+    "address": "Kanı paşa caddesi, Esenkent, Sinanlı Çk No:18, 34716 Maltepe/İstanbul, Türkiye",
+    "slug": "temizlik"
+  },
+  {
+    "name": "Işıltı Temizlik Ataşehir",
+    "phone": "+905304124053",
+    "website": "http://www.temizliksirketleri.com.tr/",
+    "address": "Kırkpınar Sok.İnceyol, Küçükyalı, Cad Konak Apt No.3/5, 34840 Maltepe/İstanbul, Türkiye",
+    "slug": "isiltiatasehir"
+  },
+  {
+    "name": "Mart Endüstriyel",
+    "phone": "+902165180202",
+    "website": "http://martendustriyel.com/",
+    "address": "Aydınevler, Sanayi Cd. No:9, 34854 Maltepe/İstanbul, Türkiye",
+    "slug": "mart"
+  },
+  {
+    "name": "Lotus Tg Temizlik İstanbul Temizlik Şirketi",
+    "phone": "+905422226171",
+    "website": "http://www.tgtemizlik.com/",
+    "address": "Artan Plaza, Bağlarbaşı, Feyzullah Cd. No:140, 34844 Maltepe/İstanbul, Türkiye",
+    "slug": "lotusistanbul"
+  },
+  {
+    "name": "Dizayn Ambalaj",
+    "phone": "+902163702358",
+    "website": "http://www.dizaynambalaj.com.tr/",
+    "address": "Bağlarbaşı, İnönü Cd. No:127 D:1, 34844 Maltepe/İstanbul, Türkiye",
+    "slug": "dizayn"
+  },
+  {
+    "name": "Demirsoy",
+    "phone": "+902164428481",
+    "website": "https://firmamibul.com/firma/demirsoy-ticaret",
+    "address": "Bağlarbaşı, İnönü Cd. No:127 D:A, 34844 Maltepe/İstanbul, Türkiye",
+    "slug": "demirsoy"
+  },
+  {
+    "name": "Turpak Temizlik Hizmetleri",
+    "phone": "+902165493476",
+    "website": "https://www.turpaktemizlik.com.tr/",
+    "address": "Bağlarbaşı, İnönü Cd. no: 111, 34844 Maltepe/İstanbul, Türkiye",
+    "slug": "turpak"
+  },
+  {
+    "name": "NOİX ENDÜSTRİYEL",
+    "phone": "+905323242674",
+    "website": "http://www.noix.com.tr/",
+    "address": "AĞSAN SAN.SİT, EYÜPSULTAN MH.HOCA NASRETTİN CAD, Eyüp Sultan, Yıl Sk. NO:1/J, 34885 Sancaktepe/İstanbul, Türkiye",
+    "slug": "noix"
+  },
+  {
+    "name": "Gündem Temizlik",
+    "phone": "+902163761643",
+    "website": "http://www.gundemtemizlik.com/",
+    "address": "Gülsuyu, Emek Cd. 46/A, 34848 Maltepe/İstanbul, Türkiye",
+    "slug": "gundem"
+  },
+  {
+    "name": "Özertem Endüstriyel Temizlik Ürünleri",
+    "phone": "+905322082692",
+    "website": "https://ozer-tem.com/",
+    "address": "Karlıktepe, İnönü Cd. No: 53 A, 34870 Kartal/İstanbul, Türkiye",
+    "slug": "ozertem"
+  },
+  {
+    "name": "Artı2",
+    "phone": "+902163705759",
+    "website": "http://www.arti2.com.tr/",
+    "address": "Cevizli, Saraylar Cd. 15/1, 34865 Kartal/İstanbul, Türkiye",
+    "slug": "arti2"
+  },
+  {
+    "name": "Akofisim Temizlik Kozmetik Gıda Sanayi",
+    "phone": "+905442232623",
+    "website": "http://www.akofisim.com/",
+    "address": "Cevizli mahallesi, Orhan Gazi Caddesi, Adım Sk. 13A, 34846 Maltepe/İstanbul, Türkiye",
+    "slug": "akofisim"
+  },
+  {
+    "name": "CRN Temizlik",
+    "phone": "+902165725818",
+    "website": "http://www.crntemizlik.com/",
+    "address": "Küçükyalı, Mektep Cd. No:5 D:57, 34840 Maltepe/İstanbul, Türkiye",
+    "slug": "crn"
+  },
+  {
+    "name": "Şen Tem Gıda ve Endüstriel Temizlik Ürünleri",
+    "phone": "+902126997887",
+    "website": "http://www.sentem.com.tr/",
+    "address": "Örnek, 1373. Sk. No:4 D:1, 34517 Esenyurt/İstanbul, Türkiye",
+    "slug": "senendustriel"
+  },
+  {
+    "name": "Temizlikyolda",
+    "phone": "+908508007777",
+    "website": "http://www.temizlikyolda.com/",
+    "address": "Zümrütevler Mahallesi Emek Caddesi Fuaye Turkuaz Sitesi D:A/17 Blok Daire 2, 34852 Maltepe, Türkiye",
+    "slug": "temizlikyolda"
+  },
+  {
+    "name": "MEHAS TEDARİK Endüstriyel Temizlik Malzemeleri",
+    "phone": "+902163359643",
+    "website": "http://mehastedarik.com/",
+    "address": ":, Ferah, Taşlıbayır Sk. No:8 D:9 Mağaza, 34692 Üsküdar/İstanbul, Türkiye",
+    "slug": "mehastedarik"
+  },
+  {
+    "name": "Erar Kuru Temizleme - Maltepe Merkez",
+    "phone": "+902163523326",
+    "website": "http://www.erar.com.tr/",
+    "address": "Bağdat Caddesi, Feyzullah, Çetin Sokağı No:5, 34854 Maltepe/İstanbul, Türkiye",
+    "slug": "erarkuru"
+  },
+  {
+    "name": "HİJYEN TEMİZLİK",
+    "phone": "+902165750037",
+    "website": "http://www.hijyentemizlik.com/",
+    "address": "Girne Mahallesi Girne mahallesi Dörtler sokak no:8 Ofis1/2, 34750 Maltepe/İstanbul, Türkiye",
+    "slug": "hijyen"
+  },
+  {
+    "name": "Sil-Bak Temizlik Hizmetleri",
+    "phone": "+902163679393",
+    "website": "http://www.sil-bak.com/",
+    "address": "Çınar, Bağdat Cad. No:172, 34841 Maltepe/İstanbul, Türkiye",
+    "slug": "silbak"
+  },
+  {
+    "name": "Tarko Hijyen Market",
+    "phone": "+902164428899",
+    "website": "https://www.hijyenmarket.net/",
+    "address": "Nil cad, Zümrütevler, Sinem Sk. 32/A, 34852 Maltepe/İstanbul, Türkiye",
+    "slug": "tarkohijyen"
+  },
+  {
+    "name": "Altaş Temizlik Maltepe Şantiyesi",
+    "phone": "+902163880311",
+    "website": "http://www.altastemizlik.com/",
+    "address": "Zümrütevler, Adatepe Cd. No:27, 34854 Maltepe/İstanbul, Türkiye",
+    "slug": "altasmaltepe"
+  },
+  {
+    "name": "İstanbul Temizlik Şirketi",
+    "phone": "+902167061066",
+    "website": "http://www.aybarstemizlik.com/",
+    "address": "Ani Temizlik Hali Yikama Merkezi",
+    "slug": "istanbul"
+  },
+  {
+    "name": "Belpak Temizlik Şirketleri",
+    "phone": "+902164180256",
+    "website": "https://www.belpaktemizlik.com/",
+    "address": "Acıbadem Mahallesi Acıbadem Cad, Şemi Bey Sk. No:23 1/B, 34718 Kadıköy/İstanbul, Türkiye",
+    "slug": "belpaksirketleri"
+  },
+  {
+    "name": "Pak Servis Temizlik Hizmetleri.",
+    "phone": "+905511506838",
+    "website": "https://www.pakservistemizlik.com/",
+    "address": "Acıbadem Cad, Şemi Bey Sk. No:21, 34710 Kadıköy/İstanbul, Türkiye",
+    "slug": "pakservis"
+  },
+  {
+    "name": "Dry Center Tepe Nautilus Kadıköy Kuru Temizleme",
+    "phone": "+902163394243",
+    "website": "https://drycenter.com/magazalar/istanbul/kadikoy-tepe-nautilus-kuru-temizleme",
+    "address": "Acıbadem Mah. Fatih Cad., Tepe Nautilus Alışveriş Merkezi No:1 D:26, 34718 Kadıköy/İstanbul, Türkiye",
+    "slug": "drycenter"
+  },
+  {
+    "name": "Promet Endüstriyel Temizlik",
+    "phone": "+902165577770",
+    "website": "http://www.promet.info.tr/",
+    "address": "Burhaniye, Mevlana Sk No:1/A, 34676 Üsküdar/İstanbul, Türkiye",
+    "slug": "promet"
+  },
+  {
+    "name": "Miss Temizlik",
+    "phone": "+905354725308",
+    "website": "http://www.misdepo.com/",
+    "address": "Tütüncü Mehmet Efendi Caddesi, Göztepe, Nadirağa Sk. No: 3, 34730 Kadıköy/İstanbul, Türkiye",
+    "slug": "miss"
+  },
+  {
+    "name": "A-klas temizlik",
+    "phone": "+905327078304",
+    "website": "https://www.a-klastemizlik.com/",
+    "address": "Hasanpaşa, Berberbaşı Sk. No:4, 34722 Kadıköy/İstanbul, Türkiye",
+    "slug": "klas"
+  },
+  {
+    "name": "Renktaş Fırçacılık temizlik gıda san.",
+    "phone": "+902163280815",
+    "website": "http://www.renktastemizlik.com/",
+    "address": "Atatürk Mahallesi Alemdağ Cd, İrfan Sk. No:8/B, 34764 Ümraniye/İstanbul, Türkiye",
+    "slug": "renktasfircacilik"
+  },
+  {
+    "name": "Espak Endüstriyel Temizlik Ürünleri",
+    "phone": "+902165057079",
+    "website": "http://www.espak.com.tr/",
+    "address": "Kısıklı, Alemdağ Yanyolu 35/A, 34692 Üsküdar/İstanbul, Türkiye",
+    "slug": "espak"
+  },
+  {
+    "name": "AyCe Temizlik",
+    "phone": "+905011536778",
+    "website": "http://www.aycetemizlik.com/",
+    "address": "Bostancı, 34744 Kadıköy/İstanbul, Türkiye",
+    "slug": "ayce"
+  },
+  {
+    "name": "Optimum Endüstriyel Dağcılık Hizmetleri",
+    "phone": "+905452838381",
+    "website": "http://www.optimumdagcilik.com/",
+    "address": "Icerenkoy mah Muhtaroglu sokak idris bey apt, No:3/A, 34000 Ataşehir/İstanbul, Türkiye",
+    "slug": "optimumdagcilik"
+  },
+  {
+    "name": "Ada Endüstriyel",
+    "phone": "+902163648044",
+    "website": "http://www.adaendustriyel.com.tr/",
+    "address": "İçerenköy, Mavi Sünbül Sok. NO: 6, 34752 Ataşehir/İstanbul, Türkiye",
+    "slug": "ada"
+  },
+  {
+    "name": "Temizlik Malzeme Ofisi Bostancı",
+    "phone": "+905052256580",
+    "website": "http://temizlikmalzemeofisi.com/",
+    "address": "İçerenköy, Sonbahar Sk. No: 10, 34752 Ataşehir/İstanbul, Türkiye",
+    "slug": "malzemeofisi"
+  },
+  {
+    "name": "Fren - Balata Temizleyici Sprey",
+    "phone": "+905323479231",
+    "website": "http://frenbalatatemizleme.com/",
+    "address": "Bostancı, Bağdat Cad. No:515 D:1, 34000 Kadıköy/İstanbul, Türkiye",
+    "slug": "frenbalata"
+  },
+  {
+    "name": "Soft Cleans Temizlik Hizmetleri",
+    "phone": "+905333781474",
+    "website": "https://softcleans.com/",
+    "address": "Caddebostan, Caddebostan İskele Sk. No:16 D:18B, 34728, 34664 Kadıköy/İstanbul, Türkiye",
+    "slug": "softcleans"
+  },
+  {
+    "name": "Wantclear",
+    "phone": "+905427104133",
+    "website": "http://wantclear.com.tr/",
+    "address": "Caddebostan, Caddebostan İskele Sk. No:16-18, 34728 Kadıköy/İstanbul, Türkiye",
+    "slug": "wantclear"
+  },
+  {
+    "name": "İşletme Adı Nur Temizlik (Güneysu Grup)",
+    "phone": "+902163381233",
+    "website": "http://www.guneysugrup.com/",
+    "address": "Feneryolu, Bağdat Cad. No:131, 34724 Kadıköy/İstanbul, Türkiye",
+    "slug": "isletmeadi"
+  },
+  {
+    "name": "Dry Center Bağdat Caddesi Kuru Temizleme",
+    "phone": "+902163553344",
+    "website": "https://drycenter.com/magazalar/istanbul/kadikoy-bagdat-caddesi-kuru-temizleme",
+    "address": "Caddebostan, Bağdat Cad. No:239, 34728 Kadıköy/İstanbul, Türkiye",
+    "slug": "drycenter"
+  },
+  {
+    "name": "MekKimya - ENDÜSTRİYEL BAKIM KİMYASALLARI",
+    "phone": "+905334200937",
+    "website": "http://mekkimya.net/",
+    "address": "Sahrayı Cedit, Hafız İmam Sk. No:24/25, 34734 Kadıköy/İstanbul, Türkiye",
+    "slug": "mekkimyabakim"
+  },
+  {
+    "name": "Diaspolis Temizlik",
+    "phone": "+905077488558",
+    "website": "https://diaspolistemizlik.com/",
+    "address": "Merdivenköy, Akkale Sk. 4 1, 34732 Kadıköy/İstanbul, Türkiye",
+    "slug": "diaspolis"
+  },
+  {
+    "name": "Göztepe Temizlik Şirketi",
+    "phone": "+902164785812",
+    "website": "http://kadikoytemizlik.com.tr/",
+    "address": "Mümindere Cad, Sahrayı Cedit, Cami Sk. No:24/1, 34734 Kadıköy/İstanbul, Türkiye",
+    "slug": "goztepe"
+  },
+  {
+    "name": "DEPODANAL",
+    "phone": "+905304234389",
+    "website": "http://www.depodanal.net/",
+    "address": "Feneryolu, Yıldıray Sk. 22 - 24/A, 34724 Kadıköy/İstanbul, Türkiye",
+    "slug": "depodanal"
+  },
+  {
+    "name": "My Laundry Kadikoy",
+    "phone": "+905442856198",
+    "website": "http://www.laundrybartr.com/",
+    "address": "Osmanağa, Hasırcı Başı Cd No:10, 34714 Kadıköy/İstanbul, Türkiye",
+    "slug": "laundrykadikoy"
+  },
+  {
+    "name": "Fer-Tem Endüstriyel Temizlik Ürünleri",
+    "phone": "+905344780672",
+    "website": "https://fertemizlik.com/",
+    "address": "Mimar Sinan, Köşk Sk. No:91/A, 34782 Çekmeköy/İstanbul, Türkiye",
+    "slug": "fer"
+  },
+  {
+    "name": "Cleanlux Kadıköy Organik Kuru Temizleme",
+    "phone": "+905380850773",
+    "website": "https://www.cleanlux.com.tr/istanbul-kadikoy-subesi.html",
+    "address": "Dumlupınar Mahallesi Barış Sokak Baysaş İstanbul 216 B Blok No:7BE, 34720 Kadıköy, Türkiye",
+    "slug": "cleanluxkadikoy"
+  },
+  {
+    "name": "Mutfak Kitap",
+    "phone": "+908504413443",
+    "website": "http://www.mutfakkitap.com/",
+    "address": "Fikirtepe Mah. Mandıra Cad. No:11 Mandarins, A Blok Dükkan:5, 34200 Kadıköy/İstanbul, Türkiye",
+    "slug": "mutfakkitap"
+  },
+  {
+    "name": "ETS Endüstriyel Temizlik Sistemleri A.Ş.",
+    "phone": "+902164932090",
+    "website": "http://www.etsgrup.com/",
+    "address": "Ramazanoğlu, Kaynarca Cd. No:36, 34906 Pendik/İstanbul, Türkiye",
+    "slug": "etssistemleri"
+  },
+  {
+    "name": "Su deposu temizliği ve izolasyonu Detem",
+    "phone": "+902165670044",
+    "website": "http://www.detem.com.tr/",
+    "address": "Nesrin Sok, Merdivenköy Mahallesi Nesrin Sokak Hızır Bey Cad, Aktay Apt No: 14, 34732 Kadıköy, Türkiye",
+    "slug": "deposutemizligi"
+  },
+  {
+    "name": "STAR ENDÜSTRİYEL DAĞCILIK",
+    "phone": "+905300524135",
+    "website": "https://starendustriyeldagcilik.com/",
+    "address": "19 Mayıs, Ozan Sk. No:10/A, 34734 Kadıköy/İstanbul, Türkiye",
+    "slug": "stardagcilik"
+  },
+  {
+    "name": "Chemist Chemicals İstanbul",
+    "phone": "+902164652010",
+    "website": "http://chem-ist.com/",
+    "address": "Ethem Efendi Cad, Erenköy, Fırın Sk. Sema Apt No:21/A, 34738 Kadıköy/İstanbul, Türkiye",
+    "slug": "chemistchemicals"
+  },
+  {
+    "name": "Zenit Endustriyel",
+    "phone": "+902164558802",
+    "website": "http://www.zenitendustriyel.com/",
+    "address": "Göztepe, Eğitim, Site Önü Sk. No.18/B, 34730 Kadıköy/İstanbul, Türkiye",
+    "slug": "zenit"
+  },
+  {
+    "name": "Feyiz Ambalaj & Alican Toptan & Bileme",
+    "phone": "+902163258913",
+    "website": "http://feyizambalaj.com/",
+    "address": "Hasanpaşa, Sarayardı Cd. No:63, 34722 Kadıköy/İstanbul, Türkiye",
+    "slug": "feyizalican"
+  },
+  {
+    "name": "Alhas Ambalaj",
+    "phone": "+902163302140",
+    "website": "http://www.alhasambalaj.com/",
+    "address": "Hasanpaşa Mahallesi Kurbağalıdere Cd. &, Nabizade Sk. 11/A, 34722 Kadıköy, Türkiye",
+    "slug": "alhas"
+  },
+  {
+    "name": "Flora Temizlik İnşaat",
+    "phone": "+905426300060",
+    "website": "http://www.floratemizlik.com.tr/",
+    "address": "Kozyatağı Toktaş Sokak, Karakol Karşısı No:11, 34742 Kadıköy/İstanbul, Türkiye",
+    "slug": "flora"
+  },
+  {
+    "name": "Ayla Stand",
+    "phone": "+905456494466",
+    "website": "http://aylastand.com/",
+    "address": "Kozyatağı, Şanlıer Sk. 17/A, 34000 Kadıköy/İstanbul, Türkiye",
+    "slug": "aylastand"
+  },
+  {
+    "name": "Main temizlik servis",
+    "phone": "+905326325603",
+    "website": "https://www.maintemizlik.com.tr/",
+    "address": "GAYE APT, İçerenköy, Birleşik Sk. No:3 / 9, 34752 Ataşehir/İstanbul, Türkiye",
+    "slug": "mainservis"
+  },
+  {
+    "name": "İşletme Adı Parlak Temizlik Hizmetleri",
+    "phone": "+902163557551",
+    "website": "http://www.parlaktemizlik.com/",
+    "address": "Sahrayı Cedit, Çelik Sk. No:15, 34734 Kadıköy/İstanbul, Türkiye",
+    "slug": "isletmeadi"
+  },
+  {
+    "name": "Zepro Gıda Sanayi ve Dış Ticaret A.Ş",
+    "phone": "+902165041292",
+    "website": "http://zeprogida.com.tr/",
+    "address": "Merdivenköy, Seyhan Sk. No:13 C D:1, 34732 Kadıköy/İstanbul, Türkiye",
+    "slug": "zepro"
+  },
+  {
+    "name": "Dry Alle Kuru Temizleme",
+    "phone": "+905433527474",
+    "website": "http://dryallekurutemizleme.com/",
+    "address": "Sahrayı Cedit, Sinan Sokağı No: 3/B, 34734 Kadıköy/İstanbul, Türkiye",
+    "slug": "dryalle"
+  },
+  {
+    "name": "PHİ MÜHENDİSLİK ELEKTRONİK",
+    "phone": "+902164081959",
+    "website": "http://phimuhendislik.com/",
+    "address": "Sahrayıcedid Mah. Taşlıyol Sok. Karakuş Apt, Blok No:28/A, 34734 Kadıköy/İstanbul, Türkiye",
+    "slug": "phimuhendislik"
+  },
+  {
+    "name": "Miele Experience Center Suadiye",
+    "phone": "+902163589604",
+    "website": "https://www.miele.com.tr/?utm_source=google&utm_medium=organic-google-business&utm_campaign=google-business-suadiye&utm_content=websitelink",
+    "address": "Bağdat Caddesi Mehmet Dural Apartmanı No: 404, D:2, 34740 Kadıköy/İstanbul, Türkiye",
+    "slug": "mieleexperience"
+  },
+  {
+    "name": "Tem Naturel Endüstriyel Temizlik",
+    "phone": "+902122685714",
+    "website": "https://www.temnaturel.com/",
+    "address": "Gayrettepe, Hoşsohbet Sokaği No:5 Daire:8, 34349 Beşiktaş/İstanbul, Türkiye",
+    "slug": "naturel"
+  },
+  {
+    "name": "MultiCleanMak Endüstriyel Temizlik Mak.",
+    "phone": "+902122777572",
+    "website": "http://www.multicleanmak.com/",
+    "address": "Fatih Sultan Mehmet, Cömert Sk. No:51, 34470 Sarıyer/İstanbul, Türkiye",
+    "slug": "multicleanmakmak"
+  },
+  {
+    "name": "Yiğitoğlu",
+    "phone": "+902123714800",
+    "website": "http://www.yigitoglu.com/",
+    "address": "Nispetiye Mah Başlık Sok. MM Plaza D:AB Block No:3, 34340 Beşiktaş/İstanbul, Türkiye",
+    "slug": "yigitoglu"
+  },
+  {
+    "name": "Karcher İstanbul Türkiye kuruluş 1935",
+    "phone": "+902123526987",
+    "website": "https://www.kaercher.com/tr/hakkimizda/sirket/kaercher-hakkinda.html",
+    "address": "Etiler, Harp Akademileri Çıkış-K7 (İstanbul Çevre Yolu), 34340 Beşiktaş/İstanbul, Türkiye",
+    "slug": "karcheristanbul"
+  },
+  {
+    "name": "Sistem Endüstriyel Temizlik ve Hijyen Ürünleri",
+    "phone": "+902128094525",
+    "website": "http://www.sistemhijyen.com.tr/",
+    "address": "Merkez mahallesi, Nene Hatun Cd. No:26 D:28C, 34275 Arnavutköy/İstanbul, Türkiye",
+    "slug": "sistemhijyen"
+  },
+  {
+    "name": "Otek Makina Endüstriyel Temizlik Ekipmanları",
+    "phone": "+902125014561",
+    "website": "http://www.otekmakina.com.tr/",
+    "address": "Taşoluk, Dalyan Sk. No:8-10A, 34283 Arnavutköy/İstanbul, Türkiye",
+    "slug": "otekmakina"
+  },
+  {
+    "name": "Arnavutköy Temizlik Şirketleri Arnavutköy Temizlikçi",
+    "phone": "+902126993815",
+    "website": "https://sites.google.com/view/arnavutkoy-temizlik-sirketleri/",
+    "address": "Nova Endüstriyel Tedarik",
+    "slug": "arnavutkoysirketleri"
+  },
+  {
+    "name": "Boğaziçi Temizlik İç ve Dış Tic.Ltd.Şti",
+    "phone": "+902122521260",
+    "website": "http://www.numatic.com.tr/",
+    "address": "Avrupa, Müeyyetzade, Necatibey Cd. No:25/A, 34425 Beyoğlu/İstanbul, Türkiye",
+    "slug": "bogazici"
+  },
+  {
+    "name": "Emeksan Temizlik Hizmetleri",
+    "phone": "+902122745580",
+    "website": "https://www.emeksan.com/",
+    "address": "Balmumcu, Barbaros Blv. İba Blokları No:34 D:9, 34349 Beşiktaş/İstanbul, Türkiye",
+    "slug": "emeksan"
+  },
+  {
+    "name": "Metropol Temizlik Hizmetleri",
+    "phone": "+902123271733",
+    "website": "http://www.metropoltemizlik.com.tr/",
+    "address": "Dikilitaş Mahallesi Hakkı Yeten Caddesi Selenium Plaza NO:1 Kat:1-5, 34349 Beşiktaş/İstanbul, Türkiye",
+    "slug": "metropol"
+  },
+  {
+    "name": "Temizlik İşleri Müdürlüğü Dikilitaş Işçi Noktası",
+    "phone": "+908504444455",
+    "website": "http://www.besiktas.bel.tr/",
+    "address": "Dikilitaş, Zambak Sk., 34349 Beşiktaş/İstanbul, Türkiye",
+    "slug": "islerimudurlugu"
+  },
+  {
+    "name": "YAPITEM TEMİZLİK",
+    "phone": "+905331905828",
+    "website": "https://www.yapitemtemizlik.com/",
+    "address": "Emin Bey Apartmanı, Dikilitaş Mahallesi Emirhan Cad, Cami Meydanı Sk. No: 4 / 2, 34349 Beşiktaş/İstanbul, Türkiye",
+    "slug": "yapitem"
+  },
+  {
+    "name": "Permak A.Ş.",
+    "phone": "+902122591171",
+    "website": "http://www.permak.com.tr/",
+    "address": "Cihannüma, Barbaros Blv. No:101, 34353 Beşiktaş/İstanbul, Türkiye",
+    "slug": "permak"
+  },
+  {
+    "name": "CleanViser",
+    "phone": "+905323764952",
+    "website": "http://www.cleanviser.com/",
+    "address": "Adres Belirtilmemiş",
+    "slug": "cleanviser"
+  },
+  {
+    "name": "MARMARA DAĞCILIK",
+    "phone": "+905324041609",
+    "website": "http://www.marmaradagcilik.com/",
+    "address": "Dikilitaş Mah. Zambak Sok. Çiğdem Apt. No:7 D:7 K:2, 34349 Beşiktaş/İstanbul, Türkiye",
+    "slug": "marmaradagcilik"
+  },
+  {
+    "name": "sistempak",
+    "phone": "+905456257341",
+    "website": "http://www.sistempak.com/",
+    "address": "Cihannüma, Barbaros Blv. No:83, 34353 Beşiktaş/İstanbul, Türkiye",
+    "slug": "sistempak"
+  },
+  {
+    "name": "EvoTemizlik - Halıfleks ve Yerinde Halı Yıkama",
+    "phone": "+905448344849",
+    "website": "https://www.evotemizlik.com/",
+    "address": "Muradiye, Nüzhetiye Cd. No:53, 34357 Beşiktaş/İstanbul, Türkiye",
+    "slug": "evotemizlikhalifleks"
+  },
+  {
+    "name": "Ömer Endüstriyel Temizlik Malzemeleri",
+    "phone": "+905366488864",
+    "website": "https://www.omerendustriyel.com/",
+    "address": "Kocatepe, Yağ İskelesi Cd. Mega Center iş merkezi A Blok 89/234, 34035 Bayrampaşa/İstanbul, Türkiye",
+    "slug": "omer"
+  },
+  {
+    "name": "Miele Experience Center Zorlu Center",
+    "phone": "+902123536225",
+    "website": "https://www.miele.com.tr/?utm_source=google&utm_medium=organic-google-business&utm_campaign=google-business-zorlu-center&utm_content=websitelink",
+    "address": "Zorlu Center AVM, Levazım, Koru Sk., 34340 Beşiktaş/İstanbul, Türkiye",
+    "slug": "mieleexperience"
+  },
+  {
+    "name": "Kurumsal Temizlik Tedarik",
+    "phone": "+902122833313",
+    "website": "https://www.kurumsaltemizliktedarik.com/index.php?route=information/contact",
+    "address": "Levent, Aydın Sokağı No:21/A D:4, 34340 Beşiktaş/İstanbul, Türkiye",
+    "slug": "tedarik"
+  },
+  {
+    "name": "Radikal Temizlik",
+    "phone": "+905336853777",
+    "website": "http://www.radikaltemizlik.com.tr/",
+    "address": "Levent, Levent Cd., 34330 Beşiktaş/İstanbul, Türkiye",
+    "slug": "radikal"
+  },
+  {
+    "name": "Furca Endüstriyel Temizlik Turizm",
+    "phone": "+902122504121",
+    "website": "https://www.furcatemizlik.com.tr/",
+    "address": "Ortabayır Erkılıç Sokak, Kanyon AVM Arkası 8-A, 34410 Kağıthane/İstanbul, Türkiye",
+    "slug": "furcaturizm"
+  },
+  {
+    "name": "Işıltı Temizlik Şirketi Levent",
+    "phone": "+905326449912",
+    "website": "https://isiltitemizlik.com.tr/",
+    "address": "Nef 09 Plaza Yavuz, Sultan Selim, Hümeyra Sokagi No:109, 34406 Kağıthane/İstanbul, Türkiye",
+    "slug": "isiltilevent"
+  },
+  {
+    "name": "Metsaş Kurumsal Hizmetler San. ve Tic. A.Ş.",
+    "phone": "+902124446387",
+    "website": "http://www.metsas.com.tr/",
+    "address": "Levent, Krizantem Sk. No:16 1, 34330 Beşiktaş/İstanbul, Türkiye",
+    "slug": "metsashizmetler"
+  },
+  {
+    "name": "Alp Petek Temizleme",
+    "phone": "+905327674809",
+    "website": "http://petektemizlemebul.com/",
+    "address": "Konaklar mahallesi, Levent, Org. İzzettin Aksalur Cd. No:29/b D:1 4, Beşiktaş/İstanbul, Türkiye",
+    "slug": "alppetek"
+  },
+  {
+    "name": "CLENID",
+    "phone": "+902128060313",
+    "website": "http://clenid.com/",
+    "address": "Duran İş Merkezi Büyükdere Caddesi, Levent, Harman Sk. No:4 K:2, Türkiye",
+    "slug": "clenid"
+  },
+  {
+    "name": "Çarşı Kuru Temizleme",
+    "phone": "+905337493777",
+    "website": "https://carsikurutemizleme.com/",
+    "address": "Türkali, Mısırlıbahçe Sok. 11/A, 34357 Beşiktaş/İstanbul, Türkiye",
+    "slug": "carsikuru"
+  },
+  {
+    "name": "rakip baca beşiktaş baca temizleme",
+    "phone": "+905320615659",
+    "website": "https://www.rakipbaca.com/",
+    "address": "Vişnezade, Çatalmektep Sk. no:11/4, 34357 Beşiktaş/İstanbul, Türkiye",
+    "slug": "rakipbaca"
+  },
+  {
+    "name": "Artemiz Temizlik Hizmetleri",
+    "phone": "+902122742460",
+    "website": "https://artemiz.com.tr/",
+    "address": "Gayrettepe Yıldız Posta Caddesi Emel Apartmanı A Blok Numara:14, 34349 Beşiktaş/İstanbul, Türkiye",
+    "slug": "artemiz"
+  },
+  {
+    "name": "Taski Temizlik Makineleri Bal Makina",
+    "phone": "+905548349898",
+    "website": "https://www.tergomakine.com/",
+    "address": "19 Mayıs, Aşçılar Sk. NO:1/E, 34363 Şişli/İstanbul, Türkiye",
+    "slug": "taskimakineleri"
+  },
+  {
+    "name": "Nilfisk Temizlik Makinaları Balkaya Makina",
+    "phone": "+902122160849",
+    "website": "http://www.balkayamakina.com.tr/",
+    "address": "19 Mayıs, 19 Mayıs Cd. No:45, 34050 Şişli/İstanbul, Türkiye",
+    "slug": "nilfiskmakinalari"
+  },
+  {
+    "name": "Comac Türkiye",
+    "phone": "+902122179862",
+    "website": "https://tergomakina.com/",
+    "address": "19 Mayıs, 19 Mayıs Cd. NO:45, 34363 Şişli/İstanbul, Türkiye",
+    "slug": "comacturkiye"
+  },
+  {
+    "name": "Dry Center Cevahir Şişli Kuru Temizleme",
+    "phone": "+902123800566",
+    "website": "https://drycenter.com/magazalar/istanbul/sisli-cevahir-kuru-temizleme",
+    "address": "19 Mayıs Mahallesi Büyükdere Caddesi 22/A D:Mağaza 106, 34360 Şişli, Türkiye",
+    "slug": "drycenter"
+  },
+  {
+    "name": "EkoTemiz WetClean & Dry Kuru Temizleme",
+    "phone": "+902122170022",
+    "website": "http://ekotemizwetclean.com/",
+    "address": "Mecidiyeköy Mahallesi, Lati Lokum Sk. No:19/A, 34387 Şişli/İstanbul, Türkiye",
+    "slug": "ekotemizwetclean"
+  },
+  {
+    "name": "Planet Vakum Makinaları - Balkaya Makina",
+    "phone": "+902122160894",
+    "website": "http://www.balkayamakina.com.tr/",
+    "address": "19 Mayıs Caddesi, 19 Mayıs, Aşçılar Sk. NO:1/E, 34363 Şişli/İstanbul, Türkiye",
+    "slug": "planetvakum"
+  },
+  {
+    "name": "Emek Temizlik Malzemeleri ve Kozmetik",
+    "phone": "+902122962459",
+    "website": "https://emektemizlikkozmetik.blogspot.com.tr/",
+    "address": "Merkez, Koca Mansur Sk. 17/A, 34384 Şişli/İstanbul, Türkiye",
+    "slug": "emek"
+  },
+  {
+    "name": "Performans Kimya",
+    "phone": "+902122663262",
+    "website": "http://performanskimya.com/",
+    "address": "19 Mayıs, Arkon Recidence, 19 Mayıs Caddesi No:20 D:aire:6, 34360 Şişli/İstanbul, Türkiye",
+    "slug": "performans"
+  },
+  {
+    "name": "SunDry Kuru Temizleme",
+    "phone": "+905528115295",
+    "website": "https://www.sislikurutemizleme.com/ Duatepe, Bozkurt Cd. No:6, 34379 Şişli/İstanbul, Türkiye",
+    "address": "Tampa Beyaz",
+    "slug": "sundrykuru"
+  },
+  {
+    "name": "CEVAT KURU TEMİZLEME",
+    "phone": "+902122473873",
+    "website": "http://www.cevatkurutemizleme.com/ Bozkurt, Bilezikçi Sk. 3-5, 34375 Şişli/İstanbul, Türkiye",
+    "address": "İşletme Adı",
+    "slug": "cevatkuru"
+  },
+  {
+    "name": "Taski Temizlik Makineleri",
+    "phone": "+905353950220",
+    "website": "https://taskiservis.com.tr/",
+    "address": "Gülbahar, Mecidiyeköy Mahallesi, Şahinler Sk. No:7, 34387 Şişli/İstanbul, Türkiye",
+    "slug": "taskimakineleri"
+  },
+  {
+    "name": "Bant Dünyası",
+    "phone": "+902122497209",
+    "website": "http://www.bantdunyasi.com/",
+    "address": "64 Şafak Sokak, Nişantaşı, Halaskargazi, 34371 Şişli/İstanbul, Türkiye",
+    "slug": "bantdunyasi"
+  },
+  {
+    "name": "Deça Temizlik Hizmetleri",
+    "phone": "+902122565680",
+    "website": "http://www.deca.com.tr/",
+    "address": "Mahmut Şevket Paşa, Şahinkaya Sk. Aydın İş Hanı No:22, 34384 Şişli/İstanbul - Avrupa, Türkiye",
+    "slug": "deca"
+  },
+  {
+    "name": "Endüstriyel Mutfak Ekipmanları",
+    "phone": "+902123614191",
+    "website": "https://yukselsatis.com/",
+    "address": "Pestvet Temizlik Şirketi",
+    "slug": "mutfakekipmanlari"
+  },
+  {
+    "name": "DURU KURU TEMİZLEME",
+    "phone": "+902122205995",
+    "website": "https://durutemizleme.net/",
+    "address": "Şişli İstanbul TR, H. Edip Adıvar Mahallesi, Melikşah Sk., 34445 Beyoğlu, Türkiye",
+    "slug": "durukuru"
+  },
+  {
+    "name": "Purizio",
+    "phone": "+905320598560",
+    "website": "https://www.purizio.com/",
+    "address": "Henüz Tanımlanmadı, Merkez, 34381 Şişli/İstanbul, Türkiye",
+    "slug": "purizio"
+  },
+  {
+    "name": "Estanbul Art Temizlik Şirketi",
+    "phone": "+902122958276",
+    "website": "https://www.ruyaistanbul.com/",
+    "address": "YZC Endüstriyel",
+    "slug": "estanbulart"
+  },
+  {
+    "name": "Şişli Kuru Temizleme & Çamaşırhane & Ütü",
+    "phone": "+905321201846",
+    "website": "http://www.drycleanersisli.com/",
+    "address": "Fulya, Şht. Niyazi Sk. No:7, 34394 Şişli/İstanbul, Türkiye",
+    "slug": "sislikuru"
+  },
+  {
+    "name": "Ambalaj deposu",
+    "phone": "+905518696010",
+    "website": "https://www.instagram.com/nisanambalaj/19 Mayıs Mah, Fulya, Öğretmen Haşim Çeken Cd. No:11A, 34363 Şişli/İstanbul, Türkiye",
+    "address": "Uniser Grup",
+    "slug": "deposu"
+  },
+  {
+    "name": "Check Organizasyon Ve Danışmanlık",
+    "phone": "+905343243447",
+    "website": "https://www.checkorganizasyon.com/ Mecidiyeköy Mahallesi, İmam Feyzullah Sk. 13/2, 34360 Şişli/İstanbul, Türkiye",
+    "address": "BİRLİK AMBALAJ PLASTİK VE TEMİZLİK",
+    "slug": "checkorganizasyon"
+  },
+  {
+    "name": "Us Tedarik Hizmetleri san. ve tic. ltd. şti.",
+    "phone": "+905352922222",
+    "website": "http://www.ustedarik.com/",
+    "address": "Kuştepe, İnönü Caddesi Abide Sitesi no:5/3, 34387 Şişli/İstanbul, Türkiye",
+    "slug": "tedarik"
+  },
+  {
+    "name": "İBER MAKİNA",
+    "phone": "+902122160084",
+    "website": "https://ibermakina.com/",
+    "address": "Mehtap Street, Mecidiyeköy Mahallesi, Şht. Ertuğrul Kabataş Cd., 34381 Şişli/İstanbul, Türkiye",
+    "slug": "ibermakina"
+  },
+  {
+    "name": "Hgs Temizlik",
+    "phone": "+902122124710",
+    "website": "http://hgstemizlik.com.tr/Belge.aspx",
+    "address": "Mecidiyeköy Mahallesi, Şehitertuğrul Kabataş Cad. 2/5, 34394 Şişli/İstanbul, Türkiye",
+    "slug": "hgs"
+  },
+  {
+    "name": "Lilyum Temizlik",
+    "phone": "+902122105567",
+    "website": "http://www.lilyumtemizlik.com/",
+    "address": "H. Rıfat Paşa Mahallesi Yüzer Havuz Sk. No:1,1 Perpa Tic. Merk. B Blok K:11No:2009, 34384 Şişli/İstanbul, Türkiye",
+    "slug": "lilyum"
+  },
+  {
+    "name": "Ets Makine",
+    "phone": "+902122210232",
+    "website": "http://www.etsmakine.com/",
+    "address": "Halil Rıfat Paşa, Yüzer Havuz Sk. Perpa Ticaret Merkezi No:1 A blok Kat :11 No:1444, 34384 Şişli/İstanbul, Türkiye",
+    "slug": "etsmakine"
+  },
+  {
+    "name": "Juul Pod Türkiye İstanbul iQOS Terea ve Juul2",
+    "phone": "+905346203690",
+    "website": "https://bio.link/tereapodevi",
+    "address": "Perpa Ticaret Merkezi Halil Rıfat Paşa Mahallesi, Yüzer Havuz Sokak, Okmeydanı, 34524 Şişli/İstanbul, Türkiye",
+    "slug": "juulpod"
+  },
+  {
+    "name": "Temizlik Makineleri",
+    "phone": "+902126355074",
+    "website": "https://nilclean.com/",
+    "address": "Yavuz Sinan, Unkapanı Cd., 34134 Fatih/İstanbul, Türkiye",
+    "slug": "makineleri"
+  },
+  {
+    "name": "Perpa ofis Temizliği",
+    "phone": "+905412106426",
+    "website": "http://www.pnrtemizilk.com/",
+    "address": "Perpa Ticaret merkezi b blok k:11 no1961, 34384 Şişli/İstanbul, Türkiye",
+    "slug": "perpaofis"
+  },
+  {
+    "name": "Evo Temizlik",
+    "phone": "+905548988089",
+    "website": "http://gungorentemizlik.com/",
+    "address": "PERPA TİCARET MERKEZİ, Okmeydanı Cd. No:11 B BLOK KAT, D:NO:1951, Türkiye",
+    "slug": "evo"
+  },
+  {
+    "name": "Ege Kurumsal Hiz. San. Tic.",
+    "phone": "+905353213868",
+    "website": "http://www.egekurumsal.com/",
+    "address": "AYDIN AP, İzzet Paşa, Kuyu Sk. NO4/B, 34381 Şişli/İstanbul, Türkiye",
+    "slug": "egehiz"
+  },
+  {
+    "name": "Dry Center Trump Mecidiyeköy Kuru Temizleme",
+    "phone": "+902123474734",
+    "website": "https://drycenter.com/magazalar/istanbul/sisli-trump-kuru-temizleme",
+    "address": "Kuştepe Mah. Mecidiyeköy Yolu Cad No:12/16 Trump Towers Alışveriş Merkezi, 34140 Şişli/İstanbul, Türkiye",
+    "slug": "drycenter"
+  },
+  {
+    "name": "Huzur Grup Temizlik Hizmetleri",
+    "phone": "+905330797752",
+    "website": "https://huzurgrup.com.tr/",
+    "address": "Merkez, Kamara İş Merkezi, Abide-i Hürriyet Caddesi, Hasat Sk. No:52, 34384 Şişli/İstanbul, Türkiye",
+    "slug": "huzur"
+  },
+  {
+    "name": "TEDARİQ.COM",
+    "phone": "+902122108282",
+    "website": "http://www.tedariq.com/",
+    "address": "Halil Rıfat Paşa mah. Perpa Ticaret Merkezi B Blok Kat: 5 No : 521 İstanbul, 34384 Şişli/İstanbul, Türkiye",
+    "slug": "tedariqcom"
+  },
+  {
+    "name": "TEMİZAYN A&B TEMİZLİK ŞİRKETİ",
+    "phone": "+905415508517",
+    "website": "https://www.temizayna.com/",
+    "address": "Paşa, Darülaceze Yolu Cd. No:66, 34000 Şişli/İstanbul, Türkiye",
+    "slug": "temizayn"
+  },
+  {
+    "name": "General profesyonel temizlik ekipmanları",
+    "phone": "+905324843360",
+    "website": "https://www.generaltemizlik.com/",
+    "address": "emin apt, Merkez, Duran Sk. no:12, 34406 Kağıthane/İstanbul, Türkiye",
+    "slug": "generalprofesyonel"
+  },
+  {
+    "name": "Prestij Temizlik Malzemeleri ve Kimya san.Tic.Ltd.Şti.",
+    "phone": "+902163446363",
+    "website": "http://www.prestijtemizlik.com.tr/",
+    "address": "Armağanevler, Diriliş Cd No:40/A, 34770 Ümraniye/İstanbul, Türkiye",
+    "slug": "prestij"
+  },
+  {
+    "name": "Atom temizlik ürünleri",
+    "phone": "+902166342974",
+    "website": "http://www.atomtem.com/",
+    "address": "Yamanevler, Site Yolu Cd Ak sanayi Sitesi D:2.kısım A Blok No 64, 34768 Ümraniye/İstanbul, Türkiye",
+    "slug": "atom"
+  },
+  {
+    "name": "EDA TEMİZLİK",
+    "phone": "+905330245384",
+    "website": "https://www.edatemı̇ zlı̇ k.com/",
+    "address": "Altınşehir, Alev Sk. NO1 KAT2, 34775 Ümraniye/İstanbul, Türkiye",
+    "slug": "eda"
+  },
+  {
+    "name": "Tarus Temizlik Ekipmanları",
+    "phone": "+902165260711",
+    "website": "http://www.tarustemizlik.com/",
+    "address": "Yamanevler, Naya Sk. No:15, 34768 Ümraniye/İstanbul, Türkiye",
+    "slug": "tarusekipmanlari"
+  },
+  {
+    "name": "Özipek Grup Endüstriyel Temizlik",
+    "phone": "+908508409426",
+    "website": "http://www.ozipekgrup.com/",
+    "address": "Çağla Plaza, Atakent, Mithatpaşa Cd. Kat:2, 34410 Ümraniye/İstanbul, Türkiye",
+    "slug": "ozipek"
+  },
+  {
+    "name": "Nilfisk Türkiye A.ş.",
+    "phone": "+902162757600",
+    "website": "http://www.nilfisk.com.tr/",
+    "address": "Şerifali, Bayraktar Blv. Şehit sk No:7, 34775 Ataşehir/Ümraniye/İstanbul, Türkiye",
+    "slug": "nilfiskturkiye"
+  },
+  {
+    "name": "Maya Endüstriyel",
+    "phone": "+902163136292",
+    "website": "http://www.mayaendustriyel.com/",
+    "address": "Mehmet Akif, Aziz Blv No:30/A, 34774 Ümraniye/İstanbul, Türkiye",
+    "slug": "maya"
+  },
+  {
+    "name": "Kimyasan - Endüstriyel Temizlik Ürünleri",
+    "phone": "+905333969594",
+    "website": "https://kimyasan.com/",
+    "address": "Cemil Meriç, Ahmet Cevdetpaşa Cd. 17 A, 34771 Ümraniye/İstanbul, Türkiye",
+    "slug": "kimyasan"
+  },
+  {
+    "name": "Teknik14",
+    "phone": "+902164155919",
+    "website": "http://susebilitemizle.com/",
+    "address": "Tepeüstü Mah. Alemdağ Cad, Necmettin Öztürk Sok. No: 45, Ümraniye/İstanbul, Türkiye",
+    "slug": "teknik14"
+  },
+  {
+    "name": "ÖZDEMİR GRUP TEMİZLİK HİZMETLERİ",
+    "phone": "+905414369177",
+    "website": "http://www.ozdemirgruptemizlik.com/ Necip Fazıl, Çorbacı Yolu Cd. No:22B, 34000 Ümraniye/İstanbul, Türkiye",
+    "address": "Kristal Endüstriyel Dağcılık",
+    "slug": "ozdemir"
+  },
+  {
+    "name": "Bayar Temizlik ve Ambalaj Ürünleri",
+    "phone": "+905323330030",
+    "website": "http://bayartemizlik.com.tr/",
+    "address": "Çakmak, Seyrek Sk. 65/A, 34760 Ümraniye/İstanbul, Türkiye",
+    "slug": "bayar"
+  },
+  {
+    "name": "Endüstriyel Mutfak Ürünleri",
+    "phone": "+905433305896",
+    "website": "http://bilalendustriyelmutfak.com.tr/",
+    "address": "Çakmak, Tavukçuyolu Cd 38 A, 34774 Ümraniye/İstanbul, Türkiye",
+    "slug": "mutfak"
+  },
+  {
+    "name": "Asil Endüstriyel Dağcılık",
+    "phone": "+905409121999",
+    "website": "https://www.asildagcilik.com/tr",
+    "address": "Yamanevler, Site Yolu Cd Anel İş Merkezi D:5/4, 34768 Ümraniye/İstanbul, Türkiye",
+    "slug": "asildagcilik"
+  },
+  {
+    "name": "Önder Temizlik",
+    "phone": "+905372482853",
+    "website": "https://www.ondertemizliktedarik.com.tr/Yamanevler, Site Yolu Cd Anel İş Merkezi No:5 İç Kapı No.4, 34768 Ümraniye/İstanbul, Türkiye",
+    "address": "İstanbul Kurumsal",
+    "slug": "onder"
+  },
+  {
+    "name": "İLETİŞİM",
+    "phone": "+908503034035",
+    "website": "http://primermendil.com/",
+    "address": "Tedarik Noktası, Murat Reis, Selamet Sk., 34664 Üsküdar/İstanbul, Türkiye",
+    "slug": "iletisim"
+  },
+  {
+    "name": "Mesa Temizlik ve Zemin Uygulama",
+    "phone": "+905073032986",
+    "website": "https://mesatemizlik.com/",
+    "address": "Yavuztürk, Karadeniz Cd. No:109, 34690 Üsküdar/İstanbul, Türkiye",
+    "slug": "mesazemin"
+  },
+  {
+    "name": "Tezal Temizleme Hizmetleri",
+    "phone": "+902163422020",
+    "website": "https://www.tezal.com.tr/",
+    "address": "Cumhuriyet Mahallesi Canan Sokak, Cumhuriyet, Libadiye Cd. No:13, 34699 Üsküdar/İstanbul, Türkiye",
+    "slug": "tezaltemizleme"
+  },
+  {
+    "name": "Profesyonel-Kurumsal Temizlik Hizmetleri",
+    "phone": "+905318979498",
+    "website": "http://temizlettir.com/",
+    "address": "Akasya Tower Residence, 34662 Üsküdar/İstanbul, Türkiye",
+    "slug": "profesyonel"
+  },
+  {
+    "name": "Trend Makina",
+    "phone": "+902163280496",
+    "website": "http://www.trendmakina.com/",
+    "address": "Cumhuriyet, Baraj Yolu Sk. No:8, 34699 Üsküdar/İstanbul, Türkiye",
+    "slug": "trendmakina"
+  },
+  {
+    "name": "Kayra Kimya Ve Temzlik Malzemeleri",
+    "phone": "+902164597610",
+    "website": "http://www.kayrakimya.com/",
+    "address": "Bahçelievler Mahallesi, Manaolya caddesi No:10 Ata 2 Sitesi içi, Çengelköy, 34688, Türkiye",
+    "slug": "kayratemzlik"
+  },
+  {
+    "name": "Temizlik Profesyoneli",
+    "phone": "+905362223534",
+    "website": "https://temizlikprofesyoneli.com/",
+    "address": "Ünalan, Çemen Sk. No:20, 34700 Üsküdar/İstanbul, Türkiye",
+    "slug": "profesyoneli"
+  },
+  {
+    "name": "Tek Temizlik Şirketi",
+    "phone": "+905061536520",
+    "website": "http://www.tektemizlik.com/",
+    "address": "Şirinevler Mahallesi Mahmutbey Caddesi No:17 Kat:4/67, Bahçelievler, 34188 İstanbul, Türkiye",
+    "slug": "tek"
+  },
+  {
+    "name": "Temizlik & Gıda Toptan ve Perakende SatışKirazlıtepe, Tomruk Cd., 34682 Üsküdar/İstanbul, Türkiye FİYAKA TEMİZLİK ŞİRKETİ",
+    "phone": "+905060903060",
+    "website": "https://fiyakatemizlik.com/",
+    "address": "Soğanlı, Boztepe Sk. No:35/7, 34183 Bahçelievler/İstanbul, Türkiye",
+    "slug": "perakendesatiskirazlitepe"
+  },
+  {
+    "name": "ECOGROUP Temizlik ve Ambalaj Ürünleri",
+    "phone": "+905302237464",
+    "website": "https://www.eco-group.com.tr/",
+    "address": "Şehremini, Büyük Saray Meydanı Cd. No:65/A, 34000 Fatih/İstanbul, Türkiye",
+    "slug": "ecogroup"
+  },
+  {
+    "name": "Pırıl Pırıl Temizlik",
+    "phone": "+905079714367",
+    "website": "https://www.istanbulevtemizlikci.com.tr/Aksaray, 34096 Fatih/İstanbul, Türkiye",
+    "address": "Abone Grup Temizlik",
+    "slug": "pirilpiril"
+  },
+  {
+    "name": "97 23",
+    "phone": "+905323137414",
+    "website": "https://laundryngo.com/",
+    "address": "Aras pasajı, Fındıkzade, Oğuzhan Cd., 34104 Fatih/İstanbul, Türkiye",
+    "slug": "9723"
+  },
+  {
+    "name": "Temko Temizlik Fatih Şubesi",
+    "phone": "+902125113631",
+    "website": "http://temkotemizlik.com/",
+    "address": "Yavuz Sultan Selim, Karadeniz Cd. No:80, 34083 Fatih/İstanbul, Türkiye",
+    "slug": "temkofatih"
+  },
+  {
+    "name": "GÜNEŞ TEMİZLİK",
+    "phone": "+905362685894",
+    "website": "http://www.gunestemizlik.com/",
+    "address": "Aksaray, Küçük Langa Cd., 34096 Fatih/İstanbul, Türkiye",
+    "slug": "gunes"
+  },
+  {
+    "name": "Temko Temizlik Ürünleri Pazarlama",
+    "phone": "+902125226891",
+    "website": "http://temkotemizlik.com/",
+    "address": "Demirtaş, Küçük Pazar Cd. 44/A, 34134 Fatih/İstanbul, Türkiye",
+    "slug": "temko"
+  },
+  {
+    "name": "Ekvator Hijyen",
+    "phone": "+902125871800",
+    "website": "http://ekvatorhijyen.com/",
+    "address": "Mevlanakapı, Mevlanakapı Cd. No: 19, 34104 Fatih/İstanbul, Türkiye",
+    "slug": "ekvatorhijyen"
+  },
+  {
+    "name": "Karakuş Ticaret",
+    "phone": "+902125110857",
+    "website": "http://www.karakustemizlik.com/",
+    "address": "Sarıdemir, Kutucular Cd. No:11, 34134 Fatih/İstanbul, Türkiye",
+    "slug": "karakus"
+  },
+  {
+    "name": "Mis Kokulu Temizlik Ticaret Limited Şirketi",
+    "phone": "+905305244786",
+    "website": "https://miskokulu.com.tr/",
+    "address": "Akşemsettin, Akdeniz Cd. Kamer İş Merkezi No:99 İç kapı no:6, 34134 Fatih/İstanbul, Türkiye",
+    "slug": "miskokulu"
+  },
+  {
+    "name": "Kalyon",
+    "phone": "+902125110091",
+    "website": "http://dav.com.tr/",
+    "address": "Fethi Bey Cd, Reyhani Sk 2/9, Fatih/İstanbul, Türkiye",
+    "slug": "kalyon"
+  },
+  {
+    "name": "Temizlik",
+    "phone": "+905052202000",
+    "website": "http://www.istanbultemizlikmerkezi.com/Şehremini, Necip Asım Sk. No:16/2, 34104 Fatih/İstanbul, Türkiye",
+    "address": "SUNTEM Fabrika satış Mağazası",
+    "slug": "temizlik"
+  },
+  {
+    "name": "KARAN ENDÜSTRİYEL TEMİZLİK",
+    "phone": "+902124384365",
+    "website": "http://www.karantemizlik.com/",
+    "address": "Oruç reis Mah.Giyimkent Sanayi Sitesi Ticaret Cad.NO:51A Esenler /İSTANBUL, 34235 Esenler/İstanbul, Türkiye",
+    "slug": "karan"
+  },
+  {
+    "name": "Topkapı Endüstri",
+    "phone": "+902125340410",
+    "website": "https://www.topkapigroup.com.tr/",
+    "address": "Topkapı, Turgut Özal Millet Cd. No:180, 34093 Fatih/İstanbul, Türkiye",
+    "slug": "topkapiendustri"
+  },
+  {
+    "name": "Partner Kurumsal Tedarik",
+    "phone": "+902126719094",
+    "website": "http://partnerkurumsal.com/?utm_source=gmb&utm_medium=referral",
+    "address": "Silivrikapı, Kuvayi Milliye Cd. No:5 Mağaza:5, 34107 Fatih/İstanbul, Türkiye",
+    "slug": "partnertedarik"
+  },
+  {
+    "name": "Bürtem Fatih Halı Yıkama",
+    "phone": "+902125236754",
+    "website": "https://burtemhaliyikama.com/",
+    "address": "Ayvansaray, Tandır Sk. No:8, 34087 Fatih/İstanbul, Türkiye",
+    "slug": "burtemfatih"
+  },
+  {
+    "name": "Umut Temizlik Ürünleri San. ve Tic. Ltd. Şti",
+    "phone": "+902126129240",
+    "website": "http://www.umuttemizlik.com.tr/",
+    "address": "İbrahimağa cad. Akel sok. No:17 Bayrampaşa - İstanbul, 34030 Bayrampaşa/İstanbul, Türkiye",
+    "slug": "umut"
+  },
+  {
+    "name": "Lider Çamaşirhane Kuru Temizleme Sanayi-Ve Ticaret Limited Şirketi Sultan Ahmet, Akbıyık Değirmeni Sk. NO:35 A, 34122 Fatih/İstanbul, Türkiye Karadağ Sünger",
+    "phone": "+905320526697",
+    "website": "https://www.karadagsunger.com/",
+    "address": "Süleymaniye, Avnipaşa Sok. No:4, 34116, 34116 Fatih/İstanbul, Türkiye",
+    "slug": "lidercamasirhane"
+  },
+  {
+    "name": "emakendustriyel",
+    "phone": "+902126692220",
+    "website": "http://emakendustriyel.com/",
+    "address": "Tahtakale Mah. Firat 1 Cad. Ismekan Residence No: 2/34 Postal Code:, 34325 Avcılar/İstanbul, Türkiye",
+    "slug": "emakendustriyel"
+  },
+  {
+    "name": "İstanbul Fatih Temizlik Şirketi",
+    "phone": "+905061859577",
+    "website": "http://istanbulfatihtemizlik.com/",
+    "address": "Cibali, Author Kemal Sk No 18 Apartment 3, 34083 Fatih/İstanbul, Türkiye",
+    "slug": "istanbulfatih"
+  },
+  {
+    "name": "Erdoğan Temizlik",
+    "phone": "+905347467779",
+    "website": "http://erdogantemizlik.com.tr/",
+    "address": "Derviş Ali, Neşter Sk. No:6, 34087 Fatih/İstanbul, Türkiye",
+    "slug": "erdogan"
+  },
+  {
+    "name": "Pırıl Temizlik",
+    "phone": "+905358715395",
+    "website": "http://www.piril-temizlik.com/",
+    "address": "Yedikule, İmrahor İlyasbey Cd. 79 d D:1, 34107 Fatih/İstanbul, Türkiye",
+    "slug": "piril"
+  },
+  {
+    "name": "Politem Endüstriyel Temizlik Ürünleri",
+    "phone": "+905425157208",
+    "website": "http://politemtemizlik.com/",
+    "address": "Sapan Bağları, Süreyyapaşa Cd No:75, 34893 Pendik/İstanbul, Türkiye",
+    "slug": "politem"
+  },
+  {
+    "name": "İşletme Adı Kariyer Endüstriyel",
+    "phone": "+902166270800",
+    "website": "https://www.kariyertemizlik.com/",
+    "address": "Velibaba, Naim Süleymanoğlu Cd no: 4/2, 34896 Pendik/İstanbul, Türkiye",
+    "slug": "isletmeadi"
+  },
+  {
+    "name": "SAWASH ENDÜSTRİYEL TEMİZLİK MAKİNELERİ",
+    "phone": "+905073969181",
+    "website": "http://www.sawashmakine.com/",
+    "address": "Şeyhli, Yunus Emre Cd. no: 8, 34906 Pendik/İstanbul, Türkiye",
+    "slug": "sawashmakineleri"
+  },
+  {
+    "name": "Titiz Temizlik Anadolu Yakası Temizlik Firmaları",
+    "phone": "+905372335881",
+    "website": "https://www.titiztemizlikfirmasi.com/ Kurtköy, Ankara Cd. NO . 124, 34896 Pendik/İstanbul, Türkiye",
+    "address": "Ambalaj Temizlik Ürünleri",
+    "slug": "titizanadolu"
+  },
+  {
+    "name": "Poxy İle Temizlik",
+    "phone": "+905320000000",
+    "website": "http://alcinyazilim.com/",
+    "address": "Şeyhli, Hilal Cd., 34906 Pendik/İstanbul, Türkiye",
+    "slug": "poxyile"
+  },
+  {
+    "name": "Aralık Endüstriyel Mutfak",
+    "phone": "+905326265837",
+    "website": "https://www.aralikmutfak.com/",
+    "address": "Yayalar, Atasever Cd. No: 9A, 34909 Pendik/İstanbul, Türkiye",
+    "slug": "aralikmutfak"
+  },
+  {
+    "name": "ernet",
+    "phone": "+902163783121",
+    "website": "http://ernet.com.tr/",
+    "address": "Tibet Üretim Tesisleri, Kurtköy, Ankara Cd. No:344, 34906 Pendik/İstanbul, Türkiye",
+    "slug": "ernet"
+  },
+  {
+    "name": "İstanbul Endüstriyel Dağcılık",
+    "phone": "+905318997144",
+    "website": "http://istanbulendustriyeldagci.com/",
+    "address": "Şeyhli, Ankara Cd. No:372 Floor:2, 34906 Pendik/İstanbul, Türkiye",
+    "slug": "istanbuldagcilik"
+  },
+  {
+    "name": "Aşikar Kurumsal Temizlik Hizmetleri",
+    "phone": "+905401909595",
+    "website": "https://www.asikartemizlik.com.tr/",
+    "address": "Kavakpınar, Abdi İpekçi Cd. No:224/A, 34899 Pendik/İstanbul, Türkiye",
+    "slug": "asikar"
+  },
+  {
+    "name": "İklim Endüstriyel Soğutma",
+    "phone": "+905346334371",
+    "website": "https://www.soguukhavadeposu.com/ Fevzi Çakmak, Küme Sk. No 6 D:b, 34899 Pendik/İstanbul, Türkiye",
+    "address": "2B Temizlik & Ambalaj",
+    "slug": "iklimsogutma"
+  },
+  {
+    "name": "İnce Endüstriyel Temizlik Kimyasalları",
+    "phone": "+905432981379",
+    "website": "http://www.incetemizlikkimyasallari.com/Mimar Sinan, Kaplan Sk. No:19, 34950 Tuzla/İstanbul, Türkiye",
+    "address": "PÜRPAK TEMİZLİK & AMBALAJ",
+    "slug": "incekimyasallari"
+  },
+  {
+    "name": "Temizlik Çantası",
+    "phone": "+902165931985",
+    "website": "http://www.temizlikcantasi.com/",
+    "address": "Orta, Aktepe Cd. No:2, 34956 Tuzla/İstanbul, Türkiye",
+    "slug": "cantasi"
+  },
+  {
+    "name": "Prizma Endüstriyel Temizlik",
+    "phone": "+902164937305",
+    "website": "https://www.prizmaendustriyel.com/",
+    "address": "Aydıntepe, Çamlık Sk. No:16, 34947 Tuzla/İstanbul, Türkiye",
+    "slug": "prizma"
+  },
+  {
+    "name": "ENTEM Endüstriyel Temizlik Maddeleri",
+    "phone": "+902163942320",
+    "website": "http://entemltd.com/",
+    "address": "Deri OSB, Kumpas Cd. No: 14/A O-1/6, 34956 Tuzla/İstanbul, Türkiye",
+    "slug": "entemmaddeleri"
+  },
+  {
+    "name": "Tuzla Ambalaj Temizlik Parti Süs Dünyası",
+    "phone": "+905380175994",
+    "website": "https://www.tuzlaambalajtemizlik.com/ İstasyon, İstasyon Cd. No:131C, 34940 Tuzla/İstanbul, Türkiye",
+    "address": "Marin Hijyen temizlik merkezi",
+    "slug": "tuzlaparti"
+  },
+  {
+    "name": "Enkap Kurumsal Tedarik",
+    "phone": "+905348538534",
+    "website": "https://www.enkapkurumsaltedarik.com/ Orhanlı, Orhanlı Yolu No:40-d, 34956 Tuzla/İstanbul, Türkiye",
+    "address": "CAN AMBALAJ TEMİZLİK ÜRÜNLERİ +90",
+    "slug": "enkaptedarik"
+  },
+  {
+    "name": "Seba Tedarik",
+    "phone": "+905325221262",
+    "website": "https://sebatedarik.my.canva.site/tr",
+    "address": "Orhanlı, Ünver Sk. No:3, 34956 Tuzla/İstanbul, Türkiye",
+    "slug": "sebatedarik"
+  },
+  {
+    "name": "Yıldırım Kurumsal Tedarik & Ambalaj",
+    "phone": "+905307119566",
+    "website": "http://yildirimkurumsal.com/",
+    "address": "Aydınlı, Seval sok No:3/C, 34953 Tuzla/İstanbul, Türkiye",
+    "slug": "yildirimtedarik"
+  },
+  {
+    "name": "İşletme Adı Bu Temizlik",
+    "phone": "+905318842471",
+    "website": "https://butemizlik.com/",
+    "address": "Yayla, Kazım Karabekir Cd. No:47, 34944 Tuzla/İstanbul, Türkiye",
+    "slug": "isletmeadi"
+  },
+  {
+    "name": "Tuzla Temizlik - Ev ve İşyeri Temizlik",
+    "phone": "+905433243938",
+    "website": "https://www.tuzlatemizlik.com.tr/",
+    "address": "Mimar Sinan, 23 Nisan Cd. NO:211/A, 34950 Tuzla/İstanbul, Türkiye",
+    "slug": "tuzlaisyeri"
+  },
+  {
+    "name": "Daphne Cleaning Kurumsal Perakende Mağazacılık",
+    "phone": "+902166064106",
+    "website": "http://www.daphnecleaning.com/",
+    "address": "Aydınlı, Aydınlık Cd. No:36/A, 34953 Tuzla/İstanbul, Türkiye",
+    "slug": "daphnecleaning"
+  },
+  {
+    "name": "POİNT BUHARLI KOLTUK VE HALI TEMİZLEME",
+    "phone": "+905423931206",
+    "website": "https://www.clearpoint.com.tr/",
+    "address": "Aydınlı, Çamlıbelde Yolu Cd 30/D, 34953 Tuzla/İstanbul, Türkiye",
+    "slug": "pointbuharli"
+  },
+  {
+    "name": "Ecolab",
+    "phone": "+902165601615",
+    "website": "http://www.ecolab.com/",
+    "address": "Orta, Bülent Ecevit Cd. No:20, 34956 Tuzla/İstanbul, Türkiye",
+    "slug": "ecolab"
+  },
+  {
+    "name": "Arı Ambalaj",
+    "phone": "+905369310534",
+    "website": "https://www.ariambalaj.com.tr/",
+    "address": "Aydıntepe, Cumhur Cd No: 4 B, 34947 Tuzla/İstanbul, Türkiye",
+    "slug": "ari"
+  },
+  {
+    "name": "Dinç Temizlik Hizmetleri",
+    "phone": "+902164463093",
+    "website": "http://www.dinctemizlikhizmetleri.com.tr/Yayla Mahallesi Vatan Caddesi No:58 Meka İş Merkezi, Kat:2 Daire:10, 34944, Türkiye",
+    "address": "Temiz İş Kimya",
+    "slug": "dinc"
+  },
+  {
+    "name": "Titiz",
+    "phone": "+902164919445",
+    "website": "http://www.titiz.com.tr/",
+    "address": "Tuzla Kimya Sanayicileri O.S.B. Melek Aras Bulvarı Kristal cad. No:61 T, 34959, Türkiye",
+    "slug": "titiz"
+  },
+  {
+    "name": "Yakgaz Endustriyel Mutfak Ekipmanları",
+    "phone": "+902165934543",
+    "website": "http://www.yakgaz.com/",
+    "address": "Aydınlı - Birlik OSB, 2. Sk. No:6, 34953 Tuzla/İstanbul, Türkiye",
+    "slug": "yakgazmutfak"
+  },
+  {
+    "name": "Gül Ambalaj",
+    "phone": "+902163958374",
+    "website": "http://www.gulambalaj.net/",
+    "address": "Aydıntepe, Tevhid Sk. 17 B, 34947 Tuzla/İstanbul, Türkiye",
+    "slug": "gul"
+  },
+  {
+    "name": "Ef Gıda",
+    "phone": "+905324160458",
+    "website": "http://www.efgida.com/",
+    "address": "Deri OSB, Kazlıçeşme Cd. No: 43/B, 34956 Tuzla/İstanbul, Türkiye",
+    "slug": "gida"
+  },
+  {
+    "name": "YILDIZ ENDOSTRİYEL EKİP MA NLAR",
+    "phone": "+902164472083",
+    "website": "http://yildizendustriyel.com/",
+    "address": "Evliya Çelebi, Rauf Orbay Cd. No: 29/B, 34944 Tuzla/İstanbul, Türkiye",
+    "slug": "yildizendostriyel"
+  },
+  {
+    "name": "Tuzla Hidrolik",
+    "phone": "+905510122535",
+    "website": "https://tuzlahidrolik.com.tr/",
+    "address": "Orhanlı Mah. Karadeniz Cad, Turgut Reis Sanayi Sitesi İç Yolu A4 Blok No: 7/A4 İç Kapı No: 2, 34959 Tuzla/İstanbul, Türkiye",
+    "slug": "tuzlahidrolik"
+  },
+  {
+    "name": "ENDÜSTRİYEL DEPO",
+    "phone": "+905323823353",
+    "website": "http://endustriyeldepo.org/",
+    "address": "Anadolu Mahallesi, Orhanlı, Alsancak Cd. No:27/1, Tuzla/İstanbul, Türkiye",
+    "slug": "depo"
+  },
+  {
+    "name": "KULE TEMİZLİK Tuzla Apartman Site Temizliği",
+    "phone": "+905078781987",
+    "website": "http://www.kuletemizlik.com/",
+    "address": "Aydınlı, Beşer Sk. No:3, 34593 Tuzla/İstanbul, Türkiye",
+    "slug": "kuletuzla"
+  },
+  {
+    "name": "Balkan Tekstil Yıkama",
+    "phone": "+902163941414",
+    "website": "http://www.balkantekstilyikama.com.tr/ Dolap Cd. No: 9, 34956 Deri Organize Sanayi Bölgesi/Tuzla/İstanbul, Türkiye",
+    "address": "AKATEM ENDÜSTRİYEL TEMİZLİK ÜRÜNLERİ",
+    "slug": "balkantekstil"
+  },
+  {
+    "name": "TECHNO-TECH ENDÜSTRİYEL ÜRÜNLER",
+    "phone": "+902167012313",
+    "website": "http://www.techno-tech.com.tr/",
+    "address": "Cami, 29 Ekim Cd. No 84 Kat 2, 34940 Tuzla/İstanbul, Türkiye",
+    "slug": "technotech"
+  },
+  {
+    "name": "Biobellinda temsilcilik",
+    "phone": "+905414798445",
+    "website": "https://www.biobellindatemsilcilik.com/ Adres Belirtilmemiş",
+    "address": "Tetik Temizlik",
+    "slug": "biobellindatemsilcilik"
+  },
+  {
+    "name": "Horeka Temizlik Ürünleri",
+    "phone": "+902163890708",
+    "website": "http://www.horekatemizlik.com/",
+    "address": "Atalar, Zeytinlik Cd. 68 A, 34862 Kartal/İstanbul, Türkiye",
+    "slug": "horeka"
+  },
+  {
+    "name": "Endustriyel Dağcilik Hizmetleri",
+    "phone": "+905326728114",
+    "website": "http://endustriyeldagcilar.com/",
+    "address": "Uğur Mumcu, Akasya Sk. No:24/7, 34862 Kartal/İstanbul, Türkiye",
+    "slug": "dagcilik"
+  },
+  {
+    "name": "Temizlik Express",
+    "phone": "+908503094628",
+    "website": "https://temizlikexpress.com/",
+    "address": "Cevizli, İyidere Sk. no:1/10, 34865 Kartal/İstanbul, Türkiye",
+    "slug": "express"
+  },
+  {
+    "name": "Lider Grup",
+    "phone": "+902164696133",
+    "website": "http://www.lidergrup.com.tr/iletisim.aspxOrta, Marifet Sk. No:6, 34880 Kartal/İstanbul, Türkiye",
+    "address": "İşletme Adı",
+    "slug": "lider"
+  },
+  {
+    "name": "MENSEY Temizlik ve Hizmet Yönetimi Tic.Ltd.Şti.",
+    "phone": "+902163876024",
+    "website": "http://www.menseytemizlik.com/",
+    "address": "5, Petroliş, Şenlik Sk., 34862 Kartal/İstanbul, Türkiye",
+    "slug": "menseyhizmet"
+  },
+  {
+    "name": "Kartal Endüstriyel Temizlik Malzemeleri",
+    "phone": "+905058000510",
+    "website": "http://www.kartalendustriyel.com.tr/",
+    "address": "Yahyabey, Yahya Bey Cd. No:37/A, 58070 Sivas Merkez/Sivas, Türkiye",
+    "slug": "kartal"
+  },
+  {
+    "name": "GREEN Temizlik Şirketleri",
+    "phone": "+902163072963",
+    "website": "http://www.greentemizlik.com/",
+    "address": "Esentepe, Milangaz Cd. No:77, 34860 Kartal/İstanbul, Türkiye",
+    "slug": "greensirketleri"
+  },
+  {
+    "name": "Kartal Temizlik Firmaları Titiz",
+    "phone": "+902165981819",
+    "website": "https://www.titiztemizlik.net.tr/",
+    "address": "Karlıktepe, Zeytinlikevler Sk., 34870 Kartal/İstanbul, Türkiye",
+    "slug": "kartalfirmalari"
+  },
+  {
+    "name": "Kuru Temizleme Sepeti",
+    "phone": "+908502591461",
+    "website": "https://www.kurutemizlemesepeti.com/ Kartal Esentepe Mahallesi İnönü Caddesi No:147 Kat:10 Ofis 92 Kartal Kule, 34887 Kartal/İstanbul, Türkiye",
+    "address": "temizlik ürünleri",
+    "slug": "kurutemizleme"
+  },
+  {
+    "name": "Zafer Endüstriyel Mutfak",
+    "phone": "+902163748010",
+    "website": "https://zaferendustriyelmutfak.com/",
+    "address": "Mete Apart, Kordonboyu, Neyzen Tevfik Cd. No: 5, 34860 Kartal/İstanbul, Türkiye",
+    "slug": "zafermutfak"
+  },
+  {
+    "name": "Ersağ İstanbul/Kartal Büro",
+    "phone": "+905389275204",
+    "website": "https://www.ersag.com.tr/",
+    "address": "Orhantepe, Çınar Cd. İnanırlar İş Merkezi No:1 Daire:12, 34865 Kartal/İstanbul, Türkiye",
+    "slug": "ersagistanbul"
+  },
+  {
+    "name": "Öz Uslu Metal",
+    "phone": "+905383251350",
+    "website": "http://www.endustriyelmutfak.biz.tr/",
+    "address": "Cumhuriyet, Ferman Cd. No:34/A, 34876 Kartal/İstanbul, Türkiye",
+    "slug": "uslumetal"
+  },
+  {
+    "name": "Kupa Endüstriyel Gıda",
+    "phone": "+902163874800",
+    "website": "http://www.kupagida.com/",
+    "address": "Esentepe, Milangaz Cd. No:71, 34870 Kartal/İstanbul, Türkiye",
+    "slug": "kupa"
+  },
+  {
+    "name": "Saruhan Endüstriyel",
+    "phone": "+902128582045",
+    "website": "http://www.saruhanendustriyel.com/",
+    "address": "Akçaburgaz Mevkii Alkop Sanayi Sitesi & 13. Sok, Akçaburgaz, B4 Blok No: 3, 34522 Esenyurt/İstanbul, Türkiye",
+    "slug": "saruhan"
+  },
+  {
+    "name": "Ritim Kimya Endüstriyel Temizlik Ürünleri",
+    "phone": "+902126729030",
+    "website": "http://ritimkimya.com.tr/",
+    "address": "Orhangazi Mh, 1726. Sk. No:20, 34538 Esenyurt/İstanbul, Türkiye",
+    "slug": "ritim"
+  },
+  {
+    "name": "Uzay Kimya",
+    "phone": "+902128580010",
+    "website": "http://uzaykimya.com.tr/tr.html",
+    "address": "Akçaburgaz, 1575. Sk. C-5 Blok No: 5/6, 34538 Esenyurt/İstanbul, Türkiye",
+    "slug": "uzay"
+  },
+  {
+    "name": "2E Satış Pazarlama Ve Dağıtım",
+    "phone": "+905355294070",
+    "website": "https://www.2esatis.com/",
+    "address": "Osmangazi, Hadımköy Yolu Cd No: 64, 34522 Esenyurt/İstanbul, Türkiye",
+    "slug": "satisdagitim"
+  },
+  {
+    "name": "Yerinde Temizlik",
+    "phone": "+905325018746",
+    "website": "http://www.yerindetemizlik.com/",
+    "address": "Ardıçlı, Ispartakule Cd No:3, 34510 Esenyurt/İstanbul, Türkiye",
+    "slug": "yerinde"
+  },
+  {
+    "name": "Tuana Temizlik",
+    "phone": "+905327046339",
+    "website": "http://tuanatemizlik.com.tr/",
+    "address": "Orhan Gazi Mah. 1713 Sk. No:13/2/1 Mimsan sanayi sitesi, 34538 Esenyurt/İstanbul, Türkiye",
+    "slug": "tuana"
+  },
+  {
+    "name": "Beylikdüzü Temizlik Şirketi Göktem Temizlik",
+    "phone": "+905532626214",
+    "website": "https://goktemtemizlik.com/",
+    "address": "Papatya Residance, Cumhuriyet Mahallesi 1988 Sokak, 1 Alkan Pasajı no: 4, 34510 Esenyurt, Türkiye",
+    "slug": "beylikduzugoktem"
+  },
+  {
+    "name": "Temiz Profesyonel Temizlik Hizmetleri",
+    "phone": "+905331550034",
+    "website": "https://temizmerdiven.com/",
+    "address": "Örnek, 1380. Sk. 36 B, 34517 Esenyurt/İstanbul, Türkiye",
+    "slug": "temizprofesyonel"
+  },
+  {
+    "name": "Temizlik Paketi",
+    "phone": "+902126112929",
+    "website": "https://temizlikpaketi.com/",
+    "address": "Sultaniye, Doğan Araslı Blv. No 124, 34510 Esenyurt/İstanbul, Türkiye",
+    "slug": "paketi"
+  },
+  {
+    "name": "KUZEY DETERJAN",
+    "phone": "+902128866074",
+    "website": "http://www.begimgil.com.tr/",
+    "address": "Osmangazi, Ahmet Yesevi Cd No:6 D:C, 34522 Esenyurt/İstanbul, Türkiye",
+    "slug": "kuzeydeterjan"
+  },
+  {
+    "name": "PARÇA BEZ TEDARİKÇİSİ",
+    "phone": "+905367622552",
+    "website": "https://www.parcabezciniz.com/",
+    "address": "Güzelyurt, 1958. Sk., 34515 Esenyurt/İstanbul, Türkiye",
+    "slug": "parcabez"
+  },
+  {
+    "name": "Güntem Temizlik Şirketi",
+    "phone": "+902126073132",
+    "website": "http://guntemtemizlik.com/",
+    "address": "Güzelyurt mahallesi yıldırım beyazıt caddesi mor menekşe sitesi b/1 blok, kat:2 no:6, 34522 Esenyurt, Türkiye",
+    "slug": "guntem"
+  },
+  {
+    "name": "PELİT TEMİZLİK",
+    "phone": "+905382064905",
+    "website": "http://pelittemizlik.com/",
+    "address": "Mehterçeşme, 1881. Sk. No: 22 D:14, 34515 Esenyurt/İstanbul, Türkiye",
+    "slug": "pelit"
+  },
+  {
+    "name": "Motek",
+    "phone": "+902128752666",
+    "website": "https://www.motekcleaning.com/iletisim.html",
+    "address": "Beylikdüzü OSB, Orkide Cd. No :6, 34524 Beylikdüzü/İstanbul, Türkiye",
+    "slug": "motek"
+  },
+  {
+    "name": "ELZE KURUMSAL LTD.ŞTİ",
+    "phone": "+902125993593",
+    "website": "http://www.elzekurumsal.com.tr/",
+    "address": "Turgut Özal, Su Yolu Cd NO:23 B, 34513 Esenyurt/İstanbul, Türkiye",
+    "slug": "elze"
+  },
+  {
+    "name": "ELİT TEDARİK TEMİZLİK HİZMETLERİ",
+    "phone": "+905073688106",
+    "website": "http://www.elitetedarik.com/",
+    "address": "ELIT TEMİZLİK, Mehmet Akif Ersoy, 34774 Esenyurt/İstanbul, Türkiye",
+    "slug": "elittedarik"
+  },
+  {
+    "name": "İPEK TEMİZLİK",
+    "phone": "+905528201365",
+    "website": "http://hackerspace.ist/",
+    "address": "Mehmet Akif Ersoy Mah, 1826. St No: 28/4, 34522 Esenyurt/İstanbul, Türkiye",
+    "slug": "ipek"
+  },
+  {
+    "name": "jasmine international Detergent",
+    "phone": "+905300640203",
+    "website": "http://www.jasminecare.co/",
+    "address": "İÇ KAPI, Osmangazi, Gazi Cd. NO: 13 NO: 4، 34100 Esenyurt/İstanbul, Türkiye",
+    "slug": "jasmineinternational"
+  },
+  {
+    "name": "Vega Pazarlama",
+    "phone": "+905538656169",
+    "website": "https://www.vegagross.com/",
+    "address": "Turgut Özal, Oktay Rıfat Cd. 88/A, 34513 Esenyurt/İstanbul, Türkiye",
+    "slug": "vega"
+  },
+  {
+    "name": "İşletme Adı ÇALIŞKAN MAKİNA",
+    "phone": "+902124235285",
+    "website": "http://www.efecaliskanmakina.com/",
+    "address": "Hantürk Temizlik ve Gıda Ambalaj Sanayi Ticaret",
+    "slug": "isletmeadi"
+  },
+  {
+    "name": "544 615 34 11AVCILAR İnci endüstriyel temizlik",
+    "phone": "+902125073302",
+    "website": "http://www.nemkar.com/",
+    "address": "Rosper Toz Deterjanları",
+    "slug": "544615"
+  },
+  {
+    "name": "Çebi Endüstriyel Mutfak ve Çamaşırhane Çözümleri",
+    "phone": "+905302428397",
+    "website": "http://www.sefbenim.com/",
+    "address": "Mutfak",
+    "slug": "cebimutfak"
+  },
+  {
+    "name": "Zeda Plastics",
+    "phone": "+905322183227",
+    "website": "https://zedaplastics.com/",
+    "address": "SeDe tedarik",
+    "slug": "zedaplastics"
+  },
+  {
+    "name": "Halı Yıkama Fabrikası",
+    "phone": "+902126995964",
+    "website": "https://yeniayhaliyikama.com/",
+    "address": "CRK Kimya",
+    "slug": "haliyikama"
+  },
+  {
+    "name": "Global Sünger ve Temizlik Ürünleri",
+    "phone": "+905431336078",
+    "website": "http://www.pomaxx.com/",
+    "address": "Tekim Temizlik",
+    "slug": "globalsunger"
+  },
+  {
+    "name": "https://iyifirma.com/tekim-temizlik/ Özlem Aydın Temizlik Hizmetleri",
+    "phone": "+905320515967",
+    "website": "https://ozlemaydintemizlik.com.tr/",
+    "address": "Lider Ambalaj & Temizlik",
+    "slug": "httpsiyifirma"
+  },
+  {
+    "name": "İLKTEM TEMİZLİK ÜRÜNLERİ",
+    "phone": "+902126594559",
+    "website": "http://www.ilktem.com/",
+    "address": "EMİN TEMİZLİK GRUP İstanbul Temizlik+90",
+    "slug": "ilktem"
+  },
+  {
+    "name": "Şirketi 536 377 90 82 Öz Acar Endüstriyel Temizlik Ürünleri",
+    "phone": "+902125496845",
+    "website": "https://emintemizlikgrup.com/",
+    "address": "Doğuş Temizlik Makineleri Ltd.Şti.",
+    "slug": "536377"
+  },
+  {
+    "name": "http://www.cleanpack.com.tr/ Başakşehir Temizlik Şirketi",
+    "phone": "+902129093484",
+    "website": "http://www.kaletemizliksirketi.com/",
+    "address": "SİBER TEMİZLİK MALZ.KİMYA ENDÜSTRİYEL",
+    "slug": "httpwww"
+  },
+  {
+    "name": "Temizlik Deposu",
+    "phone": "+902125498106",
+    "website": "http://temizlikdeposu.com/",
+    "address": "Doğuş Temizlik Makineleri Showroom",
+    "slug": "deposu"
+  },
+  {
+    "name": "+90 4440764 İ-Mop Temizlik Makineleri",
+    "phone": "+905335657067",
+    "website": "http://www.i-mop.com.tr/",
+    "address": "Namık kemal mahallesi, Tonguç Baba Cd, Tuna Sk No:1/A D:34513, 34513 Esenyurt/İstanbul, Türkiye",
+    "slug": "4440764mop"
+  },
+  {
+    "name": "İşletme Adı TEKPAS TEMİZLİK MAKİNALARI SATIŞ-SERVİS-KİRALAMA",
+    "phone": "+905075290332",
+    "website": "https://www.tekpasmakina.com/",
+    "address": "Ziya Gökalp, Başkomutan Caddesi No.46/A, 34490 Başakşehir/İstanbul, Türkiye",
+    "slug": "isletmeadi"
+  },
+  {
+    "name": "ozon a.ş",
+    "phone": "+902129092261",
+    "website": "http://ozonas.com.tr/",
+    "address": "Kuzey Yakası, Kayabaşı Mah. Adnan Menderes Bulvarı, B5 Blok No:38, Başakşehir/İstanbul, Türkiye",
+    "slug": "ozon"
+  },
+  {
+    "name": "İSTANBUL TİCARET",
+    "phone": "+905348800144",
+    "website": "http://www.instagram.com/deterjanci",
+    "address": "Şahintepe, İstanbul gıda toptancılar sitesi D:1. Ada 6-a blok no 22, 34480 Başakşehir/İstanbul, Türkiye",
+    "slug": "istanbul"
+  },
+  {
+    "name": "Evriva Endüstriyel Kimya - Abrias",
+    "phone": "+902124859979",
+    "website": "https://www.evriva.com/",
+    "address": "Başak, Başak, 34480 İkitelli Osb Mutsan Sanayi sitesi M5 Blok No:48 Kat 1 Abrias, ikitelli O.S.B. Mutfakçılar sanayi sitesi M5 Blok No 48 kat 1, 34480 Ba",
+    "slug": "evrivaabrias"
+  },
+  {
+    "name": "Erupak Temizlik Org. Hiz. Tic. Ltd. Şti",
+    "phone": "+902126715888",
+    "website": "https://www.erupaktemizlik.com/",
+    "address": "İosb Giyim Sanatkarlar Sitesi 4.Ada A-Blok No:10, İkitelli OSB, 34490 Başakşehir, Türkiye",
+    "slug": "erupakorg"
+  },
+  {
+    "name": "Günpak Endüstriyel Temizlik Ürünleri",
+    "phone": "+905321373359",
+    "website": "https://gunpaktemizlik.com.tr/",
+    "address": "İsteks, İkitelli OSB, A4 Blok No:5, 34490 Başakşehir/İstanbul, Türkiye",
+    "slug": "gunpak"
+  },
+  {
+    "name": "BİZTEM temizlik makinaları",
+    "phone": "+902126691988",
+    "website": "http://biztem.com.tr/",
+    "address": "Bahçeşehir 2. Kısım, Mustafa Kemal Atatürk Blv No:66, 34488 Başakşehir/İstanbul, Türkiye",
+    "slug": "biztemmakinalari"
+  },
+  {
+    "name": "Bulak Endüstriyel Temizlik Ürünleri",
+    "phone": "+905345462255",
+    "website": "http://www.ebulak.com/",
+    "address": "Cebeci, 2493. Sk. no: 57-59A, 34270 Sultangazi/İstanbul, Türkiye",
+    "slug": "bulak"
+  },
+  {
+    "name": "Aktaş Temizlik",
+    "phone": "+902125950888",
+    "website": "http://www.nilem.com.tr/",
+    "address": "Aktaş Temizlik, Esentepe, 2954. Sk. Küçük Sanayi Sitesi No:5a, 34265 Sultangazi/İstanbul, Türkiye",
+    "slug": "aktas"
+  },
+  {
+    "name": "Gülsan Endüstriyel Kimyasalları Owens",
+    "phone": "+902125507488",
+    "website": "http://www.gulsanendustriyel.com/",
+    "address": "Avcılar Temizlik Firması",
+    "slug": "gulsankimyasallari"
+  },
+  {
+    "name": "Avcılar Temizlikçi",
+    "phone": "+905355760817",
+    "website": "https://sites.google.com/view/istanbul-temizlikfirmasiiletis/",
+    "address": "Temizlik Kimyasalları Malzemeleri Çözüm +90",
+    "slug": "avcilartemizlikci"
+  },
+  {
+    "name": "Wilco Group",
+    "phone": "+902125909965",
+    "website": "http://www.wilcotr.com/",
+    "address": "Üniversite, Firuzköy Blv. No:17/2 D:2, 34320 Avcılar/İstanbul, Türkiye",
+    "slug": "wilcogroup"
+  },
+  {
+    "name": "Alka Teknik Baca Temizlik",
+    "phone": "+905339738853",
+    "website": "https://www.alkateknikservis.com.tr/",
+    "address": "Denizköşkler, Ahmet Kaya Cd. No:93/b, 34315 Avcılar/İstanbul, Türkiye",
+    "slug": "alkateknik"
+  },
+  {
+    "name": "NİPO AMBALAJ",
+    "phone": "+902128835508",
+    "website": "http://nipo.com.tr/",
+    "address": "SU VERENLER İŞ MERKESİ, Firuzköy, MEZARLIK ÜSTÜ CADDESİ NO:23/1, 34325 Avcılar/İstanbul, Türkiye",
+    "slug": "nipo"
+  },
+  {
+    "name": "Ayşim Kimya",
+    "phone": "+905014955771",
+    "website": "https://aysimkimya.com/",
+    "address": "Aktim 3, Cihangir, Güvercin Cd. Kat:-2, İç Kapı No:11, 34310 Avcılar/İstanbul, Türkiye",
+    "slug": "aysim"
+  },
+  {
+    "name": "‫ ﺑﯿﺮﻓﺎ ﻟﻠﺘﺠﺎرة واﻟﺘﺼﺪﯾﺮ‬- PERVA Export Istanbul",
+    "phone": "+905455020658",
+    "website": "https://perva.tr/",
+    "address": "BABACAN Premium, Zafer Mahallesi, Adile Naşit Blv, 185. Sk. B Blok No: 4B, Kat 24 İç Kapı No: 326, 34513 Esenyurt/İstanbul, Türkiye",
+    "slug": "ﺑﯿﺮﻓﺎﻟﻠﺘﺠﺎرة"
+  },
+  {
+    "name": "Güzel Temizlik",
+    "phone": "+905423379816",
+    "website": "https://güzeltemizlik.com/",
+    "address": "Zafer, Deniz Gezmiş Cd. No:50(B D:2, 34513 Esenyurt/İstanbul, Türkiye",
+    "slug": "guzel"
+  },
+  {
+    "name": "HEDEF HİJYEN",
+    "phone": "+905494772575",
+    "website": "https://www.hedefhijyen.com/",
+    "address": "Yakuplu, Fevzi Çakmak Caddesi No: 59, 34524 Beylikdüzü/İstanbul, Türkiye",
+    "slug": "hedefhijyen"
+  },
+  {
+    "name": "Nakre Temizlik",
+    "phone": "+905534060053",
+    "website": "http://www.nakretemizlik.com/",
+    "address": "Şirinevler, Mithatpaşa Cd. 6.sok no:25 Daire:14, 34188 Bahçelievler/İstanbul, Türkiye",
+    "slug": "nakre"
+  },
+  {
+    "name": "Bahçelievler Temizlik Şirketi",
+    "phone": "+905324962257",
+    "website": "https://sites.google.com/view/bahcelievler-temizlik-sirket/ana-sayfa",
+    "address": "Yenibosna Merkez Mahallesi, Zafer, borlo sk No:4 no 27 d, 34197 Bahçelievler/İstanbul, Türkiye",
+    "slug": "bahcelievler"
+  },
+  {
+    "name": "İstdez Dezenfekte",
+    "phone": "+902128757870",
+    "website": "https://www.istdez.com/",
+    "address": "Siyavuşpaşa, Çitlenbik Sok. No:19 D:3, 34188 Bahçelievler/İstanbul, Türkiye",
+    "slug": "istdezdezenfekte"
+  },
+  {
+    "name": "Rona temizlik",
+    "phone": "+902128809626",
+    "website": "http://www.beylikduzutemizlikşirketleri.com/",
+    "address": "Hürriyet Mahallesi Hürriyet Caddesi Numara, D:96, 34300 Bahçelievler/İstanbul, Türkiye",
+    "slug": "rona"
+  },
+  {
+    "name": "Arman Kurumsal Tedarik",
+    "phone": "+905325619494",
+    "website": "https://armankurumsaltedarik.com/",
+    "address": "Bahçelievler, Ödül Sk. No:2 D:1G, 34180 Bahçelievler/İstanbul, Türkiye",
+    "slug": "armantedarik"
+  },
+  {
+    "name": "Emka Clean",
+    "phone": "+902126546463",
+    "website": "https://www.emkaclean.com/",
+    "address": "Zafer, Beydağı Sk. No:10 D:B, 34197 Bahçelievler/İstanbul, Türkiye",
+    "slug": "emkaclean"
+  },
+  {
+    "name": "Beltem Su Deposu Temizliği",
+    "phone": "+902126393815",
+    "website": "http://beltem.com/contact",
+    "address": "Şirinevler, Nil Sok., 34188 Bahçelievler/İstanbul, Türkiye",
+    "slug": "beltemdeposu"
+  },
+  {
+    "name": "Limpio Kimya Sanayi",
+    "phone": "+902125681980",
+    "website": "http://www.limpiokimya.com/",
+    "address": "Mimar Sinan, 147. Sk. No:1/E, 34220 Esenler/İstanbul, Türkiye",
+    "slug": "limpio"
+  },
+  {
+    "name": "Modul Temizlik",
+    "phone": "+905368942164",
+    "website": "http://modultemizlik.com/",
+    "address": "Osmaniye, Fabrikalar 1 Sok. No:6/1, 34145 Bakırköy/İstanbul, Türkiye",
+    "slug": "modul"
+  },
+  {
+    "name": "Yeni Ambalaj",
+    "phone": "+905426949545",
+    "website": "https://www.yeniambalaj.com/",
+    "address": "Kocatepe, Şehir Parkı Caddesı No:229C, 34045 Bayrampaşa/İstanbul, Türkiye",
+    "slug": "yeni"
+  },
+  {
+    "name": "Hilal Temizlik",
+    "phone": "+902124800789",
+    "website": "https://www.yoltarifi.com/nasil-gidilir?q=hilal+temizlik+bayrampaşa+++telefonu",
+    "address": "Yenidoğan, Bayraktar Sk. No:8, 34030 Bayrampaşa/İstanbul, Türkiye",
+    "slug": "hilal"
+  },
+  {
+    "name": "Metin Makina",
+    "phone": "+902125015922",
+    "website": "http://metinendustriyel.com/",
+    "address": "Muratpaşa, Şht. Cihan Erkan Sokağı No:25 D:B, 34040 Bayrampaşa/İstanbul, Türkiye",
+    "slug": "metinmakina"
+  },
+  {
+    "name": "Netbox",
+    "phone": "+902128065323",
+    "website": "http://netbox1.com.tr/",
+    "address": "Kocatepe, İnönü Cd. No:35/a, 34045 Bayrampaşa/İstanbul, Türkiye",
+    "slug": "netbox"
+  },
+  {
+    "name": "Rest Temizlik Ürünleri",
+    "phone": "+902122536235",
+    "website": "http://www.rest.com.tr/Iletisim.asp",
+    "address": "No:82, Cebeci Cd., 34250, Türkiye",
+    "slug": "rest"
+  },
+  {
+    "name": "Çalık Temizlik & Ambalaj",
+    "phone": "+902166931098",
+    "website": "http://www.caliktemizlik.com/",
+    "address": "Kavacık, Orhan Veli Kanık Cad./öztürk Sok. No:6 D:1, Beykoz/İstanbul, Türkiye",
+    "slug": "calik"
+  },
+  {
+    "name": "IPC Gansow Temizlik Makinaları",
+    "phone": "+902163836060",
+    "website": "http://www.ipctemizlikmakineleri.com/ Çubuklu, Boğaziçi Cd. No:9, 34805 Beykoz/İstanbul, Türkiye",
+    "address": "Beykoz Belediyesi Temizlik İşleri Müdürlüğü",
+    "slug": "ipcgansow"
+  },
+  {
+    "name": "Rüzgarlıbahçe, Seyfi Baba Sk. No:92, 34805 Beykoz/İstanbul, Türkiye Lonely Otel Buklet ürünleri",
+    "phone": "+905323068247",
+    "website": "http://www.toplutek.com/",
+    "address": "Ruzgarlibahce mahallesi kavak sok yıldız sitesi a blok no dükkan no 10, 34805 Beykoz/İstanbul, Türkiye",
+    "slug": "ruzgarlibahceseyfi"
+  },
+  {
+    "name": "SEKA MEDİKAL VE ENDÜSTRİYEL TEMİZİK",
+    "phone": "+905315062606",
+    "website": "http://sekamedikal.com/",
+    "address": "Yavuz Selim Mah. Akdeniz Cd No :28 Kat:3, Çavuşbaşı Cd., 34830 Beykoz/İstanbul, Türkiye",
+    "slug": "sekamedikal"
+  },
+  {
+    "name": "SANİTEK",
+    "phone": "+908503025241",
+    "website": "http://sanitek.com.tr/",
+    "address": "Ömerli, Serinsu Cd :30/A, 34829 Beykoz/İstanbul, Türkiye",
+    "slug": "sanitek"
+  },
+  {
+    "name": "Bi Temizle",
+    "phone": "+905323544726",
+    "website": "http://www.bitemizle.com.tr/",
+    "address": "Örnekköy, Tepetarla Cd. NO:54 D:2, 34829 Beykoz/İstanbul, Türkiye",
+    "slug": "temizle"
+  },
+  {
+    "name": "Look Temizlik ve Danışmanlık Hizmetleri",
+    "phone": "+905415505665",
+    "website": "http://looktemizlik.com/",
+    "address": "Acarlar, 9. Cd. AcarSize Çarşı No: 5/1 B6, 34800 Beykoz/İstanbul, Türkiye",
+    "slug": "lookdanismanlik"
+  },
+  {
+    "name": "OFİS 216 TEMİZLİK AMBALAJ PARTİ",
+    "phone": "+905050781308",
+    "website": "http://www.216ofis.com/",
+    "address": "MERKEZ MAHALLESİ ÇAVUŞBAŞI CADDESİ NUMARA 53/A, 34782 Çekmeköy/İstanbul, Türkiye",
+    "slug": "ofis216"
+  },
+  {
+    "name": "Eray Temizlik ve Ambalaj Ürünleri",
+    "phone": "+905446902991",
+    "website": "http://er-aytemizlik.com/",
+    "address": "Kavacık mah. yayabeyi sok. günday ap, no 28/A, 34810 Beykoz/İstanbul, Türkiye",
+    "slug": "eray"
+  },
+  {
+    "name": "Tecno Time Soğutma Endüstriyel",
+    "phone": "+905366169753",
+    "website": "https://www.tecnotime.com.tr/",
+    "address": "Örnekköy, Tepetarla Cd. No:30/1, 34825 Beykoz/İstanbul, Türkiye",
+    "slug": "tecnotime"
+  },
+  {
+    "name": "Profesyonel Temizlik Hizmetleri",
+    "phone": "+902163222060",
+    "website": "http://Bestoftemizlik.com",
+    "address": "+90 542 352 07 89",
+    "slug": "profesyonel"
+  },
+  {
+    "name": "Mehmet Yanık Temizlik Hizmetleri",
+    "phone": "+905368941002",
+    "website": "https://www.hbgruptemizlik.com/",
+    "address": "Adres Belirtilmemiş",
+    "slug": "mehmetyanik"
+  },
+  {
+    "name": "Kale İstanbul Temizlik",
+    "phone": "+905375115969",
+    "website": "https://www.kaletemizliksirketi.com/",
+    "address": "Barış, Akdeniz Cd. No:12/20, 34520 Beylikdüzü/İstanbul, Türkiye",
+    "slug": "kaleistanbul"
+  },
+  {
+    "name": "Ens Koltuk & Halı Temizleme Şirketi",
+    "phone": "+905437378234",
+    "website": "https://enshalikoltukyikama.com/",
+    "address": "Gürpınar, Zarif Sk. No:03, 34528 Beylikdüzü/İstanbul, Türkiye",
+    "slug": "enskoltuk"
+  },
+  {
+    "name": "Beylikdüzü Temizlik Şirketi White Home",
+    "phone": "+905321734012",
+    "website": "https://beylikduzuevtemizliksirketi.com/ Büyükşehir Mah. Cumhuriyet Cad. Başak Sokak. Atrium Çarşı No:78, 34520 Beylikdüzü/İstanbul, Türkiye",
+    "address": "Menursa Temizlik",
+    "slug": "beylikduzuwhite"
+  },
+  {
+    "name": "Reyhan Temizlik Şirketi",
+    "phone": "+905533830300",
+    "website": "http://www.reyhantemizlik.net/",
+    "address": "Yeniçağ Apt, Barış, Fidangör Cd. D:51, 34520 Beylikdüzü/İstanbul, Türkiye",
+    "slug": "reyhan"
+  },
+  {
+    "name": "Maysa Temizlik Maddeleri Toptan ve Perakende",
+    "phone": "+902128753414",
+    "website": "http://www.maysatemizlik.com/",
+    "address": "Beylikdüzü OSB, 13. Cd. Mermerciler Sanayi Sitesi No:17, 34520 Beylikdüzü/İstanbul, Türkiye",
+    "slug": "maysamaddeleri"
+  },
+  {
+    "name": "ADR TEDARİK",
+    "phone": "+905465229843",
+    "website": "https://www.instagram.com/adr_tedarik?igsh=MWltdHN3bmgweTRuNA%3D%3D",
+    "address": "Kavaklı, Nadide Sk. NO:5 İÇ KAPI NO:1, 34520 Beylikdüzü/İstanbul, Türkiye",
+    "slug": "adrtedarik"
+  },
+  {
+    "name": "Doğanay Ambalaj ve Temizlik Malzemeleri",
+    "phone": "+905357221809",
+    "website": "https://www.instagram.com/doganayambalaj/",
+    "address": "Adnan Kahveci, Atakent Cd. No:30, 34528 Beylikdüzü/İstanbul, Türkiye",
+    "slug": "doganay"
+  },
+  {
+    "name": "Fenix İç ve Dış Tic. Ltd. Şti.",
+    "phone": "+905368208143",
+    "website": "http://fenixkimyasal.com/",
+    "address": "Yakuplu Vera Plaza Geçit Sokak D:aire: 5, 34524 Beylikdüzü/İstanbul, Türkiye",
+    "slug": "fenix"
+  },
+  {
+    "name": "YERLI KIMYA",
+    "phone": "+902128762795",
+    "website": "http://yerlikimya.com/",
+    "address": "Yakuplu mah.194.sok. 3.matbaacılar sitesi B blok no:1 kapı no 497, Beylikdüzü/İstanbul, Türkiye",
+    "slug": "yerli"
+  },
+  {
+    "name": "Rulopak",
+    "phone": "+902128769090",
+    "website": "http://www.rulopak.com/",
+    "address": "Yakuplu, Orkide Cd. Bakırcılar Sanayi Sitesi No:16, 34524 Beylikdüzü/İstanbul, Türkiye",
+    "slug": "rulopak"
+  },
+  {
+    "name": "Elay Temizlik ve Organizasyon Hizmetleri Ltd.Şti.",
+    "phone": "+905521053529",
+    "website": "https://www.elaytemizlik.com/",
+    "address": "BARIŞ MAH. AKDENİZ CAD. NO: 8, 1 İÇ KAPI NO: 43, 34520 Beylikdüzü/İstanbul, Türkiye",
+    "slug": "elayorganizasyon"
+  },
+  {
+    "name": "Mis Temizlik Beylikdüzü",
+    "phone": "+902128070404",
+    "website": "https://www.mistemizlik.com.tr/",
+    "address": "Adres Belirtilmemiş",
+    "slug": "misbeylikduzu"
+  },
+  {
+    "name": "Ekokimya Kimyevi Ürünler San. ve Tic. A.Ş.",
+    "phone": "+902124222858",
+    "website": "http://www.ekokimya.net/",
+    "address": "Haramidere Merkez Mahallesi, Dereboyu Cd Emek İş Hanı No: 47/2, 34520 Beylikdüzü/İstanbul, Türkiye",
+    "slug": "ekokimyakimyevi"
+  },
+  {
+    "name": "Hijyeniq Mikrofiber",
+    "phone": "+905441801464",
+    "website": "http://www.hijyeniq.com.tr/",
+    "address": "Yakuplu, Kervansaray Cad No:34/A, 34524 Beylikdüzü/İstanbul, Türkiye",
+    "slug": "hijyeniqmikrofiber"
+  },
+  {
+    "name": "Tanrıver Mümessillik",
+    "phone": "+902128543601",
+    "website": "https://tanriver.com.tr/",
+    "address": "Beylikdüzü OSB, 4. Cd. Birlik sanayi sitesi No:26, 34500 Beylikdüzü/İstanbul, Türkiye",
+    "slug": "tanrivermumessillik"
+  },
+  {
+    "name": "Beyza Ticaret Ambalaj & Temizlik Hırdavat",
+    "phone": "+902122924907",
+    "website": "http://www.beyzaticaret.com/",
+    "address": "Arap Cami Mahallesi Tersane Caddesi, Arap Cami, hırdavatçılar çarşısı no:18, 34421 Beyoğlu/İstanbul, Türkiye",
+    "slug": "beyzahirdavat"
+  },
+  {
+    "name": "Softtem",
+    "phone": "+902122435327",
+    "website": "http://www.softtem.com/",
+    "address": "Arap Cami, Perşembe Pazarı Caddesi & Keresteci Fazıl Sokak 3/B, 34421 Beyoğlu/İstanbul, Türkiye",
+    "slug": "softtem"
+  },
+  {
+    "name": "Sade Temizlik Hizmetleri",
+    "phone": "+908505627233",
+    "website": "https://sadehizmet.com/",
+    "address": "Haliç Sitesi, Halıcıoğlu, Peştemalcı Sk. H BLOK Kat:7 D:25, 34445 Beyoğlu/İstanbul, Türkiye",
+    "slug": "sade"
+  },
+  {
+    "name": "Yeşil Temizlik Şirketi",
+    "phone": "+902123699075",
+    "website": "https://www.yesiltemizlik.com/",
+    "address": "Halıcıoğlu, Kapı Kahyası Sk. 14/A, 34445 Beyoğlu/İstanbul, Türkiye",
+    "slug": "yesil"
+  },
+  {
+    "name": "Beyoğlu Temizlik Ürünleri",
+    "phone": "+905447405556",
+    "website": "http://www.beyoglutemizlik.com/",
+    "address": "Hüseyinağa, Hamalbaşı Cd. No:8, 34435 Beyoğlu/İstanbul, Türkiye",
+    "slug": "beyoglu"
+  },
+  {
+    "name": "EMS Endüstriyel Mutfak Servis Tamir Satış",
+    "phone": "+902122974432",
+    "website": "https://www.mutfakmalzemeleri.com/ Bahriye Caddesi, Omis Mağaza Altı, Toprak Tabya Sk. no:6 / C, 34440 Beyoğlu, Türkiye",
+    "address": "İsmak Temizlik Makinaları",
+    "slug": "emsmutfak"
+  },
+  {
+    "name": "PLATFORM ENDÜSTRİYEL MUTFAK EKİPMANLARI",
+    "phone": "+902122388771",
+    "website": "http://TÜRKİYEhttp://www.mutfakonlinesatis.com/",
+    "address": "ENDÜSTRİYEL MUTFAK EKİPMANLARI",
+    "slug": "platformmutfak"
+  },
+  {
+    "name": "HASBİHAL TEMİZLİK VE TOPTAN",
+    "phone": "+905360503453",
+    "website": "https://www.instagram.com/temizlik_hijyen_malzemeleri?igsh=anUxdHQzYXViZnlj",
+    "address": "Hürriyet, Paşakapı Cd., 34537 Büyükçekmece/İstanbul, Türkiye",
+    "slug": "hasbihal"
+  },
+  {
+    "name": "ASTEMA ERCANLAR AMBALAJ TEM. AVM.",
+    "phone": "+905468551010",
+    "website": "http://www.astema.com.tr/",
+    "address": "Pınartepe, Avrupa Cd. No:51, 34500 Büyükçekmece/İstanbul, Türkiye",
+    "slug": "astemaercanlar"
+  },
+  {
+    "name": "Kärcher Center ARMAK",
+    "phone": "+902128735948",
+    "website": "https://www.kaercher.com/tr/",
+    "address": "Cumhuriyet Mah. Gürpınar Yolu Cad Beykent Sanayi Sitesi No:8, D:1, 34500 Büyükçekmece/İstanbul, Türkiye",
+    "slug": "kärchercenter"
+  },
+  {
+    "name": "YÖNTEM MAKİNA",
+    "phone": "+905337301271",
+    "website": "https://www.yontemmak.com/",
+    "address": "Ulus, Çatalca Yolu Cd. No: 536/B, 34500 Büyükçekmece/İstanbul, Türkiye",
+    "slug": "yontemmakina"
+  },
+  {
+    "name": "Msk Temizlik Ürünleri",
+    "phone": "+905058204195",
+    "website": "https://www.msktr.com/",
+    "address": "Çakmaklı, Ali Çebi Caddesi Hasat Sokak No: 54/A, 34500 Büyükçekmece/İstanbul, Türkiye",
+    "slug": "msk"
+  },
+  {
+    "name": "İşletme Adı Aksu Group Temizlik Malzemeleri",
+    "phone": "+905389278347",
+    "website": "http://aksugroup.com.tr/",
+    "address": "Cakmakli Mah, Harvest Sk No: 41 A, 34537 Büyükçekmece/İstanbul, Türkiye",
+    "slug": "isletmeadi"
+  },
+  {
+    "name": "Santek Endüstriyel Mutfak",
+    "phone": "+905364987925",
+    "website": "http://www.santekendmutfak.com/",
+    "address": "Türkoba, Kevser Sk. No:39, 34537 Büyükçekmece/İstanbul, Türkiye",
+    "slug": "santekmutfak"
+  },
+  {
+    "name": "Büyükçekmece Temizlik Hizmeti",
+    "phone": "+902128766281",
+    "website": "http://www.temizlikhizmeti.net/?pnum=13&pt=Esenyurt+Temizlik+Hizmeti",
+    "address": "Mevlana, 876. Sk. No:62 D:81, 34255 Gaziosmanpaşa/İstanbul, Türkiye",
+    "slug": "buyukcekmecehizmeti"
+  },
+  {
+    "name": "Açı Endüstriyel Temizlik",
+    "phone": "+902827477189",
+    "website": "http://aciendustriyel.com/",
+    "address": "Fevzi Paşa OSB, Namık Kemal Blv. No:127 D:129, 59500 Çerkezköy/Tekirdağ, Türkiye",
+    "slug": "aci"
+  },
+  {
+    "name": "Tmp Makine Endüstriyel Temizlik Makineleri",
+    "phone": "+902126593360",
+    "website": "https://www.tmpmakina.com/",
+    "address": "Flamingo",
+    "slug": "tmpmakine"
+  },
+  {
+    "name": "Ekartek Marmara Endüstriyel Temizlik Makineleri",
+    "phone": "+905309306734",
+    "website": "https://www.orkamarmara.com/",
+    "address": "Oruçreis, Tekstilkent Cd, 34230 Esenler/İstanbul, Türkiye",
+    "slug": "ekartekmarmara"
+  },
+  {
+    "name": "wolf clean endrüstiyel temizlik",
+    "phone": "+905536504913",
+    "website": "https://www.firmabulucu.com/isletme/wolf-clean-endustriyel-temizlik-insaat-gida-ve-bilisim-danismanlik-ticaret-limited-sirketi/",
+    "address": "Menderes, 309. Sk. No:39/1, 34225 Esenler/İstanbul, Türkiye",
+    "slug": "wolfclean"
+  },
+  {
+    "name": "Elektrikli Temizlik Araçları - Ertuğ Sweepers",
+    "phone": "+902125780141",
+    "website": "http://www.ertugproje.com/",
+    "address": "Oruçreis Mah. Tekstilkent A7 Blok no: 43 atışalanı, 34235 Esenler/İstanbul, Türkiye",
+    "slug": "elektrikliaraclari"
+  },
+  {
+    "name": "Prestij kurumsal",
+    "phone": "+905497760710",
+    "website": "http://prestijkurumsal.com.tr/",
+    "address": "Tekstilken caddesi G2 blok No:10AD iç kapı No: Z30, 34235 Esenler/İstanbul, Türkiye",
+    "slug": "prestij"
+  },
+  {
+    "name": "TEMİZLİK ŞİRKETİ KESKİN TEMİZLİK",
+    "phone": "+905333877560",
+    "website": "https://sites.google.com/view/keskin-temizlik",
+    "address": "Turgut Reis, 457. Sk. No:14, 34235 Esenler/İstanbul, Türkiye",
+    "slug": "keskin"
+  },
+  {
+    "name": "2M Tesisat",
+    "phone": "+905400032323",
+    "website": "https://2mtesisat.com.tr/",
+    "address": "Tuna, 701. Sk. No:10, 34225 Esenler/İstanbul, Türkiye",
+    "slug": "tesisat"
+  },
+  {
+    "name": "esenler temizlik şirketi",
+    "phone": "+902125093521",
+    "website": "http://www.pestvettemizliksirketi.com/ Fatih, 225. Sk. No:2, 34225 Esenler/İstanbul, Türkiye",
+    "address": "Femar Temizlik Ve Kozmetik Ürünleri",
+    "slug": "esenler"
+  },
+  {
+    "name": "Okka Tedarik",
+    "phone": "+905325847797",
+    "website": "https://okkatedarik.com/",
+    "address": "İşletme Adı",
+    "slug": "okkatedarik"
+  },
+  {
+    "name": "Yıldız Kimyasal",
+    "phone": "+905321726998",
+    "website": "http://www.yildizkimyasal.com/",
+    "address": "Oruçreis, Giyimkent 9. Sk. No:70/A, 34045 Esenler/İstanbul, Türkiye",
+    "slug": "yildizkimyasal"
+  },
+  {
+    "name": "CBR TEMİZLİK HİZMETLERİ",
+    "phone": "+905300365479",
+    "website": "https://cibirtem.com/",
+    "address": "Oruçreis, TEKSTİLKENT, 34230 Esenler/İstanbul, Türkiye",
+    "slug": "cbr"
+  },
+  {
+    "name": "Kattenbeck",
+    "phone": "+902124384990",
+    "website": "http://www.kattenbeck.com.tr/",
+    "address": "Oruçreis Tekstilkent Caddesi, Tekstilkent Plaza A Blok D:7, 34235 Esenler/İstanbul, Türkiye",
+    "slug": "kattenbeck"
+  },
+  {
+    "name": "Doruk Temizlik",
+    "phone": "+902166600741",
+    "website": "http://www.doruktemizlik.com.tr/",
+    "address": "50. Yıl, D Cd. No:86, 34265 Sultangazi/İstanbul, Türkiye",
+    "slug": "doruk"
+  },
+  {
+    "name": "Eyüp Temizlik Şirketi",
+    "phone": "+902129090787",
+    "website": "http://eyuptemizliksirketi.com/",
+    "address": "Merkez, Fahri Korutürk Cd. No: 20, 34050 Eyüpsultan/İstanbul, Türkiye",
+    "slug": "eyup"
+  },
+  {
+    "name": "Endüstriyel Dağcılık Hizmetleri",
+    "phone": "+905466201469",
+    "website": "http://www.endustriyeldagci.com.tr/",
+    "address": "Güzeltepe, Yunus Emre Cd. No:40, 34060 Eyüpsultan/İstanbul, Türkiye",
+    "slug": "dagcilik"
+  },
+  {
+    "name": "Bulutix Temizlik Malzemeleri",
+    "phone": "+902126133324",
+    "website": "http://www.bulutix.com.tr/",
+    "address": "Topçular, Hayri Celal Atamer Sk. No:8, 34055 Eyüpsultan/İstanbul, Türkiye",
+    "slug": "bulutix"
+  },
+  {
+    "name": "İdi Dezenfekte",
+    "phone": "+902123513088",
+    "website": "http://www.ididezenfekte.net/",
+    "address": "Merkez, Kırkmerdiven Cd. 65/a, 34050 Eyüpsultan/İstanbul, Türkiye",
+    "slug": "ididezenfekte"
+  },
+  {
+    "name": "Mercan Kurumsal Ofis Tedarik Hizmetleri A.Ş",
+    "phone": "+902125216668",
+    "website": "http://www.mercankurumsal.com/",
+    "address": "Topçular, Yonca Sk. No:19/A, 34055 Eyüpsultan/İstanbul, Türkiye",
+    "slug": "mercanofis"
+  },
+  {
+    "name": "deterjangeldi.com",
+    "phone": "+905323691456",
+    "website": "https://www.deterjangeldi.com/?utm_source=google&utm_medium=wix_google_business_profile&utm_campaign=14250203599379983242",
+    "address": "Erguvan, Mithatpaşa, Reyhan Sok., 34075 Eyüpsultan/İstanbul, Türkiye",
+    "slug": "deterjangeldicom"
+  },
+  {
+    "name": "Netpak Temizlik Hizmetleri",
+    "phone": "+905457108878",
+    "website": "http://www.netpaktemizlik.com/",
+    "address": "Çırçır mahallesi Giden Caddesi, Gökyüzü Sk. No:28/A, 34070 Eyüpsultan/İstanbul, Türkiye",
+    "slug": "netpak"
+  },
+  {
+    "name": "ZAFER HALI YIKAMA FABRİKASI",
+    "phone": "+902126260612",
+    "website": "http://www.bozkayalartemizlik.com/",
+    "address": "Çırçır Mahallesi Şehit Ömer Halis Demir Cad. No8A, 34070 Eyüpsultan/İstanbul, Türkiye",
+    "slug": "zaferhali"
+  },
+  {
+    "name": "Kurumsal Temizlik",
+    "phone": "+902126254418",
+    "website": "http://asltemizlik.com/",
+    "address": "Karadolap, Veysel Karani Cd. No:3/2, 34065 Eyüpsultan/İstanbul, Türkiye",
+    "slug": "kurumsaltemizlik"
+  },
+  {
+    "name": "Lina Temizlik Paz. San. Tic. Ltd. Şti.",
+    "phone": "+902126260202",
+    "website": "http://www.lina.gen.tr/",
+    "address": "34782, Güzeltepe, Mehmet Akif Ersoy Cd. No:29, 34060 Eyüpsultan/İstanbul, Türkiye",
+    "slug": "linapaz"
+  },
+  {
+    "name": "Serenity Temizlik",
+    "phone": "+902125455300",
+    "website": "http://www.serenitytemizlik.com/",
+    "address": "Merkez, Halit Paşa Cd. 14A D:6, 34245 Gaziosmanpaşa/İstanbul, Türkiye",
+    "slug": "serenity"
+  },
+  {
+    "name": "Büyükşehir Su Deposu Temizliği ve İzolasyon",
+    "phone": "+905447910229",
+    "website": "https://buyuksehirsudeposu.com/",
+    "address": "Şemsipaşa, 41. Sk. No:31 K:9, 34250 Gaziosmanpaşa/İstanbul, Türkiye",
+    "slug": "buyuksehirdeposu"
+  },
+  {
+    "name": "İstanbul Su Deposu Temizliği ve İzolasyon",
+    "phone": "+905438554027",
+    "website": "https://www.istanbulsudepolari.com/",
+    "address": "Şemsipaşa, 41. Sk. No:28 K:9, 34250 Gaziosmanpaşa/İstanbul, Türkiye",
+    "slug": "istanbuldeposu"
+  },
+  {
+    "name": "Parla Temizlik",
+    "phone": "+905372073101",
+    "website": "https://parlatemizlik.com/",
+    "address": "Fevzi Çakmak, Barbaros Cd. No:42, 34275 Gaziosmanpaşa/İstanbul, Türkiye",
+    "slug": "parla"
+  },
+  {
+    "name": "Mesa Endüstriyel Dağcılık",
+    "phone": "+905469427594",
+    "website": "http://www.endustriyeldagcilik.net/iletisim.html",
+    "address": "Karayolları, 621/1. Sk. No:9, 34255 Gaziosmanpaşa/İstanbul, Türkiye",
+    "slug": "mesadagcilik"
+  },
+  {
+    "name": "Kartem Temizlik Maddeleri Üretim & Pazarlama",
+    "phone": "+902126431741",
+    "website": "http://kar-tem.com/",
+    "address": "Sanayi, Eski Londra Asfaltı Cd. NO:99/A, 34164 Güngören/İstanbul, Türkiye",
+    "slug": "kartemmaddeleri"
+  },
+  {
+    "name": "İstanbul Fiber Temizlik Şirketleri",
+    "phone": "+905312478063",
+    "website": "https://www.fibertemizlik.com/",
+    "address": "Mareşal Çakmak, Soğanlı Cd. No:57, 34160 Güngören/İstanbul, Türkiye",
+    "slug": "istanbulfiber"
+  },
+  {
+    "name": "Amway Satış Danışmanı",
+    "phone": "+905354582463",
+    "website": "https://www.amway.com.tr/tr/?opt=2&aboSponsor=4433329&utm_source=share_link&utm_medium=abo-invited",
+    "address": "Merkez, Sandal Sok. No:4, 34160 Güngören/İstanbul, Türkiye",
+    "slug": "amwaysatis"
+  },
+  {
+    "name": "Güleç Temizlik",
+    "phone": "+905424381364",
+    "website": "http://gulectemizlik.com/",
+    "address": "Gençosman, Dilek Sk. No:7 D:2Gungoren, 34165 Güngören/İstanbul, Türkiye",
+    "slug": "gulec"
+  },
+  {
+    "name": "Engell Clean",
+    "phone": "+905498726007",
+    "website": "https://engellclean.com/",
+    "address": "Hamidiye, Gazi Sk. No:7, 34408 Kağıthane/İstanbul, Türkiye",
+    "slug": "engellclean"
+  },
+  {
+    "name": "STR Temizlik Makinaları",
+    "phone": "+905382217245",
+    "website": "https://strmakine.net/",
+    "address": "Aydoğan Temizlik",
+    "slug": "strmakinalari"
+  },
+  {
+    "name": "Güroğlu Temizlik",
+    "phone": "+902122219587",
+    "website": "http://www.guroglutemizlik.com/",
+    "address": "Talatpaşa, Çelebi Cd. No: 57/B, 34400 Kağıthane/İstanbul, Türkiye",
+    "slug": "guroglu"
+  },
+  {
+    "name": "MCK Plus Endüstriyel Temizlik Ürünleri",
+    "phone": "+905531330511",
+    "website": "https://www.mckplus.com/",
+    "address": "Sultan Selim, Aydınlar Sk. No:3 İç Kapı no:6, 34415 Kağıthane/İstanbul, Türkiye",
+    "slug": "mckplus"
+  },
+  {
+    "name": "İhtiyaç Temizlik Hizmetleri",
+    "phone": "+905466370755",
+    "website": "http://ihtiyactemizlik.com/",
+    "address": "Gürsel, Çağlayan Kavşağı Altgeçidi, 34406 Kağıthane/İstanbul, Türkiye",
+    "slug": "ihtiyac"
+  },
+  {
+    "name": "İstanbul Temizlik Şirketi - Şanlı Temizlik",
+    "phone": "+902126491630",
+    "website": "https://www.sanlitemizlik.com/",
+    "address": "Gültepe, Talatpaşa Cd. No:130, 34410 Kağıthane/İstanbul, Türkiye",
+    "slug": "istanbulsanli"
+  },
+  {
+    "name": "Ultra Temizlik",
+    "phone": "+905335466083",
+    "website": "https://www.ultratemizlik.com/",
+    "address": "H. Beşiroğlu Ap, Çeliktepe, Kanuni Sk. No: 12A, 34413 Kağıthane/İstanbul, Türkiye",
+    "slug": "ultra"
+  },
+  {
+    "name": "Yakışır Temizlik Hizmetleri",
+    "phone": "+902122943327",
+    "website": "http://www.yakisirhizmet.com/",
+    "address": "Merkez, Sadabad Cd. No:17, 34406 Kağıthane/İstanbul, Türkiye",
+    "slug": "yakisir"
+  },
+  {
+    "name": "ISS Tesis Yönetim Hizmetleri A.Ş.",
+    "phone": "+902123547400",
+    "website": "http://www.tr.issworld.com/",
+    "address": "Çağlayan, Karaağaç Sk. No:2, 34410 Kağıthane/İstanbul, Türkiye",
+    "slug": "isstesis"
+  },
+  {
+    "name": "YILDIZ DESEN & NAKIŞ GREENSTRONG",
+    "phone": "+905074074711",
+    "website": "http://www.greenstrong.com.tr/",
+    "address": "Çağlayan, Vatan Cd. No:119, 34403 Kağıthane/İstanbul, Türkiye",
+    "slug": "yildizdesen"
+  },
+  {
+    "name": "Green Mood Organics Türkiye",
+    "phone": "+902122362360",
+    "website": "https://www.greenmoodorganics.com.tr/ Gürsel, İmrahor Cd. Polat Ofis No:23 A Blok 2. Kat, 34400 Kağıthane/İstanbul, Türkiye",
+    "address": "Destek Temizlik Hizmetleri Tic. Ltd. Şti. +90 532 686 26 07",
+    "slug": "greenmood"
+  },
+  {
+    "name": "Bi hijyen",
+    "phone": "+905320157785",
+    "website": "https://bihijyen.com.tr/",
+    "address": "Gültepe, Başpınar Cd 8A, 34410 Kağıthane/İstanbul, Türkiye",
+    "slug": "hijyen"
+  },
+  {
+    "name": "ZELİŞ TEMİZLİK KAĞITHANE",
+    "phone": "+905321673918",
+    "website": "https://zelistemizlik.com/",
+    "address": "Gürsel, Akman Sk. No:48, 34400 Kağıthane/İstanbul, Türkiye",
+    "slug": "zeliskagithane"
+  },
+  {
+    "name": "Alya Endüstriyel Temizlik",
+    "phone": "+905414696239",
+    "website": "http://alyaendustriyel.com/Contact",
+    "address": "Halkalı Merkez, Dostlar Sk. no:9/A, 34303 Küçükçekmece/İstanbul, Türkiye",
+    "slug": "alya"
+  },
+  {
+    "name": "Ecoji Temizlik ve Hijyen Ürünleri",
+    "phone": "+902126931833",
+    "website": "http://www.ecoji.com.tr/",
+    "address": "Adres Belirtilmemiş",
+    "slug": "ecojihijyen"
+  },
+  {
+    "name": "Çözüm temizlik",
+    "phone": "+905433153211",
+    "website": "http://cozumtemizlik.tr/",
+    "address": "Mehmet Akif, Kemalpaşa Cd. no:35, 34307 Küçükçekmece/İstanbul, Türkiye",
+    "slug": "cozum"
+  },
+  {
+    "name": "Endüstriyel mutfak temizlik ürünleri",
+    "phone": "+905333004002",
+    "website": "https://egilmezendustriyel.com/",
+    "address": "Fatih, Manavlı Sk. no:12/A, 42290 Selçuklu/Konya, Türkiye",
+    "slug": "mutfak"
+  },
+  {
+    "name": "Enova Endüstriyel Mutfak Ekipmanları",
+    "phone": "+902124382165",
+    "website": "http://enovaendustriyel.com.tr/",
+    "address": "Yeşilova, E-5 Yanyolu No:62/A, 34295 Küçükçekmece/İstanbul, Türkiye",
+    "slug": "enovamutfak"
+  },
+  {
+    "name": "R.E.M. Temizlik Ambalaj Plastik Ürünleri",
+    "phone": "+902124252535",
+    "website": "http://remtemizlik.net/",
+    "address": "Kemalpaşa, Tuna Sk. No:12/A, 34290 Küçükçekmece/İstanbul, Türkiye",
+    "slug": "temizlikambalaj"
+  },
+  {
+    "name": "Topuzoğlu Temizlik - Dış Cephe Cam Temizliği",
+    "phone": "+905398987551",
+    "website": "http://www.topuzoglutemizlik.com/",
+    "address": "Gültepe, Sezen Sk. No:5, 34295 Küçükçekmece/İstanbul, Türkiye",
+    "slug": "topuzoglucephe"
+  },
+  {
+    "name": "Kanarya temizlik Şirketi",
+    "phone": "+900215028470",
+    "website": "https://m.facebook.com/SaralTemizlikSirketi/",
+    "address": "Kanarya, Birlik Cd. 11-5, 34290 Küçükçekmece/İstanbul, Türkiye",
+    "slug": "kanarya"
+  },
+  {
+    "name": "Parex",
+    "phone": "+902124718400",
+    "website": "http://www.parex.com.tr/",
+    "address": "Halkalı Merkez, Dereboyu Cd. No:15, 34303 Küçükçekmece/İstanbul, Türkiye",
+    "slug": "parex"
+  },
+  {
+    "name": "Durum Su Deposu Temizliği",
+    "phone": "+902122780401",
+    "website": "http://durumsudeposutemizligi.com/",
+    "address": "Fevzi Çakmak, Ülkem Sk. No:6/a, 34295 Küçükçekmece/İstanbul, Türkiye",
+    "slug": "durumdeposu"
+  },
+  {
+    "name": "Ces Temizlik Şirketleri",
+    "phone": "+905445692890",
+    "website": "http://www.cestemizlik.com/",
+    "address": "Sefaköy, Tevfikbey Mh, İstiklal Cd. No:2, 34295 Küçükçekmece/İstanbul, Türkiye",
+    "slug": "cessirketleri"
+  },
+  {
+    "name": "REEL WET CLEAN HALI YIKAMA & ÇAMAŞIRHANE",
+    "phone": "+905386433494",
+    "website": "https://reelwetclean.com/",
+    "address": "Söğütlüçeşme Mahallesi 1.Fevzi Çakmak Caddesi, Pınarbaşı Sk. No:1, 34295 Küçükçekmece/İstanbul, Türkiye",
+    "slug": "reelwet"
+  },
+  {
+    "name": "Net İşler Dağcılık ve Temizlik",
+    "phone": "+905074084035",
+    "website": "https://www.netislerdagcilik.com/",
+    "address": "Halkalı Merkez, Narçiçeği Sk. No:4, 34303 Küçükçekmece/İstanbul, Türkiye",
+    "slug": "netisler"
+  },
+  {
+    "name": "Omni Grup A.Ş",
+    "phone": "+908503466157",
+    "website": "http://omnigrup.com/",
+    "address": "Ptt Evleri Mh. Bahçeköy Cd, Meşeli Sk. No:11, Sarıyer/İstanbul, Türkiye",
+    "slug": "omni"
+  },
+  {
+    "name": "Gülşen Temizlik",
+    "phone": "+905325773412",
+    "website": "http://gulsentemizlik.com.tr/",
+    "address": "Safa, Zekat Sk. No:51 D:2, 34652 Sancaktepe/İstanbul, Türkiye",
+    "slug": "gulsen"
+  },
+  {
+    "name": "MR temizlik",
+    "phone": "+905057573446",
+    "website": "https://www.rmtemizlik.com/",
+    "address": "Kemal Türkler, Gülce Sk. No:10 D:2, 34885 Sancaktepe/İstanbul, Türkiye",
+    "slug": "temizlik"
+  },
+  {
+    "name": "PIRILTI TEMİZLİK ÜRÜNLERİ",
+    "phone": "+905322354485",
+    "website": "http://www.piriltideterjan.com/",
+    "address": "Akpınar, Güzin Sk. No: 45, 34885 Sancaktepe/İstanbul, Türkiye",
+    "slug": "pirilti"
+  },
+  {
+    "name": "Gökçe Mop",
+    "phone": "+905373308997",
+    "website": "http://www.gokcemop.com/",
+    "address": "Mevlana Mahallesi Cici Sokak No:6 İç Kapı No:1, 34791 Sancaktepe/İstanbul, Türkiye",
+    "slug": "gokcemop"
+  },
+  {
+    "name": "Anadolu Temizlik",
+    "phone": "+905316452213",
+    "website": "https://www.instagram.com/anadolutemizlik.co?igsh=MWVueHN3aHZzZ3B0NA%3D%3D&utm_source=qr",
+    "address": "Emek, Fatih Cd. 46A, 34650 Sancaktepe/İstanbul, Türkiye",
+    "slug": "anadolu"
+  },
+  {
+    "name": "NG Temizlik Şirketi",
+    "phone": "+905414668883",
+    "website": "https://www.ngtemizliksirketi.com/",
+    "address": "Emek, Onur Cd. No:27 D:2, 34785 Sancaktepe/İstanbul, Türkiye",
+    "slug": "temizliksirketi"
+  },
+  {
+    "name": "VPars Endüstriyel Temizlik Makineleri",
+    "phone": "+902167066474",
+    "website": "http://www.vparsmakine.com/",
+    "address": "Fatih, Derman Sokağı No:2B / 2, 34885 Sancaktepe/İstanbul, Türkiye",
+    "slug": "vparsmakineleri"
+  },
+  {
+    "name": "MTS Hijyen Malz.San.Tic.Ltd.Şti.",
+    "phone": "+905436835765",
+    "website": "http://www.mtshijyen.com/",
+    "address": "Atatürk, Uysal Cd. No:116 Blok:2, 34785 Sancaktepe/İstanbul, Türkiye",
+    "slug": "mtshijyen"
+  },
+  {
+    "name": "Murat Yıldız Temizlik",
+    "phone": "+905326783621",
+    "website": "https://www.murattemizlik.com/",
+    "address": "Mevlana, Burç Sk. No:14/6, 34791 Sancaktepe/İstanbul, Türkiye",
+    "slug": "muratyildiz"
+  },
+  {
+    "name": "Güzelgün Ambalaj & Temizlik",
+    "phone": "+905302363045",
+    "website": "http://güzelgünkurumsal.com/",
+    "address": "Abdurrahmangazi, Atayolu Cd. No:107, 34885 Sancaktepe/İstanbul, Türkiye",
+    "slug": "guzelgun"
+  },
+  {
+    "name": "ESG Temizlik Hizmetleri",
+    "phone": "+905325060976",
+    "website": "https://www.esgtemizlik.com/",
+    "address": "Yenidoğan, Üsküdar Sk., 34791 Sancaktepe/İstanbul, Türkiye",
+    "slug": "esg"
+  },
+  {
+    "name": "Mt temizlik",
+    "phone": "+905468537910",
+    "website": "https://www.mttemizlik.com/",
+    "address": "Fatih, Karadut Sk. no:38, 34885 Sancaktepe/İstanbul, Türkiye",
+    "slug": "temizlik"
+  },
+  {
+    "name": "Bayraktar Ambalaj",
+    "phone": "+902165611361",
+    "website": "http://www.bayraktarambalaj.com/",
+    "address": "Eyüp Sultan, SSK Sokağı No:36, 34885 Sancaktepe/İstanbul, Türkiye",
+    "slug": "bayraktar"
+  },
+  {
+    "name": "Profesyonel Tedarik",
+    "phone": "+905459193429",
+    "website": "https://profesyoneltedarik.com.tr/",
+    "address": "Vertical Endüstriyel Dağcılık",
+    "slug": "profesyoneltedarik"
+  },
+  {
+    "name": "Aselmop",
+    "phone": "+902164842372",
+    "website": "https://aselmop.com/",
+    "address": "Eyüp Sultan, Ulubatlı Hasan Cd. No:40, 34885 Sancaktepe/İstanbul, Türkiye",
+    "slug": "aselmop"
+  },
+  {
+    "name": "Gezegen TEMİZLİK HİZMETLERİ",
+    "phone": "+905419300652",
+    "website": "http://gezegentemizlik.com/",
+    "address": "Merve, Akyıldız Cd. No:19/4, 34791 Sancaktepe/İstanbul, Türkiye",
+    "slug": "gezegen"
+  },
+  {
+    "name": "Denge Temizlik, Temizlik Şirketleri",
+    "phone": "+905334016975",
+    "website": "https://www.dengetemizlik.com/",
+    "address": "Fatih, Emirgan Sk. No:8, 34854 Sancaktepe/İstanbul, Türkiye",
+    "slug": "dengesirketleri"
+  },
+  {
+    "name": "Aslı Temizlik Hizmetleri",
+    "phone": "+905421621247",
+    "website": "https://aslitemizlikhizmetleri.com/",
+    "address": "Emek, Ordu Cd. No:1, 34650 Sancaktepe/İstanbul, Türkiye",
+    "slug": "asli"
+  },
+  {
+    "name": "MR TEKNİK ENDÜSTRİYEL MAKİNE SERVİSİ",
+    "phone": "+905308804438",
+    "website": "http://www.mrteknik.com/",
+    "address": "Hilal Mahallesi Şehit Abdurrahman Gazi Caddesi, Gülpembe Sk. No:15, 34652 Sancaktepe/İstanbul, Türkiye",
+    "slug": "teknikmakine"
+  },
+  {
+    "name": "Eurotem Tedarik",
+    "phone": "+905380474289",
+    "website": "http://www.eurotemtedarik.com/",
+    "address": "Mimar Sinan Mahallesi, Basra Caddesi, Haluk Sk. No: 7, Sultanbeyli/İstanbul, Türkiye",
+    "slug": "eurotemtedarik"
+  },
+  {
+    "name": "Yeter temizlik",
+    "phone": "+905515602394",
+    "website": "https://ı̇ sctemizlik.com.tr/",
+    "address": "Safa, Süslü Sk., 34791 Sancaktepe/İstanbul, Türkiye",
+    "slug": "yeter"
+  },
+  {
+    "name": "İstanbul Temizlik Şirketi - Sarıyer Hassas Temizlik",
+    "phone": "+905447858275",
+    "website": "https://www.hassastemizlik.com.tr/",
+    "address": "İÇ KAPI, Pınar, Gülpınar Sk. NO: 5 NO: 4, 34517 Sarıyer/İstanbul, Türkiye",
+    "slug": "istanbulsariyer"
+  },
+  {
+    "name": "Son Nokta Temizlik Hizmetleri",
+    "phone": "+902122890756",
+    "website": "https://sonnoktatemizlik.com.tr/",
+    "address": "Ayazağa, 118. Sk. No:1, 34475 Sarıyer/İstanbul, Türkiye",
+    "slug": "sonnokta"
+  },
+  {
+    "name": "Uygar Ambalaj & Temizlik",
+    "phone": "+902122237500",
+    "website": "https://www.instagram.com/uygarrambalaj/",
+    "address": "Tarabya, Araba Yolu Cd. no. 224/A, 34475 Sarıyer/İstanbul, Türkiye",
+    "slug": "uygar"
+  },
+  {
+    "name": "Temiz İş Dekorasyon",
+    "phone": "+905442281319",
+    "website": "https://temizisdekorasyon.com.tr/",
+    "address": "Sarıyer merkez mahallesi sarıyer deresi sokak no:13 iç kapı no:22 sarıyer, 34450 Sarıyer/İstanbul, Türkiye",
+    "slug": "temizdekorasyon"
+  },
+  {
+    "name": "Ev Temizliği",
+    "phone": "+905441627233",
+    "website": "https://temizlikgonder.com/",
+    "address": "Y İÇ KAPI, MASLAK MAH. TAŞYONCASI SK. MASLAK OD BLOK NO: 1, NO: B164, 34398 Sarıyer/İstanbul, Türkiye",
+    "slug": "temizligi"
+  },
+  {
+    "name": "Elektrotem Temizlik",
+    "phone": "+905326554501",
+    "website": "http://www.elektrotemtemizlik.com/",
+    "address": "Pınar, Fener Çiçeği Sokağı No:12/A, 34460 Sarıyer/İstanbul, Türkiye",
+    "slug": "elektrotem"
+  },
+  {
+    "name": "Boğaziçi Temizlik Şirketi",
+    "phone": "+902123801160",
+    "website": "http://bogazicitemizlik.com/",
+    "address": "Pınar Mahallesi Balabandere Caddesi, Eren Sokağı No:25, 34450 Sarıyer/İstanbul, Türkiye",
+    "slug": "bogazici"
+  },
+  {
+    "name": "Atas Türkiye",
+    "phone": "+905333269213",
+    "website": "http://www.atasturkiye.com/",
+    "address": "Maslak, AOS 17.SK No:579, 34398 Sarıyer/İstanbul, Türkiye",
+    "slug": "atasturkiye"
+  },
+  {
+    "name": "Mata Temizlik",
+    "phone": "+905321747818",
+    "website": "http://matatemizlik.com/",
+    "address": "Pınar Mah. Çamlıbel Cad, İstinye, Nehir Sk. NO:6/A, Sarıyer/İstanbul, Türkiye",
+    "slug": "mata"
+  },
+  {
+    "name": "Dry Center Vadistanbul Sarıyer Kuru Temizleme",
+    "phone": "+902128901392",
+    "website": "https://drycenter.com/magazalar/istanbul/sariyer-vadistanbul-kuru-temizleme",
+    "address": "Ayazağa Mahallesi Cendere Caddesi 1 Apt No. 109 C/354, 34485 Sarıyer/İstanbul, Türkiye",
+    "slug": "drycenter"
+  },
+  {
+    "name": "Aksa Temizlik Hizmetleri",
+    "phone": "+905321316557",
+    "website": "http://www.aksatemizlikhizmetleri.com/ Zekeriyaköy, 34450 Sarıyer/İstanbul, Türkiye",
+    "address": "Bella",
+    "slug": "aksa"
+  },
+  {
+    "name": "Destek Servis Temizlik Şirketleri",
+    "phone": "+902123585940",
+    "website": "http://www.destekservis.com.tr/",
+    "address": "Rumeli Hisarüstü 5. sokak 28/A Gültekin Apartman Sarıyer, 34467 Sarıyer/İstanbul, Türkiye",
+    "slug": "destekservis"
+  },
+  {
+    "name": "Şahinler Temizlik",
+    "phone": "+905392890266",
+    "website": "http://sahinlertemizlik.com/",
+    "address": "Ayazağa, Şht. İlhan Yurt Sk. No:79/1, 34475 Sarıyer/İstanbul, Türkiye",
+    "slug": "sahinler"
+  },
+  {
+    "name": "Temizlik Rüyası",
+    "phone": "+905518270214",
+    "website": "http://temizlikruyasi.com/",
+    "address": "Sarıyer, Bülbülcü Sk No:7, 34473 Sarıyer/İstanbul, Türkiye",
+    "slug": "ruyasi"
+  },
+  {
+    "name": "İşletme Adı Tozsil Temizlik",
+    "phone": "+905532319567",
+    "website": "https://tozsil.com.tr/",
+    "address": "Maslak, Maslak Meydan Sk. Beybi Giz Plaza No:1 K:26 Ofis No: 2628, 34485 Sarıyer/İstanbul, Türkiye",
+    "slug": "isletmeadi"
+  },
+  {
+    "name": "Silivri Temizlik Şirketi",
+    "phone": "+902129091290",
+    "website": "http://www.kaletemizliksirketi.com/",
+    "address": "Piri Mehmet Paşa, Hacı Pervane Cd. No:27, 34570 Silivri/İstanbul, Türkiye",
+    "slug": "silivri"
+  },
+  {
+    "name": "silivri karbeyaz temizlik",
+    "phone": "+905301539821",
+    "website": "http://www.temizlikkarbeyaz.com/",
+    "address": "Yeni, Yeni Mahalle Cd No:12 b 2 blok d, 34570 Silivri/İstanbul, Türkiye",
+    "slug": "silivrikarbeyaz"
+  },
+  {
+    "name": "Sapro Temizlik Ürünleri",
+    "phone": "+902127343808",
+    "website": "https://www.sapro.com.tr/",
+    "address": "Ortaköy, İlter Bulvarı No:27, 34592 Silivri/İstanbul, Türkiye",
+    "slug": "sapro"
+  },
+  {
+    "name": "ELSA AMBALAJ",
+    "phone": "+905059972641",
+    "website": "https://www.elsaambalaj.com/",
+    "address": "Selimpaşa, 2080 SK NO:6, 34590 Silivri/İstanbul, Türkiye",
+    "slug": "elsa"
+  },
+  {
+    "name": "Zurex group enerji",
+    "phone": "+905325056910",
+    "website": "http://www.zurexgroup.com/",
+    "address": "mahalle si, Mimar Sinan, Necati Kartal Sk. No:3/A, 34570 Silivri/İstanbul, Türkiye",
+    "slug": "zurexgroup"
+  },
+  {
+    "name": "Ahser Kimya",
+    "phone": "+905325810706",
+    "website": "http://www.ahserkimya.com.tr/",
+    "address": "Mimarsinan Silivri, Necati Kartal Sk. Silivri 4.Etap Sanayi Sitesi No:3 B, 34570 Silivri/İstanbul, Türkiye",
+    "slug": "ahser"
+  },
+  {
+    "name": "Defne Kurumsal Tedarik",
+    "phone": "+905331303547",
+    "website": "https://www.defnekurumsal.com/",
+    "address": "Çanta Sancaktepe, Altınçeşme Cd. 72b D:2, 34000 Silivri/İstanbul, Türkiye",
+    "slug": "defnetedarik"
+  },
+  {
+    "name": "Ekspress Çamaşırhane Ve Kuru Temizleme",
+    "phone": "+905422711312",
+    "website": "https://www.eksprescamasirhane.com/ Yeni Mah. Bulvar 34 Sitesi, Altı Silivri, 7144 Sk, 34570 Silivri/İstanbul, Türkiye",
+    "address": "Siltem Silivri Temizlik",
+    "slug": "ekspresscamasirhane"
+  },
+  {
+    "name": "İstanbul Kısmet Temizlik",
+    "phone": "+905534968996",
+    "website": "https://www.kismettemizlik.com/",
+    "address": "Mimar Sinan Mah. Fatih Sultan Mehmet Cad. No:38G, No:19, 34570 Silivri/İstanbul, Türkiye",
+    "slug": "istanbulkismet"
+  },
+  {
+    "name": "ACK temizlik Silivri Temizlik Şirketi",
+    "phone": "+905428450385",
+    "website": "https://acktemizlik.com/",
+    "address": "Silivri Endüstriyel Elektrik Otomasyon Plc +90 535 550 22 66",
+    "slug": "acksilivri"
+  },
+  {
+    "name": "Hadopet Endüstriyel & Madeni yağlar",
+    "phone": "+902128767674",
+    "website": "http://www.hadopet.com.tr/",
+    "address": "Mimar Sinan, 2. Cd. No:58, 34570 Silivri/İstanbul, Türkiye",
+    "slug": "hadopetmadeni"
+  },
+  {
+    "name": "Silivri AyYıldız Halı Yıkama",
+    "phone": "+905346683404",
+    "website": "https://silivriayyildizhaliyikama.com/ Mimar Sinan, Alp Sk. NO:47 A, 34570 Silivri/İstanbul, Türkiye",
+    "address": "Yıldız Halı Yıkama",
+    "slug": "silivriayyildiz"
+  },
+  {
+    "name": "TEMİZ İŞ GÜMÜŞYAKA",
+    "phone": "+905369728383",
+    "website": "http://www.temı̇ zı̇ ş.com/",
+    "address": "Gümüşyaka, harmanlar sokak no 3c, 34570 Silivri/İstanbul, Türkiye",
+    "slug": "temizgumusyaka"
+  },
+  {
+    "name": "Mert Ambalaj & Temizlik \"Harun Şahin\"",
+    "phone": "+905347714418",
+    "website": "https://www.ambalajagel.com/",
+    "address": "İsmetpaşa, Ordu Cd. No: 172, 34270 Sultangazi/İstanbul, Türkiye",
+    "slug": "mertharun"
+  },
+  {
+    "name": "Milo Temizlik Ürünleri",
+    "phone": "+902124383648",
+    "website": "http://milochem.com/index-5.html",
+    "address": "Esentepe, 2954. Sk. No:8, 34265 Sultangazi/İstanbul, Türkiye",
+    "slug": "milo"
+  },
+  {
+    "name": "Gültekinler Temizlik",
+    "phone": "+905337646516",
+    "website": "https://iyifirma.com/gultekinler-temizlik-sultanciftligi/",
+    "address": "50. Yıl, B Cad. no:26, 34265 Sultangazi/İstanbul, Türkiye",
+    "slug": "gultekinler"
+  },
+  {
+    "name": "Amaç Temizlik Hizmetleri",
+    "phone": "+905342763882",
+    "website": "https://amactemizlik.com/",
+    "address": "75. Yıl, 1326/2. Sk. No: 4 D:1, 34260 Sultangazi/İstanbul, Türkiye",
+    "slug": "amac"
+  },
+  {
+    "name": "Format Kimya",
+    "phone": "+902125350101",
+    "website": "http://www.formatkimya.com.tr/",
+    "address": "Esentepe 2959. Sokak Küçük Sanayi Sitesi No:21 D:Blok 27, A Cd., 34260 Sultangazi/İstanbul, Türkiye",
+    "slug": "format"
+  },
+  {
+    "name": "Eryıl Makina - Rothenberger Yetkili Bayi",
+    "phone": "+905495053437",
+    "website": "http://www.eryil.com/",
+    "address": "Eryıl Makina, Esentepe, 2952. Sk. küçük sanayi sitesi No:13, 34265 Sultangazi/İstanbul, Türkiye",
+    "slug": "eryilmakina"
+  },
+  {
+    "name": "Vinpak Hygiene Products Inc.",
+    "phone": "+902128070264",
+    "website": "http://winpak.com.tr/",
+    "address": "Z. Gokalp Mh. S.DEMIREL Bulv. MALL OFF ST. E Blok No:7 K:17 D:136, İstanbul, Türkiye",
+    "slug": "vinpakhygiene"
+  },
+  {
+    "name": "Şile Temizlik Şirketi Göztepe Temizlik",
+    "phone": "+905309649937",
+    "website": "https://www.goztepetemizlik.com.tr/",
+    "address": "EFSA TEMİZLİK HİZMETLERİ",
+    "slug": "silegoztepe"
+  },
+  {
+    "name": "Tarus Temizlik Ekipmanları Fabrika",
+    "phone": "+902167396050",
+    "website": "https://www.tarustemizlik.com/",
+    "address": "Balibey, Çırak Sok No:2, 34980 Şile/İstanbul, Türkiye",
+    "slug": "tarusekipmanlari"
+  },
+  {
+    "name": "HAYAT TEMİZLİK",
+    "phone": "+905061387613",
+    "website": "https://ty.gl/otoiof4ppldnn",
+    "address": "Çırpıcı, 2. Taşocağı Sk. No:57, 34025 Zeytinburnu/İstanbul, Türkiye",
+    "slug": "hayat"
+  },
+  {
+    "name": "İşletme Adı Öz Gıda Temizlik San. Ve Tic. Ltd. Şti.",
+    "phone": "+902125829900",
+    "website": "http://www.ozgidatemizlik.com/",
+    "address": "Merkezefendi, G/65/1. Sk. 13/A, 34015 Zeytinburnu/İstanbul, Türkiye",
+    "slug": "isletmeadi"
+  },
+  {
+    "name": "Davutpaşa Cad. No:6 Kat:1 Tim 1 İş Merkezi Davutpaşa Caddesi No:6 Kat 1 75, Topkapı, Davutpaşa Cd. No:6, 34010 Zeytinburnu/İstanbul, Türkiye Güçlü Endüstriyel Mutfak",
+    "phone": "+905435032275",
+    "website": "https://durumutfak.com/",
+    "address": "MSF Endüstriyel 2.El Lokanta Cafe Mutfak+90",
+    "slug": "davutpasacad"
+  },
+  {
+    "name": "Öykü Temizlik Şirketleri",
+    "phone": "+905303925245",
+    "website": "http://www.oykutemizlik.com/",
+    "address": "Adres Belirtilmemiş",
+    "slug": "oykusirketleri"
+  },
+  {
+    "name": "Temiz Depolama",
+    "phone": "+905050754796",
+    "website": "https://www.temizdepolama.com/",
+    "address": "Mecidiye, Fatih Blv. No:407 kat 1, 34920 Sultanbeyli/İstanbul, Türkiye",
+    "slug": "temizdepolama"
+  },
+  {
+    "name": "Yiğit Temizlik İstanbul",
+    "phone": "+905392066157",
+    "website": "https://yigittemizlik.com.tr/",
+    "address": "Abdurrahmangazi, Yeşil Cd. 82/1, 34000 Sultanbeyli/İstanbul, Türkiye",
+    "slug": "yigitistanbul"
+  },
+  {
+    "name": "Su Deposu Temizliği ve izolasyon",
+    "phone": "+905445453419",
+    "website": "https://beldez.com/",
+    "address": "Turgut Reis, Hak Sk., 34930 Sultanbeyli/İstanbul, Türkiye",
+    "slug": "deposutemizligi"
+  },
+  {
+    "name": "EY-SA Dağıtım ve Pazarlama",
+    "phone": "+902164985850",
+    "website": "http://www.eysadagitim.com/",
+    "address": "Mimar Sinan, Birlik Sk. NO:16/A, 34935 Sultanbeyli/İstanbul, Türkiye",
+    "slug": "dagitim"
+  },
+  {
+    "name": "Onay Kimya San.İç ve Dış Tic.Ltd.Şti",
+    "phone": "+902165500755",
+    "website": "http://www.onaykimya.com.tr/",
+    "address": "Battalgazi mah.Endülüs sk.Sultan San.Sit.24D1 Blok No:27/1, 34935 Sultanbeyli/İstanbul, Türkiye",
+    "slug": "onay"
+  },
+  {
+    "name": "Tek mop",
+    "phone": "+905398603277",
+    "website": "https://www.tekmop.com.tr/",
+    "address": "Mustafa Kemal Paşa, Eski Edirne Cd. no1446/d, 34000 Arnavutköy/İstanbul, Türkiye",
+    "slug": "tekmop"
+  },
+  {
+    "name": "Ermet Temizlik Malzemeleri İmalatı",
+    "phone": "+905325940228",
+    "website": "http://www.er-met.com/",
+    "address": "Haraçcı mahallesi Madalya Sok. no:7 Zemin Sağ, 34281 Arnavutköy/İstanbul, Türkiye",
+    "slug": "ermetimalati"
+  },
+  {
+    "name": "CEY GRUP TEMİZLİK İÇ VE DIŞ TİC. LTD.ŞTİ.",
+    "phone": "+902126595050",
+    "website": "http://www.ceymoppro.com.tr/",
+    "address": "Taşoluk, Fevziçakmak Mah, Egemen Cd. No:28/1, 34283 Arnavutköy/İstanbul, Türkiye",
+    "slug": "cey"
+  },
+  {
+    "name": "Demirli Kimya",
+    "phone": "+902124855123",
+    "website": "http://www.demirlikimya.com/",
+    "address": "es no:1878ki, Dursunköy, Eski Edirne Asfaltı, 34555 Arnavutköy/İstanbul, Türkiye",
+    "slug": "demirli"
+  },
+  {
+    "name": "Beyaz İz Temizlik",
+    "phone": "+905536081651",
+    "website": "https://beyaziztemizlik.com/",
+    "address": "Adres Belirtilmemiş",
+    "slug": "beyaz"
+  },
+  {
+    "name": "KRG TEMİZLİK - Greendas",
+    "phone": "+908508889574",
+    "website": "http://www.greendas.com.tr/",
+    "address": "Sazlıbosna, Sazlıdere cad No:35, 34555 Arnavutköy/İstanbul, Türkiye",
+    "slug": "krggreendas"
+  },
+  {
+    "name": "S2000 Endüstriyel Mutfak Soğutma Sistemleri",
+    "phone": "+902126850600",
+    "website": "https://www.s2000.com.tr/",
+    "address": "İstiklal Mah, Erciyes Sk. No:12, 34285 Arnavutköy/İstanbul, Türkiye",
+    "slug": "s2000mutfak"
+  },
+  {
+    "name": "Yiğitalp Laundry",
+    "phone": "+902127713535",
+    "website": "http://www.yigitalplaundry.com/",
+    "address": "Hadımköy, Özgüler Sk. No:7, 34555 Arnavutköy/İstanbul, Türkiye",
+    "slug": "yigitalplaundry"
+  },
+  {
+    "name": "Ceymop",
+    "phone": "+902126595566",
+    "website": "http://ceymop.com.tr/",
+    "address": "Ömerli Mah, Hadımköy, Kurtini Sk. No:21, Arnavutköy/İstanbul, Türkiye",
+    "slug": "ceymop"
+  },
+  {
+    "name": "Örnek Tekel Gıda",
+    "phone": "+905356226038",
+    "website": "https://instagram.com/buyukadaornektekel?utm_medium=copy_link",
+    "address": "Maden, Yılmaz Türk Cd. 14/A, 34970 Adalar/İstanbul, Türkiye",
+    "slug": "ornektekel"
+  },
+  {
+    "name": "Aspak Sigorta",
+    "phone": "+902164525924",
+    "website": "http://www.aspakhijyen.com.tr/",
+    "address": "Hürriyet, Abdi İpekçi Cd. No:47/D D:E, 34876 Kartal/İstanbul, Türkiye",
+    "slug": "aspaksigorta"
+  },
+  {
+    "name": "Ataşehir Temizlik Şirketi",
+    "phone": "+902164152558",
+    "website": "http://atasehirtemizliksirketi.com/",
+    "address": "Kayışdağı, Ercan Sk. No:16/C, 34888 Ataşehir/İstanbul, Türkiye",
+    "slug": "atasehir"
+  },
+  {
+    "name": "Uğur Temizlik Malzemeleri",
+    "phone": "+905321361937",
+    "website": "http://www.wutem.com.tr/",
+    "address": "Yeni Çamlıca, Aysun Sk. No:23, 34779 Ataşehir/İstanbul, Türkiye",
+    "slug": "ugur"
+  },
+  {
+    "name": "Ertemiz Temizlik & Gıda Ürünleri Paz.Tic.Ltd.Şti.",
+    "phone": "+902165742131",
+    "website": "http://www.ertemiz.com/",
+    "address": "İnönü, 19 Mayıs Cd. No: 95 A D:11, 34755 Ataşehir/İstanbul, Türkiye",
+    "slug": "ertemizpaz"
+  },
+  {
+    "name": "Sevda Temizlik",
+    "phone": "+905366557193",
+    "website": "https://www.sevdatemizlik.com.tr/",
+    "address": "Küçükbakkalköy, Selvili Sok. No:4 Kat:3, 34750 Ataşehir/İstanbul, Türkiye",
+    "slug": "sevda"
+  },
+  {
+    "name": "Peva Kimya",
+    "phone": "+902165732207",
+    "website": "http://www.peva.com.tr/",
+    "address": "Ferhatpaşa, 37. Sk. No:31, 34888, 34779 Ataşehir/İstanbul, Türkiye",
+    "slug": "peva"
+  },
+  {
+    "name": "MC Temizlik Makinaları",
+    "phone": "+902166601285",
+    "website": "http://www.mcmakservis.com/",
+    "address": "Mimar Sinan, Kibar Sk. No:33/A, 34779 Ataşehir/İstanbul, Türkiye",
+    "slug": "makinalari"
+  },
+  {
+    "name": "Asyatem Sarf ve Temizlik Ürünleri",
+    "phone": "+905327860680",
+    "website": "http://www.asyatem.com/",
+    "address": "Aşıkveysel, 3001. Cd. 178/b, 34212 Ataşehir/İstanbul, Türkiye",
+    "slug": "asyatemsarf"
+  },
+  {
+    "name": "ADS Endüstriyel Mutfak Teknik Servis - Ataşehir",
+    "phone": "+905323215677",
+    "website": "https://adsteknik.com/",
+    "address": "Kayışdağı, Nurettin Sk. 1/B, 34865 Ataşehir/İstanbul, Türkiye",
+    "slug": "adsmutfak"
+  },
+  {
+    "name": "Aler Sarf Kurumsal Tedarik Hizmetleri",
+    "phone": "+905343548162",
+    "website": "https://www.alersarf.com/",
+    "address": "Star Temizlik Makinaları",
+    "slug": "alersarf"
+  },
+  {
+    "name": "EnD ENDÜSTRİYEL KİMYA",
+    "phone": "+905537746284",
+    "website": "http://endkimya.com/",
+    "address": "Ağaoğlu Andromeda gold, Atatürk Mah, Site, Meriç Cd. No:1, Ataşehir/İstanbul, Türkiye",
+    "slug": "end"
+  },
+  {
+    "name": "Temizlik Pazarım",
+    "phone": "+905415622009",
+    "website": "https://www.temizlikpazarim.com/",
+    "address": "İnönü, Alpkaya Cd. No: 28/A, 34755 Ataşehir/İstanbul, Türkiye",
+    "slug": "pazarim"
+  },
+  {
+    "name": "Sil Süpür Temizlik",
+    "phone": "+908505325282",
+    "website": "http://www.silsupur.com.tr/",
+    "address": "Adres Belirtilmemiş",
+    "slug": "silsupur"
+  },
+  {
+    "name": "Bvesgrup temizlik şirketi",
+    "phone": "+905310216132",
+    "website": "https://bvesgrup.com.tr/",
+    "address": "Taşdelen, Merkez Mahallesi, Turgut Özal Cd. No:127, 34788 Çekmeköy/İstanbul, Türkiye",
+    "slug": "bvesgrup"
+  },
+  {
+    "name": "ATG TEDARİK HİZMETLERİ SAN.TİC.LTD.ŞTİ.",
+    "phone": "+905309768645",
+    "website": "https://www.atgtedarik.com.tr/",
+    "address": "Cumhuriyet, Çağdaş Cd. No:33, 34788 Çekmeköy/İstanbul, Türkiye",
+    "slug": "atgtedarik"
+  },
+  {
+    "name": "Desa Kimya",
+    "phone": "+902123230101",
+    "website": "https://desakimya.com.tr/",
+    "address": "Mehmet Akif, Ulubatlı Hasan Cd. 31 C D:3 D:.4, 34782 Çekmeköy/İstanbul, Türkiye",
+    "slug": "desa"
+  },
+  {
+    "name": "İlkiz Tedarik - Toptan Temizlik Malzemeleri",
+    "phone": "+902163124472",
+    "website": "http://www.ilkiztedarik.com/",
+    "address": "Mahmutbey, A Yolu 35. Ada D:2, 34218 Bağcılar/İstanbul, Türkiye",
+    "slug": "ilkiztedarik"
+  }
+]
