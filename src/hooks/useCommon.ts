@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { LABELS } from '../data/config';
 import { CompanySettings } from '../types';
+import { getActiveStoreSlug } from '../utils/core';
 
 /**
  * COMMON UTILITY HOOKS (DIAMOND STANDARD)
@@ -203,33 +204,39 @@ export function useSyncMetadata(
     }
     if (settings.logoUrl) link.href = settings.logoUrl;
 
-    let manifestUrl = '';
+    // Apple Meta Tags for Home Screen (iOS PWA branding)
+    let appleTitle = document.querySelector('meta[name="apple-mobile-web-app-title"]');
+    if (!appleTitle) {
+      appleTitle = document.createElement('meta');
+      appleTitle.setAttribute('name', 'apple-mobile-web-app-title');
+      document.head.appendChild(appleTitle);
+    }
+    appleTitle.setAttribute('content', settings.name || settings.title || 'ekatalog');
+
+    let appleIcon = document.querySelector('link[rel="apple-touch-icon"]');
+    if (!appleIcon) {
+      appleIcon = document.createElement('link');
+      appleIcon.setAttribute('rel', 'apple-touch-icon');
+      document.head.appendChild(appleIcon);
+    }
+    if (settings.logoUrl) {
+      appleIcon.setAttribute('href', settings.logoUrl);
+    }
+
+    let appleIconPre = document.querySelector('link[rel="apple-touch-icon-precomposed"]');
+    if (!appleIconPre) {
+      appleIconPre = document.createElement('link');
+      appleIconPre.setAttribute('rel', 'apple-touch-icon-precomposed');
+      document.head.appendChild(appleIconPre);
+    }
+    if (settings.logoUrl) {
+      appleIconPre.setAttribute('href', settings.logoUrl);
+    }
+
+    // Dynamic manifest URL pointing directly to Supabase Edge Function
     try {
-      const manifest = {
-        name: settings.name || settings.title || 'ekatalog',
-        short_name: settings.name || settings.title || 'ekatalog',
-        description: settings.subtitle || settings.title || 'Katalog',
-        theme_color: '#ffffff',
-        background_color: '#f7f5f2',
-        display: 'standalone',
-        start_url: window.location.origin + window.location.pathname,
-        icons: [
-          {
-            src: settings.logoUrl || '/logo-favicon.svg',
-            sizes: '192x192',
-            type: 'image/png',
-          },
-          {
-            src: settings.logoUrl || '/logo-favicon.svg',
-            sizes: '512x512',
-            type: 'image/png',
-          },
-        ],
-      };
-      
-      const stringManifest = JSON.stringify(manifest);
-      const blob = new Blob([stringManifest], { type: 'application/json' });
-      manifestUrl = URL.createObjectURL(blob);
+      const activeSlug = getActiveStoreSlug();
+      const manifestUrl = `https://qadfjqvtpknjojfymxdq.supabase.co/functions/v1/pwa-manifest?slug=${activeSlug}`;
 
       let manifestLink = document.querySelector('link[rel="manifest"]');
       if (!manifestLink) {
@@ -245,14 +252,8 @@ export function useSyncMetadata(
       
       manifestLink.setAttribute('href', manifestUrl);
     } catch (err) {
-      console.error('Failed to generate dynamic PWA manifest:', err);
+      console.error('Failed to update PWA manifest link:', err);
     }
-
-    return () => {
-      if (manifestUrl) {
-        URL.revokeObjectURL(manifestUrl);
-      }
-    };
   }, [isAdmin, settings]);
 }
 
