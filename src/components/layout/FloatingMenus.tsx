@@ -34,7 +34,7 @@ export function FloatingAdminMenu({
       id: 'currency',
       icon: (
         <div className="w-full h-full flex items-center justify-center">
-          <span className="text-[20px] font-bold leading-none">
+          <span className="text-[20px] font-bold leading-none text-white">
             {activeCurrency === 'TRY'
               ? '₺'
               : activeCurrency === 'USD'
@@ -50,7 +50,7 @@ export function FloatingAdminMenu({
     {
       id: 'add',
       icon: (
-        <div className="w-7 h-7 flex items-center justify-center">
+        <div className="w-6 h-6 flex items-center justify-center">
           {globalIcons.plus}
         </div>
       ),
@@ -60,28 +60,33 @@ export function FloatingAdminMenu({
     },
     {
       id: 'features',
-      icon: null,
+      icon: (
+        <div className="w-6 h-6 flex items-center justify-center">
+          {globalIcons.ai}
+        </div>
+      ),
       action: () => useStore.getState().openModal('FEATURES'),
-      label: 'ÖZELLİKLER',
-      className:
-        '!col-span-2 !w-full !rounded-xl !bg-stone-900 !text-white border border-white/10 my-0.5 font-black',
-      dividerAfter: true,
+      label: '',
     },
     {
       id: 'bulk',
-      icon: null,
+      icon: (
+        <div className="w-6 h-6 flex items-center justify-center">
+          {globalIcons.bulkPrice}
+        </div>
+      ),
       action: onBulkUpdateTrigger || (() => {}),
-      label: 'İŞLEMLER',
-      className:
-        '!col-span-2 !w-full !rounded-xl !bg-stone-100 !text-stone-900 border-none my-0.5',
+      label: '',
     },
     {
       id: 'settings',
-      icon: null,
+      icon: (
+        <div className="w-6 h-6 flex items-center justify-center">
+          {globalIcons.settings}
+        </div>
+      ),
       action: onSettingsTrigger,
-      label: 'AYARLAR',
-      className:
-        '!col-span-2 !w-full !rounded-xl !bg-stone-800/50 !text-white border border-white/10 my-0.5',
+      label: '',
     },
   ];
 
@@ -89,7 +94,6 @@ export function FloatingAdminMenu({
     <BaseFloatingMenu
       actions={adminActions}
       autoCloseDelay={5000}
-      mainIcon={globalIcons.settings}
       theme="dark"
       onPointerDown={onPointerDown}
       onPointerUp={onPointerUp}

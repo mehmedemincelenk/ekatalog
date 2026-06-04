@@ -40,7 +40,6 @@ interface BaseFloatingMenuProps {
   mainIcon?: ReactNode;
   activeMainIcon?: ReactNode;
   isPrimaryToggle?: boolean;
-  labelText?: string;
   theme?: 'light' | 'dark'; // Diamond: Support multiple visual identities
   onPointerDown?: () => void;
   onPointerUp?: () => void;
@@ -54,7 +53,6 @@ export default function BaseFloatingMenu({
   autoCloseDelay = 5000,
   mainIcon,
   activeMainIcon,
-  labelText,
   onPointerDown,
   onPointerUp,
   forceExpanded = false,
@@ -289,11 +287,6 @@ export default function BaseFloatingMenu({
             ) : (
               <div className="flex items-center gap-1 text-stone-900 justify-center w-full h-full">
                 {mainIcon}
-                {labelText && (
-                  <span className="text-[10px] font-black tracking-wider uppercase leading-none truncate max-w-[65px]">
-                    {labelText}
-                  </span>
-                )}
               </div>
             )}
           </div>
