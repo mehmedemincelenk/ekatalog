@@ -90,7 +90,6 @@ export function FloatingAdminMenu({
       actions={adminActions}
       autoCloseDelay={5000}
       mainIcon={globalIcons.settings}
-      labelText="AYARLAR"
       theme="dark"
       onPointerDown={onPointerDown}
       onPointerUp={onPointerUp}

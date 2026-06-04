@@ -322,7 +322,7 @@ const Navbar = memo(({ isInlineEnabled, isPreview }: NavbarProps) => {
                       }}
                       variant="glass"
                       mode="rectangle"
-                      className="!bg-stone-900/75 backdrop-blur-xl border border-white/10 !text-white !px-3 !py-1.5 !rounded-xl hover:!bg-stone-900/90 hover:scale-[1.03] active:scale-95 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.15),0_6px_20px_-4px_rgba(0,0,0,0.15)] transition-all duration-200"
+                      className="!bg-stone-900/75 backdrop-blur-xl border border-white/10 !text-white !px-3 !py-1.5 !rounded-lg hover:!bg-stone-900/90 hover:scale-[1.03] active:scale-95 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.15),0_6px_20px_-4px_rgba(0,0,0,0.15)] transition-all duration-200"
                     >
                       <div className="flex items-center gap-2">
                         <span

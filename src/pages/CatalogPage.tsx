@@ -135,28 +135,17 @@ export default function CatalogPage() {
   const mobileContent = (
     <>
       <div className="relative w-full h-full overflow-hidden flex flex-col">
-        {/* FLOATING GLASS NAVBAR OVERLAY - Fixed on mobile, absolute inside phone frame on desktop */}
-        <div className="print:hidden fixed md:absolute top-0 left-0 right-0 z-[100] w-full pointer-events-none">
-          <Navbar isInlineEnabled={isInlineEnabled} />
-        </div>
-
         {/* SCROLLABLE LAYER */}
         <div
           id="mobile-viewport-scroll"
           className="flex-1 overflow-y-auto overflow-x-hidden no-scrollbar scroll-smooth relative z-10"
         >
+          {/* FLOATING GLASS NAVBAR OVERLAY */}
+          <div className="print:hidden sticky top-0 left-0 right-0 z-[100] w-full pointer-events-none">
+            <Navbar isInlineEnabled={isInlineEnabled} />
+          </div>
+
           <main className="bg-stone-50">
-            {/* Spacer to offset the flat full-width navbar & announcement bar dynamically */}
-            <div
-              style={{
-                height:
-                  storeSettings?.announcementBar?.enabled &&
-                  (storeSettings?.announcementBar?.text || isAdmin)
-                    ? '76px'
-                    : '56px',
-              }}
-              className="shrink-0"
-            />
             {storeSettings?.displayConfig?.showCarousel !== false && (
               <HeroCarousel isAdminModeActive={isAdmin} />
             )}
