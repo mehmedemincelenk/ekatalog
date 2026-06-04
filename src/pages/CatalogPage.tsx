@@ -154,8 +154,8 @@ export default function CatalogPage() {
                 height:
                   storeSettings?.announcementBar?.enabled &&
                   (storeSettings?.announcementBar?.text || isAdmin)
-                    ? '84px'
-                    : '64px',
+                    ? '76px'
+                    : '56px',
               }}
               className="shrink-0"
             />

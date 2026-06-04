@@ -439,9 +439,9 @@ export function PinModal({
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 1.1 }}
-              className="flex flex-col items-center justify-center w-full py-2"
+              className="flex flex-col items-center justify-center w-full py-4"
             >
-              <span className="text-[10px] font-black tracking-[0.4em] text-stone-500 uppercase mb-4">
+              <span className="text-[10px] font-black tracking-[0.4em] text-stone-500 uppercase mb-6">
                 GÜVENLİK DOĞRULAMASI
               </span>
               <div className="flex items-center justify-center w-full">
@@ -450,13 +450,12 @@ export function PinModal({
                   options={{ theme: 'light', size: 'compact' }}
                 />
               </div>
-              <Button
+              <button
                 onClick={onModalClose}
-                variant="ghost"
-                className="mt-6 text-stone-400 hover:text-stone-700 font-black text-[10px] tracking-[0.2em] uppercase"
+                className="mt-6 text-stone-500 hover:text-stone-950 font-black text-[10px] tracking-[0.2em] uppercase transition-colors"
               >
                 İPTAL ET
-              </Button>
+              </button>
             </motion.div>
           ) : (
             <motion.div
@@ -468,7 +467,7 @@ export function PinModal({
             >
               <div className="flex items-center justify-center h-12 mb-4 w-full">
                 {flow.isVerifying ? (
-                  <div className="border-2 border-stone-300 border-t-stone-900 rounded-full animate-spin w-5 h-5" />
+                  <div className={THEME.loading.spinner + ' w-5 h-5'} />
                 ) : flow.activeIsLockedOut ? (
                   <span className="text-base">⏳</span>
                 ) : (

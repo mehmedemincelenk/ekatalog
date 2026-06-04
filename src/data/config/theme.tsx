@@ -474,20 +474,20 @@ export const THEME = {
 
   pinModal: {
     overlay:
-      'fixed inset-0 z-[10000] flex items-end justify-end p-4 pb-16 pointer-events-auto bg-white/40 backdrop-blur-2xl',
+      'fixed inset-0 z-[10000] flex items-end justify-end p-4 pb-16 pointer-events-auto bg-black/15',
     container:
-      'relative w-full max-w-[230px] flex flex-col items-center select-none bg-white/70 backdrop-blur-2xl saturate-[190%] border border-white/30 rounded-[2rem] p-5 shadow-2xl transform transition-transform duration-300',
+      'relative w-full max-w-[230px] flex flex-col items-center select-none bg-stone-200/50 backdrop-blur-xl border border-white/20 rounded-[2rem] p-5 shadow-none transform transition-transform duration-300',
     headerWrapper: 'text-center mb-4',
-    headerIconWrapper: `w-10 h-10 bg-stone-900/10 backdrop-blur-md rounded-lg flex items-center justify-center mx-auto mb-2 shadow-sm border border-stone-900/10`,
+    headerIconWrapper: `w-10 h-10 bg-stone-900/10 backdrop-blur-md rounded-lg flex items-center justify-center mx-auto mb-2 shadow-none border border-stone-900/10`,
     headerIconSize: 'w-5 h-5 text-stone-900',
     dotsWrapper: 'flex justify-center gap-3 mb-6',
     dotBase: `w-2 h-2 rounded-full border transition-all duration-300`,
     dotActive:
-      'bg-stone-950 scale-125 shadow-sm border-stone-950',
+      'bg-stone-950 scale-125 shadow-none border-stone-950',
     dotInactive: 'bg-transparent border-stone-400',
     dotError: 'bg-red-500 border-red-500',
     keyboardGrid: 'grid grid-cols-3 gap-x-2 gap-y-2 w-full',
-    keyButton: `group relative w-12 h-12 rounded-full bg-white/70 hover:bg-white/90 active:bg-white border border-stone-200/40 backdrop-blur-md transition-all flex items-center justify-center mx-auto overflow-hidden active:scale-90 shadow-sm`,
+    keyButton: `group relative w-12 h-12 rounded-full bg-white/70 hover:bg-white/90 active:bg-white border border-stone-200/40 backdrop-blur-md transition-all flex items-center justify-center mx-auto overflow-hidden active:scale-90 shadow-none`,
     cancelButton: `w-12 h-12 rounded-full flex items-center justify-center mx-auto text-stone-500 hover:text-stone-900 transition-colors text-[9px] font-bold active:scale-95`,
     deleteButton: `w-12 h-12 rounded-full flex items-center justify-center mx-auto text-stone-500 hover:text-stone-900 active:scale-90 transition-all`,
     deleteIconSize: 'w-5 h-5 text-stone-600 group-hover:text-stone-900',
