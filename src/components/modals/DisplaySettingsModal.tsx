@@ -96,8 +96,8 @@ function ModalHelpDemo() {
 
   const cursor = [
     { y: '80%', x: '80%', click: false },
-    { y: '50%', x: '50%', click: true },
-    { y: '35%', x: '62%', click: true }
+    { y: '30%', x: '60%', click: true },
+    { y: '70%', x: '68%', click: true }
   ][step];
 
   return (
@@ -105,7 +105,7 @@ function ModalHelpDemo() {
       <div className="w-[220px] h-[76px] bg-white border border-stone-200/80 rounded-2xl p-2.5 flex gap-2.5 shadow-sm">
         <div className="w-12 h-12 rounded-xl bg-amber-100 flex items-center justify-center text-xl shrink-0">🍕</div>
         <div className="flex-1 flex flex-col justify-between py-0.5">
-          <span className="text-[10px] font-black text-stone-950 px-1.5">Margarita Pizza</span>
+          <span className="text-[10px] font-black text-stone-950 px-1.5">{step === 2 ? "Margarita Pizza 🌟" : "Margarita Pizza"}</span>
           <span className="text-[10px] font-black text-emerald-600 px-1.5">250 ₺</span>
         </div>
       </div>
@@ -124,13 +124,16 @@ function ModalHelpDemo() {
               exit={{ scale: 0.9, y: 5 }}
               className="w-[160px] bg-white rounded-2xl p-2.5 border border-stone-200 shadow-lg relative flex flex-col gap-1.5"
             >
-              <div className="absolute top-1.5 right-1.5 w-4 h-4 bg-stone-100 rounded-full flex items-center justify-center text-stone-400">
-                <Lucide.X size={8} strokeWidth={3} />
-              </div>
-              <div className="w-full h-12 bg-amber-100 rounded-lg flex items-center justify-center text-xl">🍕</div>
-              <div className="flex justify-between items-center text-[9px] font-black text-stone-900">
-                <span>Margarita Pizza</span>
-                <span className="text-emerald-600">250 ₺</span>
+              <div className="text-[8px] font-black text-stone-400 uppercase tracking-wider px-1">Ürün Adı Düzenle</div>
+              <input
+                type="text"
+                readOnly
+                value="Margarita Pizza 🌟"
+                className="w-full h-6 px-1.5 text-[9px] font-black text-stone-900 bg-stone-50 border border-stone-300 rounded-lg outline-none"
+              />
+              <div className="flex gap-1 justify-end mt-0.5">
+                <div className="px-2 py-1 bg-stone-100 rounded text-[7px] font-black text-stone-500">İptal</div>
+                <div className="px-2 py-1 bg-emerald-500 rounded text-[7px] font-black text-white">Kaydet</div>
               </div>
             </motion.div>
           </motion.div>
@@ -243,8 +246,8 @@ const SYSTEM_OPTIONS = [
 const HELP_CONTENTS = {
   inline: {
     title: 'Hızlı Düzenleme Nedir?',
-    onText: 'Dükkanınızdaki ürünlerin isimlerine, fiyatlarına veya açıklamalarına doğrudan tıklayarak anında değiştirebilirsiniz.',
-    offText: 'Ürünlerin üzerine tıklandığında sadece ürün detayı açılır.'
+    onText: 'Ürün bilgilerine doğrudan kartın üzerinde tıklayarak anında düzenleyebilirsiniz.',
+    offText: 'Ürün bilgilerine tıkladığınızda düzenleme yapabilmeniz için ayrı bir pencere (modal) açılır.'
   },
   maintenance: {
     title: 'Bakım Modu Nedir?',
@@ -1083,7 +1086,7 @@ export default function DisplaySettingsModal({
                       <Lucide.X size={18} strokeWidth={3} />
                     </div>
                     <div className="space-y-1">
-                      <h4 className="text-[13px] font-black text-stone-900 uppercase tracking-wide">Detay Modalı</h4>
+                      <h4 className="text-[13px] font-black text-stone-900 uppercase tracking-wide">Hızlı Düzenleme Pasif</h4>
                       <p className="text-[11px] text-stone-500 leading-relaxed font-bold">
                         {HELP_CONTENTS.inline.offText}
                       </p>
