@@ -35,110 +35,61 @@ const InstagramIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
 // ---------------------------------------------------------------------------
 // HELP MODAL ANIMATION DEMOS (GIF-like interactive simulations)
 // ---------------------------------------------------------------------------
-function InlineHelpDemo() {
+function HelpDemo({ type }: { type: 'inline' | 'modal' }) {
   const [step, setStep] = useState(0);
   useEffect(() => {
     const timer = setInterval(() => setStep((s) => (s + 1) % 3), 2000);
     return () => clearInterval(timer);
   }, []);
 
-  const cursor = [
-    { y: '80%', x: '80%', click: false },
-    { y: '25%', x: '45%', click: true },
-    { y: '85%', x: '90%', click: true },
-  ][step];
+  const isInline = type === 'inline';
+  const cursor = isInline
+    ? [
+        { y: '80%', x: '80%', click: false },
+        { y: '25%', x: '45%', click: true },
+        { y: '85%', x: '90%', click: true },
+      ][step]
+    : [
+        { y: '80%', x: '80%', click: false },
+        { y: '30%', x: '60%', click: true },
+        { y: '70%', x: '68%', click: true }
+      ][step];
 
   return (
-    <div className="w-full h-full relative flex items-center justify-center bg-stone-50 select-none">
+    <div className="w-full h-full relative flex items-center justify-center bg-stone-50 select-none overflow-hidden">
       <div className="w-[220px] h-[76px] bg-white border border-stone-200/80 rounded-2xl p-2.5 flex gap-2.5 shadow-sm relative overflow-hidden">
-        <AnimatePresence>
-          {step === 2 && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="absolute inset-0 bg-emerald-500/10 backdrop-blur-[0.5px] flex items-center justify-center z-10"
-            >
-              <motion.div
-                initial={{ scale: 0.8, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                exit={{ scale: 0.8, opacity: 0 }}
-                className="w-8 h-8 bg-emerald-500 rounded-full flex items-center justify-center text-white shadow"
-              >
-                <Lucide.Check size={16} strokeWidth={3} />
-              </motion.div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+        {isInline && step === 2 && (
+          <div className="absolute inset-0 bg-emerald-500/10 backdrop-blur-[0.5px] flex items-center justify-center z-10 animate-in fade-in duration-200">
+            <div className="w-8 h-8 bg-emerald-500 rounded-full flex items-center justify-center text-white shadow animate-in zoom-in-75 duration-200">
+              <Lucide.Check size={16} strokeWidth={3} />
+            </div>
+          </div>
+        )}
         <div className="w-12 h-12 rounded-xl bg-amber-100 flex items-center justify-center text-xl shrink-0">🍕</div>
         <div className="flex-1 flex flex-col justify-between py-0.5">
-          {step === 1 ? (
+          {isInline && step === 1 ? (
             <input type="text" readOnly value="Margarita 🌟" className="w-full h-6 px-1.5 text-[10px] font-black text-stone-900 bg-stone-50 border border-stone-300 rounded-lg outline-none" />
           ) : (
-            <span className="text-[10px] font-black text-stone-950 px-1.5">{step === 2 ? "Margarita 🌟" : "Margarita Pizza"}</span>
+            <span className="text-[10px] font-black text-stone-950 px-1.5">
+              {(isInline && step === 2) || (!isInline && step === 2) ? "Margarita Pizza 🌟" : "Margarita Pizza"}
+            </span>
           )}
           <span className="text-[10px] font-black text-emerald-600 px-1.5">250 ₺</span>
         </div>
-        <motion.div animate={{ top: cursor.y, left: cursor.x, scale: cursor.click ? 0.8 : 1 }} className="w-4 h-4 absolute z-20 pointer-events-none -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-white bg-stone-900 shadow flex items-center justify-center">
-          <Lucide.Hand className="w-2.5 h-2.5 text-white" strokeWidth={3} />
-        </motion.div>
       </div>
-    </div>
-  );
-}
 
-function ModalHelpDemo() {
-  const [step, setStep] = useState(0);
-  useEffect(() => {
-    const timer = setInterval(() => setStep((s) => (s + 1) % 3), 2000);
-    return () => clearInterval(timer);
-  }, []);
-
-  const cursor = [
-    { y: '80%', x: '80%', click: false },
-    { y: '30%', x: '60%', click: true },
-    { y: '70%', x: '68%', click: true }
-  ][step];
-
-  return (
-    <div className="w-full h-full relative flex items-center justify-center bg-stone-50 overflow-hidden select-none">
-      <div className="w-[220px] h-[76px] bg-white border border-stone-200/80 rounded-2xl p-2.5 flex gap-2.5 shadow-sm">
-        <div className="w-12 h-12 rounded-xl bg-amber-100 flex items-center justify-center text-xl shrink-0">🍕</div>
-        <div className="flex-1 flex flex-col justify-between py-0.5">
-          <span className="text-[10px] font-black text-stone-950 px-1.5">{step === 2 ? "Margarita Pizza 🌟" : "Margarita Pizza"}</span>
-          <span className="text-[10px] font-black text-emerald-600 px-1.5">250 ₺</span>
+      {!isInline && step === 2 && (
+        <div className="absolute inset-0 bg-stone-900/30 backdrop-blur-[1px] flex items-center justify-center z-10 animate-in fade-in duration-200">
+          <div className="w-[160px] bg-white rounded-2xl p-2.5 border border-stone-200 shadow-lg relative flex flex-col gap-1.5 animate-in zoom-in-95 duration-200">
+            <div className="text-[8px] font-black text-stone-400 uppercase tracking-wider px-1">Ürün Adı Düzenle</div>
+            <input type="text" readOnly value="Margarita Pizza 🌟" className="w-full h-6 px-1.5 text-[9px] font-black text-stone-900 bg-stone-50 border border-stone-300 rounded-lg outline-none" />
+            <div className="flex gap-1 justify-end mt-0.5">
+              <div className="px-2 py-1 bg-stone-100 rounded text-[7px] font-black text-stone-500">İptal</div>
+              <div className="px-2 py-1 bg-emerald-500 rounded text-[7px] font-black text-white">Kaydet</div>
+            </div>
+          </div>
         </div>
-      </div>
-
-      <AnimatePresence>
-        {step === 2 && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="absolute inset-0 bg-stone-900/30 backdrop-blur-[1px] flex items-center justify-center z-10"
-          >
-            <motion.div
-              initial={{ scale: 0.9, y: 5 }}
-              animate={{ scale: 1, y: 0 }}
-              exit={{ scale: 0.9, y: 5 }}
-              className="w-[160px] bg-white rounded-2xl p-2.5 border border-stone-200 shadow-lg relative flex flex-col gap-1.5"
-            >
-              <div className="text-[8px] font-black text-stone-400 uppercase tracking-wider px-1">Ürün Adı Düzenle</div>
-              <input
-                type="text"
-                readOnly
-                value="Margarita Pizza 🌟"
-                className="w-full h-6 px-1.5 text-[9px] font-black text-stone-900 bg-stone-50 border border-stone-300 rounded-lg outline-none"
-              />
-              <div className="flex gap-1 justify-end mt-0.5">
-                <div className="px-2 py-1 bg-stone-100 rounded text-[7px] font-black text-stone-500">İptal</div>
-                <div className="px-2 py-1 bg-emerald-500 rounded text-[7px] font-black text-white">Kaydet</div>
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      )}
 
       <motion.div animate={{ top: cursor.y, left: cursor.x, scale: cursor.click ? 0.8 : 1 }} className="w-4 h-4 absolute z-20 pointer-events-none -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-white bg-stone-900 shadow flex items-center justify-center">
         <Lucide.Hand className="w-2.5 h-2.5 text-white" strokeWidth={3} />
@@ -1070,7 +1021,7 @@ export default function DisplaySettingsModal({
                   </div>
                   {/* Inline Animation Demo */}
                   <div className="w-full h-28 bg-white rounded-2xl border border-stone-200/50 flex items-center justify-center overflow-hidden relative shadow-inner">
-                    <InlineHelpDemo />
+                    <HelpDemo type="inline" />
                   </div>
                 </div>
 
@@ -1084,7 +1035,7 @@ export default function DisplaySettingsModal({
                   </div>
                   {/* Modal Animation Demo */}
                   <div className="w-full h-28 bg-white rounded-2xl border border-stone-200/50 flex items-center justify-center overflow-hidden relative shadow-inner">
-                    <ModalHelpDemo />
+                    <HelpDemo type="modal" />
                   </div>
                 </div>
               </div>
