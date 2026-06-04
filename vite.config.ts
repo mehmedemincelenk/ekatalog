@@ -15,6 +15,24 @@ export default defineConfig({
     VitePWA({
       registerType: 'autoUpdate',
       includeAssets: ['logo-favicon.svg', 'images/*.png', 'images/*.svg'],
+      workbox: {
+        runtimeCaching: [
+          {
+            urlPattern: /^https:\/\/.*\.supabase\.co\/storage\/v1\/object\/public\/.*/i,
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'supabase-images-cache',
+              expiration: {
+                maxEntries: 300,
+                maxAgeSeconds: 30 * 24 * 60 * 60, // 30 Days
+              },
+              cacheableResponse: {
+                statuses: [0, 200],
+              },
+            },
+          },
+        ],
+      },
       manifest: {
         name: 'Toptan Ambalajcım',
         short_name: 'Toptan Ambalaj',

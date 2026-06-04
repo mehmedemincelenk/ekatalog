@@ -56,6 +56,7 @@ export default function SmartImage({
           src={resolvedSrc || ''}
           alt={alt}
           loading={priority ? 'eager' : 'lazy'}
+          decoding="async"
           className={`w-full ${aspectRatio === 'none' ? 'h-auto' : 'h-full'} ${priority ? 'transition-opacity duration-150 ease-out' : 'transition-all duration-700 ease-out'} ${objectFit === 'cover' ? 'object-cover' : 'object-contain'} ${status === 'loaded' ? 'opacity-100 scale-100 blur-0' : 'opacity-0' + (priority ? ' scale-100 blur-0' : ' scale-105 blur-sm')} ${rounded ? 'rounded-lg' : ''} ${imgClassName}`}
           onLoad={() => setStatus('loaded')}
           onError={() => setStatus('error')}
