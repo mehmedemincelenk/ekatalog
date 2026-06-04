@@ -45,6 +45,7 @@ interface BaseFloatingMenuProps {
   onPointerUp?: () => void;
   forceExpanded?: boolean;
   isPreview?: boolean;
+  onMasterClick?: () => void;
 }
 
 export default function BaseFloatingMenu({
@@ -54,6 +55,7 @@ export default function BaseFloatingMenu({
   onPointerUp,
   forceExpanded = false,
   isPreview = false,
+  onMasterClick,
 }: BaseFloatingMenuProps) {
   const [isExpandedState, setIsExpandedState] = useState(false);
   const isExpanded = forceExpanded || isExpandedState;
@@ -217,7 +219,11 @@ export default function BaseFloatingMenu({
                 // It was a long press, ignore the normal click toggle!
                 return;
               }
-              setIsExpandedState((prev) => !prev);
+              if (actions.length === 0) {
+                onMasterClick?.();
+              } else {
+                setIsExpandedState((prev) => !prev);
+              }
             }}
             onPointerDown={() => {
               pointerDownTime.current = Date.now();
@@ -238,7 +244,11 @@ export default function BaseFloatingMenu({
               if (e.key === 'Enter' || e.key === ' ') {
                 e.preventDefault();
                 clearTimer();
-                setIsExpandedState((prev) => !prev);
+                if (actions.length === 0) {
+                  onMasterClick?.();
+                } else {
+                  setIsExpandedState((prev) => !prev);
+                }
               }
             }}
           />

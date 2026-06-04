@@ -242,6 +242,7 @@ export function FloatingGuestMenu({
       autoCloseDelay={5000}
       onPointerDown={onPointerDown}
       onPointerUp={onPointerUp}
+      onMasterClick={() => useStore.getState().openModal('PIN')}
     />
   );
 }
