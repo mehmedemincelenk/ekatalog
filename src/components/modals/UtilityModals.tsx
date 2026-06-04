@@ -439,12 +439,12 @@ export function PinModal({
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 1.1 }}
-              className="flex flex-col items-center justify-center min-h-[320px] w-full"
+              className="flex flex-col items-center justify-center w-full py-2"
             >
-              <span className="text-[10px] font-black tracking-[0.4em] text-stone-500 uppercase mb-10">
+              <span className="text-[10px] font-black tracking-[0.4em] text-stone-500 uppercase mb-4">
                 GÜVENLİK DOĞRULAMASI
               </span>
-              <div className="bg-stone-900/5 backdrop-blur-md p-6 rounded-[2.5rem] border border-stone-900/10 shadow-2xl">
+              <div className="flex items-center justify-center w-full">
                 <Turnstile
                   onVerify={() => flow.setIsRobotVerified(true)}
                   options={{ theme: 'light', size: 'compact' }}
@@ -453,7 +453,7 @@ export function PinModal({
               <Button
                 onClick={onModalClose}
                 variant="ghost"
-                className="mt-10 text-stone-400 hover:text-stone-700 font-black text-[10px] tracking-[0.2em] uppercase"
+                className="mt-6 text-stone-400 hover:text-stone-700 font-black text-[10px] tracking-[0.2em] uppercase"
               >
                 İPTAL ET
               </Button>
