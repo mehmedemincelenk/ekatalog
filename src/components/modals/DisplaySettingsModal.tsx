@@ -335,7 +335,7 @@ export default function DisplaySettingsModal({
     onToggleInline,
   );
 
-  const [menuLayout, setMenuLayout] = useState({ scale: 1.5, width: 165 });
+  const [menuLayout, setMenuLayout] = useState<{ scale: number; width: number; height?: number }>({ scale: 1.15, width: 126.5 });
   const menuRef = useRef<HTMLDivElement>(null);
   const togglesRef = useRef<HTMLDivElement>(null);
 
@@ -358,11 +358,13 @@ export default function DisplaySettingsModal({
       const togglesHeight = togglesRef.current.offsetHeight;
       const menuNaturalHeight = menuRef.current.offsetHeight;
       if (menuNaturalHeight > 50 && togglesHeight > 50) {
-        const calculatedScale = (togglesHeight / menuNaturalHeight) * 1.03;
-        const safeScale = Math.min(2.0, Math.max(0.8, calculatedScale));
+        // Shrink the preview scaling slightly so it doesn't get too large (cap max scale at 1.15, use 0.75 multiplier)
+        const calculatedScale = (togglesHeight / menuNaturalHeight) * 0.75;
+        const safeScale = Math.min(1.15, Math.max(0.75, calculatedScale));
         setMenuLayout({
           scale: safeScale,
-          width: 110 * safeScale
+          width: 110 * safeScale,
+          height: menuNaturalHeight * safeScale
         });
       }
     };
@@ -816,17 +818,25 @@ export default function DisplaySettingsModal({
               </h5>
             </div>
 
-            <div 
-              style={{ gridTemplateColumns: `${menuLayout.width}px 1fr` }}
-              className="grid gap-6 my-2 px-2 items-start"
-            >
-              {/* Sol Taraf: Live Preview */}
+            <div className="grid grid-cols-[auto_1fr] gap-6 my-2 px-2 items-center">
+              {/* Sol Taraf: Live Preview Wrapper */}
               <div 
-                ref={menuRef}
-                style={{ transform: `scale(${menuLayout.scale})` }} 
-                className="origin-top-left shrink-0 select-none transition-transform duration-300 pointer-events-none"
+                style={{ 
+                  width: `${menuLayout.width}px`,
+                  height: menuLayout.height ? `${menuLayout.height}px` : 'auto'
+                }}
+                className="flex items-center justify-center shrink-0 transition-all duration-300 overflow-visible"
               >
-                <BaseFloatingMenu actions={guestActions} forceExpanded={true} isPreview={true} />
+                <div 
+                  ref={menuRef}
+                  style={{ 
+                    transform: `scale(${menuLayout.scale})`,
+                    transformOrigin: 'center center'
+                  }} 
+                  className="shrink-0 select-none pointer-events-none transition-transform duration-300"
+                >
+                  <BaseFloatingMenu actions={guestActions} forceExpanded={true} isPreview={true} />
+                </div>
               </div>
 
               {/* Sağ Taraf: Active Option Row Switches (Toggles in 1 column) */}
