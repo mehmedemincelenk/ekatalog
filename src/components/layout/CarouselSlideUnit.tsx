@@ -119,29 +119,6 @@ const CarouselSlideUnit = memo(
                 )}
               </div>
 
-              {/* CHANGE IMAGE BUTTON */}
-              <motion.div
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.8 }}
-                className="!pointer-events-auto"
-              >
-                <Button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    fileInputRef.current?.click();
-                  }}
-                  variant="glass"
-                  mode="square"
-                  className="w-7 h-7 shadow-xl border border-white/20 !rounded-md !bg-stone-900/60 backdrop-blur-md !p-0 flex items-center justify-center"
-                  icon={
-                    <div className="w-3.5 h-3.5 text-white hover:text-emerald-400 transition-colors flex items-center justify-center">
-                      <Lucide.ImagePlus size={14} strokeWidth={2.5} />
-                    </div>
-                  }
-                  title="GÖRSELİ DEĞİŞTİR"
-                />
-              </motion.div>
 
               {/* DELETE BUTTON */}
               <motion.div
