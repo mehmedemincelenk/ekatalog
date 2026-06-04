@@ -280,7 +280,7 @@ export default function HeroCarousel({ isAdminModeActive, isStatic = false }: He
             </>
 
             {/* Instagram Stories Style Top Indicators (Instagram Perfection) */}
-            <div className="absolute top-7 left-3.5 right-3.5 z-50 flex gap-1 pointer-events-auto">
+            <div className="absolute top-4 left-3.5 right-3.5 z-50 flex gap-1 pointer-events-auto">
               {flow.marketingSlides.map((_, dotIndex) => {
                 const isActive = flow.currentIndex === dotIndex;
                 const isCompleted = dotIndex < flow.currentIndex;
