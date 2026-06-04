@@ -1041,14 +1041,14 @@ export default function DisplaySettingsModal({
               </div>
             ) : (
               // Maintenance Mode Help Content
-              <div className="space-y-4">
-                <div className="bg-emerald-50 border border-emerald-100 p-5 rounded-3xl flex gap-4">
-                  <div className="w-8 h-8 bg-emerald-500 rounded-xl flex items-center justify-center shrink-0 text-white shadow-sm">
-                    <Lucide.Check size={18} />
+              <div className="space-y-4 py-2">
+                <div className="flex gap-2.5 items-center">
+                  <div className="w-5 h-5 bg-emerald-500 rounded-lg flex items-center justify-center shrink-0 text-white shadow-sm">
+                    <Lucide.Check size={12} strokeWidth={4} />
                   </div>
-                  <p className="text-[11px] text-emerald-800 leading-relaxed font-bold">
+                  <h4 className="text-[11px] font-black text-stone-900 uppercase tracking-wider">
                     {HELP_CONTENTS.maintenance.onText}
-                  </p>
+                  </h4>
                 </div>
               </div>
             )}
