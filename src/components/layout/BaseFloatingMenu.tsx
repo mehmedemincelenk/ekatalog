@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef, useCallback, ReactNode } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
+import * as Lucide from 'lucide-react';
 import Button from '../ui/Button';
 import { MarqueeText } from '../ui/MarqueeText';
 
@@ -51,6 +52,9 @@ interface BaseFloatingMenuProps {
 export default function BaseFloatingMenu({
   actions,
   autoCloseDelay = 5000,
+  mainIcon,
+  activeMainIcon,
+  labelText,
   onPointerDown,
   onPointerUp,
   forceExpanded = false,
@@ -238,7 +242,7 @@ export default function BaseFloatingMenu({
               height: '32px',
               touchAction: 'none',
             }}
-            className="hover:scale-[1.02] active:scale-95 transition-all relative overflow-hidden flex items-center justify-center bg-white border border-white/20 shadow-lg backdrop-blur-md p-0 rounded-xl cursor-pointer outline-none select-none"
+            className="hover:scale-[1.02] active:scale-95 transition-all relative overflow-hidden flex items-center justify-center bg-white border border-white/20 shadow-lg backdrop-blur-md p-0 rounded-xl cursor-pointer outline-none select-none px-2 gap-1"
             aria-label={isExpanded ? 'Menüyü Kapat' : 'Menüyü Aç'}
             onKeyDown={(e) => {
               if (e.key === 'Enter' || e.key === ' ') {
@@ -251,7 +255,18 @@ export default function BaseFloatingMenu({
                 }
               }
             }}
-          />
+          >
+            {isExpanded ? (
+              activeMainIcon || <Lucide.ChevronDown size={16} className="text-stone-900 animate-in fade-in" strokeWidth={2.5} />
+            ) : (
+              <div className="flex items-center gap-1 text-stone-900 justify-center w-full h-full">
+                {mainIcon || <Lucide.Menu size={16} strokeWidth={2.5} />}
+                {labelText && (
+                  <span className="text-[10px] font-black tracking-wider uppercase leading-none truncate max-w-[65px]">{labelText}</span>
+                )}
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </div>

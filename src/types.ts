@@ -299,7 +299,6 @@ export interface CategoryFilterChipProps {
   onOrderChange?: (categoryName: string, newPosition: number) => void;
   orderIndex?: number;
   totalCategories?: number;
-  showFingerprint?: boolean;
 }
 
 export interface CategoryHeaderProps {
@@ -371,17 +370,6 @@ export interface StatusToggleProps {
   inactiveColor?: string;
 }
 
-export interface ProductCardUIProps {
-  product: Product;
-  nameOverride?: string;
-  descriptionOverride?: string;
-  isDimmed?: boolean;
-  isHighlighted?: boolean;
-  displayCurrency?: 'TRY' | 'USD' | 'EUR';
-  exchangeRates?: { usd: number; eur: number };
-  className?: string;
-  labelOverride?: string;
-}
 
 export interface InfoHintProps {
   message: string;
@@ -397,17 +385,6 @@ export interface MarqueeTextProps {
   onClick?: (event: React.MouseEvent<HTMLDivElement>) => void;
 }
 
-export interface EditProdCardProps {
-  product: Product;
-  categories: string[];
-  onDelete: (id: string) => void;
-  onUpdate: (id: string, changes: Partial<Product>) => void;
-  isOpen: boolean;
-  setIsOpen: (isOpen: boolean) => void;
-  onImageUpload?: (id: string, file: File) => Promise<string | undefined>;
-  isStatic?: boolean;
-  initialStep?: number;
-}
 
 export interface LoadingProps {
   size?: 'sm' | 'md' | 'lg' | 'xl';
@@ -598,7 +575,7 @@ export interface ReferencesProps {
 export interface QuickEditModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onSave: (value: string) => void;
+  onSave: (value: string) => void | boolean;
   title?: string;
   subtitle?: string;
   initialValue: string;

@@ -80,7 +80,6 @@ export default function PriceListModal({
           onClick={() => setStep(2)}
           className="flex-1 h-12 !rounded-2xl text-xs font-black tracking-wider"
           mode="rectangle"
-          showFingerprint={true}
         >
           ÖNİZLEME
         </Button>
@@ -94,7 +93,6 @@ export default function PriceListModal({
             loading={isExporting}
             className="flex-1 h-12 shadow-lg !rounded-2xl text-xs font-black tracking-wider"
             mode="rectangle"
-            showFingerprint={true}
           >
             SERİ KAYDET ({storyPages.length} SAYFA)
           </Button>
@@ -142,7 +140,6 @@ export default function PriceListModal({
               mode="rectangle"
               size="sm"
               className="!flex !items-center !gap-1.5 !text-[9px] font-black !text-stone-900 hover:!text-stone-600 transition-colors !bg-stone-50 !px-4 !py-2 !rounded-xl whitespace-nowrap shrink-0 border border-stone-100 shadow-sm"
-              showFingerprint={true}
               icon={
                 selectedCategories.length ===
                 populatedCategories.length ? (
@@ -168,7 +165,6 @@ export default function PriceListModal({
                 mode="rectangle"
                 size="sm"
                 className="!text-[10px] !py-2 !px-4 !rounded-xl"
-                showFingerprint={true}
               >
                 {cat}
               </Button>

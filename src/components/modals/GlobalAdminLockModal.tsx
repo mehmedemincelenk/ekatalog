@@ -39,7 +39,6 @@ export default function GlobalAdminLockModal({ daysLeft, isSubscriptionExpired }
             variant="action"
             size="lg"
             className="w-full h-11 text-xs font-black tracking-wider uppercase flex items-center justify-center"
-            showFingerprint
             onClick={() => {
               const text = isSubscriptionExpired
                 ? 'Merhaba, ekatalog aboneliğimi yenilemek istiyorum.'

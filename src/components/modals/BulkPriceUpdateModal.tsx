@@ -204,7 +204,6 @@ export default function BulkPriceUpdateModal({
                   }}
                   variant="primary"
                   className="!h-16 !px-6 !rounded-[20px] border-none flex !flex-row !items-center !justify-start group transition-all"
-                  showFingerprint={true}
                 >
                   <span className="text-[14px] font-black uppercase tracking-widest leading-tight">
                     {opt.text}
@@ -229,7 +228,6 @@ export default function BulkPriceUpdateModal({
                   }
                   size="md"
                   className={`!px-6 !py-3 !rounded-2xl !text-[11px] font-black ${selectedCategories.length === categories.length ? '!bg-stone-900 !text-white' : ''}`}
-                  showFingerprint={true}
                 >
                   TÜMÜ
                 </Button>
@@ -242,7 +240,6 @@ export default function BulkPriceUpdateModal({
                     }
                     size="md"
                     className={`!px-6 !py-3 !rounded-2xl !text-[11px] font-black ${selectedCategories.includes(cat) ? '!bg-stone-900 !text-white' : ''}`}
-                    showFingerprint={true}
                   >
                     {cat}
                   </Button>
@@ -256,18 +253,14 @@ export default function BulkPriceUpdateModal({
                 variant="secondary"
                 mode="rectangle"
                 className="w-20 h-16 shrink-0"
-                showFingerprint={false}
               >
                 <Lucide.ChevronLeft size={24} strokeWidth={3} />
               </Button>
               <Button
                 onClick={nextStep}
-                disabled={
-                  selectedCategories.length === 0 && actionType !== 'DELETE'
-                }
+                disabled={selectedCategories.length === 0}
                 variant="primary"
                 className="flex-1 h-16 shadow-2xl font-black !rounded-[24px]"
-                showFingerprint={true}
               >
                 DEVAM ET
               </Button>
@@ -283,7 +276,6 @@ export default function BulkPriceUpdateModal({
               variant="secondary"
               mode="rectangle"
               className="w-16 h-16 shrink-0"
-              showFingerprint={false}
             >
               <Lucide.ChevronLeft size={24} strokeWidth={3} />
             </Button>
@@ -295,7 +287,6 @@ export default function BulkPriceUpdateModal({
                 }}
                 variant="primary"
                 className="flex-1 h-16 !rounded-[20px]"
-                showFingerprint={true}
                 icon={
                   <Lucide.TrendingUp size={18} className="text-emerald-400" />
                 }
@@ -311,7 +302,6 @@ export default function BulkPriceUpdateModal({
                 }}
                 variant="primary"
                 className="flex-1 h-16 !rounded-[20px]"
-                showFingerprint={true}
                 icon={
                   <Lucide.TrendingDown size={18} className="text-red-400" />
                 }
@@ -331,7 +321,6 @@ export default function BulkPriceUpdateModal({
               variant="secondary"
               mode="rectangle"
               className="w-16 h-16 shrink-0"
-              showFingerprint={false}
             >
               <Lucide.ChevronLeft size={24} strokeWidth={3} />
             </Button>
@@ -344,7 +333,6 @@ export default function BulkPriceUpdateModal({
                 }}
                 variant="primary"
                 className="flex-1 h-16 !rounded-[20px]"
-                showFingerprint={true}
               >
                 <div className="flex flex-col items-center">
                   <span className="font-black tracking-widest text-[10px] uppercase">
@@ -362,7 +350,6 @@ export default function BulkPriceUpdateModal({
                 }}
                 variant="primary"
                 className="flex-1 h-16 !rounded-[20px]"
-                showFingerprint={true}
               >
                 <div className="flex flex-col items-center">
                   <span className="font-black tracking-widest text-[10px] uppercase">
@@ -384,7 +371,6 @@ export default function BulkPriceUpdateModal({
               variant="secondary"
               mode="rectangle"
               className="w-16 h-16 shrink-0"
-              showFingerprint={false}
             >
               <Lucide.ChevronLeft size={24} strokeWidth={3} />
             </Button>
@@ -411,7 +397,6 @@ export default function BulkPriceUpdateModal({
               disabled={!inputValue}
               variant="primary"
               className="w-16 h-16 !rounded-2xl shrink-0 shadow-xl"
-              showFingerprint={true}
             >
               <Lucide.Check size={24} strokeWidth={4} />
             </Button>
@@ -474,8 +459,6 @@ export default function BulkPriceUpdateModal({
                 variant={actionType === 'DELETE' ? 'danger' : 'action'}
                 className="flex-1 h-16 font-black !rounded-[24px]"
                 loading={isProcessing}
-                showFingerprint={true}
-                fingerprintType="action"
                 icon={
                   <Lucide.Check
                     size={28}

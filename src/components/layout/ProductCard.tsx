@@ -11,7 +11,8 @@ import { standardizePriceInput } from '../../utils/core';
 import SmartImage from '../ui/SmartImage';
 import { MarqueeText } from '../ui/MarqueeText';
 
-import { QuickEditModal, ProductDetailModal } from '../modals/UtilityModals';
+import { QuickEditModal } from '../modals/UtilityModals';
+import { ProductDetailModal } from '../modals/ProductDetailModal';
 import { useProductCardFlow } from '../../hooks/useProductCardFlow';
 
 /**

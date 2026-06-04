@@ -81,41 +81,7 @@ export function useSettingsQuery() {
 
       // 1. FALLBACK TO PLACEHOLDERS IF NOT FOUND
       if (!settingsRes.data) {
-        return {
-          id: 'placeholder',
-          slug: STORE_SLUG,
-          name: 'Mağaza Adı',
-          title: 'Mağaza Adı',
-          subtitle: 'Sloganınızı buraya yazın',
-          logoUrl: '',
-          activeCurrency: 'TRY',
-          categoryOrder: DEFAULT_ORDER,
-          carouselData: { slides: [] },
-          referencesData: [],
-          displayConfig: {
-            showLogo: true,
-            showSearch: true,
-            showAddress: true,
-            showInstagram: true,
-            showWhatsapp: true,
-            showReferences: true,
-            showPrice: true,
-            showCarousel: true,
-            showCoupons: true,
-            showPriceList: true,
-            showCurrency: true,
-            showCategories: true,
-            showSubtitle: true,
-          },
-          announcementBar: { enabled: false, text: '' },
-          exchangeRates: rates || { usd: 0, eur: 0 },
-          whatsapp: '05XX XXX XX XX',
-          phoneCall: '05XX XXX XX XX',
-          address: 'Adres Bilgisi',
-          instagram: '',
-          maintenanceMode: { enabled: false, message: '' },
-          portfoys_credits: 2,
-        } as CompanySettings;
+        return null;
       }
 
             const raw = settingsRes.data;

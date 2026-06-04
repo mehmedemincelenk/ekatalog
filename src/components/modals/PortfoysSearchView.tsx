@@ -559,7 +559,6 @@ export default function PortfoysSearchView({
               size="sm"
               onClick={confirmAndSearch}
               className="flex-1 text-white"
-              showFingerprint={true}
             >
               TAMAM, BAŞLAT
             </Button>

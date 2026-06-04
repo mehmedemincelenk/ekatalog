@@ -205,35 +205,4 @@ export function useSyncMetadata(
   }, [isAdmin, settings]);
 }
 
-/**
- * useResponsiveShadow: Calculates shadow offset based on mouse or device movement.
- */
-export function useResponsiveShadow(intensity = 30, baseOffset = 15) {
-  const [shadowOffset, setShadowOffset] = useState({ x: 0, y: baseOffset });
 
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      const x = (e.clientX / window.innerWidth - 0.5) * intensity;
-      const y = (e.clientY / window.innerHeight - 0.5) * intensity;
-      setShadowOffset({ x: -x, y: -y + baseOffset });
-    };
-
-    const handleDeviceOrientation = (e: DeviceOrientationEvent) => {
-      if (e.gamma !== null && e.beta !== null) {
-        const x = Math.max(-20, Math.min(20, e.gamma / 1.5));
-        const y = Math.max(-20, Math.min(20, (e.beta - 45) / 1.5));
-        setShadowOffset({ x: -x, y: -y + baseOffset });
-      }
-    };
-
-    window.addEventListener('mousemove', handleMouseMove);
-    window.addEventListener('deviceorientation', handleDeviceOrientation);
-
-    return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('deviceorientation', handleDeviceOrientation);
-    };
-  }, [intensity, baseOffset]);
-
-  return shadowOffset;
-}

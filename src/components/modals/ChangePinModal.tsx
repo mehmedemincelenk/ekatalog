@@ -96,7 +96,6 @@ export default function ChangePinModal({ isOpen, onClose }: ChangePinModalProps)
         variant="action"
         disabled={loading || !currentPin || !newPin || !confirmPin}
         className="flex-1 h-16 !rounded-[24px]"
-        showFingerprint={true}
       >
         {loading ? (
           <div className="w-6 h-6 border-2 border-white border-t-transparent rounded-full animate-spin" />

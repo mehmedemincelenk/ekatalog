@@ -5,6 +5,7 @@ import * as Lucide from 'lucide-react';
 import { THEME, LABELS } from '../../data/config';
 import { QuickEditModal } from '../modals/UtilityModals';
 import { CategoryHeaderProps } from '../../types';
+import { useStore } from '../../store';
 
 /**
  * CATEGORY HEADER (DIAMOND EDITION)
@@ -162,9 +163,15 @@ const CategoryHeader = memo(
         <QuickEditModal
           isOpen={isDeleteModalOpen}
           onClose={() => setIsDeleteModalOpen(false)}
-          onSave={() => {
-            onDelete?.(categoryName);
-            setIsDeleteModalOpen(false);
+          onSave={(value) => {
+            if (value?.trim().toLowerCase() === 'sil') {
+              onDelete?.(categoryName);
+              setIsDeleteModalOpen(false);
+              return true;
+            } else {
+              useStore.getState().showFeedback('error', 'Lütfen onaylamak için "sil" yazınız.');
+              return false;
+            }
           }}
           initialValue=""
           placeholder="sil"
