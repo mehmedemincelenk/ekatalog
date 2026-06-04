@@ -32,6 +32,227 @@ const InstagramIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
   </div>
 );
 
+// ---------------------------------------------------------------------------
+// HELP MODAL ANIMATION DEMOS (GIF-like interactive simulations)
+// ---------------------------------------------------------------------------
+function InlineHelpDemo() {
+  const [step, setStep] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setStep((prev) => (prev + 1) % 5);
+    }, 2500);
+    return () => clearInterval(interval);
+  }, []);
+
+  const cursorCoords = [
+    { top: '80%', left: '80%', clicked: false },  // Step 0: Rest
+    { top: '22%', left: '45%', clicked: true },   // Step 1: Click Name
+    { top: '22%', left: '45%', clicked: false },  // Step 2: Typing Name
+    { top: '78%', left: '40%', clicked: true },   // Step 3: Click Price
+    { top: '85%', left: '90%', clicked: true },   // Step 4: Save Click
+  ];
+
+  const currentCursor = cursorCoords[step];
+
+  return (
+    <div className="w-full h-full relative flex items-center justify-center bg-stone-50 select-none">
+      {/* Product Card */}
+      <div className="w-[240px] h-[88px] bg-white border border-stone-200/80 rounded-2xl p-3 flex gap-3 shadow-sm relative overflow-hidden">
+        {/* Success Save Checkmark overlay */}
+        <AnimatePresence>
+          {step === 4 && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="absolute inset-0 bg-emerald-500/10 backdrop-blur-[1px] flex items-center justify-center z-10"
+            >
+              <motion.div
+                initial={{ scale: 0.5, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.5, opacity: 0 }}
+                transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+                className="w-10 h-10 bg-emerald-500 rounded-full flex items-center justify-center text-white shadow"
+              >
+                <Lucide.Check size={20} strokeWidth={3} />
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* Product Image */}
+        <div className="w-16 h-16 rounded-xl bg-gradient-to-tr from-amber-100 to-orange-200 shrink-0 flex items-center justify-center text-2xl shadow-inner">
+          🍕
+        </div>
+
+        {/* Product Details */}
+        <div className="flex-1 flex flex-col justify-between py-0.5">
+          {/* Name Field */}
+          <div className="relative h-6 flex items-center">
+            {step >= 2 ? (
+              <input
+                type="text"
+                readOnly
+                value={step === 2 ? "Marga" : "Margarita 🌟"}
+                className="w-full h-6 px-1.5 text-[11px] font-black text-stone-900 bg-stone-50 border border-stone-300 rounded-lg outline-none"
+              />
+            ) : (
+              <span className="text-[11px] font-black text-stone-955 border border-transparent px-1.5">
+                Margarita Pizza
+              </span>
+            )}
+          </div>
+
+          <span className="text-[9px] font-bold text-stone-400 px-1.5">Taze fesleğenli</span>
+
+          {/* Price Field */}
+          <div className="relative h-6 flex items-center">
+            {step === 3 ? (
+              <input
+                type="text"
+                readOnly
+                value="290 ₺"
+                className="w-16 h-6 px-1.5 text-[11px] font-black text-emerald-600 bg-stone-50 border border-stone-300 rounded-lg outline-none"
+              />
+            ) : (
+              <span className="text-[11px] font-black text-emerald-600 border border-transparent px-1.5">
+                {step === 4 ? "290 ₺" : "250 ₺"}
+              </span>
+            )}
+          </div>
+        </div>
+
+        {/* Simulated Cursor */}
+        <motion.div
+          animate={{
+            top: currentCursor.top,
+            left: currentCursor.left,
+            scale: currentCursor.clicked ? 0.85 : 1
+          }}
+          transition={{ type: 'spring', stiffness: 200, damping: 25 }}
+          className="w-5 h-5 absolute z-20 pointer-events-none"
+          style={{ transform: 'translate(-50%, -50%)' }}
+        >
+          {currentCursor.clicked && (
+            <motion.div
+              initial={{ scale: 0.5, opacity: 0.8 }}
+              animate={{ scale: 2.2, opacity: 0 }}
+              transition={{ duration: 0.4 }}
+              className="absolute inset-0 -m-1.5 border border-amber-500 rounded-full bg-amber-500/10"
+            />
+          )}
+          <div className="w-5 h-5 rounded-full border-2 border-white bg-stone-900 shadow-[0_3px_10px_rgba(0,0,0,0.3)] flex items-center justify-center">
+            <Lucide.Hand className="w-2.5 h-2.5 text-white" strokeWidth={3} />
+          </div>
+        </motion.div>
+      </div>
+    </div>
+  );
+}
+
+function ModalHelpDemo() {
+  const [step, setStep] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setStep((prev) => (prev + 1) % 5);
+    }, 2500);
+    return () => clearInterval(interval);
+  }, []);
+
+  const cursorCoords = [
+    { top: '80%', left: '80%', clicked: false },  // Step 0: Rest
+    { top: '50%', left: '50%', clicked: true },   // Step 1: Click Card
+    { top: '50%', left: '50%', clicked: false },  // Step 2: Modal Open
+    { top: '35%', left: '62%', clicked: true },   // Step 3: Click X close button
+    { top: '80%', left: '80%', clicked: false },  // Step 4: Reset
+  ];
+
+  const currentCursor = cursorCoords[step];
+
+  return (
+    <div className="w-full h-full relative flex items-center justify-center bg-stone-50 overflow-hidden select-none">
+      {/* Product Card */}
+      <div className="w-[240px] h-[88px] bg-white border border-stone-200/80 rounded-2xl p-3 flex gap-3 shadow-sm relative">
+        <div className="w-16 h-16 rounded-xl bg-gradient-to-tr from-amber-100 to-orange-200 shrink-0 flex items-center justify-center text-2xl shadow-inner">
+          🍕
+        </div>
+        <div className="flex-1 flex flex-col justify-between py-0.5">
+          <span className="text-[11px] font-black text-stone-900 px-1.5">Margarita Pizza</span>
+          <span className="text-[9px] font-bold text-stone-400 px-1.5">Taze fesleğenli</span>
+          <span className="text-[11px] font-black text-emerald-600 px-1.5">250 ₺</span>
+        </div>
+      </div>
+
+      {/* Simulated Detail Modal Layer */}
+      <AnimatePresence>
+        {(step === 2 || step === 3) && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="absolute inset-0 bg-stone-900/40 backdrop-blur-[2px] flex items-center justify-center z-10"
+          >
+            {/* Modal Body */}
+            <motion.div
+              initial={{ scale: 0.85, y: 10, opacity: 0 }}
+              animate={{ scale: 1, y: 0, opacity: 1 }}
+              exit={{ scale: 0.85, y: 10, opacity: 0 }}
+              transition={{ type: 'spring', stiffness: 350, damping: 25 }}
+              className="w-[180px] bg-white rounded-2xl p-3 border border-stone-200 shadow-xl relative flex flex-col gap-2"
+            >
+              {/* Close Button */}
+              <div className="absolute top-2 right-2 w-4 h-4 bg-stone-100 rounded-full flex items-center justify-center text-stone-400">
+                <Lucide.X size={8} strokeWidth={3} />
+              </div>
+              {/* Modal Image */}
+              <div className="w-full h-14 bg-gradient-to-tr from-amber-100 to-orange-200 rounded-lg flex items-center justify-center text-2xl shadow-inner">
+                🍕
+              </div>
+              {/* Modal Text */}
+              <div className="space-y-0.5">
+                <h4 className="text-[9px] font-black text-stone-900 uppercase">Margarita Pizza</h4>
+                <p className="text-[7px] font-bold text-stone-400 leading-normal">
+                  Domates sosu, peynir ve taze fesleğen.
+                </p>
+                <div className="flex justify-between items-center mt-1.5 pt-1 border-t border-stone-100">
+                  <span className="text-[9px] font-black text-emerald-600">250 ₺</span>
+                  <span className="text-[7px] font-black text-white bg-stone-900 px-1.5 py-0.5 rounded">DETAY</span>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Simulated Cursor */}
+      <motion.div
+        animate={{
+          top: currentCursor.top,
+          left: currentCursor.left,
+          scale: currentCursor.clicked ? 0.85 : 1
+        }}
+        transition={{ type: 'spring', stiffness: 200, damping: 25 }}
+        className="w-5 h-5 absolute z-20 pointer-events-none"
+        style={{ transform: 'translate(-50%, -50%)' }}
+      >
+        {currentCursor.clicked && (
+          <motion.div
+            initial={{ scale: 0.5, opacity: 0.8 }}
+            animate={{ scale: 2.2, opacity: 0 }}
+            transition={{ duration: 0.4 }}
+            className="absolute inset-0 -m-1.5 border border-amber-500 rounded-full bg-amber-500/10"
+          />
+        )}
+        <div className="w-5 h-5 rounded-full border-2 border-white bg-stone-900 shadow-[0_3px_10px_rgba(0,0,0,0.3)] flex items-center justify-center">
+          <Lucide.Hand className="w-2.5 h-2.5 text-white" strokeWidth={3} />
+        </div>
+      </motion.div>
+    </div>
+  );
+}
+
 // Reusable Static Configuration Arrays to achieve ultimate DRY compliance
 const FLOATING_OPTIONS = [
   { 
@@ -943,22 +1164,67 @@ export default function DisplaySettingsModal({
       >
         {flow.helpId && (
           <div className="space-y-4 py-2">
-            <div className="bg-emerald-50 border border-emerald-100 p-5 rounded-3xl flex gap-4">
-              <div className="w-8 h-8 bg-emerald-500 rounded-xl flex items-center justify-center shrink-0 text-white shadow-sm">
-                <Lucide.Check size={18} />
+            {flow.helpId === 'inline' ? (
+              <div className="space-y-6">
+                {/* 1. Hızlı Düzenleme Aktif Kartı */}
+                <div className="bg-emerald-50/50 border border-emerald-100/80 p-5 rounded-[2rem] flex flex-col gap-4">
+                  <div className="flex gap-4 items-start">
+                    <div className="w-8 h-8 bg-emerald-500 rounded-xl flex items-center justify-center shrink-0 text-white shadow-sm">
+                      <Lucide.Check size={18} />
+                    </div>
+                    <div className="space-y-1">
+                      <h4 className="text-[13px] font-black text-emerald-950 uppercase tracking-wide">Hızlı Düzenleme Aktif</h4>
+                      <p className="text-[11px] text-emerald-800/85 leading-relaxed font-bold">
+                        {HELP_CONTENTS.inline.onText}
+                      </p>
+                    </div>
+                  </div>
+                  {/* Inline Animation Demo */}
+                  <div className="w-full h-40 bg-white rounded-2xl border border-emerald-100 flex items-center justify-center overflow-hidden relative shadow-inner">
+                    <InlineHelpDemo />
+                  </div>
+                </div>
+
+                {/* 2. Hızlı Düzenleme Pasif Kartı (Detay Modalı) */}
+                <div className="bg-stone-50/60 border border-stone-100 p-5 rounded-[2rem] flex flex-col gap-4">
+                  <div className="flex gap-4 items-start">
+                    <div className="w-8 h-8 bg-stone-200 rounded-xl flex items-center justify-center shrink-0 text-stone-400">
+                      <Lucide.X size={18} strokeWidth={3} />
+                    </div>
+                    <div className="space-y-1">
+                      <h4 className="text-[13px] font-black text-stone-900 uppercase tracking-wide">Detay Modalı</h4>
+                      <p className="text-[11px] text-stone-500 leading-relaxed font-bold">
+                        {HELP_CONTENTS.inline.offText}
+                      </p>
+                    </div>
+                  </div>
+                  {/* Modal Animation Demo */}
+                  <div className="w-full h-40 bg-white rounded-2xl border border-stone-200/60 flex items-center justify-center overflow-hidden relative shadow-inner">
+                    <ModalHelpDemo />
+                  </div>
+                </div>
               </div>
-              <p className="text-[11px] text-emerald-800 leading-relaxed font-bold">
-                {HELP_CONTENTS[flow.helpId as keyof typeof HELP_CONTENTS].onText}
-              </p>
-            </div>
-            <div className="bg-stone-50 border border-stone-100 p-5 rounded-3xl opacity-60 text-stone-500 flex items-center gap-4">
-              <div className="w-8 h-8 bg-stone-200 rounded-xl flex items-center justify-center shrink-0 text-stone-400">
-                <Lucide.X size={18} strokeWidth={3} />
+            ) : (
+              // Maintenance Mode Help Content
+              <div className="space-y-4">
+                <div className="bg-emerald-50 border border-emerald-100 p-5 rounded-3xl flex gap-4">
+                  <div className="w-8 h-8 bg-emerald-500 rounded-xl flex items-center justify-center shrink-0 text-white shadow-sm">
+                    <Lucide.Check size={18} />
+                  </div>
+                  <p className="text-[11px] text-emerald-800 leading-relaxed font-bold">
+                    {HELP_CONTENTS.maintenance.onText}
+                  </p>
+                </div>
+                <div className="bg-stone-50 border border-stone-100 p-5 rounded-3xl opacity-60 text-stone-500 flex items-center gap-4">
+                  <div className="w-8 h-8 bg-stone-200 rounded-xl flex items-center justify-center shrink-0 text-stone-400">
+                    <Lucide.X size={18} strokeWidth={3} />
+                  </div>
+                  <p className="text-[11px] leading-relaxed font-bold">
+                    {HELP_CONTENTS.maintenance.offText}
+                  </p>
+                </div>
               </div>
-              <p className="text-[11px] leading-relaxed font-bold">
-                {HELP_CONTENTS[flow.helpId as keyof typeof HELP_CONTENTS].offText}
-              </p>
-            </div>
+            )}
           </div>
         )}
       </BaseModal>
