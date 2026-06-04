@@ -1059,41 +1059,31 @@ export default function DisplaySettingsModal({
         {flow.helpId && (
           <div className="space-y-4 py-2">
             {flow.helpId === 'inline' ? (
-              <div className="space-y-6">
-                {/* 1. Hızlı Düzenleme Aktif Kartı */}
-                <div className="bg-emerald-50/50 border border-emerald-100/80 p-5 rounded-[2rem] flex flex-col gap-4">
-                  <div className="flex gap-4 items-start">
-                    <div className="w-8 h-8 bg-emerald-500 rounded-xl flex items-center justify-center shrink-0 text-white shadow-sm">
-                      <Lucide.Check size={18} />
+              <div className="space-y-5">
+                {/* 1. Hızlı Düzenleme Aktif */}
+                <div className="flex flex-col gap-2">
+                  <div className="flex gap-2 items-center">
+                    <div className="w-5 h-5 bg-emerald-500 rounded-lg flex items-center justify-center shrink-0 text-white shadow-sm">
+                      <Lucide.Check size={12} strokeWidth={4} />
                     </div>
-                    <div className="space-y-1">
-                      <h4 className="text-[13px] font-black text-emerald-950 uppercase tracking-wide">Hızlı Düzenleme Aktif</h4>
-                      <p className="text-[11px] text-emerald-800/85 leading-relaxed font-bold">
-                        {HELP_CONTENTS.inline.onText}
-                      </p>
-                    </div>
+                    <h4 className="text-[11px] font-black text-stone-950 uppercase tracking-wider">Satır içinde düzenleyebilirsin</h4>
                   </div>
                   {/* Inline Animation Demo */}
-                  <div className="w-full h-40 bg-white rounded-2xl border border-emerald-100 flex items-center justify-center overflow-hidden relative shadow-inner">
+                  <div className="w-full h-28 bg-white rounded-2xl border border-stone-200/50 flex items-center justify-center overflow-hidden relative shadow-inner">
                     <InlineHelpDemo />
                   </div>
                 </div>
 
-                {/* 2. Hızlı Düzenleme Pasif Kartı (Detay Modalı) */}
-                <div className="bg-stone-50/60 border border-stone-100 p-5 rounded-[2rem] flex flex-col gap-4">
-                  <div className="flex gap-4 items-start">
-                    <div className="w-8 h-8 bg-stone-200 rounded-xl flex items-center justify-center shrink-0 text-stone-400">
-                      <Lucide.X size={18} strokeWidth={3} />
+                {/* 2. Hızlı Düzenleme Pasif */}
+                <div className="flex flex-col gap-2">
+                  <div className="flex gap-2 items-center">
+                    <div className="w-5 h-5 bg-stone-200 rounded-lg flex items-center justify-center shrink-0 text-stone-400">
+                      <Lucide.X size={12} strokeWidth={4} />
                     </div>
-                    <div className="space-y-1">
-                      <h4 className="text-[13px] font-black text-stone-900 uppercase tracking-wide">Hızlı Düzenleme Pasif</h4>
-                      <p className="text-[11px] text-stone-500 leading-relaxed font-bold">
-                        {HELP_CONTENTS.inline.offText}
-                      </p>
-                    </div>
+                    <h4 className="text-[11px] font-black text-stone-900 uppercase tracking-wider">Ayrı pencerede düzenlenir</h4>
                   </div>
                   {/* Modal Animation Demo */}
-                  <div className="w-full h-40 bg-white rounded-2xl border border-stone-200/60 flex items-center justify-center overflow-hidden relative shadow-inner">
+                  <div className="w-full h-28 bg-white rounded-2xl border border-stone-200/50 flex items-center justify-center overflow-hidden relative shadow-inner">
                     <ModalHelpDemo />
                   </div>
                 </div>
