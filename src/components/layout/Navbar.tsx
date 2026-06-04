@@ -60,6 +60,7 @@ const Navbar = memo(
               className={`${announcementBarTheme.text} ${flow.isAdmin && isInlineEnabled ? announcementBarTheme.adminEditStyle : ''}`}
               contentEditable={flow.isAdmin && isInlineEnabled}
               suppressContentEditableWarning
+              spellCheck={false}
               onBlur={flow.handleAnnouncementBlur}
               onKeyDown={(e) => {
                 if (e.key === 'Enter') {
@@ -159,6 +160,7 @@ const Navbar = memo(
                         <span
                           contentEditable={flow.isAdmin && isInlineEnabled}
                           suppressContentEditableWarning
+                          spellCheck={false}
                           onBlur={(e) =>
                             flow.updateSetting(
                               'title',
@@ -193,6 +195,7 @@ const Navbar = memo(
                       <span
                         contentEditable={flow.isAdmin && isInlineEnabled}
                         suppressContentEditableWarning
+                        spellCheck={false}
                         onBlur={(e) =>
                           flow.updateSetting(
                             'subtitle',
@@ -262,6 +265,7 @@ const Navbar = memo(
                     <div
                       contentEditable={flow.isAdmin && isInlineEnabled}
                       suppressContentEditableWarning
+                      spellCheck={false}
                       title={flow.settings.address}
                       onBlur={(e) =>
                         flow.updateSetting(
@@ -304,6 +308,7 @@ const Navbar = memo(
                           <span
                             contentEditable={flow.isAdmin && isInlineEnabled}
                             suppressContentEditableWarning
+                            spellCheck={false}
                             onBlur={(e) =>
                               flow.updateSetting(
                                 'whatsapp',

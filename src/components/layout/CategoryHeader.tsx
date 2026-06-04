@@ -110,6 +110,7 @@ const CategoryHeader = memo(
             <span
               contentEditable={isAdmin && isInlineEnabled}
               suppressContentEditableWarning
+              spellCheck={false}
               onBlur={(e) => {
                 const newName = e.currentTarget.textContent?.trim();
                 if (newName && newName !== categoryName) {
