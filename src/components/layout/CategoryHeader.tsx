@@ -32,63 +32,67 @@ const CategoryHeader = memo(
     const [showSuccess, setShowSuccess] = useState(false);
 
     return (
-      <div className={`${theme.wrapper} group relative select-none flex items-center`}>
+      <div
+        className={`${theme.wrapper} group relative select-none flex items-center`}
+      >
         <div className="flex items-center gap-2 shrink-0">
           {/* CATEGORY ORDER DROPDOWN BADGE */}
-          {isAdmin && currentOrder !== undefined && totalCategories !== undefined && (
-            <div
-              className="relative z-30 inline-block pointer-events-auto shrink-0"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <div className="relative">
-                <select
-                  value={currentOrder}
-                  disabled={isUpdatingOrder}
-                  onChange={async (e) => {
-                    e.stopPropagation();
-                    const newPos = Number(e.target.value);
-                    setIsUpdatingOrder(true);
-                    try {
-                      await onOrderChange?.(categoryName, newPos);
-                      setIsUpdatingOrder(false);
-                      setShowSuccess(true);
-                      setTimeout(() => setShowSuccess(false), 1500);
-                    } catch {
-                      setIsUpdatingOrder(false);
-                    }
-                  }}
-                  className="absolute inset-0 opacity-0 cursor-pointer z-10 w-full h-full"
-                >
-                  {Array.from({ length: totalCategories }).map((_, i) => (
-                    <option key={i + 1} value={i + 1}>
-                      {i + 1}.
-                    </option>
-                  ))}
-                </select>
+          {isAdmin &&
+            currentOrder !== undefined &&
+            totalCategories !== undefined && (
+              <div
+                className="relative z-30 inline-block pointer-events-auto shrink-0"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <div className="relative">
+                  <select
+                    value={currentOrder}
+                    disabled={isUpdatingOrder}
+                    onChange={async (e) => {
+                      e.stopPropagation();
+                      const newPos = Number(e.target.value);
+                      setIsUpdatingOrder(true);
+                      try {
+                        await onOrderChange?.(categoryName, newPos);
+                        setIsUpdatingOrder(false);
+                        setShowSuccess(true);
+                        setTimeout(() => setShowSuccess(false), 1500);
+                      } catch {
+                        setIsUpdatingOrder(false);
+                      }
+                    }}
+                    className="absolute inset-0 opacity-0 cursor-pointer z-10 w-full h-full"
+                  >
+                    {Array.from({ length: totalCategories }).map((_, i) => (
+                      <option key={i + 1} value={i + 1}>
+                        {i + 1}.
+                      </option>
+                    ))}
+                  </select>
 
-                <div
-                  className={`
+                  <div
+                    className={`
                   w-6 h-6 rounded-md flex items-center justify-center transition-all border border-stone-200/10 shadow-md backdrop-blur-sm
                   ${isUpdatingOrder ? 'bg-stone-900' : showSuccess ? 'bg-emerald-500' : 'bg-stone-900/60 hover:bg-stone-900/80'}
                 `}
-                >
-                  {isUpdatingOrder ? (
-                    <div className="w-2.5 h-2.5 border border-white/30 border-t-white rounded-full animate-spin" />
-                  ) : showSuccess ? (
-                    <Lucide.Check
-                      size={10}
-                      className="text-white"
-                      strokeWidth={4}
-                    />
-                  ) : (
-                    <span className="text-white text-[9px] font-black">
-                      {currentOrder}.
-                    </span>
-                  )}
+                  >
+                    {isUpdatingOrder ? (
+                      <div className="w-2.5 h-2.5 border border-white/30 border-t-white rounded-full animate-spin" />
+                    ) : showSuccess ? (
+                      <Lucide.Check
+                        size={10}
+                        className="text-white"
+                        strokeWidth={4}
+                      />
+                    ) : (
+                      <span className="text-white text-[9px] font-black">
+                        {currentOrder}.
+                      </span>
+                    )}
+                  </div>
                 </div>
               </div>
-            </div>
-          )}
+            )}
 
           {/* DELETE CATEGORY BUTTON */}
           {isAdmin && (
@@ -105,9 +109,7 @@ const CategoryHeader = memo(
           )}
 
           {/* CATEGORY TITLE */}
-          <h2
-            className={`${theme.title} flex items-center gap-1.5`}
-          >
+          <h2 className={`${theme.title} flex items-center gap-1.5`}>
             <span
               contentEditable={isAdmin && isInlineEnabled}
               suppressContentEditableWarning
@@ -169,7 +171,9 @@ const CategoryHeader = memo(
               setIsDeleteModalOpen(false);
               return true;
             } else {
-              useStore.getState().showFeedback('error', 'Lütfen onaylamak için "sil" yazınız.');
+              useStore
+                .getState()
+                .showFeedback('error', 'Lütfen onaylamak için "sil" yazınız.');
               return false;
             }
           }}

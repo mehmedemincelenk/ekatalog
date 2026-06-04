@@ -123,7 +123,9 @@ export default function AddProductModal({
                     Toplu Ürün Yükleme
                   </h4>
                   <p className="text-[9px] text-stone-500 font-bold leading-normal mt-1">
-                    Ürünlerinizi tek tek eklemek yerine; CSV, Excel veya PDF listenizi WhatsApp'tan gönderin, sizin yerinize saniyeler içinde yükleyelim!
+                    Ürünlerinizi tek tek eklemek yerine; CSV, Excel veya PDF
+                    listenizi WhatsApp'tan gönderin, sizin yerinize saniyeler
+                    içinde yükleyelim!
                   </p>
                 </div>
               </div>
@@ -140,7 +142,11 @@ export default function AddProductModal({
                 }}
               >
                 <div className="flex items-center justify-center gap-2">
-                  <Lucide.Send size={12} strokeWidth={3} className="text-white animate-pulse" />
+                  <Lucide.Send
+                    size={12}
+                    strokeWidth={3}
+                    className="text-white animate-pulse"
+                  />
                   <span className="text-[9px] font-black tracking-widest text-white uppercase">
                     WHATSAPP İLE TOPLU YÜKLE
                   </span>

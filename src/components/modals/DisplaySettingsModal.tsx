@@ -16,7 +16,11 @@ import References from '../layout/References';
 import BaseFloatingMenu from '../layout/BaseFloatingMenu';
 
 // Custom clean icons
-const WhatsappIcon = ({ className = "w-5 h-5 fill-current" }: { className?: string }) => (
+const WhatsappIcon = ({
+  className = 'w-5 h-5 fill-current',
+}: {
+  className?: string;
+}) => (
   <div className="w-5 h-5 flex items-center justify-center shrink-0">
     <svg viewBox="0 0 24 24" className={`fill-current ${className}`}>
       <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L0 24l6.335-1.662c1.72.937 3.659 1.431 5.633 1.432h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
@@ -24,7 +28,7 @@ const WhatsappIcon = ({ className = "w-5 h-5 fill-current" }: { className?: stri
   </div>
 );
 
-const InstagramIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
+const InstagramIcon = ({ className = 'w-5 h-5' }: { className?: string }) => (
   <div className="w-5 h-5 flex items-center justify-center shrink-0">
     <svg viewBox="0 0 24 24" className={`fill-current ${className}`}>
       <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z" />
@@ -52,7 +56,7 @@ function HelpDemo({ type }: { type: 'inline' | 'modal' }) {
     : [
         { y: '80%', x: '80%', click: false },
         { y: '30%', x: '60%', click: true },
-        { y: '70%', x: '68%', click: true }
+        { y: '70%', x: '68%', click: true },
       ][step];
 
   return (
@@ -65,33 +69,62 @@ function HelpDemo({ type }: { type: 'inline' | 'modal' }) {
             </div>
           </div>
         )}
-        <div className="w-12 h-12 rounded-xl bg-amber-100 flex items-center justify-center text-xl shrink-0">🍕</div>
+        <div className="w-12 h-12 rounded-xl bg-amber-100 flex items-center justify-center text-xl shrink-0">
+          🍕
+        </div>
         <div className="flex-1 flex flex-col justify-between py-0.5">
           {isInline && step === 1 ? (
-            <input type="text" readOnly value="Margarita 🌟" className="w-full h-6 px-1.5 text-[10px] font-black text-stone-900 bg-stone-50 border border-stone-300 rounded-lg outline-none" />
+            <input
+              type="text"
+              readOnly
+              value="Margarita 🌟"
+              className="w-full h-6 px-1.5 text-[10px] font-black text-stone-900 bg-stone-50 border border-stone-300 rounded-lg outline-none"
+            />
           ) : (
             <span className="text-[10px] font-black text-stone-950 px-1.5">
-              {(isInline && step === 2) || (!isInline && step === 2) ? "Margarita Pizza 🌟" : "Margarita Pizza"}
+              {(isInline && step === 2) || (!isInline && step === 2)
+                ? 'Margarita Pizza 🌟'
+                : 'Margarita Pizza'}
             </span>
           )}
-          <span className="text-[10px] font-black text-emerald-600 px-1.5">250 ₺</span>
+          <span className="text-[10px] font-black text-emerald-600 px-1.5">
+            250 ₺
+          </span>
         </div>
       </div>
 
       {!isInline && step === 2 && (
         <div className="absolute inset-0 bg-stone-900/30 backdrop-blur-[1px] flex items-center justify-center z-10 animate-in fade-in duration-200">
           <div className="w-[160px] bg-white rounded-2xl p-2.5 border border-stone-200 shadow-lg relative flex flex-col gap-1.5 animate-in zoom-in-95 duration-200">
-            <div className="text-[8px] font-black text-stone-400 uppercase tracking-wider px-1">Ürün Adı Düzenle</div>
-            <input type="text" readOnly value="Margarita Pizza 🌟" className="w-full h-6 px-1.5 text-[9px] font-black text-stone-900 bg-stone-50 border border-stone-300 rounded-lg outline-none" />
+            <div className="text-[8px] font-black text-stone-400 uppercase tracking-wider px-1">
+              Ürün Adı Düzenle
+            </div>
+            <input
+              type="text"
+              readOnly
+              value="Margarita Pizza 🌟"
+              className="w-full h-6 px-1.5 text-[9px] font-black text-stone-900 bg-stone-50 border border-stone-300 rounded-lg outline-none"
+            />
             <div className="flex gap-1 justify-end mt-0.5">
-              <div className="px-2 py-1 bg-stone-100 rounded text-[7px] font-black text-stone-500">İptal</div>
-              <div className="px-2 py-1 bg-emerald-500 rounded text-[7px] font-black text-white">Kaydet</div>
+              <div className="px-2 py-1 bg-stone-100 rounded text-[7px] font-black text-stone-500">
+                İptal
+              </div>
+              <div className="px-2 py-1 bg-emerald-500 rounded text-[7px] font-black text-white">
+                Kaydet
+              </div>
             </div>
           </div>
         </div>
       )}
 
-      <motion.div animate={{ top: cursor.y, left: cursor.x, scale: cursor.click ? 0.8 : 1 }} className="w-4 h-4 absolute z-20 pointer-events-none -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-white bg-stone-900 shadow flex items-center justify-center">
+      <motion.div
+        animate={{
+          top: cursor.y,
+          left: cursor.x,
+          scale: cursor.click ? 0.8 : 1,
+        }}
+        className="w-4 h-4 absolute z-20 pointer-events-none -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-white bg-stone-900 shadow flex items-center justify-center"
+      >
         <Lucide.Hand className="w-2.5 h-2.5 text-white" strokeWidth={3} />
       </motion.div>
     </div>
@@ -100,77 +133,78 @@ function HelpDemo({ type }: { type: 'inline' | 'modal' }) {
 
 // Reusable Static Configuration Arrays to achieve ultimate DRY compliance
 const FLOATING_OPTIONS = [
-  { 
-    key: 'showCoupons', 
+  {
+    key: 'showCoupons',
     id: 'coupon',
-    label: 'İndirim Kuponu', 
-    icon: <Lucide.Ticket size={16} />, 
+    label: 'İndirim Kuponu',
+    icon: <Lucide.Ticket size={16} />,
     menuIcon: <Lucide.Ticket className="w-5 h-5" strokeWidth={2.5} />,
-    variant: 'secondary' as const 
+    variant: 'secondary' as const,
   },
-  { 
-    key: 'showAddress', 
+  {
+    key: 'showAddress',
     id: 'location',
-    label: 'Adres Bilgisi', 
-    icon: <Lucide.MapPin size={16} />, 
+    label: 'Adres Bilgisi',
+    icon: <Lucide.MapPin size={16} />,
     menuIcon: <Lucide.MapPin className="w-5 h-5" strokeWidth={2.5} />,
-    variant: 'secondary' as const 
+    variant: 'secondary' as const,
   },
-  { 
-    key: 'showCurrency', 
+  {
+    key: 'showCurrency',
     id: 'currency',
-    label: 'Döviz Çevirici', 
-    icon: <span className="font-extrabold text-[13px] leading-none">₺</span>, 
+    label: 'Döviz Çevirici',
+    icon: <span className="font-extrabold text-[13px] leading-none">₺</span>,
     menuIcon: (
       <div className="w-full h-full flex items-center justify-center">
-        <span className="text-[20px] font-medium leading-none text-white select-none">₺</span>
+        <span className="text-[20px] font-medium leading-none text-white select-none">
+          ₺
+        </span>
       </div>
     ),
     variant: 'secondary' as const,
-    closeOnClick: false
+    closeOnClick: false,
   },
-  { 
-    key: 'showInstagram', 
+  {
+    key: 'showInstagram',
     id: 'instagram',
-    label: 'Instagram', 
-    icon: <InstagramIcon />, 
+    label: 'Instagram',
+    icon: <InstagramIcon />,
     menuIcon: <InstagramIcon className="w-5 h-5 text-white" />,
-    variant: 'secondary' as const 
+    variant: 'secondary' as const,
   },
-  { 
-    key: 'showQR', 
+  {
+    key: 'showQR',
     id: 'qr',
-    label: 'QR Kod Paylaşımı', 
-    icon: <Lucide.QrCode size={16} />, 
+    label: 'QR Kod Paylaşımı',
+    icon: <Lucide.QrCode size={16} />,
     menuIcon: <Lucide.QrCode className="w-5 h-5" strokeWidth={2.5} />,
-    variant: 'secondary' as const 
+    variant: 'secondary' as const,
   },
-  { 
-    key: 'showWhatsapp', 
+  {
+    key: 'showWhatsapp',
     id: 'whatsapp',
-    label: 'WhatsApp', 
-    icon: <WhatsappIcon />, 
+    label: 'WhatsApp',
+    icon: <WhatsappIcon />,
     menuIcon: <WhatsappIcon className="w-5 h-5 text-white" />,
-    variant: 'secondary' as const 
+    variant: 'secondary' as const,
   },
-  { 
-    key: 'showSearch', 
+  {
+    key: 'showSearch',
     id: 'search',
-    label: 'Arama Çubuğu', 
-    icon: <Lucide.Search size={16} />, 
+    label: 'Arama Çubuğu',
+    icon: <Lucide.Search size={16} />,
     menuIcon: <Lucide.Search className="w-5 h-5" strokeWidth={2.5} />,
-    variant: 'secondary' as const 
+    variant: 'secondary' as const,
   },
-  { 
-    key: 'showPhone', 
+  {
+    key: 'showPhone',
     id: 'call',
-    label: 'Telefon Arama', 
-    icon: <Lucide.Phone size={16} />, 
+    label: 'Telefon Arama',
+    icon: <Lucide.Phone size={16} />,
     menuIcon: <Lucide.Phone className="w-5 h-5" strokeWidth={2.5} />,
-    variant: 'secondary' as const 
-  }
+    variant: 'secondary' as const,
+  },
 ] as const;
-
 
 const TABELA_OPTIONS = [
   { key: 'announcement', label: 'Duyuru Panosu' },
@@ -178,33 +212,35 @@ const TABELA_OPTIONS = [
   { key: 'showLogo', label: 'Mağaza Logosu' },
   { key: 'showSubtitle', label: 'Slogan / Alt Başlık' },
   { key: 'showWhatsapp', label: 'İletişim Butonu' },
-  { key: 'showAddress', label: 'Adres Bilgisi' }
+  { key: 'showAddress', label: 'Adres Bilgisi' },
 ] as const;
 
 const BRANDING_OPTIONS = [
   { key: 'showCarousel', label: 'Ana Sayfa Afişleri' },
   { key: 'showReferences', label: 'Referans Logoları' },
   { key: 'showSearch', label: 'Arama Çubuğu' },
-  { key: 'showCategories', label: 'Kategori Filtreleri' }
+  { key: 'showCategories', label: 'Kategori Filtreleri' },
 ] as const;
 
 const SYSTEM_OPTIONS = [
   { key: 'showPrice', label: 'Ürün Fiyatları' },
   { key: 'inline', label: 'Hızlı Düzenleme', hasHelp: true },
-  { key: 'maintenance', label: 'Bakım Modu', hasHelp: true }
+  { key: 'maintenance', label: 'Bakım Modu', hasHelp: true },
 ] as const;
 
 const HELP_CONTENTS = {
   inline: {
     title: 'Hızlı Düzenleme Nedir?',
-    onText: 'Ürün bilgilerine doğrudan kartın üzerinde tıklayarak anında düzenleyebilirsiniz.',
-    offText: 'Ürün bilgilerine tıkladığınızda düzenleme yapabilmeniz için ayrı bir pencere (modal) açılır.'
+    onText:
+      'Ürün bilgilerine doğrudan kartın üzerinde tıklayarak anında düzenleyebilirsiniz.',
+    offText:
+      'Ürün bilgilerine tıkladığınızda düzenleme yapabilmeniz için ayrı bir pencere (modal) açılır.',
   },
   maintenance: {
     title: 'Bakım Modu Nedir?',
     onText: 'Dükkanınız geçici olarak ziyaretçilere kapatılır.',
-    offText: 'Dükkanınız herkese açıktır.'
-  }
+    offText: 'Dükkanınız herkese açıktır.',
+  },
 } as const;
 
 interface IdentityFieldItem {
@@ -219,24 +255,61 @@ interface IdentityFieldItem {
 
 const IDENTITY_FIELDS: IdentityFieldItem[] = [
   { key: 'title', label: 'İşletme adı', icon: <Lucide.Store size={20} /> },
-  { key: 'slug', label: 'Dükkan Linki', icon: <Lucide.Link size={20} />, isSlug: true },
-  { key: 'subtitle', label: 'Açıklama', icon: <Lucide.Menu size={20} />, maxLength: 35 },
-  { key: 'address', label: 'Tam Adres (Yol Tarifi Modalında Gözükür)', icon: <Lucide.MapPin size={20} />, isTextArea: true },
-  { key: 'shortAddress', label: 'Şehir / Semt (Navbarda Gözükür)', icon: <Lucide.Map size={20} /> },
+  {
+    key: 'slug',
+    label: 'Dükkan Linki',
+    icon: <Lucide.Link size={20} />,
+    isSlug: true,
+  },
+  {
+    key: 'subtitle',
+    label: 'Açıklama',
+    icon: <Lucide.Menu size={20} />,
+    maxLength: 35,
+  },
+  {
+    key: 'address',
+    label: 'Tam Adres (Yol Tarifi Modalında Gözükür)',
+    icon: <Lucide.MapPin size={20} />,
+    isTextArea: true,
+  },
+  {
+    key: 'shortAddress',
+    label: 'Şehir / Semt (Navbarda Gözükür)',
+    icon: <Lucide.Map size={20} />,
+  },
   { key: 'whatsapp', label: 'WhatsApp Hattı', icon: <WhatsappIcon /> },
-  { key: 'phoneCall', label: 'Telefon Hattı (Arama)', icon: <Lucide.PhoneCall size={20} /> },
-  { key: 'instagram', label: 'Instagram', icon: <InstagramIcon />, isInstagram: true }
+  {
+    key: 'phoneCall',
+    label: 'Telefon Hattı (Arama)',
+    icon: <Lucide.PhoneCall size={20} />,
+  },
+  {
+    key: 'instagram',
+    label: 'Instagram',
+    icon: <InstagramIcon />,
+    isInstagram: true,
+  },
 ];
 
 // Reusable static field layout component to dramatically reduce boilerplate code
-interface IdentityFieldProps extends React.InputHTMLAttributes<HTMLInputElement | HTMLTextAreaElement> {
+interface IdentityFieldProps extends React.InputHTMLAttributes<
+  HTMLInputElement | HTMLTextAreaElement
+> {
   label: React.ReactNode;
   icon: React.ReactNode;
   isTextArea?: boolean;
   rightElement?: React.ReactNode;
 }
 
-const IdentityField = ({ label, icon, isTextArea, rightElement, className = '', ...props }: IdentityFieldProps) => {
+const IdentityField = ({
+  label,
+  icon,
+  isTextArea,
+  rightElement,
+  className = '',
+  ...props
+}: IdentityFieldProps) => {
   return (
     <div className="flex items-start gap-4 group">
       <div className="mt-3.5 text-stone-400 group-focus-within:text-stone-900 transition-colors shrink-0 select-none">
@@ -263,9 +336,6 @@ const IdentityField = ({ label, icon, isTextArea, rightElement, className = '', 
   );
 };
 
-
-
-
 const FloatingOptionRow = ({
   option,
   onToggle,
@@ -288,11 +358,9 @@ const FloatingOptionRow = ({
           : 'border-stone-200 bg-stone-50/50 hover:border-stone-300'
       }`}
     >
-      <div 
+      <div
         className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 border transition-all duration-300 pointer-events-none bg-[#5a5a5a] border-white/15 text-white ${
-          option.isOn 
-            ? 'opacity-100 shadow-sm' 
-            : 'opacity-20'
+          option.isOn ? 'opacity-100 shadow-sm' : 'opacity-20'
         }`}
       >
         {option.icon}
@@ -385,20 +453,24 @@ export default function DisplaySettingsModal({
     onToggleInline,
   );
 
-  const [menuLayout, setMenuLayout] = useState<{ scale: number; width: number; height?: number }>({ scale: 1.15, width: 126.5 });
+  const [menuLayout, setMenuLayout] = useState<{
+    scale: number;
+    width: number;
+    height?: number;
+  }>({ scale: 1.15, width: 126.5 });
   const menuRef = useRef<HTMLDivElement>(null);
   const togglesRef = useRef<HTMLDivElement>(null);
 
-  const guestActions = FLOATING_OPTIONS
-    .filter((opt) => flow.getOptionState(opt.key))
-    .map((opt) => ({
-      id: opt.id,
-      icon: opt.menuIcon,
-      action: () => {},
-      label: '',
-      variant: opt.variant,
-      closeOnClick: 'closeOnClick' in opt ? opt.closeOnClick : true,
-    }));
+  const guestActions = FLOATING_OPTIONS.filter((opt) =>
+    flow.getOptionState(opt.key),
+  ).map((opt) => ({
+    id: opt.id,
+    icon: opt.menuIcon,
+    action: () => {},
+    label: '',
+    variant: opt.variant,
+    closeOnClick: 'closeOnClick' in opt ? opt.closeOnClick : true,
+  }));
 
   useEffect(() => {
     if (!isOpen) return;
@@ -414,7 +486,7 @@ export default function DisplaySettingsModal({
         setMenuLayout({
           scale: safeScale,
           width: 110 * safeScale,
-          height: menuNaturalHeight * safeScale
+          height: menuNaturalHeight * safeScale,
         });
       }
     };
@@ -454,7 +526,8 @@ export default function DisplaySettingsModal({
         shortAddress: settings.shortAddress || '',
         whatsapp: settings.whatsapp || '',
         phoneCall: settings.phoneCall || '',
-        instagram: settings.instagram?.split('/').pop()?.replace(/\//g, '') || '',
+        instagram:
+          settings.instagram?.split('/').pop()?.replace(/\//g, '') || '',
       });
       setSlugConfirm(null);
     }
@@ -486,7 +559,10 @@ export default function DisplaySettingsModal({
   };
 
   const handleSlugCheck = async (newSlug: string) => {
-    const cleaned = newSlug.trim().toLowerCase().replace(/[^a-z0-9-_]/g, '');
+    const cleaned = newSlug
+      .trim()
+      .toLowerCase()
+      .replace(/[^a-z0-9-_]/g, '');
     if (!cleaned) {
       handleFieldChange('slug', settings.slug || '');
       setSlugConfirm(null);
@@ -509,7 +585,12 @@ export default function DisplaySettingsModal({
       if (error) throw error;
 
       if (data && data.id !== settings.id) {
-        useStore.getState().showFeedback('error', 'Bu dükkan adresi zaten başka bir işletme tarafından kullanılıyor!');
+        useStore
+          .getState()
+          .showFeedback(
+            'error',
+            'Bu dükkan adresi zaten başka bir işletme tarafından kullanılıyor!',
+          );
         handleFieldChange('slug', settings.slug || '');
         setSlugConfirm(null);
       } else {
@@ -517,7 +598,12 @@ export default function DisplaySettingsModal({
       }
     } catch (err) {
       console.error(err);
-      useStore.getState().showFeedback('error', 'Bağlantı adresi kontrol edilirken hata oluştu.');
+      useStore
+        .getState()
+        .showFeedback(
+          'error',
+          'Bağlantı adresi kontrol edilirken hata oluştu.',
+        );
     } finally {
       setCheckingSlug(false);
     }
@@ -554,7 +640,7 @@ export default function DisplaySettingsModal({
           </div>
         }
       >
-        <motion.div 
+        <motion.div
           layout="position"
           className="p-4 flex flex-col gap-4 pb-2 max-h-[70vh] overflow-y-auto custom-scrollbar"
         >
@@ -591,7 +677,9 @@ export default function DisplaySettingsModal({
                 className="absolute -bottom-2 left-1/2 -translate-x-1/2 !rounded-full px-4 border-2 border-white shadow-lg"
                 icon={<Lucide.Camera size={16} className="text-white" />}
               >
-                <span className="text-[10px] font-bold text-white normal-case">Düzenle</span>
+                <span className="text-[10px] font-bold text-white normal-case">
+                  Düzenle
+                </span>
               </Button>
             </div>
           </div>
@@ -607,20 +695,29 @@ export default function DisplaySettingsModal({
               {IDENTITY_FIELDS.map((field) => {
                 if (field.isSlug) {
                   return (
-                    <div key={field.key} className="flex items-start gap-4 group">
+                    <div
+                      key={field.key}
+                      className="flex items-start gap-4 group"
+                    >
                       <div className="mt-3.5 text-stone-400 group-focus-within:text-stone-900 transition-colors shrink-0 select-none">
                         {field.icon}
                       </div>
                       <div className="flex-1 flex flex-col gap-1 relative">
                         <label className="text-[10px] font-bold text-stone-400 absolute -top-2 left-3 bg-white px-1 z-10 select-none transition-colors group-focus-within:text-stone-900">
-                          www.<span className="text-emerald-500 font-extrabold">{formState.slug || 'slug'}</span>.ekatalog.site
+                          www.
+                          <span className="text-emerald-500 font-extrabold">
+                            {formState.slug || 'slug'}
+                          </span>
+                          .ekatalog.site
                         </label>
                         <input
                           type="text"
                           value={formState.slug}
                           disabled={checkingSlug}
                           onChange={(e) => {
-                            const cleaned = e.target.value.toLowerCase().replace(/[^a-z0-9-_]/g, '');
+                            const cleaned = e.target.value
+                              .toLowerCase()
+                              .replace(/[^a-z0-9-_]/g, '');
                             handleFieldChange('slug', cleaned);
                           }}
                           onKeyDown={(e) => {
@@ -634,8 +731,13 @@ export default function DisplaySettingsModal({
                         />
                         {checkingSlug && (
                           <div className="absolute right-3 top-3.5 select-none flex items-center gap-1 text-stone-400">
-                            <Lucide.Loader className="animate-spin text-stone-400" size={12} />
-                            <span className="text-[8px] font-bold">kontrol ediliyor...</span>
+                            <Lucide.Loader
+                              className="animate-spin text-stone-400"
+                              size={12}
+                            />
+                            <span className="text-[8px] font-bold">
+                              kontrol ediliyor...
+                            </span>
                           </div>
                         )}
                         {slugConfirm && (
@@ -649,7 +751,12 @@ export default function DisplaySettingsModal({
                                   YENİ DÜKKAN ADRESİNİ ONAYLIYOR MUSUNUZ?
                                 </p>
                                 <p className="text-[9px] font-bold text-stone-400 mt-0.5 leading-normal">
-                                  Linkiniz <span className="text-emerald-500 font-extrabold">www.{slugConfirm}.ekatalog.site</span> olarak güncellenecek ve yeni adrese yönlendirileceksiniz.
+                                  Linkiniz{' '}
+                                  <span className="text-emerald-500 font-extrabold">
+                                    www.{slugConfirm}.ekatalog.site
+                                  </span>{' '}
+                                  olarak güncellenecek ve yeni adrese
+                                  yönlendirileceksiniz.
                                 </p>
                               </div>
                             </div>
@@ -657,7 +764,10 @@ export default function DisplaySettingsModal({
                               <button
                                 onClick={() => {
                                   setSlugConfirm(null);
-                                  handleFieldChange('slug', settings.slug || '');
+                                  handleFieldChange(
+                                    'slug',
+                                    settings.slug || '',
+                                  );
                                 }}
                                 className="h-7 px-3 rounded-lg text-[9px] font-bold text-stone-400 hover:text-stone-900 transition-colors bg-white hover:bg-stone-50 border border-stone-100 active:scale-95 duration-150"
                               >
@@ -667,15 +777,30 @@ export default function DisplaySettingsModal({
                                 onClick={async () => {
                                   try {
                                     await updateSetting('slug', slugConfirm);
-                                    useStore.getState().showFeedback('success', 'Dükkan adresi başarıyla güncellendi!');
+                                    useStore
+                                      .getState()
+                                      .showFeedback(
+                                        'success',
+                                        'Dükkan adresi başarıyla güncellendi!',
+                                      );
                                     setTimeout(() => {
-                                      window.location.replace('/' + slugConfirm);
+                                      window.location.replace(
+                                        '/' + slugConfirm,
+                                      );
                                     }, 1200);
                                   } catch (err: any) {
                                     console.error(err);
-                                    useStore.getState().showFeedback('error', 'Güncelleme sırasında bir hata oluştu');
+                                    useStore
+                                      .getState()
+                                      .showFeedback(
+                                        'error',
+                                        'Güncelleme sırasında bir hata oluştu',
+                                      );
                                     setSlugConfirm(null);
-                                    handleFieldChange('slug', settings.slug || '');
+                                    handleFieldChange(
+                                      'slug',
+                                      settings.slug || '',
+                                    );
                                   }
                                 }}
                                 className="h-7 px-3 rounded-lg text-[9px] font-black text-white hover:bg-emerald-600 bg-emerald-500 transition-all active:scale-95 duration-150 shadow-sm"
@@ -695,8 +820,12 @@ export default function DisplaySettingsModal({
                     key={field.key}
                     label={field.label}
                     icon={field.icon}
-                    isTextArea={'isTextArea' in field ? field.isTextArea : undefined}
-                    maxLength={'maxLength' in field ? field.maxLength : undefined}
+                    isTextArea={
+                      'isTextArea' in field ? field.isTextArea : undefined
+                    }
+                    maxLength={
+                      'maxLength' in field ? field.maxLength : undefined
+                    }
                     value={formState[field.key as keyof typeof formState]}
                     onChange={(e) => {
                       let val = e.target.value;
@@ -709,7 +838,11 @@ export default function DisplaySettingsModal({
                     rightElement={
                       'maxLength' in field && field.maxLength ? (
                         <div className="text-[8px] text-stone-400 font-bold select-none absolute right-3 bottom-3 opacity-60">
-                          {formState[field.key as keyof typeof formState].length}/{field.maxLength}
+                          {
+                            formState[field.key as keyof typeof formState]
+                              .length
+                          }
+                          /{field.maxLength}
                         </div>
                       ) : undefined
                     }
@@ -741,8 +874,14 @@ export default function DisplaySettingsModal({
                   option={{
                     key: opt.key,
                     label: opt.label,
-                    isOn: opt.key === 'announcement' ? flow.localAnnouncement : flow.getOptionState(opt.key),
-                    onToggle: opt.key === 'announcement' ? flow.toggleAnnouncement : () => flow.toggleOption(opt.key),
+                    isOn:
+                      opt.key === 'announcement'
+                        ? flow.localAnnouncement
+                        : flow.getOptionState(opt.key),
+                    onToggle:
+                      opt.key === 'announcement'
+                        ? flow.toggleAnnouncement
+                        : () => flow.toggleOption(opt.key),
                   }}
                   onHelpTrigger={flow.setHelpId}
                   isHiddenHelp={flow.hiddenHelpIds.includes(opt.key)}
@@ -785,11 +924,16 @@ export default function DisplaySettingsModal({
                       transition={{ duration: 0.3, ease: [0.25, 1, 0.5, 1] }}
                       className="w-full overflow-hidden shrink-0 origin-top"
                     >
-                      <References isInlineEnabled={false} isAdmin={false} isPaused={true} />
+                      <References
+                        isInlineEnabled={false}
+                        isAdmin={false}
+                        isPaused={true}
+                      />
                     </motion.div>
                   )}
 
-                  {(flow.getOptionState('showSearch') || flow.getOptionState('showCategories')) && (
+                  {(flow.getOptionState('showSearch') ||
+                    flow.getOptionState('showCategories')) && (
                     <motion.div
                       key="preview-search-filter"
                       initial={{ height: 0, opacity: 0, scale: 0.95, y: -10 }}
@@ -800,7 +944,10 @@ export default function DisplaySettingsModal({
                     >
                       {flow.getOptionState('showSearch') && (
                         <div className="relative flex-1 h-11 flex items-center border-2 border-stone-200 bg-white rounded-md overflow-hidden select-none">
-                          <Lucide.Search className="absolute left-3 w-4 h-4 text-stone-400" strokeWidth={2} />
+                          <Lucide.Search
+                            className="absolute left-3 w-4 h-4 text-stone-400"
+                            strokeWidth={2}
+                          />
                           <input
                             type="text"
                             disabled
@@ -811,11 +958,17 @@ export default function DisplaySettingsModal({
                       )}
 
                       {flow.getOptionState('showCategories') && (
-                        <div className={`h-11 flex-none flex items-center justify-center rounded-lg bg-stone-900/60 backdrop-blur-md border border-white/20 text-white shadow-xl select-none transition-all ${
-                          !flow.getOptionState('showSearch') ? 'w-full gap-2 px-4' : 'w-11'
-                        }`}>
+                        <div
+                          className={`h-11 flex-none flex items-center justify-center rounded-lg bg-stone-900/60 backdrop-blur-md border border-white/20 text-white shadow-xl select-none transition-all ${
+                            !flow.getOptionState('showSearch')
+                              ? 'w-full gap-2 px-4'
+                              : 'w-11'
+                          }`}
+                        >
                           {!flow.getOptionState('showSearch') && (
-                            <span className="text-[11px] font-black uppercase tracking-widest">KATEGORİLER</span>
+                            <span className="text-[11px] font-black uppercase tracking-widest">
+                              KATEGORİLER
+                            </span>
                           )}
                           <Lucide.ChevronDown size={20} strokeWidth={2.2} />
                         </div>
@@ -870,22 +1023,26 @@ export default function DisplaySettingsModal({
 
             <div className="grid grid-cols-[auto_1fr] gap-6 my-2 px-2 items-center">
               {/* Sol Taraf: Live Preview Wrapper */}
-              <div 
-                style={{ 
+              <div
+                style={{
                   width: `${menuLayout.width}px`,
-                  height: menuLayout.height ? `${menuLayout.height}px` : 'auto'
+                  height: menuLayout.height ? `${menuLayout.height}px` : 'auto',
                 }}
                 className="flex items-center justify-center shrink-0 transition-all duration-300 overflow-visible"
               >
-                <div 
+                <div
                   ref={menuRef}
-                  style={{ 
+                  style={{
                     transform: `scale(${menuLayout.scale})`,
-                    transformOrigin: 'center center'
-                  }} 
+                    transformOrigin: 'center center',
+                  }}
                   className="shrink-0 select-none pointer-events-none transition-transform duration-300"
                 >
-                  <BaseFloatingMenu actions={guestActions} forceExpanded={true} isPreview={true} />
+                  <BaseFloatingMenu
+                    actions={guestActions}
+                    forceExpanded={true}
+                    isPreview={true}
+                  />
                 </div>
               </div>
 
@@ -922,8 +1079,18 @@ export default function DisplaySettingsModal({
                   option={{
                     key: opt.key,
                     label: opt.label,
-                    isOn: opt.key === 'inline' ? flow.localInline : opt.key === 'maintenance' ? flow.localMaintenance : flow.getOptionState(opt.key),
-                    onToggle: opt.key === 'inline' ? flow.handleToggleInline : opt.key === 'maintenance' ? flow.toggleMaintenance : () => flow.toggleOption(opt.key),
+                    isOn:
+                      opt.key === 'inline'
+                        ? flow.localInline
+                        : opt.key === 'maintenance'
+                          ? flow.localMaintenance
+                          : flow.getOptionState(opt.key),
+                    onToggle:
+                      opt.key === 'inline'
+                        ? flow.handleToggleInline
+                        : opt.key === 'maintenance'
+                          ? flow.toggleMaintenance
+                          : () => flow.toggleOption(opt.key),
                     hasHelp: 'hasHelp' in opt ? opt.hasHelp : undefined,
                   }}
                   onHelpTrigger={flow.setHelpId}
@@ -950,11 +1117,18 @@ export default function DisplaySettingsModal({
                     <Lucide.Lock size={20} />
                   </div>
                   <div className="flex flex-col">
-                    <span className="text-xs font-bold text-stone-900 leading-tight">Yönetici Şifresini Değiştir</span>
-                    <span className="text-[10px] font-medium text-stone-400">4 Haneli admin panel şifresi</span>
+                    <span className="text-xs font-bold text-stone-900 leading-tight">
+                      Yönetici Şifresini Değiştir
+                    </span>
+                    <span className="text-[10px] font-medium text-stone-400">
+                      4 Haneli admin panel şifresi
+                    </span>
                   </div>
                 </div>
-                <Lucide.ChevronRight size={18} className="text-stone-400 group-hover:text-stone-900 transition-transform group-hover:translate-x-0.5" />
+                <Lucide.ChevronRight
+                  size={18}
+                  className="text-stone-400 group-hover:text-stone-900 transition-transform group-hover:translate-x-0.5"
+                />
               </div>
             </div>
           </div>
@@ -1001,7 +1175,9 @@ export default function DisplaySettingsModal({
                     <div className="w-5 h-5 bg-emerald-500 rounded-lg flex items-center justify-center shrink-0 text-white shadow-sm">
                       <Lucide.Check size={12} strokeWidth={4} />
                     </div>
-                    <h4 className="text-[11px] font-black text-stone-950 uppercase tracking-wider">Satır içinde düzenleyebilirsin</h4>
+                    <h4 className="text-[11px] font-black text-stone-950 uppercase tracking-wider">
+                      Satır içinde düzenleyebilirsin
+                    </h4>
                   </div>
                   {/* Inline Animation Demo */}
                   <div className="w-full h-28 bg-white rounded-2xl border border-stone-200/50 flex items-center justify-center overflow-hidden relative shadow-inner">
@@ -1015,7 +1191,9 @@ export default function DisplaySettingsModal({
                     <div className="w-5 h-5 bg-stone-200 rounded-lg flex items-center justify-center shrink-0 text-stone-400">
                       <Lucide.X size={12} strokeWidth={4} />
                     </div>
-                    <h4 className="text-[11px] font-black text-stone-900 uppercase tracking-wider">Ayrı pencerede düzenlenir</h4>
+                    <h4 className="text-[11px] font-black text-stone-900 uppercase tracking-wider">
+                      Ayrı pencerede düzenlenir
+                    </h4>
                   </div>
                   {/* Modal Animation Demo */}
                   <div className="w-full h-28 bg-white rounded-2xl border border-stone-200/50 flex items-center justify-center overflow-hidden relative shadow-inner">

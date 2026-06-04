@@ -3,7 +3,6 @@ import { motion, AnimatePresence } from 'motion/react';
 import { THEME } from '../../data/config';
 import CarouselSlideUnit from './CarouselSlideUnit';
 
-
 import * as Lucide from 'lucide-react';
 
 import { HeroCarouselProps } from '../../types';
@@ -14,7 +13,10 @@ import { useHeroCarouselFlow } from '../../hooks/useHeroCarouselFlow';
  * -----------------------------------------------------------
  * Implements a centered 60% hero card flanked by 20% "ghost" previews.
  */
-export default function HeroCarousel({ isAdminModeActive, isStatic = false }: HeroCarouselProps & { isStatic?: boolean }) {
+export default function HeroCarousel({
+  isAdminModeActive,
+  isStatic = false,
+}: HeroCarouselProps & { isStatic?: boolean }) {
   const flow = useHeroCarouselFlow(isAdminModeActive);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -49,7 +51,7 @@ export default function HeroCarousel({ isAdminModeActive, isStatic = false }: He
       ([entry]) => {
         flow.setIsPaused(!entry.isIntersecting);
       },
-      { threshold: 0 }
+      { threshold: 0 },
     );
 
     observer.observe(el);
@@ -218,25 +220,25 @@ export default function HeroCarousel({ isAdminModeActive, isStatic = false }: He
                 flow.handlePrev();
               }
             }}
-            initial={{ 
-              x: direction === 1 ? '100%' : '-100%', 
+            initial={{
+              x: direction === 1 ? '100%' : '-100%',
               filter: 'blur(8px)',
-              opacity: 0
+              opacity: 0,
             }}
-            animate={{ 
-              x: '0%', 
+            animate={{
+              x: '0%',
               filter: 'blur(0px)',
-              opacity: 1 
+              opacity: 1,
             }}
-            exit={{ 
-              x: direction === 1 ? '-100%' : '100%', 
+            exit={{
+              x: direction === 1 ? '-100%' : '100%',
               filter: 'blur(8px)',
-              opacity: 0
+              opacity: 0,
             }}
-            transition={{ 
+            transition={{
               x: { type: 'spring', stiffness: 450, damping: 42, mass: 0.8 },
               filter: { duration: 0.22, ease: 'easeOut' },
-              opacity: { duration: 0.22, ease: 'easeInOut' }
+              opacity: { duration: 0.22, ease: 'easeInOut' },
             }}
             className="w-full relative touch-pan-y"
             ref={(el) => {
@@ -252,10 +254,15 @@ export default function HeroCarousel({ isAdminModeActive, isStatic = false }: He
               totalSlides={flow.marketingSlides.length}
               editingTargetSlideId={flow.activeEditingSlideId}
               onOrderChange={(newPos) =>
-                flow.reorderSlides(flow.marketingSlides[flow.currentIndex].id, newPos)
+                flow.reorderSlides(
+                  flow.marketingSlides[flow.currentIndex].id,
+                  newPos,
+                )
               }
               onUpload={(e) => {
-                flow.setActiveEditingSlideId(flow.marketingSlides[flow.currentIndex].id);
+                flow.setActiveEditingSlideId(
+                  flow.marketingSlides[flow.currentIndex].id,
+                );
                 flow.handleFileUploadAction(e);
               }}
               onDeleteTrigger={flow.deleteSlide}
@@ -300,7 +307,10 @@ export default function HeroCarousel({ isAdminModeActive, isStatic = false }: He
                         key={`${flow.currentIndex}-${flow.isPaused}`} // Re-mount and reset on index or pause state change
                         initial={{ width: '0%' }}
                         animate={{ width: flow.isPaused ? '0%' : '100%' }}
-                        transition={{ duration: flow.isPaused ? 0 : 6, ease: 'linear' }}
+                        transition={{
+                          duration: flow.isPaused ? 0 : 6,
+                          ease: 'linear',
+                        }}
                         className="absolute inset-y-0 left-0 bg-white"
                       />
                     ) : isCompleted ? (

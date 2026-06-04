@@ -370,7 +370,6 @@ export interface StatusToggleProps {
   inactiveColor?: string;
 }
 
-
 export interface InfoHintProps {
   message: string;
   position?: 'top' | 'bottom' | 'left' | 'right';
@@ -384,7 +383,6 @@ export interface MarqueeTextProps {
   editableProps?: React.HTMLAttributes<HTMLDivElement>;
   onClick?: (event: React.MouseEvent<HTMLDivElement>) => void;
 }
-
 
 export interface LoadingProps {
   size?: 'sm' | 'md' | 'lg' | 'xl';

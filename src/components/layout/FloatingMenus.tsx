@@ -63,7 +63,8 @@ export function FloatingAdminMenu({
       icon: null,
       action: () => useStore.getState().openModal('FEATURES'),
       label: 'ÖZELLİKLER',
-      className: '!col-span-2 !w-full !rounded-xl !bg-stone-900 !text-white border border-white/10 my-0.5 font-black',
+      className:
+        '!col-span-2 !w-full !rounded-xl !bg-stone-900 !text-white border border-white/10 my-0.5 font-black',
       dividerAfter: true,
     },
     {
@@ -71,14 +72,16 @@ export function FloatingAdminMenu({
       icon: null,
       action: onBulkUpdateTrigger || (() => {}),
       label: 'İŞLEMLER',
-      className: '!col-span-2 !w-full !rounded-xl !bg-stone-100 !text-stone-900 border-none my-0.5',
+      className:
+        '!col-span-2 !w-full !rounded-xl !bg-stone-100 !text-stone-900 border-none my-0.5',
     },
     {
       id: 'settings',
       icon: null,
       action: onSettingsTrigger,
       label: 'AYARLAR',
-      className: '!col-span-2 !w-full !rounded-xl !bg-stone-800/50 !text-white border border-white/10 my-0.5',
+      className:
+        '!col-span-2 !w-full !rounded-xl !bg-stone-800/50 !text-white border border-white/10 my-0.5',
     },
   ];
 

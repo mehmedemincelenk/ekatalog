@@ -107,9 +107,7 @@ export default function PriceListModal({
               )
             }
             onClick={() =>
-              setStoryTheme((prev) =>
-                prev === 'LIGHT' ? 'DARK' : 'LIGHT',
-              )
+              setStoryTheme((prev) => (prev === 'LIGHT' ? 'DARK' : 'LIGHT'))
             }
             className="w-12 shrink-0 h-12 flex items-center justify-center p-0 !bg-stone-50 border-stone-100 shadow-sm !rounded-2xl"
             mode="rectangle"
@@ -124,7 +122,11 @@ export default function PriceListModal({
       isOpen={isOpen}
       onClose={onClose}
       title={step === 1 ? 'KATEGORİ SEÇİMİ' : 'ÖNİZLEME'}
-      subtitle={step === 1 ? 'SEÇMEK İSTEDİĞİNİZ KATEGORİLERİN ÜZERİNE TIKLAYINIZ' : undefined}
+      subtitle={
+        step === 1
+          ? 'SEÇMEK İSTEDİĞİNİZ KATEGORİLERİN ÜZERİNE TIKLAYINIZ'
+          : undefined
+      }
       maxWidth={step === 1 ? 'max-w-xl' : 'max-w-sm'}
       footer={footer}
       progress={{ current: step, total: 2 }}
@@ -141,8 +143,7 @@ export default function PriceListModal({
               size="sm"
               className="!flex !items-center !gap-1.5 !text-[9px] font-black !text-stone-900 hover:!text-stone-600 transition-colors !bg-stone-50 !px-4 !py-2 !rounded-xl whitespace-nowrap shrink-0 border border-stone-100 shadow-sm"
               icon={
-                selectedCategories.length ===
-                populatedCategories.length ? (
+                selectedCategories.length === populatedCategories.length ? (
                   <Lucide.CheckSquare size={14} />
                 ) : (
                   <Lucide.Square size={14} />
@@ -158,9 +159,7 @@ export default function PriceListModal({
                 key={cat}
                 onClick={() => handleToggleCategory(cat)}
                 variant={
-                  selectedCategories.includes(cat)
-                    ? 'primary'
-                    : 'secondary'
+                  selectedCategories.includes(cat) ? 'primary' : 'secondary'
                 }
                 mode="rectangle"
                 size="sm"
@@ -214,7 +213,9 @@ export default function PriceListModal({
                             className={`w-10 h-10 rounded-lg overflow-hidden border shadow-sm bg-white shrink-0 ${storyTheme === 'DARK' ? 'border-stone-800' : 'border-white'}`}
                           >
                             <img
-                              src={resolveVisualAssetUrl(product.image_url) || ''}
+                              src={
+                                resolveVisualAssetUrl(product.image_url) || ''
+                              }
                               alt={product.name}
                               loading="eager"
                               crossOrigin="anonymous"
@@ -244,7 +245,10 @@ export default function PriceListModal({
                             <div className="shrink-0 text-right">
                               <span
                                 className={`text-[10px] font-black ${storyTheme === 'DARK' ? 'text-white' : 'text-stone-900'}`}
-                                style={{ lineHeight: '1', whiteSpace: 'nowrap' }}
+                                style={{
+                                  lineHeight: '1',
+                                  whiteSpace: 'nowrap',
+                                }}
                               >
                                 {calculateFinalPrice(product)}
                               </span>

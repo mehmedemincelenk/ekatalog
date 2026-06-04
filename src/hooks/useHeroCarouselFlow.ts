@@ -1,7 +1,11 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useStore } from '../store';
 import { supabase } from '../supabase';
-import { getActiveStoreSlug, reorderArray, resolveLegacyImagePath } from '../utils/core';
+import {
+  getActiveStoreSlug,
+  reorderArray,
+  resolveLegacyImagePath,
+} from '../utils/core';
 import { CarouselSlide } from '../types';
 import { CAROUSEL, TECH } from '../data/config';
 import { PanInfo } from 'motion/react';
@@ -107,7 +111,8 @@ export function useHeroCarouselFlow(isAdminModeActive: boolean) {
           adminPin,
           oldUrl,
           slugBaseName: `hero-${activeStoreSlug}`,
-          uniqueIdPrefix: slideId === -1 ? `new-${extraIndex ?? 0}` : String(slideId),
+          uniqueIdPrefix:
+            slideId === -1 ? `new-${extraIndex ?? 0}` : String(slideId),
           isDualQuality: false,
           maxDimension: TECH.storage.heroWidth,
         });
@@ -151,11 +156,16 @@ export function useHeroCarouselFlow(isAdminModeActive: boolean) {
 
   // Auto-scroll effect
   useEffect(() => {
-    if (isAssetUploading || marketingSlides.length <= 1 || isPaused)
-      return;
+    if (isAssetUploading || marketingSlides.length <= 1 || isPaused) return;
     const scrollTimer = setInterval(handleNext, INTERVAL_MS);
     return () => clearInterval(scrollTimer);
-  }, [handleNext, isAssetUploading, marketingSlides.length, currentIndex, isPaused]);
+  }, [
+    handleNext,
+    isAssetUploading,
+    marketingSlides.length,
+    currentIndex,
+    isPaused,
+  ]);
 
   const handleFileUploadAction = async (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -180,7 +190,7 @@ export function useHeroCarouselFlow(isAdminModeActive: boolean) {
             currentRealSlides.length > 0
               ? Math.max(...currentRealSlides.map((s) => s.id)) + 1
               : 1;
-          
+
           const newSlides: CarouselSlide[] = uploadedUrls.map((url, idx) => ({
             id: nextId + idx,
             src: url,

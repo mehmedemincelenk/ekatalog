@@ -43,7 +43,8 @@ function GlobalFeedbackOverlay() {
 export default function App() {
   const currentSlug = getActiveStoreSlug();
   const isAdmin = useStore((state) => state.isAdmin);
-  const { isStorefrontClosed, isAdminLocked, daysLeft, isSubscriptionExpired } = useSaaSLifecycle();
+  const { isStorefrontClosed, isAdminLocked, daysLeft, isSubscriptionExpired } =
+    useSaaSLifecycle();
 
   // Eğer ana site (Landing) isteniyorsa
   if (currentSlug === 'main-site' || currentSlug === 'landing') {
@@ -65,7 +66,10 @@ export default function App() {
     <>
       {/* 2. Admin Tolerans Süresindeyse Kilit Modalı Bas */}
       {isAdminLocked && isAdmin && (
-        <GlobalAdminLockModal daysLeft={daysLeft} isSubscriptionExpired={isSubscriptionExpired} />
+        <GlobalAdminLockModal
+          daysLeft={daysLeft}
+          isSubscriptionExpired={isSubscriptionExpired}
+        />
       )}
       <CatalogPage />
       <GlobalFeedbackOverlay />

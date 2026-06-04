@@ -2,7 +2,13 @@ import { useMemo } from 'react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '../supabase';
 import { Product, NewProductPayload, CompanySettings } from '../types';
-import { reorderArray, smartSearch, sortCategories, getActiveStoreSlug, resolveLegacyImagePath } from '../utils/core';
+import {
+  reorderArray,
+  smartSearch,
+  sortCategories,
+  getActiveStoreSlug,
+  resolveLegacyImagePath,
+} from '../utils/core';
 import { useStore } from '../store';
 import { TECH } from '../data/config';
 
@@ -24,7 +30,8 @@ export function useProductsQuery(storeId?: string) {
     queryKey: ['products', storeId],
     queryFn: async () => {
       if (STORE_SLUG === 'landingpage') {
-        const { MOCK_LANDINGPAGE_PRODUCTS } = await import('../data/mockLandingpage');
+        const { MOCK_LANDINGPAGE_PRODUCTS } =
+          await import('../data/mockLandingpage');
         return MOCK_LANDINGPAGE_PRODUCTS;
       }
       if (!storeId) return [];
@@ -111,13 +118,16 @@ export function useProductsActions() {
   const reorderCategoryMutation = useMutation({
     mutationFn: async (newOrder: string[]) => {
       if (STORE_SLUG === 'landingpage') {
-        queryClient.setQueryData<CompanySettings>(['settings', STORE_SLUG], (old) => {
-          if (!old) return old;
-          return {
-            ...old,
-            categoryOrder: newOrder,
-          };
-        });
+        queryClient.setQueryData<CompanySettings>(
+          ['settings', STORE_SLUG],
+          (old) => {
+            if (!old) return old;
+            return {
+              ...old,
+              categoryOrder: newOrder,
+            };
+          },
+        );
         return;
       }
       if (!settings?.id || !adminPin) throw new Error('Yetkisiz işlem');
@@ -147,16 +157,19 @@ export function useProductsActions() {
         queryClient.setQueryData<Product[]>(queryKey, (old) => {
           if (!old) return [];
           return old.map((p) =>
-            p.category === oldName ? { ...p, category: newName } : p
+            p.category === oldName ? { ...p, category: newName } : p,
           );
         });
-        queryClient.setQueryData<CompanySettings>(['settings', STORE_SLUG], (old) => {
-          if (!old) return old;
-          const updatedOrder = (old.categoryOrder || []).map((cat) =>
-            cat === oldName ? newName : cat
-          );
-          return { ...old, categoryOrder: updatedOrder };
-        });
+        queryClient.setQueryData<CompanySettings>(
+          ['settings', STORE_SLUG],
+          (old) => {
+            if (!old) return old;
+            const updatedOrder = (old.categoryOrder || []).map((cat) =>
+              cat === oldName ? newName : cat,
+            );
+            return { ...old, categoryOrder: updatedOrder };
+          },
+        );
         return;
       }
       if (!settings?.id || !adminPin) throw new Error('Yetkisiz işlem');
@@ -187,7 +200,7 @@ export function useProductsActions() {
         queryClient.setQueryData<Product[]>(queryKey, (old) => {
           if (!old) return [];
           return old.map((p) =>
-            p.id === id ? { ...p, sort_order: newSortOrder } : p
+            p.id === id ? { ...p, sort_order: newSortOrder } : p,
           );
         });
         return;
@@ -261,7 +274,9 @@ export function useProductsActions() {
         queryClient.setQueryData<Product[]>(queryKey, (old) => {
           if (!old) return [];
           return old.map((p) =>
-            p.id === id ? { ...p, image_url: localUrl, is_polished_pending: false } : p
+            p.id === id
+              ? { ...p, image_url: localUrl, is_polished_pending: false }
+              : p,
           );
         });
         return localUrl;
@@ -328,7 +343,10 @@ export function useProductsActions() {
                 if (p.id !== action.productId) return p;
                 const changes: Partial<Product> = {};
                 if (action.newPrice !== undefined) {
-                  changes.price = action.newPrice === 0 ? '' : formatNumberToCurrency(action.newPrice);
+                  changes.price =
+                    action.newPrice === 0
+                      ? ''
+                      : formatNumberToCurrency(action.newPrice);
                 }
                 if (action.newSortOrder !== undefined) {
                   changes.sort_order = action.newSortOrder;

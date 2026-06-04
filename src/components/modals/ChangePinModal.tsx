@@ -15,7 +15,10 @@ interface ChangePinModalProps {
   onClose: () => void;
 }
 
-export default function ChangePinModal({ isOpen, onClose }: ChangePinModalProps) {
+export default function ChangePinModal({
+  isOpen,
+  onClose,
+}: ChangePinModalProps) {
   const { isAdmin } = useStore();
   const { changePin } = useSettings(isAdmin);
 
@@ -68,7 +71,9 @@ export default function ChangePinModal({ isOpen, onClose }: ChangePinModalProps)
       }, 1500);
     } catch (err: any) {
       console.error(err);
-      triggerError(err.message || 'Şifre güncellenemedi. Mevcut şifreyi kontrol edin.');
+      triggerError(
+        err.message || 'Şifre güncellenemedi. Mevcut şifreyi kontrol edin.',
+      );
     } finally {
       setLoading(false);
     }
@@ -100,7 +105,9 @@ export default function ChangePinModal({ isOpen, onClose }: ChangePinModalProps)
         {loading ? (
           <div className="w-6 h-6 border-2 border-white border-t-transparent rounded-full animate-spin" />
         ) : (
-          <span className="text-[12px] font-black uppercase tracking-wider text-white">TAMAM</span>
+          <span className="text-[12px] font-black uppercase tracking-wider text-white">
+            TAMAM
+          </span>
         )}
       </Button>
     </div>
@@ -177,7 +184,9 @@ export default function ChangePinModal({ isOpen, onClose }: ChangePinModalProps)
           {status === 'error' && errorMessage && (
             <div className="bg-red-50 border border-red-100 p-4 rounded-2xl flex items-center gap-3 text-red-700">
               <Lucide.AlertCircle size={18} className="shrink-0" />
-              <span className="text-[10px] font-bold leading-relaxed">{errorMessage}</span>
+              <span className="text-[10px] font-bold leading-relaxed">
+                {errorMessage}
+              </span>
             </div>
           )}
         </div>
@@ -185,8 +194,16 @@ export default function ChangePinModal({ isOpen, onClose }: ChangePinModalProps)
 
       {/* Success/Error Overlay */}
       <StatusOverlay
-        status={status === 'success' ? 'success' : status === 'error' ? 'error' : 'idle'}
-        message={status === 'success' ? 'Şifre başarıyla güncellendi!' : errorMessage}
+        status={
+          status === 'success'
+            ? 'success'
+            : status === 'error'
+              ? 'error'
+              : 'idle'
+        }
+        message={
+          status === 'success' ? 'Şifre başarıyla güncellendi!' : errorMessage
+        }
         onClose={() => setStatus('idle')}
       />
     </>

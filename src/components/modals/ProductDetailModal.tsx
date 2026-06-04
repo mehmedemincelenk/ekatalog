@@ -93,7 +93,7 @@ export function ProductDetailModal({
 
                 <div className="space-y-2">
                   <h3 className="text-xl font-black text-stone-900 uppercase tracking-tighter">
-                     EMİN MİSİNİZ?
+                    EMİN MİSİNİZ?
                   </h3>
                   <p className="text-[12px] font-bold text-stone-400 leading-relaxed px-4">
                     {flow.deleteTarget === 'PRODUCT'
@@ -144,7 +144,9 @@ export function ProductDetailModal({
             {isAdmin && (
               <div className="mt-3">
                 <Button
-                  onClick={() => !flow.isUploading && fileInputRef.current?.click()}
+                  onClick={() =>
+                    !flow.isUploading && fileInputRef.current?.click()
+                  }
                   variant="secondary"
                   mode="rectangle"
                   className="w-full !h-11 !rounded-xl text-[10px] font-black uppercase tracking-widest flex items-center justify-center gap-1.5 border border-stone-200 bg-white hover:bg-stone-50 text-stone-700 transition-all active:scale-[0.98]"
@@ -161,14 +163,18 @@ export function ProductDetailModal({
               </div>
             )}
 
-            <div className={`pt-6 px-4 space-y-4 text-left ${isAdmin ? 'pb-6' : 'pb-20'}`}>
+            <div
+              className={`pt-6 px-4 space-y-4 text-left ${isAdmin ? 'pb-6' : 'pb-20'}`}
+            >
               <div className="space-y-2">
                 <div>
                   {isAdmin && categories && categories.length > 0 ? (
                     <div className="relative inline-block">
                       <select
                         value={product.category}
-                        onChange={(e) => flow.handleAction('CATEGORY', e.target.value)}
+                        onChange={(e) =>
+                          flow.handleAction('CATEGORY', e.target.value)
+                        }
                         className="appearance-none bg-stone-50 text-stone-500 pl-3 pr-8 py-1 rounded-full text-[9px] font-black uppercase tracking-[0.1em] inline-block border border-stone-100 shadow-sm outline-none cursor-pointer focus:border-stone-300 animate-none"
                         style={{
                           width: `${product.category.length * 6.6 + 44}px`,
@@ -195,7 +201,9 @@ export function ProductDetailModal({
                   <input
                     type="text"
                     value={product.name}
-                    onChange={(e) => onUpdate?.(product.id, { name: e.target.value })}
+                    onChange={(e) =>
+                      onUpdate?.(product.id, { name: e.target.value })
+                    }
                     spellCheck={false}
                     className="text-lg font-black text-stone-900 tracking-tighter leading-tight w-full uppercase bg-transparent outline-none focus:bg-stone-100 hover:bg-stone-50 rounded px-1 -mx-1 border-none focus:ring-0 focus:outline-none transition-all"
                     placeholder="ÜRÜN ADI"

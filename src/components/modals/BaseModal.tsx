@@ -149,9 +149,13 @@ export default function BaseModal({
             <div className="bg-white rounded-3xl overflow-hidden flex flex-col flex-1 border border-stone-100 relative">
               {/* HEADER AREA */}
               {(title || icon) && !progress && (
-                <div className={`flex flex-col mt-6 px-6 shrink-0 print:hidden ${
-                  centerHeader ? 'items-center text-center' : 'items-start text-left'
-                }`}>
+                <div
+                  className={`flex flex-col mt-6 px-6 shrink-0 print:hidden ${
+                    centerHeader
+                      ? 'items-center text-center'
+                      : 'items-start text-left'
+                  }`}
+                >
                   {icon && (
                     <div className="w-16 h-16 bg-stone-50 text-stone-500 rounded-full flex items-center justify-center text-3xl mb-4 border border-stone-100 shadow-inner">
                       {icon}

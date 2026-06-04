@@ -15,7 +15,9 @@ export default function PortfoysDirectoryView({
   loadingDirectory,
   lastSearchKey,
 }: PortfoysDirectoryViewProps) {
-  const [expandedGroups, setExpandedGroups] = useState<{ [key: string]: boolean }>({});
+  const [expandedGroups, setExpandedGroups] = useState<{
+    [key: string]: boolean;
+  }>({});
 
   useEffect(() => {
     if (lastSearchKey) {
@@ -28,7 +30,12 @@ export default function PortfoysDirectoryView({
 
   if (loadingDirectory) {
     return (
-      <Loading size="md" variant="dark" label="Kişiler Yükleniyor..." className="py-16" />
+      <Loading
+        size="md"
+        variant="dark"
+        label="Kişiler Yükleniyor..."
+        className="py-16"
+      />
     );
   }
 
@@ -39,9 +46,12 @@ export default function PortfoysDirectoryView({
           <Lucide.Users size={32} />
         </div>
         <div className="text-center space-y-1">
-          <h4 className="text-xs font-black uppercase tracking-wider text-stone-600">Rehberiniz Boş</h4>
+          <h4 className="text-xs font-black uppercase tracking-wider text-stone-600">
+            Rehberiniz Boş
+          </h4>
           <p className="text-[9px] font-bold text-stone-400 max-w-xs leading-relaxed">
-            Müşteri Ara sekmesinden arama yapıp rehberinize yeni dükkanlar ekleyebilirsiniz.
+            Müşteri Ara sekmesinden arama yapıp rehberinize yeni dükkanlar
+            ekleyebilirsiniz.
           </p>
         </div>
       </div>
@@ -63,17 +73,17 @@ export default function PortfoysDirectoryView({
     const country = meta?.country || 'Türkiye';
     const city = meta?.city || 'Diğer';
     const district = meta?.district || '';
-    
+
     // 2. Resolve keyword with segment fallback
     let keyword = meta?.keyword || lead.segment || 'Müşteri';
 
     // 3. Fallback dictionary for historical searches
     const fallbackKeywords: { [key: string]: string } = {
-      'istanbul_bakırköy': 'Coffee',
-      'ankara_elmadağ': 'Kuaför',
-      'adana_aladağ': 'Kozmetik',
+      istanbul_bakırköy: 'Coffee',
+      ankara_elmadağ: 'Kuaför',
+      adana_aladağ: 'Kozmetik',
     };
-    
+
     const locKey = `${city}_${district}`.toLowerCase().trim();
     if (['silver', 'gold', 'bronze', 'other'].includes(keyword.toLowerCase())) {
       keyword = fallbackKeywords[locKey] || 'Müşteri';
@@ -84,7 +94,9 @@ export default function PortfoysDirectoryView({
       : `${keyword} & ${country}, ${city}`;
 
     return {
-      key: `${country}_${city}_${district}_${keyword}`.toLowerCase().replace(/\s+/g, '_'),
+      key: `${country}_${city}_${district}_${keyword}`
+        .toLowerCase()
+        .replace(/\s+/g, '_'),
       label,
       city,
       district,
@@ -148,7 +160,11 @@ export default function PortfoysDirectoryView({
                 </div>
               </div>
               <div className="text-stone-450 pl-2 shrink-0">
-                {isExpanded ? <Lucide.ChevronDown size={18} strokeWidth={3} /> : <Lucide.ChevronRight size={18} strokeWidth={3} />}
+                {isExpanded ? (
+                  <Lucide.ChevronDown size={18} strokeWidth={3} />
+                ) : (
+                  <Lucide.ChevronRight size={18} strokeWidth={3} />
+                )}
               </div>
             </button>
 
@@ -169,8 +185,13 @@ export default function PortfoysDirectoryView({
                       </div>
                       {lead.metadata?.address && (
                         <div className="flex items-center gap-1.5 text-[9px] text-stone-400 font-medium">
-                          <Lucide.MapPin size={9} className="shrink-0 text-stone-300" />
-                          <span className="truncate">{lead.metadata.address}</span>
+                          <Lucide.MapPin
+                            size={9}
+                            className="shrink-0 text-stone-300"
+                          />
+                          <span className="truncate">
+                            {lead.metadata.address}
+                          </span>
                         </div>
                       )}
                     </div>
@@ -184,7 +205,9 @@ export default function PortfoysDirectoryView({
                               variant="phone"
                               size="xs"
                               mode="circle"
-                              icon={<Lucide.PhoneCall size={10} strokeWidth={3} />}
+                              icon={
+                                <Lucide.PhoneCall size={10} strokeWidth={3} />
+                              }
                               className="w-8 h-8 hover:scale-105 active:scale-95"
                               title="Telefonla Ara"
                             />
@@ -198,7 +221,12 @@ export default function PortfoysDirectoryView({
                               variant="whatsapp"
                               size="xs"
                               mode="circle"
-                              icon={<Lucide.MessageSquare size={10} strokeWidth={3} />}
+                              icon={
+                                <Lucide.MessageSquare
+                                  size={10}
+                                  strokeWidth={3}
+                                />
+                              }
                               className="w-8 h-8 hover:scale-105 active:scale-95"
                               title="WhatsApp'tan Yaz"
                             />

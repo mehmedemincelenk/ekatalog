@@ -26,7 +26,11 @@ const setCache = (key: string, data: any, ttl = 1000 * 60 * 60 * 24) => {
 
 // Helper to get target API base URLs (attempts local backend first in development)
 const getApiUrls = (): string[] => {
-  if (typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')) {
+  if (
+    typeof window !== 'undefined' &&
+    (window.location.hostname === 'localhost' ||
+      window.location.hostname === '127.0.0.1')
+  ) {
     return ['http://localhost:3000', 'https://portfoys.pro'];
   }
   return ['https://portfoys.pro'];
@@ -36,14 +40,16 @@ const getApiUrls = (): string[] => {
 export async function fetchCities(country: string): Promise<string[]> {
   const cacheKey = `cities_${country}`;
   const cached = getCache<string[]>(cacheKey);
-  
+
   // Turkey has 81, Iraq has 18 cities. A cache with <= 5 items is corrupted/stale and must be bypassed.
   if (cached && Array.isArray(cached) && cached.length > 5) {
     return cached;
   }
-  
+
   if (cached) {
-    console.warn(`[locations] Tiny/corrupted cache detected for ${country} (${cached.length} items). Clearing cache...`);
+    console.warn(
+      `[locations] Tiny/corrupted cache detected for ${country} (${cached.length} items). Clearing cache...`,
+    );
     if (typeof window !== 'undefined') {
       localStorage.removeItem(`cache_loc_${cacheKey}`);
     }
@@ -52,7 +58,9 @@ export async function fetchCities(country: string): Promise<string[]> {
   const baseUrls = getApiUrls();
   for (const baseUrl of baseUrls) {
     try {
-      const res = await fetch(`${baseUrl}/api/locations?type=cities&country=${encodeURIComponent(country)}`);
+      const res = await fetch(
+        `${baseUrl}/api/locations?type=cities&country=${encodeURIComponent(country)}`,
+      );
       if (!res.ok) throw new Error(`HTTP error ${res.status}`);
       const data = await res.json();
       if (data.success && Array.isArray(data.cities)) {
@@ -63,7 +71,10 @@ export async function fetchCities(country: string): Promise<string[]> {
         return data.cities;
       }
     } catch (err) {
-      console.warn(`[locations] fetchCities failed on ${baseUrl}, trying next...`, err);
+      console.warn(
+        `[locations] fetchCities failed on ${baseUrl}, trying next...`,
+        err,
+      );
     }
   }
 
@@ -71,15 +82,18 @@ export async function fetchCities(country: string): Promise<string[]> {
 }
 
 /** Fetch unique districts for a city with caching from the official Portfoys location API */
-export async function fetchDistricts(country: string, city: string): Promise<string[]> {
+export async function fetchDistricts(
+  country: string,
+  city: string,
+): Promise<string[]> {
   if (!city) return [];
   const cacheKey = `districts_${country}_${city}`;
   const cached = getCache<string[]>(cacheKey);
-  
+
   if (cached && Array.isArray(cached) && cached.length > 0) {
     return cached;
   }
-  
+
   if (cached) {
     if (typeof window !== 'undefined') {
       localStorage.removeItem(`cache_loc_${cacheKey}`);
@@ -89,7 +103,9 @@ export async function fetchDistricts(country: string, city: string): Promise<str
   const baseUrls = getApiUrls();
   for (const baseUrl of baseUrls) {
     try {
-      const res = await fetch(`${baseUrl}/api/locations?type=districts&country=${encodeURIComponent(country)}&city=${encodeURIComponent(city)}`);
+      const res = await fetch(
+        `${baseUrl}/api/locations?type=districts&country=${encodeURIComponent(country)}&city=${encodeURIComponent(city)}`,
+      );
       if (!res.ok) throw new Error(`HTTP error ${res.status}`);
       const data = await res.json();
       if (data.success && Array.isArray(data.districts)) {
@@ -99,7 +115,10 @@ export async function fetchDistricts(country: string, city: string): Promise<str
         return data.districts;
       }
     } catch (err) {
-      console.warn(`[locations] fetchDistricts failed on ${baseUrl}, trying next...`, err);
+      console.warn(
+        `[locations] fetchDistricts failed on ${baseUrl}, trying next...`,
+        err,
+      );
     }
   }
 
@@ -115,7 +134,12 @@ export interface PortfoysCountry {
 
 export const PORTFOYS_COUNTRIES: PortfoysCountry[] = [
   { code: 'TR', name: 'Türkiye', flag: '🇹🇷', desc: 'Tüm şehirler ve ilçeler' },
-  { code: 'DE', name: 'Almanya', flag: '🇩🇪', desc: 'Avrupa\'daki gurbetçi esnaflar' },
+  {
+    code: 'DE',
+    name: 'Almanya',
+    flag: '🇩🇪',
+    desc: "Avrupa'daki gurbetçi esnaflar",
+  },
   { code: 'IQ', name: 'Irak', flag: '🇮🇶', desc: 'Yakın sınır komşuları' },
 ];
 

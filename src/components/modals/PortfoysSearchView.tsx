@@ -2,7 +2,12 @@ import { useState, useEffect } from 'react';
 import * as Lucide from 'lucide-react';
 import Button from '../ui/Button';
 import { PortfoysLead } from '../../hooks/usePortfoysScraper';
-import { fetchCities, fetchDistricts, PORTFOYS_COUNTRIES, PRESET_CATEGORIES } from '../../utils/portfoysLocations';
+import {
+  fetchCities,
+  fetchDistricts,
+  PORTFOYS_COUNTRIES,
+  PRESET_CATEGORIES,
+} from '../../utils/portfoysLocations';
 
 interface PortfoysSearchViewProps {
   credits: number;
@@ -11,7 +16,13 @@ interface PortfoysSearchViewProps {
   status: 'idle' | 'scanning' | 'completed' | 'error';
   leads: PortfoysLead[];
   apiError: string | null;
-  startScan: (params: { storeId: string; country: string; city: string; district?: string; keyword: string }) => Promise<void>;
+  startScan: (params: {
+    storeId: string;
+    country: string;
+    city: string;
+    district?: string;
+    keyword: string;
+  }) => Promise<void>;
   clearScan: () => void;
 }
 
@@ -102,7 +113,9 @@ export default function PortfoysSearchView({
             YILLIK ARAMA KOTANIZ TÜKENMİŞTİR
           </h4>
           <p className="text-[10px] font-bold text-stone-400 max-w-xs mx-auto leading-relaxed">
-            Yıllık kullanım kotanızı doldurdunuz. Tüm şehir veya Türkiye geneli B2B rehber verilerine sınırsız erişim sağlamak için paketinizi hemen yükseltin!
+            Yıllık kullanım kotanızı doldurdunuz. Tüm şehir veya Türkiye geneli
+            B2B rehber verilerine sınırsız erişim sağlamak için paketinizi hemen
+            yükseltin!
           </p>
         </div>
         <a
@@ -130,7 +143,7 @@ export default function PortfoysSearchView({
       <div className="flex flex-col items-center justify-center py-20 space-y-4">
         {/* Minimalist Spinner */}
         <div className="w-8 h-8 border-2 border-stone-950 border-t-transparent rounded-full animate-spin" />
-        
+
         {/* Simple Text */}
         <div className="text-center space-y-1">
           <h4 className="text-[10px] font-black uppercase tracking-widest text-stone-950 animate-pulse">
@@ -171,8 +184,12 @@ export default function PortfoysSearchView({
           <div className="bg-red-50 border border-red-100 p-4 rounded-2xl flex items-start gap-3 text-red-700">
             <Lucide.AlertCircle size={20} className="shrink-0 mt-0.5" />
             <div className="space-y-1">
-              <h5 className="text-[11px] font-black uppercase tracking-widest text-red-900">Arama Başarısız</h5>
-              <p className="text-[10px] font-medium leading-relaxed">{apiError}</p>
+              <h5 className="text-[11px] font-black uppercase tracking-widest text-red-900">
+                Arama Başarısız
+              </h5>
+              <p className="text-[10px] font-medium leading-relaxed">
+                {apiError}
+              </p>
             </div>
           </div>
         )}
@@ -182,7 +199,9 @@ export default function PortfoysSearchView({
             <div className="w-12 h-12 bg-stone-50 rounded-full flex items-center justify-center">
               <Lucide.UserX size={24} />
             </div>
-            <p className="text-[10px] font-bold uppercase tracking-widest text-stone-400">Müşteri bulunamadı</p>
+            <p className="text-[10px] font-bold uppercase tracking-widest text-stone-400">
+              Müşteri bulunamadı
+            </p>
           </div>
         )}
 
@@ -207,7 +226,11 @@ export default function PortfoysSearchView({
                   </p>
                   {lead.website && (
                     <a
-                      href={lead.website.startsWith('http') ? lead.website : `https://${lead.website}`}
+                      href={
+                        lead.website.startsWith('http')
+                          ? lead.website
+                          : `https://${lead.website}`
+                      }
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-[9px] text-blue-500 font-black hover:underline inline-flex items-center gap-0.5"
@@ -224,8 +247,6 @@ export default function PortfoysSearchView({
       </div>
     );
   }
-
-
 
   const getStepTitle = () => {
     switch (step) {
@@ -244,7 +265,10 @@ export default function PortfoysSearchView({
     }
   };
 
-  const popularCities = country === 'Türkiye' ? ['İstanbul', 'Ankara', 'İzmir', 'Bursa', 'Antalya', 'Adana'] : [];
+  const popularCities =
+    country === 'Türkiye'
+      ? ['İstanbul', 'Ankara', 'İzmir', 'Bursa', 'Antalya', 'Adana']
+      : [];
 
   return (
     <div className="space-y-6 animate-in fade-in duration-300">
@@ -253,7 +277,7 @@ export default function PortfoysSearchView({
         <h3 className="text-xl font-bold text-stone-900 tracking-tight">
           {getStepTitle()}
         </h3>
-        
+
         {/* Step Indicator (Centered, narrow progress bar) */}
         <div className="flex items-center justify-center gap-1.5 max-w-[120px] mx-auto">
           {[1, 2, 3, 4, 5].map((s) => (
@@ -307,7 +331,10 @@ export default function PortfoysSearchView({
                 placeholder="Örn: Kuaför, Butik, Otel, Kafe..."
                 className="w-full px-4 py-3 bg-stone-50 border border-stone-150 rounded-2xl text-xs font-bold text-stone-900 placeholder:text-stone-350 focus:outline-none focus:border-stone-900 focus:bg-white transition-all text-center"
               />
-              <Lucide.Search size={14} className="absolute right-4 top-1/2 -translate-y-1/2 text-stone-450" />
+              <Lucide.Search
+                size={14}
+                className="absolute right-4 top-1/2 -translate-y-1/2 text-stone-450"
+              />
             </div>
           </div>
 
@@ -338,19 +365,29 @@ export default function PortfoysSearchView({
                     setStep(3);
                   }}
                   className={`w-full flex items-center justify-between p-4 bg-stone-50 border rounded-2xl hover:bg-stone-100 transition-all ${
-                    country === c.name ? 'border-stone-900 bg-stone-50/50 shadow-sm' : 'border-stone-150'
+                    country === c.name
+                      ? 'border-stone-900 bg-stone-50/50 shadow-sm'
+                      : 'border-stone-150'
                   }`}
                 >
                   <div className="flex items-center gap-3 text-left">
                     <span className="text-2xl shrink-0">{c.flag}</span>
                     <div>
-                      <h5 className="text-[11px] font-black uppercase text-stone-900 tracking-tight">{c.name}</h5>
-                      <p className="text-[9px] text-stone-400 font-bold mt-0.5">{c.desc}</p>
+                      <h5 className="text-[11px] font-black uppercase text-stone-900 tracking-tight">
+                        {c.name}
+                      </h5>
+                      <p className="text-[9px] text-stone-400 font-bold mt-0.5">
+                        {c.desc}
+                      </p>
                     </div>
                   </div>
                   {country === c.name && (
                     <div className="w-5 h-5 rounded-full bg-stone-900 flex items-center justify-center animate-in zoom-in duration-200">
-                      <Lucide.Check size={10} className="text-white" strokeWidth={3} />
+                      <Lucide.Check
+                        size={10}
+                        className="text-white"
+                        strokeWidth={3}
+                      />
                     </div>
                   )}
                 </button>
@@ -386,7 +423,9 @@ export default function PortfoysSearchView({
           <div className="space-y-3">
             {popularCities.length > 0 && (
               <div className="space-y-1.5">
-                <span className="text-[8px] font-black uppercase tracking-widest text-stone-400">Popüler Şehirler</span>
+                <span className="text-[8px] font-black uppercase tracking-widest text-stone-400">
+                  Popüler Şehirler
+                </span>
                 <div className="grid grid-cols-2 gap-1.5">
                   {popularCities.map((pc) => (
                     <button
@@ -477,7 +516,9 @@ export default function PortfoysSearchView({
                 {loadingDistricts ? (
                   <div className="flex flex-col items-center justify-center py-12 gap-2">
                     <div className="w-4 h-4 border-2 border-stone-900 border-t-transparent rounded-full animate-spin" />
-                    <span className="text-[9px] font-black uppercase tracking-wider text-stone-400">İlçeler Yükleniyor...</span>
+                    <span className="text-[9px] font-black uppercase tracking-wider text-stone-400">
+                      İlçeler Yükleniyor...
+                    </span>
                   </div>
                 ) : districts.length === 0 ? (
                   <div className="text-center py-6 text-[9px] font-black uppercase tracking-widest text-stone-400">
@@ -537,7 +578,12 @@ export default function PortfoysSearchView({
             {/* Minimalist Premium Confirmation Card */}
             <div className="p-5 bg-emerald-500/5 border border-emerald-500/10 rounded-2xl text-center">
               <p className="text-[11px] font-bold text-stone-500 leading-relaxed uppercase tracking-wide">
-                <strong>{city} ({district})</strong>, <strong>{country}</strong> bölgesindeki <strong>"{keyword}"</strong> araması, 1 kullanım kredinizi tüketecektir.
+                <strong>
+                  {city} ({district})
+                </strong>
+                , <strong>{country}</strong> bölgesindeki{' '}
+                <strong>"{keyword}"</strong> araması, 1 kullanım kredinizi
+                tüketecektir.
               </p>
               <span className="block text-[9px] text-stone-400 mt-2 font-semibold normal-case">
                 yıllık arama hakkınız 2 adettir. (kalan: {credits}/2)

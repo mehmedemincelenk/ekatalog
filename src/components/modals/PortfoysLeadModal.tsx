@@ -11,7 +11,11 @@ interface PortfoysLeadModalProps {
   initialTab?: 'search' | 'directory';
 }
 
-export default function PortfoysLeadModal({ isOpen, onClose, initialTab }: PortfoysLeadModalProps) {
+export default function PortfoysLeadModal({
+  isOpen,
+  onClose,
+  initialTab,
+}: PortfoysLeadModalProps) {
   const { settings } = useStore();
   const storeId = settings?.id || '';
   const storeName = settings?.name || '';
@@ -40,7 +44,10 @@ export default function PortfoysLeadModal({ isOpen, onClose, initialTab }: Portf
     keyword: string;
   }) => {
     const cleanDistrict = params.district || '';
-    const key = `${params.country}_${params.city}_${cleanDistrict}_${params.keyword}`.toLowerCase().replace(/\s+/g, '_');
+    const key =
+      `${params.country}_${params.city}_${cleanDistrict}_${params.keyword}`
+        .toLowerCase()
+        .replace(/\s+/g, '_');
     setLastSearchKey(key);
     await startScan(params);
   };
@@ -72,8 +79,6 @@ export default function PortfoysLeadModal({ isOpen, onClose, initialTab }: Portf
     clearScan();
     onClose();
   };
-
-
 
   const credits = settings?.portfoys_credits ?? 2;
 

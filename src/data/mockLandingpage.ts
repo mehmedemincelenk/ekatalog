@@ -45,17 +45,57 @@ export const MOCK_LANDINGPAGE_SETTINGS: CompanySettings = {
     ],
   },
   referencesData: [
-    { id: 1777001524867, logo: 'https://logo.clearbit.com/selpak.com.tr', name: 'Selpak Professional' },
-    { id: 1777001524866, logo: 'https://logo.clearbit.com/diversey.com', name: 'Diversey Professional' },
-    { id: 1777001524869, logo: 'https://logo.clearbit.com/kaercher.com', name: 'Kärcher' },
-    { id: 1777001524871, logo: 'https://logo.clearbit.com/vileda.com', name: 'Vileda Professional' },
-    { id: 1777001524864, logo: 'https://logo.clearbit.com/pg.com', name: 'P&G' },
-    { id: 1777001524873, logo: 'https://logo.clearbit.com/arcelik.com.tr', name: 'Arçelik' },
-    { id: 1777001524860, logo: 'https://logo.clearbit.com/eczacibasi.com.tr', name: 'Eczacıbaşı' },
-    { id: 1777001524865, logo: 'https://logo.clearbit.com/hayat.com.tr', name: 'Hayat Kimya' },
+    {
+      id: 1777001524867,
+      logo: 'https://logo.clearbit.com/selpak.com.tr',
+      name: 'Selpak Professional',
+    },
+    {
+      id: 1777001524866,
+      logo: 'https://logo.clearbit.com/diversey.com',
+      name: 'Diversey Professional',
+    },
+    {
+      id: 1777001524869,
+      logo: 'https://logo.clearbit.com/kaercher.com',
+      name: 'Kärcher',
+    },
+    {
+      id: 1777001524871,
+      logo: 'https://logo.clearbit.com/vileda.com',
+      name: 'Vileda Professional',
+    },
+    {
+      id: 1777001524864,
+      logo: 'https://logo.clearbit.com/pg.com',
+      name: 'P&G',
+    },
+    {
+      id: 1777001524873,
+      logo: 'https://logo.clearbit.com/arcelik.com.tr',
+      name: 'Arçelik',
+    },
+    {
+      id: 1777001524860,
+      logo: 'https://logo.clearbit.com/eczacibasi.com.tr',
+      name: 'Eczacıbaşı',
+    },
+    {
+      id: 1777001524865,
+      logo: 'https://logo.clearbit.com/hayat.com.tr',
+      name: 'Hayat Kimya',
+    },
     { id: 1777001524868, logo: 'https://logo.clearbit.com/3m.com', name: '3M' },
-    { id: 1777001524870, logo: 'https://logo.clearbit.com/tesa.com', name: 'Tesa' },
-    { id: 1777001524872, logo: 'https://logo.clearbit.com/kimberly-clark.com', name: 'Kimberly-Clark' },
+    {
+      id: 1777001524870,
+      logo: 'https://logo.clearbit.com/tesa.com',
+      name: 'Tesa',
+    },
+    {
+      id: 1777001524872,
+      logo: 'https://logo.clearbit.com/kimberly-clark.com',
+      name: 'Kimberly-Clark',
+    },
   ],
   displayConfig: {
     showLogo: true,
@@ -96,7 +136,8 @@ export const MOCK_LANDINGPAGE_PRODUCTS: Product[] = [
     name: 'Premium Kraft Kargo Kutusu',
     category: 'Karton/Kağıt',
     price: '',
-    description: 'Dayanıklı, çift oluklu kraft mukavvadan üretilmiş yüksek mukavemetli kargo ve taşıma kolisi.',
+    description:
+      'Dayanıklı, çift oluklu kraft mukavvadan üretilmiş yüksek mukavemetli kargo ve taşıma kolisi.',
     image_url: '/images/mockup/products/kraft_box.png',
     original_image_url: null,
     polished_image_url: null,
@@ -115,7 +156,8 @@ export const MOCK_LANDINGPAGE_PRODUCTS: Product[] = [
     name: 'Lüks Mukavva Hediyelik Kutu',
     category: 'Karton/Kağıt',
     price: '',
-    description: 'Şık sunumlar, kurumsal hediyeler ve özel günler için sert mukavvadan üretilmiş kapaklı lüks kraft kutu.',
+    description:
+      'Şık sunumlar, kurumsal hediyeler ve özel günler için sert mukavvadan üretilmiş kapaklı lüks kraft kutu.',
     image_url: '/images/mockup/products/gift_box.png',
     original_image_url: null,
     polished_image_url: null,
@@ -134,7 +176,8 @@ export const MOCK_LANDINGPAGE_PRODUCTS: Product[] = [
     name: 'Büküm Saplı Alışveriş Çantası',
     category: 'Karton/Kağıt',
     price: '',
-    description: 'Büküm saplı, doğa dostu %100 geri dönüştürülebilir lüks kraft karton alışveriş ve servis çantası.',
+    description:
+      'Büküm saplı, doğa dostu %100 geri dönüştürülebilir lüks kraft karton alışveriş ve servis çantası.',
     image_url: '/images/mockup/products/paper_bag.png',
     original_image_url: null,
     polished_image_url: null,
@@ -153,7 +196,8 @@ export const MOCK_LANDINGPAGE_PRODUCTS: Product[] = [
     name: 'Mikro-Oluklu Kraft Pizza Kutusu',
     category: 'Karton/Kağıt',
     price: '',
-    description: 'Gıda temasına %100 uygun, ısı korumalı ve buhar tahliyeli mikro-dopel karton pizza kutusu.',
+    description:
+      'Gıda temasına %100 uygun, ısı korumalı ve buhar tahliyeli mikro-dopel karton pizza kutusu.',
     image_url: '/images/mockup/products/pizza_box.png',
     original_image_url: null,
     polished_image_url: null,
@@ -172,7 +216,8 @@ export const MOCK_LANDINGPAGE_PRODUCTS: Product[] = [
     name: 'Çift Cidarlı Kraft Kahve Bardağı',
     category: 'Karton/Kağıt',
     price: '',
-    description: 'Sıcak içecekler için yüksek ısı yalıtımlı, el yakmayan çift cidarlı premium karton bardak.',
+    description:
+      'Sıcak içecekler için yüksek ısı yalıtımlı, el yakmayan çift cidarlı premium karton bardak.',
     image_url: '/images/mockup/products/paper_cup.png',
     original_image_url: null,
     polished_image_url: null,
@@ -191,7 +236,8 @@ export const MOCK_LANDINGPAGE_PRODUCTS: Product[] = [
     name: 'Premium Kraft Paketleme Bandı',
     category: 'Endüstriyel Bant & Streç',
     price: '',
-    description: 'Geri dönüştürülebilir, yüksek yapışma mukavemetli ekolojik kağıt ambalaj ve koli bandı.',
+    description:
+      'Geri dönüştürülebilir, yüksek yapışma mukavemetli ekolojik kağıt ambalaj ve koli bandı.',
     image_url: '/images/mockup/products/kraft_tape.png',
     original_image_url: null,
     polished_image_url: null,
@@ -210,7 +256,8 @@ export const MOCK_LANDINGPAGE_PRODUCTS: Product[] = [
     name: 'Süper Esnek Palet Streç Filmi',
     category: 'Endüstriyel Bant & Streç',
     price: '',
-    description: 'Yüksek yırtılma dirençli, %300 esneme kabiliyetine sahip profesyonel palet sarma streci.',
+    description:
+      'Yüksek yırtılma dirençli, %300 esneme kabiliyetine sahip profesyonel palet sarma streci.',
     image_url: '/images/mockup/products/stretch_wrap.png',
     original_image_url: null,
     polished_image_url: null,
@@ -229,7 +276,8 @@ export const MOCK_LANDINGPAGE_PRODUCTS: Product[] = [
     name: 'Balonlu Ambalaj Naylonu',
     category: 'Endüstriyel Bant & Streç',
     price: '',
-    description: 'Hassas ve kırılgan ürünleriniz için yüksek darbe emici, çift katmanlı koruyucu balonlu naylon.',
+    description:
+      'Hassas ve kırılgan ürünleriniz için yüksek darbe emici, çift katmanlı koruyucu balonlu naylon.',
     image_url: '/images/mockup/products/bubble_wrap.png',
     original_image_url: null,
     polished_image_url: null,
@@ -248,7 +296,8 @@ export const MOCK_LANDINGPAGE_PRODUCTS: Product[] = [
     name: 'Ergonomik Koli Bandı Makinesi',
     category: 'Endüstriyel Bant & Streç',
     price: '',
-    description: 'Metal gövdeli, ergonomik saplı ve ayarlanabilir gerginlik mekanizmalı ağır hizmet tipi bant tabancası.',
+    description:
+      'Metal gövdeli, ergonomik saplı ve ayarlanabilir gerginlik mekanizmalı ağır hizmet tipi bant tabancası.',
     image_url: '/images/mockup/products/tape_dispenser.png',
     original_image_url: null,
     polished_image_url: null,
@@ -267,7 +316,8 @@ export const MOCK_LANDINGPAGE_PRODUCTS: Product[] = [
     name: 'Sert Mukavva Köşe Koruyucu',
     category: 'Endüstriyel Bant & Streç',
     price: '',
-    description: 'Palet sevkiyatlarında darbelere ve ezilmelere karşı maksimum koruma sağlayan L-profil sert karton köşe.',
+    description:
+      'Palet sevkiyatlarında darbelere ve ezilmelere karşı maksimum koruma sağlayan L-profil sert karton köşe.',
     image_url: '/images/mockup/products/edge_protector.png',
     original_image_url: null,
     polished_image_url: null,
@@ -286,7 +336,8 @@ export const MOCK_LANDINGPAGE_PRODUCTS: Product[] = [
     name: 'Çift Kovalı Temizlik Arabası',
     category: 'Endüstriyel Temizlik',
     price: '',
-    description: 'Büyük alanların zemin temizliği için tasarlanmış, metal gövdeli ve pres sıkma aparatlı çift kovalı temizlik arabası. Kırmızı ve mavi renk kodlaması ile maksimum hijyen sağlar.',
+    description:
+      'Büyük alanların zemin temizliği için tasarlanmış, metal gövdeli ve pres sıkma aparatlı çift kovalı temizlik arabası. Kırmızı ve mavi renk kodlaması ile maksimum hijyen sağlar.',
     image_url: '/images/mockup/products/mop_trolley.png',
     original_image_url: null,
     polished_image_url: null,
@@ -305,7 +356,8 @@ export const MOCK_LANDINGPAGE_PRODUCTS: Product[] = [
     name: 'Konsantre Genel Yüzey Temizleyici',
     category: 'Endüstriyel Temizlik',
     price: '',
-    description: 'Fabrika, depo ve ofis zeminleri için özel formüle edilmiş, yüksek konsantrasyonlu genel yüzey temizlik sıvısı. 5 litrelik kurumsal tasarruf bidonunda sunulmaktadır.',
+    description:
+      'Fabrika, depo ve ofis zeminleri için özel formüle edilmiş, yüksek konsantrasyonlu genel yüzey temizlik sıvısı. 5 litrelik kurumsal tasarruf bidonunda sunulmaktadır.',
     image_url: '/images/mockup/products/surface_cleaner.png',
     original_image_url: null,
     polished_image_url: null,
@@ -324,7 +376,8 @@ export const MOCK_LANDINGPAGE_PRODUCTS: Product[] = [
     name: 'Endüstriyel Mavi Rulo Havlu',
     category: 'Endüstriyel Temizlik',
     price: '',
-    description: 'Çift katlı, yüksek emici ve dayanıklı mavi endüstriyel centerfeed kağıt temizlik rulosu. Yağ, kir ve sıvı temizliği için ideal kurumsal sarf malzemesi.',
+    description:
+      'Çift katlı, yüksek emici ve dayanıklı mavi endüstriyel centerfeed kağıt temizlik rulosu. Yağ, kir ve sıvı temizliği için ideal kurumsal sarf malzemesi.',
     image_url: '/images/mockup/products/blue_roll.png',
     original_image_url: null,
     polished_image_url: null,
@@ -343,7 +396,8 @@ export const MOCK_LANDINGPAGE_PRODUCTS: Product[] = [
     name: 'Ağır Hizmet Nitril İş Eldiveni',
     category: 'Endüstriyel Temizlik',
     price: '',
-    description: 'Kimyasallara ve deterjanlara dayanıklı, ekstra kalınlaştırılmış siyah renkli ağır hizmet tipi nitril temizlik ve iş eldiveni. Uzun kollu koruyucu yapı.',
+    description:
+      'Kimyasallara ve deterjanlara dayanıklı, ekstra kalınlaştırılmış siyah renkli ağır hizmet tipi nitril temizlik ve iş eldiveni. Uzun kollu koruyucu yapı.',
     image_url: '/images/mockup/products/cleaning_gloves.png',
     original_image_url: null,
     polished_image_url: null,
@@ -362,7 +416,8 @@ export const MOCK_LANDINGPAGE_PRODUCTS: Product[] = [
     name: 'Çelik Cam Çekçek Aparatı',
     category: 'Endüstriyel Temizlik',
     price: '',
-    description: 'Paslanmaz çelik gövdeye ve ergonomik kaymaz kauçuk tutma sapına sahip, profesyonel cam ve düz zemin çekçek aparatı. İz bırakmayan özel lastik bıçak.',
+    description:
+      'Paslanmaz çelik gövdeye ve ergonomik kaymaz kauçuk tutma sapına sahip, profesyonel cam ve düz zemin çekçek aparatı. İz bırakmayan özel lastik bıçak.',
     image_url: '/images/mockup/products/window_squeegee.png',
     original_image_url: null,
     polished_image_url: null,
@@ -381,7 +436,8 @@ export const MOCK_LANDINGPAGE_PRODUCTS: Product[] = [
     name: 'Endüstriyel Koruyucu Baret',
     category: 'İş Güvenliği (KKD)',
     price: '',
-    description: 'Yüksek yoğunluklu polietilen malzemeden üretilmiş, ayarlanabilir baş bantlı ve darbe emici süspansiyon sistemli beyaz endüstriyel iş güvenliği bareti.',
+    description:
+      'Yüksek yoğunluklu polietilen malzemeden üretilmiş, ayarlanabilir baş bantlı ve darbe emici süspansiyon sistemli beyaz endüstriyel iş güvenliği bareti.',
     image_url: '/images/mockup/products/safety_helmet.png',
     original_image_url: null,
     polished_image_url: null,
@@ -400,7 +456,8 @@ export const MOCK_LANDINGPAGE_PRODUCTS: Product[] = [
     name: 'Koruyucu İş Gözlüğü',
     category: 'İş Güvenliği (KKD)',
     price: '',
-    description: 'Çizilmeye ve buğulanmaya karşı dayanıklı, ultra hafif şeffaf polikarbonat lensli ve ergonomik siyah gövdeli profesyonel iş güvenliği gözlüğü.',
+    description:
+      'Çizilmeye ve buğulanmaya karşı dayanıklı, ultra hafif şeffaf polikarbonat lensli ve ergonomik siyah gövdeli profesyonel iş güvenliği gözlüğü.',
     image_url: '/images/mockup/products/safety_glasses.png',
     original_image_url: null,
     polished_image_url: null,
@@ -419,7 +476,8 @@ export const MOCK_LANDINGPAGE_PRODUCTS: Product[] = [
     name: 'Gürültü Önleyici İş Kulaklığı',
     category: 'İş Güvenliği (KKD)',
     price: '',
-    description: 'Yüksek sesli endüstriyel ortamlarda işitme sağlığını korumak için tasarlanmış, 35dB SNR yüksek koruma seviyeli profesyonel gürültü önleyici kulaklık.',
+    description:
+      'Yüksek sesli endüstriyel ortamlarda işitme sağlığını korumak için tasarlanmış, 35dB SNR yüksek koruma seviyeli profesyonel gürültü önleyici kulaklık.',
     image_url: '/images/mockup/products/ear_muffs.png',
     original_image_url: null,
     polished_image_url: null,
@@ -438,7 +496,8 @@ export const MOCK_LANDINGPAGE_PRODUCTS: Product[] = [
     name: 'Yüksek Görünürlüklü İkaz Yeleği',
     category: 'İş Güvenliği (KKD)',
     price: '',
-    description: 'Gece ve gündüz maksimum fark edilebilirlik sağlayan, çift reflektör şeritli ve nefes alabilen file kumaşlı neon sarı yüksek görünürlüklü ikaz yeleği.',
+    description:
+      'Gece ve gündüz maksimum fark edilebilirlik sağlayan, çift reflektör şeritli ve nefes alabilen file kumaşlı neon sarı yüksek görünürlüklü ikaz yeleği.',
     image_url: '/images/mockup/products/safety_vest.png',
     original_image_url: null,
     polished_image_url: null,
@@ -457,7 +516,8 @@ export const MOCK_LANDINGPAGE_PRODUCTS: Product[] = [
     name: 'Valfli FFP2 Toz Maskesi',
     category: 'İş Güvenliği (KKD)',
     price: '',
-    description: 'İnce tozlara, neme ve partiküllere karşı yüksek filtrasyon sağlayan, nefes almayı kolaylaştırıcı tahliye valfli profesyonel FFP2 toz maskesi.',
+    description:
+      'İnce tozlara, neme ve partiküllere karşı yüksek filtrasyon sağlayan, nefes almayı kolaylaştırıcı tahliye valfli profesyonel FFP2 toz maskesi.',
     image_url: '/images/mockup/products/dust_mask.png',
     original_image_url: null,
     polished_image_url: null,
@@ -476,7 +536,8 @@ export const MOCK_LANDINGPAGE_PRODUCTS: Product[] = [
     name: 'A4 Fotokopi Kağıdı (500 Yaprak)',
     category: 'Ofis & Kırtasiye',
     price: '',
-    description: 'Yüksek beyazlık ve pürüzsüzlük oranına sahip, 80 gramajlı, tüm lazer yazıcılar ve fotokopi makineleriyle %100 uyumlu premium A4 fotokopi kağıdı.',
+    description:
+      'Yüksek beyazlık ve pürüzsüzlük oranına sahip, 80 gramajlı, tüm lazer yazıcılar ve fotokopi makineleriyle %100 uyumlu premium A4 fotokopi kağıdı.',
     image_url: '/images/mockup/products/copy_paper.png',
     original_image_url: null,
     polished_image_url: null,
@@ -495,7 +556,8 @@ export const MOCK_LANDINGPAGE_PRODUCTS: Product[] = [
     name: 'Geniş Klasör (Lever Arch File)',
     category: 'Ofis & Kırtasiye',
     price: '',
-    description: 'Metal kenar korumalı, dayanıklı dış mukavva kaplamalı ve sırt etiket cebine sahip, geniş iç hacimli A4 arşiv klasörü (binder).',
+    description:
+      'Metal kenar korumalı, dayanıklı dış mukavva kaplamalı ve sırt etiket cebine sahip, geniş iç hacimli A4 arşiv klasörü (binder).',
     image_url: '/images/mockup/products/file_binder.png',
     original_image_url: null,
     polished_image_url: null,
@@ -514,7 +576,8 @@ export const MOCK_LANDINGPAGE_PRODUCTS: Product[] = [
     name: 'Endüstriyel Koli Kalemi (Marker)',
     category: 'Ofis & Kırtasiye',
     price: '',
-    description: 'Karton kutular, plastik, ahşap ve metal yüzeyler üzerinde kalıcı, suya ve ışığa dayanıklı, çabuk kuruyan siyah renkli endüstriyel koli kalemi.',
+    description:
+      'Karton kutular, plastik, ahşap ve metal yüzeyler üzerinde kalıcı, suya ve ışığa dayanıklı, çabuk kuruyan siyah renkli endüstriyel koli kalemi.',
     image_url: '/images/mockup/products/permanent_marker.png',
     original_image_url: null,
     polished_image_url: null,
@@ -533,7 +596,8 @@ export const MOCK_LANDINGPAGE_PRODUCTS: Product[] = [
     name: 'Metal Evrak Rafı (3 Katlı)',
     category: 'Ofis & Kırtasiye',
     price: '',
-    description: 'Masaüstü düzeni sağlamak için tasarlanmış, elektrostatik toz boyalı siyah metal tel örgüden (mesh) üretilmiş 3 katlı pratik evrak rafı.',
+    description:
+      'Masaüstü düzeni sağlamak için tasarlanmış, elektrostatik toz boyalı siyah metal tel örgüden (mesh) üretilmiş 3 katlı pratik evrak rafı.',
     image_url: '/images/mockup/products/document_tray.png',
     original_image_url: null,
     polished_image_url: null,
@@ -552,7 +616,8 @@ export const MOCK_LANDINGPAGE_PRODUCTS: Product[] = [
     name: 'Profesyonel Masaüstü Zımba',
     category: 'Ofis & Kırtasiye',
     price: '',
-    description: 'Sağlam çelik gövde mekanizmasına ve ergonomik plastik üst kapağa sahip, tek seferde 25 sayfaya kadar zımbalama gücü sunan profesyonel zımba makinesi.',
+    description:
+      'Sağlam çelik gövde mekanizmasına ve ergonomik plastik üst kapağa sahip, tek seferde 25 sayfaya kadar zımbalama gücü sunan profesyonel zımba makinesi.',
     image_url: '/images/mockup/products/stapler.png',
     original_image_url: null,
     polished_image_url: null,

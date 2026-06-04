@@ -15,10 +15,7 @@ import { useSearchFilterFlow } from '../../hooks/useSearchFilterFlow';
  * Uses centralized analytics from useCatalogEngine.
  */
 const SearchFilter = memo(
-  ({
-    sortedList = [],
-    stats = {},
-  }: SearchFilterProps) => {
+  ({ sortedList = [], stats = {} }: SearchFilterProps) => {
     const flow = useSearchFilterFlow();
 
     const displayConfig = flow.settings?.displayConfig || {
@@ -71,7 +68,9 @@ const SearchFilter = memo(
       <div
         className={`w-full bg-stone-50 py-2 relative z-40 ${!showAll ? 'opacity-50 grayscale' : ''}`}
       >
-        <div className={`${filterTheme.container} !flex-col !items-stretch !gap-0`}>
+        <div
+          className={`${filterTheme.container} !flex-col !items-stretch !gap-0`}
+        >
           {/* TOP BAR: Search & Interaction */}
           <div className="flex flex-row items-center gap-2 w-full">
             {displayConfig.showSearch && (
@@ -96,9 +95,11 @@ const SearchFilter = memo(
             )}
 
             {displayConfig.showCategories && (
-              <div className={`flex-none flex items-center justify-start gap-2 overflow-hidden ${
-                !displayConfig.showSearch ? 'w-full' : ''
-              }`}>
+              <div
+                className={`flex-none flex items-center justify-start gap-2 overflow-hidden ${
+                  !displayConfig.showSearch ? 'w-full' : ''
+                }`}
+              >
                 <Button
                   onClick={() => flow.setIsPanelOpen(!flow.isPanelOpen)}
                   variant="glass"

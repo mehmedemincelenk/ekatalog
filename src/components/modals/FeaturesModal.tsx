@@ -20,7 +20,8 @@ const FEATURE_ITEMS: FeatureItem[] = [
   {
     id: 'SOCIAL_EXPORT',
     title: 'Sosyal Medya Tasarımı',
-    description: 'Ürünlerinizi paylaşmak için şık vitrin görselleri hazırlayın.',
+    description:
+      'Ürünlerinizi paylaşmak için şık vitrin görselleri hazırlayın.',
     icon: 'Sparkles',
     colorClass: 'bg-amber-500/10',
     iconColorClass: 'text-amber-600',
@@ -38,7 +39,9 @@ const FEATURE_ITEMS: FeatureItem[] = [
 export default function FeaturesModal({ isOpen, onClose }: FeaturesModalProps) {
   const { openModal } = useStore();
 
-  const handleFeatureClick = (targetModal: 'SOCIAL_EXPORT' | 'PORTFOYS_SEARCH' | 'PORTFOYS_DIRECTORY') => {
+  const handleFeatureClick = (
+    targetModal: 'SOCIAL_EXPORT' | 'PORTFOYS_SEARCH' | 'PORTFOYS_DIRECTORY',
+  ) => {
     onClose();
     setTimeout(() => {
       openModal(targetModal);
@@ -55,14 +58,20 @@ export default function FeaturesModal({ isOpen, onClose }: FeaturesModalProps) {
     >
       <div className="flex flex-col gap-3 p-5">
         {FEATURE_ITEMS.map((item) => {
-          const IconComponent = Lucide[item.icon] as React.ComponentType<{ size?: number; strokeWidth?: number; className?: string }>;
+          const IconComponent = Lucide[item.icon] as React.ComponentType<{
+            size?: number;
+            strokeWidth?: number;
+            className?: string;
+          }>;
           return (
             <button
               key={item.id}
               onClick={() => handleFeatureClick(item.id)}
               className="flex items-center gap-4 p-4 rounded-2xl border border-stone-200 bg-stone-50 hover:bg-white hover:border-stone-400 hover:shadow-md transition-all duration-200 text-left active:scale-98 group cursor-pointer"
             >
-              <div className={`w-12 h-12 rounded-xl ${item.colorClass} ${item.iconColorClass} flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform`}>
+              <div
+                className={`w-12 h-12 rounded-xl ${item.colorClass} ${item.iconColorClass} flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform`}
+              >
                 {IconComponent && <IconComponent size={24} strokeWidth={2} />}
               </div>
               <div className="flex-1">
@@ -73,7 +82,10 @@ export default function FeaturesModal({ isOpen, onClose }: FeaturesModalProps) {
                   {item.description}
                 </p>
               </div>
-              <Lucide.ChevronRight size={18} className="text-stone-300 group-hover:translate-x-1 transition-transform" />
+              <Lucide.ChevronRight
+                size={18}
+                className="text-stone-300 group-hover:translate-x-1 transition-transform"
+              />
             </button>
           );
         })}

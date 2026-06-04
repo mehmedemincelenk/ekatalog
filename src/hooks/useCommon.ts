@@ -205,13 +205,18 @@ export function useSyncMetadata(
     if (settings.logoUrl) link.href = settings.logoUrl;
 
     // Apple Meta Tags for Home Screen (iOS PWA branding)
-    let appleTitle = document.querySelector('meta[name="apple-mobile-web-app-title"]');
+    let appleTitle = document.querySelector(
+      'meta[name="apple-mobile-web-app-title"]',
+    );
     if (!appleTitle) {
       appleTitle = document.createElement('meta');
       appleTitle.setAttribute('name', 'apple-mobile-web-app-title');
       document.head.appendChild(appleTitle);
     }
-    appleTitle.setAttribute('content', settings.name || settings.title || 'ekatalog');
+    appleTitle.setAttribute(
+      'content',
+      settings.name || settings.title || 'ekatalog',
+    );
 
     let appleIcon = document.querySelector('link[rel="apple-touch-icon"]');
     if (!appleIcon) {
@@ -223,7 +228,9 @@ export function useSyncMetadata(
       appleIcon.setAttribute('href', settings.logoUrl);
     }
 
-    let appleIconPre = document.querySelector('link[rel="apple-touch-icon-precomposed"]');
+    let appleIconPre = document.querySelector(
+      'link[rel="apple-touch-icon-precomposed"]',
+    );
     if (!appleIconPre) {
       appleIconPre = document.createElement('link');
       appleIconPre.setAttribute('rel', 'apple-touch-icon-precomposed');
@@ -244,17 +251,15 @@ export function useSyncMetadata(
         manifestLink.setAttribute('rel', 'manifest');
         document.head.appendChild(manifestLink);
       }
-      
+
       const prevUrl = manifestLink.getAttribute('href');
       if (prevUrl && prevUrl.startsWith('blob:')) {
         URL.revokeObjectURL(prevUrl);
       }
-      
+
       manifestLink.setAttribute('href', manifestUrl);
     } catch (err) {
       console.error('Failed to update PWA manifest link:', err);
     }
   }, [isAdmin, settings]);
 }
-
-

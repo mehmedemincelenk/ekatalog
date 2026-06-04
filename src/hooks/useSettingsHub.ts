@@ -2,7 +2,11 @@ import { useEffect } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '../supabase';
 import { useStore } from '../store';
-import { getActiveStoreSlug, fetchCurrentRates, resolveLegacyImagePath } from '../utils/core';
+import {
+  getActiveStoreSlug,
+  fetchCurrentRates,
+  resolveLegacyImagePath,
+} from '../utils/core';
 import { CompanySettings } from '../types';
 import { CATEGORY_ORDER as DEFAULT_ORDER } from '../data/config';
 
@@ -63,7 +67,8 @@ export function useSettingsQuery() {
 
       // 0.1. LANDINGPAGE DEMO STORE BYPASS
       if (STORE_SLUG === 'landingpage') {
-        const { MOCK_LANDINGPAGE_SETTINGS } = await import('../data/mockLandingpage');
+        const { MOCK_LANDINGPAGE_SETTINGS } =
+          await import('../data/mockLandingpage');
         return MOCK_LANDINGPAGE_SETTINGS;
       }
 
@@ -84,24 +89,27 @@ export function useSettingsQuery() {
         return null;
       }
 
-            const raw = settingsRes.data;
-      
+      const raw = settingsRes.data;
+
       const mappedReferences = (raw.references_data || []).map((ref: any) => {
         let logo = ref.logo;
-        if (logo && (logo.includes('yalcintemizlik.com') || logo.includes('clearbit'))) {
+        if (
+          logo &&
+          (logo.includes('yalcintemizlik.com') || logo.includes('clearbit'))
+        ) {
           const domainMap: Record<string, string> = {
-            'selpak': 'selpak.com.tr',
-            'diversey': 'diversey.com',
-            'johnson': 'diversey.com',
-            'kärcher': 'kaercher.com',
-            'vileda': 'vileda.com',
+            selpak: 'selpak.com.tr',
+            diversey: 'diversey.com',
+            johnson: 'diversey.com',
+            kärcher: 'kaercher.com',
+            vileda: 'vileda.com',
             'p&g': 'pg.com',
-            'arçelik': 'arcelik.com.tr',
-            'eczacıbaşı': 'eczacibasi.com.tr',
-            'hayat': 'hayat.com.tr',
+            arçelik: 'arcelik.com.tr',
+            eczacıbaşı: 'eczacibasi.com.tr',
+            hayat: 'hayat.com.tr',
             '3m': '3m.com',
-            'tesa': 'tesa.com',
-            'kimberly': 'kimberly-clark.com',
+            tesa: 'tesa.com',
+            kimberly: 'kimberly-clark.com',
           };
           const lowerName = (ref.name || '').toLowerCase();
           for (const [key, domain] of Object.entries(domainMap)) {
@@ -146,7 +154,8 @@ export function useSettingsQuery() {
         },
         exchangeRates: rates || { usd: 0, eur: 0 },
         whatsapp: raw.phone || '05XX XXX XX XX',
-        phoneCall: raw.display_config?.phoneCall || raw.phone || '05XX XXX XX XX',
+        phoneCall:
+          raw.display_config?.phoneCall || raw.phone || '05XX XXX XX XX',
         address: raw.address || 'Adres Bilgisi Girilmemiş',
         shortAddress: raw.short_address || '',
         instagram: raw.instagram_url || '',
@@ -190,22 +199,25 @@ export function useSettings(isAdmin: boolean) {
       if (!settings?.id) throw new Error('Settings not loaded');
 
       if (STORE_SLUG === 'landingpage') {
-        queryClient.setQueryData<CompanySettings>(['settings', STORE_SLUG], (old) => {
-          if (!old) return old;
-          if (key === 'phoneCall') {
+        queryClient.setQueryData<CompanySettings>(
+          ['settings', STORE_SLUG],
+          (old) => {
+            if (!old) return old;
+            if (key === 'phoneCall') {
+              return {
+                ...old,
+                displayConfig: {
+                  ...(old.displayConfig || {}),
+                  phoneCall: value as string,
+                },
+              };
+            }
             return {
               ...old,
-              displayConfig: {
-                ...(old.displayConfig || {}),
-                phoneCall: value as string,
-              },
-            };
-          }
-          return {
-            ...old,
-            [key]: value,
-          } as CompanySettings;
-        });
+              [key]: value,
+            } as CompanySettings;
+          },
+        );
         return;
       }
 

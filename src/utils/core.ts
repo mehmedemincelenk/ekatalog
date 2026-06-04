@@ -75,7 +75,9 @@ export const getActiveStoreSlug = (): string => {
 
   // Subdomain resolution for ekatalog.site and Cloudflare Pages
   if (hostname.endsWith('.ekatalog.site') || hostname.endsWith('.pages.dev')) {
-    const suffix = hostname.endsWith('.ekatalog.site') ? '.ekatalog.site' : '.pages.dev';
+    const suffix = hostname.endsWith('.ekatalog.site')
+      ? '.ekatalog.site'
+      : '.pages.dev';
     const subdomain = hostname.slice(0, -suffix.length);
     if (subdomain.startsWith('www.')) {
       return subdomain.substring(4);
@@ -102,7 +104,7 @@ export const getActiveStoreSlug = (): string => {
 
   // 5. Fallback for custom domains or other hosting platforms
   const parts = hostname.split('.');
-  
+
   if (
     parts.length <= 2 ||
     (parts.length === 3 && (parts[0] === 'www' || parts[0] === 'landing'))
@@ -266,7 +268,9 @@ export const sortCategories = (categories: string[], order: string[]) => {
 /**
  * resolveLegacyImagePath: Maps flat root public images to their categorized subfolders.
  */
-export function resolveLegacyImagePath(path: string | null | undefined): string | null {
+export function resolveLegacyImagePath(
+  path: string | null | undefined,
+): string | null {
   if (!path) return null;
   if (path.startsWith('http://') || path.startsWith('https://')) {
     return path;
@@ -288,4 +292,3 @@ export function resolveLegacyImagePath(path: string | null | undefined): string 
 
   return `/images/mockup/products/${filename}`;
 }
-

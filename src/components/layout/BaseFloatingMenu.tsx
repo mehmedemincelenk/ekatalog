@@ -84,7 +84,10 @@ export default function BaseFloatingMenu({
     } else {
       // Refresh the auto-close timer for persistent actions
       if (!forceExpanded) {
-        timerRef.current = setTimeout(() => setIsExpandedState(false), autoCloseDelay);
+        timerRef.current = setTimeout(
+          () => setIsExpandedState(false),
+          autoCloseDelay,
+        );
       }
     }
   };
@@ -104,7 +107,10 @@ export default function BaseFloatingMenu({
     if (isExpandedState) {
       document.addEventListener('pointerdown', handleClickOutside);
       clearTimer();
-      timerRef.current = setTimeout(() => setIsExpandedState(false), autoCloseDelay);
+      timerRef.current = setTimeout(
+        () => setIsExpandedState(false),
+        autoCloseDelay,
+      );
     } else {
       document.removeEventListener('pointerdown', handleClickOutside);
       clearTimer();
@@ -152,24 +158,33 @@ export default function BaseFloatingMenu({
                     {actions
                       .filter((a) => a.label)
                       .map((btn) => (
-                        <div key={btn.id} className="w-full flex flex-col items-center">
+                        <div
+                          key={btn.id}
+                          className="w-full flex flex-col items-center"
+                        >
                           <Button
                             onClick={() => handleAction(btn)}
                             icon={btn.icon}
-                            variant={btn.variant === 'secondary' ? 'ghost' : (btn.variant || 'ghost')}
+                            variant={
+                              btn.variant === 'secondary'
+                                ? 'ghost'
+                                : btn.variant || 'ghost'
+                            }
                             size="sm"
                             mode="rectangle"
                             className={`
                             shrink-0 !rounded-lg ${btn.className || ''} w-full !justify-center px-1 gap-2 h-[40px] !text-white [transition-property:transform] backdrop-blur-md !shadow-none
                             ${
-                              !btn.variant || btn.variant === 'secondary' || btn.variant === 'ghost'
+                              !btn.variant ||
+                              btn.variant === 'secondary' ||
+                              btn.variant === 'ghost'
                                 ? '!bg-white/10 !border-white/10 hover:!bg-white/20'
                                 : ''
                             }
                           `}
                           >
                             <div className="flex-1 min-w-0 text-center px-1">
-                               <MarqueeText
+                              <MarqueeText
                                 text={btn.label}
                                 textClass="text-[11px] font-black uppercase tracking-normal text-white"
                                 isAdmin={false}
@@ -193,13 +208,19 @@ export default function BaseFloatingMenu({
                         <Button
                           onClick={() => handleAction(btn)}
                           icon={btn.icon}
-                          variant={btn.variant === 'secondary' ? 'ghost' : (btn.variant || 'ghost')}
+                          variant={
+                            btn.variant === 'secondary'
+                              ? 'ghost'
+                              : btn.variant || 'ghost'
+                          }
                           size="sm"
                           mode="square"
                           className={`
                           shrink-0 !rounded-lg ${btn.className || ''} w-full aspect-square h-auto !p-0 !text-white [transition-property:transform] backdrop-blur-md !shadow-none
                           ${
-                            !btn.variant || btn.variant === 'secondary' || btn.variant === 'ghost'
+                            !btn.variant ||
+                            btn.variant === 'secondary' ||
+                            btn.variant === 'ghost'
                               ? '!bg-white/10 !border-white/10 hover:!bg-white/20'
                               : 'hover:scale-[1.05]'
                           }
@@ -257,11 +278,14 @@ export default function BaseFloatingMenu({
             }}
           >
             {isExpanded ? (
-              activeMainIcon || (
-                mainIcon ? (
-                  <Lucide.ChevronDown size={16} className="text-stone-900 animate-in fade-in" strokeWidth={2.5} />
-                ) : null
-              )
+              activeMainIcon ||
+              (mainIcon ? (
+                <Lucide.ChevronDown
+                  size={16}
+                  className="text-stone-900 animate-in fade-in"
+                  strokeWidth={2.5}
+                />
+              ) : null)
             ) : (
               <div className="flex items-center gap-1 text-stone-900 justify-center w-full h-full">
                 {mainIcon}

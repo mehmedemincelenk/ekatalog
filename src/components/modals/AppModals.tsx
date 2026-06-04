@@ -77,7 +77,9 @@ const AppModals = memo(() => {
           await addCategory(name);
           useStore.getState().showFeedback('success', 'Kategori eklendi');
         } catch (err: any) {
-          useStore.getState().showFeedback('error', err?.message || 'Kategori eklenemedi');
+          useStore
+            .getState()
+            .showFeedback('error', err?.message || 'Kategori eklenemedi');
         }
       }
     } else if (type === 'REFERENCE') {
@@ -92,7 +94,9 @@ const AppModals = memo(() => {
           useStore.getState().showFeedback('success', 'Referans eklendi');
         } catch (err: any) {
           console.error(err);
-          useStore.getState().showFeedback('error', err?.message || 'Hata oluştu');
+          useStore
+            .getState()
+            .showFeedback('error', err?.message || 'Hata oluştu');
         }
       }
     } else if (type === 'CAROUSEL') {
@@ -135,7 +139,9 @@ const AppModals = memo(() => {
             {settings && (
               <Suspense fallback={null}>
                 <DisplaySettingsModal
-                  key={activeModal === 'DISPLAY_SETTINGS' ? 'active' : 'inactive'}
+                  key={
+                    activeModal === 'DISPLAY_SETTINGS' ? 'active' : 'inactive'
+                  }
                   isOpen={activeModal === 'DISPLAY_SETTINGS'}
                   onClose={closeModal}
                   settings={settings}
@@ -154,9 +160,14 @@ const AppModals = memo(() => {
 
             <Suspense fallback={null}>
               <PortfoysLeadModal
-                isOpen={activeModal === 'PORTFOYS_SEARCH' || activeModal === 'PORTFOYS_DIRECTORY'}
+                isOpen={
+                  activeModal === 'PORTFOYS_SEARCH' ||
+                  activeModal === 'PORTFOYS_DIRECTORY'
+                }
                 onClose={closeModal}
-                initialTab={activeModal === 'PORTFOYS_DIRECTORY' ? 'directory' : 'search'}
+                initialTab={
+                  activeModal === 'PORTFOYS_DIRECTORY' ? 'directory' : 'search'
+                }
               />
             </Suspense>
 
@@ -183,10 +194,7 @@ const AppModals = memo(() => {
         )}
         {activeModal === 'CHANGE_PIN' && (
           <Suspense fallback={null}>
-            <ChangePinModal
-              isOpen={true}
-              onClose={closeModal}
-            />
+            <ChangePinModal isOpen={true} onClose={closeModal} />
           </Suspense>
         )}
       </AnimatePresence>

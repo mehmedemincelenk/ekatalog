@@ -7,7 +7,11 @@ import { useRef, useEffect } from 'react';
  * physics loop for horizontal scrolling marquee with inertial
  * grab-and-drag mechanics and continuous infinite wrapping.
  */
-export function useMarqueePhysics(activeReferencesLength: number, _isAdmin: boolean, isPaused: boolean = false) {
+export function useMarqueePhysics(
+  activeReferencesLength: number,
+  _isAdmin: boolean,
+  isPaused: boolean = false,
+) {
   const trackRef = useRef<HTMLDivElement>(null);
   const xRef = useRef(0);
   const velocity = useRef(0);
@@ -36,7 +40,7 @@ export function useMarqueePhysics(activeReferencesLength: number, _isAdmin: bool
 
       const parentRect = parent.getBoundingClientRect();
       const containerCenter = parentRect.left + parentRect.width / 2;
-      
+
       // Dynamic maxDistance: 45% of parent container width, capped at 160px for a sharp focal zone
       const maxDistance = Math.min(160, parentRect.width * 0.45);
 
@@ -180,7 +184,7 @@ export function useMarqueePhysics(activeReferencesLength: number, _isAdmin: bool
   const handlePointerUp = (e: React.PointerEvent) => {
     if (!isDown.current) return;
     isDown.current = false;
-    
+
     if (hasCaptured.current) {
       const el = e.currentTarget as HTMLElement;
       try {

@@ -48,7 +48,7 @@ export function useReferencesFlow(isAdmin: boolean = false) {
       }
     } else {
       const updated = activeReferences.map((r) =>
-          r.id === activeQuickEdit.id ? { ...r, name: newName } : r
+        r.id === activeQuickEdit.id ? { ...r, name: newName } : r,
       );
       try {
         await updateSetting('referencesData', updated);
@@ -81,7 +81,7 @@ export function useReferencesFlow(isAdmin: boolean = false) {
       });
 
       const updated = activeReferences.map((r) =>
-        r.id === id ? { ...r, logo: finalizedUrl } : r
+        r.id === id ? { ...r, logo: finalizedUrl } : r,
       );
       await updateSetting('referencesData', updated);
       showFeedback('success', 'Referans logosu güncellendi');

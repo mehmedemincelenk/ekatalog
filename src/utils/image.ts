@@ -157,7 +157,6 @@ export async function compressVisualToBlob(
   return imageCompression(visualFile, options);
 }
 
-
 /**
  * resizeImageForAI: Downscales image to AI-friendly dimensions to prevent 413 errors.
  */

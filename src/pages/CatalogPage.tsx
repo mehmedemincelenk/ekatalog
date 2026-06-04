@@ -137,9 +137,7 @@ export default function CatalogPage() {
       <div className="relative w-full h-full overflow-hidden flex flex-col">
         {/* FLOATING GLASS NAVBAR OVERLAY - Fixed on mobile, absolute inside phone frame on desktop */}
         <div className="print:hidden fixed md:absolute top-0 left-0 right-0 z-[100] w-full pointer-events-none">
-          <Navbar
-            isInlineEnabled={isInlineEnabled}
-          />
+          <Navbar isInlineEnabled={isInlineEnabled} />
         </div>
 
         {/* SCROLLABLE LAYER */}
@@ -165,10 +163,7 @@ export default function CatalogPage() {
             {storeSettings?.displayConfig?.showReferences && (
               <References isInlineEnabled={isInlineEnabled} isAdmin={isAdmin} />
             )}
-            <SearchFilter
-              sortedList={sortedList}
-              stats={stats}
-            />
+            <SearchFilter sortedList={sortedList} stats={stats} />
             <div className="px-4 pb-6">
               {productsFetching && products.length === 0 ? (
                 <div className="py-20 flex justify-center">

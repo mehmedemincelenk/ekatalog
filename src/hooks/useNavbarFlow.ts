@@ -5,10 +5,7 @@ import { CompanySettings } from '../types';
 import { compressVisualToDataUri } from '../utils/image';
 import { openInstagram } from '../utils/contact';
 
-export function useNavbarFlow(
-  isInlineEnabled: boolean,
-  isPreview?: boolean,
-) {
+export function useNavbarFlow(isInlineEnabled: boolean, isPreview?: boolean) {
   const {
     isAdmin: storeIsAdmin,
     settings,

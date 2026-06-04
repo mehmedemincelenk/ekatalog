@@ -23,14 +23,24 @@ export const ANIMATIONS = {
     initial: { opacity: 0, scale: 0.95, y: -10 },
     animate: { opacity: 1, scale: 1, y: 0 },
     exit: { opacity: 0, scale: 0.95, y: -10 },
-    transition: { type: 'spring' as const, damping: 25, stiffness: 350, duration: 0.3 }
+    transition: {
+      type: 'spring' as const,
+      damping: 25,
+      stiffness: 350,
+      duration: 0.3,
+    },
   },
   pin: {
     initial: { opacity: 0, scale: 0.85 },
     animate: { opacity: 1, scale: 1 },
     exit: { opacity: 0, scale: 0.85 },
-    transition: { type: 'spring' as const, damping: 28, stiffness: 450, duration: 0.22 }
-  }
+    transition: {
+      type: 'spring' as const,
+      damping: 28,
+      stiffness: 450,
+      duration: 0.22,
+    },
+  },
 };
 
 export const THEME = {
@@ -97,21 +107,41 @@ export const THEME = {
     ),
     search: <Lucide.Search className="w-full h-full" strokeWidth={2} />,
     lock: (
-      <Lucide.Lock className="w-full h-full" fill="currentColor" strokeWidth={0} />
+      <Lucide.Lock
+        className="w-full h-full"
+        fill="currentColor"
+        strokeWidth={0}
+      />
     ),
     backspace: (
-      <Lucide.Delete className="w-full h-full" fill="currentColor" strokeWidth={1.5} />
+      <Lucide.Delete
+        className="w-full h-full"
+        fill="currentColor"
+        strokeWidth={1.5}
+      />
     ),
-    chevronLeft: <Lucide.ChevronLeft className="w-full h-full" strokeWidth={2.5} />,
-    chevronRight: <Lucide.ChevronRight className="w-full h-full" strokeWidth={2.5} />,
-    chevronDown: <Lucide.ChevronDown className="w-full h-full" strokeWidth={2.5} />,
+    chevronLeft: (
+      <Lucide.ChevronLeft className="w-full h-full" strokeWidth={2.5} />
+    ),
+    chevronRight: (
+      <Lucide.ChevronRight className="w-full h-full" strokeWidth={2.5} />
+    ),
+    chevronDown: (
+      <Lucide.ChevronDown className="w-full h-full" strokeWidth={2.5} />
+    ),
     chevronUp: <Lucide.ChevronUp className="w-full h-full" strokeWidth={2.5} />,
     power: <Lucide.Power className="w-full h-full p-0.5" strokeWidth={3} />,
     plus: <Lucide.Plus className="w-full h-full p-0.5" strokeWidth={3} />,
     check: <Lucide.Check className="w-full h-full" strokeWidth={3} />,
-    adminLayout: <Lucide.Settings className="w-full h-full p-0.5" strokeWidth={2.5} />,
-    settings: <Lucide.Settings2 className="w-full h-full p-0.5" strokeWidth={2.5} />,
-    bulkPrice: <Lucide.Tags className="w-full h-full p-0.5" strokeWidth={2.5} />,
+    adminLayout: (
+      <Lucide.Settings className="w-full h-full p-0.5" strokeWidth={2.5} />
+    ),
+    settings: (
+      <Lucide.Settings2 className="w-full h-full p-0.5" strokeWidth={2.5} />
+    ),
+    bulkPrice: (
+      <Lucide.Tags className="w-full h-full p-0.5" strokeWidth={2.5} />
+    ),
     trash: <Lucide.Trash2 className="w-full h-full p-0.5" strokeWidth={2.5} />,
     diamond: (
       <Lucide.Diamond
@@ -184,8 +214,7 @@ export const THEME = {
   },
 
   navbar: {
-    layout:
-      'w-full min-h-0 select-none bg-transparent',
+    layout: 'w-full min-h-0 select-none bg-transparent',
     container: 'w-full h-full flex items-center',
     innerWrapper:
       'flex justify-between items-center w-full bg-black/55 border-b border-white/10 px-4 py-3 pointer-events-auto',
@@ -353,7 +382,8 @@ export const THEME = {
       adminActionsInactive: 'opacity-0 scale-90 pointer-events-none',
     },
     image: {
-      wrapper: 'relative w-full transition-smooth overflow-hidden group/img rounded-t-[var(--radius-card)] rounded-b-none',
+      wrapper:
+        'relative w-full transition-smooth overflow-hidden group/img rounded-t-[var(--radius-card)] rounded-b-none',
       aspect: 'aspect-square',
       bg: 'bg-transparent',
       fit: 'object-contain',
@@ -482,8 +512,7 @@ export const THEME = {
     headerIconSize: 'w-5 h-5 text-stone-900',
     dotsWrapper: 'flex justify-center gap-3 mb-6',
     dotBase: `w-2 h-2 rounded-full border transition-all duration-300`,
-    dotActive:
-      'bg-stone-950 scale-125 shadow-none border-stone-950',
+    dotActive: 'bg-stone-950 scale-125 shadow-none border-stone-950',
     dotInactive: 'bg-transparent border-stone-400',
     dotError: 'bg-red-500 border-red-500',
     keyboardGrid: 'grid grid-cols-3 gap-x-2 gap-y-2 w-full',

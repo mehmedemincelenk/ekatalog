@@ -291,9 +291,10 @@ export function QuickEditModal({
   maxLength,
   keyName,
 }: QuickEditModalProps) {
-  const parsedInitial = keyName === 'slug'
-    ? initialValue.replace(/^www\./i, '').replace(/\.ekatalog\.site$/i, '')
-    : initialValue;
+  const parsedInitial =
+    keyName === 'slug'
+      ? initialValue.replace(/^www\./i, '').replace(/\.ekatalog\.site$/i, '')
+      : initialValue;
 
   const [value, setValue] = useState(parsedInitial);
   const [prevInitial, setPrevInitial] = useState(initialValue);
@@ -327,18 +328,26 @@ export function QuickEditModal({
         <div className="relative flex flex-col gap-1 w-full">
           {keyName === 'slug' ? (
             <div className="flex items-center w-full border border-stone-200 focus-within:border-emerald-500 rounded-3xl bg-stone-50/50 shadow-inner px-4 py-4 transition-all">
-              <span className="text-stone-400 font-bold select-none text-sm pr-1">www.</span>
+              <span className="text-stone-400 font-bold select-none text-sm pr-1">
+                www.
+              </span>
               <input
                 ref={inputRef as any}
                 type="text"
                 value={value}
-                onChange={(e) => setValue(e.target.value.toLowerCase().replace(/[^a-z0-9-_]/g, ''))}
+                onChange={(e) =>
+                  setValue(
+                    e.target.value.toLowerCase().replace(/[^a-z0-9-_]/g, ''),
+                  )
+                }
                 onKeyDown={(e) => e.key === 'Enter' && handleSave()}
                 placeholder="dukkan-adi"
                 className="flex-1 bg-transparent border-none outline-none text-stone-900 font-black text-sm text-center tracking-wide"
                 maxLength={30}
               />
-              <span className="text-stone-400 font-bold select-none text-sm pl-1">.ekatalog.site</span>
+              <span className="text-stone-400 font-bold select-none text-sm pl-1">
+                .ekatalog.site
+              </span>
             </div>
           ) : (
             <FormInput
@@ -413,7 +422,10 @@ export function PinModal({
     if (isStatic) return;
 
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) {
+      if (
+        e.target instanceof HTMLInputElement ||
+        e.target instanceof HTMLTextAreaElement
+      ) {
         return;
       }
 
@@ -442,7 +454,9 @@ export function PinModal({
       initial={isStatic ? { opacity: 1 } : { opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className={isStatic ? 'relative z-0' : `${theme.overlay} z-[10000] cursor-pointer`}
+      className={
+        isStatic ? 'relative z-0' : `${theme.overlay} z-[10000] cursor-pointer`
+      }
       onClick={onModalClose}
     >
       <motion.div

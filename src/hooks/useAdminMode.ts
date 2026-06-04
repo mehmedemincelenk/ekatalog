@@ -93,7 +93,7 @@ export function useAdminMode() {
           message: error.message,
           details: error.details,
           hint: error.hint,
-          code: error.code
+          code: error.code,
         });
         return false;
       }
@@ -166,16 +166,13 @@ export function useAdminMode() {
     if (longPressTimer.current) clearTimeout(longPressTimer.current);
     pointerDownTime.current = Date.now();
 
-    longPressTimer.current = setTimeout(
-      () => {
-        if (isAdmin) {
-          logout();
-        } else {
-          openModal('PIN');
-        }
-      },
-      1200,
-    );
+    longPressTimer.current = setTimeout(() => {
+      if (isAdmin) {
+        logout();
+      } else {
+        openModal('PIN');
+      }
+    }, 1200);
   }, [isAdmin, logout, openModal]);
 
   const handleMenuPointerUp = useCallback(() => {

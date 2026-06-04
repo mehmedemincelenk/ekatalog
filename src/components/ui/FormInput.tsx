@@ -11,7 +11,15 @@ interface FormInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
 const FormInput = memo(
   forwardRef<HTMLInputElement, FormInputProps>(
     (
-      { labelText, id, className = '', containerClassName = '', onlyDigits, onChange, ...props },
+      {
+        labelText,
+        id,
+        className = '',
+        containerClassName = '',
+        onlyDigits,
+        onChange,
+        ...props
+      },
       ref,
     ) => {
       const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

@@ -70,7 +70,9 @@ const ReferenceItem = memo(
         {/* LOGO CONTAINER (BLURS DIRECTLY WHEN ACTIVE WITH GPU ACCELERATION) */}
         <div
           className={`flex items-center justify-center h-full transition-all duration-300 ${
-            isActive ? 'blur-[6px] opacity-25 scale-95' : 'blur-0 opacity-100 scale-100'
+            isActive
+              ? 'blur-[6px] opacity-25 scale-95'
+              : 'blur-0 opacity-100 scale-100'
           }`}
         >
           {showTextFallback ? (
@@ -91,7 +93,7 @@ const ReferenceItem = memo(
 
         {/* ADMIN OVERLAY BUTTONS (FADES IN WHEN ACTIVE - FLOATING DIRECTLY ON BLURRED LOGO WITH NO SOLID CARD COVER) */}
         {isAdmin && isActive && (
-          <div 
+          <div
             className="absolute inset-0 flex flex-col items-center justify-center gap-1 z-20 animate-in fade-in zoom-in-95 duration-200"
             onClick={(e) => e.stopPropagation()}
           >
@@ -159,34 +161,33 @@ const ReferenceItem = memo(
         )}
       </div>
     );
-  }
+  },
 );
 
 export default function References({
   isAdmin = false,
   isPaused = false,
 }: ReferencesProps & { isPaused?: boolean }) {
-  const {
-    activeReferences,
-    handleDelete,
-    handleOrderChange,
-  } = useReferencesFlow(isAdmin);
+  const { activeReferences, handleDelete, handleOrderChange } =
+    useReferencesFlow(isAdmin);
 
   const [isAnyCardActive, setIsAnyCardActive] = useState(false);
 
-  const {
-    trackRef,
-    handlePointerDown,
-    handlePointerMove,
-    handlePointerUp,
-  } = useMarqueePhysics(activeReferences.length, isAdmin, isPaused || isAnyCardActive);
+  const { trackRef, handlePointerDown, handlePointerMove, handlePointerUp } =
+    useMarqueePhysics(
+      activeReferences.length,
+      isAdmin,
+      isPaused || isAnyCardActive,
+    );
 
   if (activeReferences.length === 0) {
     if (isAdmin) {
       return (
         <section className="w-full max-w-full overflow-hidden select-none py-4 bg-transparent border border-stone-100/50 rounded-2xl flex flex-col items-center justify-center gap-2 text-stone-300">
           <span className="text-xl">🤝</span>
-          <span className="text-[10px] font-black uppercase tracking-[0.2em]">HENÜZ REFERANS EKLENMEMİŞ</span>
+          <span className="text-[10px] font-black uppercase tracking-[0.2em]">
+            HENÜZ REFERANS EKLENMEMİŞ
+          </span>
         </section>
       );
     }
@@ -230,7 +231,9 @@ export default function References({
                 <ReferenceItem
                   refData={ref}
                   isAdmin={isAdmin}
-                  currentIndex={activeReferences.findIndex(r => r.id === ref.id)}
+                  currentIndex={activeReferences.findIndex(
+                    (r) => r.id === ref.id,
+                  )}
                   totalItems={activeReferences.length}
                   onOrderChange={handleOrderChange}
                   onDelete={handleDelete}

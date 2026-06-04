@@ -16,9 +16,9 @@ export function useSaaSLifecycle() {
 
   const createdDate = new Date(settings.created_at);
   const now = new Date();
-  
+
   const isProTier = settings.subscription_tier === 'pro';
-  
+
   let isAdminLocked = false;
   let isStorefrontClosed = false;
   let daysLeft = 999;
@@ -33,7 +33,7 @@ export function useSaaSLifecycle() {
         isAdminLocked = true;
         const diffTime = now.getTime() - expiresDate.getTime();
         const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-        
+
         // 30 days grace period after subscription expires
         isStorefrontClosed = diffDays > 30;
         daysLeft = Math.max(0, 30 - diffDays);
@@ -43,7 +43,7 @@ export function useSaaSLifecycle() {
     // Free Trial Lifecycle: Trial 30 days, grace 30 days
     const diffTime = now.getTime() - createdDate.getTime();
     const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-    
+
     isAdminLocked = diffDays > 30;
     isStorefrontClosed = diffDays > 60;
     daysLeft = Math.max(0, 60 - diffDays);
