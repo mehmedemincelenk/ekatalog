@@ -444,11 +444,13 @@ export function PinModal({
               <span className="text-[10px] font-black tracking-[0.4em] text-stone-500 uppercase mb-6">
                 GÜVENLİK DOĞRULAMASI
               </span>
-              <div className="flex items-center justify-center w-full">
-                <Turnstile
-                  onVerify={() => flow.setIsRobotVerified(true)}
-                  options={{ theme: 'light', size: 'compact' }}
-                />
+              <div className="flex items-center justify-center w-full h-[95px] overflow-hidden">
+                <div className="scale-[0.75] origin-center flex items-center justify-center">
+                  <Turnstile
+                    onVerify={() => flow.setIsRobotVerified(true)}
+                    options={{ theme: 'light', size: 'compact' }}
+                  />
+                </div>
               </div>
               <button
                 onClick={onModalClose}
