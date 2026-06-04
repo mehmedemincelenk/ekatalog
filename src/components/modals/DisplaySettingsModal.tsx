@@ -37,114 +37,50 @@ const InstagramIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
 // ---------------------------------------------------------------------------
 function InlineHelpDemo() {
   const [step, setStep] = useState(0);
-
   useEffect(() => {
-    const interval = setInterval(() => {
-      setStep((prev) => (prev + 1) % 5);
-    }, 2500);
-    return () => clearInterval(interval);
+    const timer = setInterval(() => setStep((s) => (s + 1) % 3), 2000);
+    return () => clearInterval(timer);
   }, []);
 
-  const cursorCoords = [
-    { top: '80%', left: '80%', clicked: false },  // Step 0: Rest
-    { top: '22%', left: '45%', clicked: true },   // Step 1: Click Name
-    { top: '22%', left: '45%', clicked: false },  // Step 2: Typing Name
-    { top: '78%', left: '40%', clicked: true },   // Step 3: Click Price
-    { top: '85%', left: '90%', clicked: true },   // Step 4: Save Click
-  ];
-
-  const currentCursor = cursorCoords[step];
+  const cursor = [
+    { y: '80%', x: '80%', click: false },
+    { y: '25%', x: '45%', click: true },
+    { y: '85%', x: '90%', click: true },
+  ][step];
 
   return (
     <div className="w-full h-full relative flex items-center justify-center bg-stone-50 select-none">
-      {/* Product Card */}
-      <div className="w-[240px] h-[88px] bg-white border border-stone-200/80 rounded-2xl p-3 flex gap-3 shadow-sm relative overflow-hidden">
-        {/* Success Save Checkmark overlay */}
+      <div className="w-[220px] h-[76px] bg-white border border-stone-200/80 rounded-2xl p-2.5 flex gap-2.5 shadow-sm relative overflow-hidden">
         <AnimatePresence>
-          {step === 4 && (
+          {step === 2 && (
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="absolute inset-0 bg-emerald-500/10 backdrop-blur-[1px] flex items-center justify-center z-10"
+              className="absolute inset-0 bg-emerald-500/10 backdrop-blur-[0.5px] flex items-center justify-center z-10"
             >
               <motion.div
-                initial={{ scale: 0.5, opacity: 0 }}
+                initial={{ scale: 0.8, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
-                exit={{ scale: 0.5, opacity: 0 }}
-                transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-                className="w-10 h-10 bg-emerald-500 rounded-full flex items-center justify-center text-white shadow"
+                exit={{ scale: 0.8, opacity: 0 }}
+                className="w-8 h-8 bg-emerald-500 rounded-full flex items-center justify-center text-white shadow"
               >
-                <Lucide.Check size={20} strokeWidth={3} />
+                <Lucide.Check size={16} strokeWidth={3} />
               </motion.div>
             </motion.div>
           )}
         </AnimatePresence>
-
-        {/* Product Image */}
-        <div className="w-16 h-16 rounded-xl bg-gradient-to-tr from-amber-100 to-orange-200 shrink-0 flex items-center justify-center text-2xl shadow-inner">
-          🍕
-        </div>
-
-        {/* Product Details */}
+        <div className="w-12 h-12 rounded-xl bg-amber-100 flex items-center justify-center text-xl shrink-0">🍕</div>
         <div className="flex-1 flex flex-col justify-between py-0.5">
-          {/* Name Field */}
-          <div className="relative h-6 flex items-center">
-            {step >= 2 ? (
-              <input
-                type="text"
-                readOnly
-                value={step === 2 ? "Marga" : "Margarita 🌟"}
-                className="w-full h-6 px-1.5 text-[11px] font-black text-stone-900 bg-stone-50 border border-stone-300 rounded-lg outline-none"
-              />
-            ) : (
-              <span className="text-[11px] font-black text-stone-955 border border-transparent px-1.5">
-                Margarita Pizza
-              </span>
-            )}
-          </div>
-
-          <span className="text-[9px] font-bold text-stone-400 px-1.5">Taze fesleğenli</span>
-
-          {/* Price Field */}
-          <div className="relative h-6 flex items-center">
-            {step === 3 ? (
-              <input
-                type="text"
-                readOnly
-                value="290 ₺"
-                className="w-16 h-6 px-1.5 text-[11px] font-black text-emerald-600 bg-stone-50 border border-stone-300 rounded-lg outline-none"
-              />
-            ) : (
-              <span className="text-[11px] font-black text-emerald-600 border border-transparent px-1.5">
-                {step === 4 ? "290 ₺" : "250 ₺"}
-              </span>
-            )}
-          </div>
-        </div>
-
-        {/* Simulated Cursor */}
-        <motion.div
-          animate={{
-            top: currentCursor.top,
-            left: currentCursor.left,
-            scale: currentCursor.clicked ? 0.85 : 1
-          }}
-          transition={{ type: 'spring', stiffness: 200, damping: 25 }}
-          className="w-5 h-5 absolute z-20 pointer-events-none"
-          style={{ transform: 'translate(-50%, -50%)' }}
-        >
-          {currentCursor.clicked && (
-            <motion.div
-              initial={{ scale: 0.5, opacity: 0.8 }}
-              animate={{ scale: 2.2, opacity: 0 }}
-              transition={{ duration: 0.4 }}
-              className="absolute inset-0 -m-1.5 border border-amber-500 rounded-full bg-amber-500/10"
-            />
+          {step === 1 ? (
+            <input type="text" readOnly value="Margarita 🌟" className="w-full h-6 px-1.5 text-[10px] font-black text-stone-900 bg-stone-50 border border-stone-300 rounded-lg outline-none" />
+          ) : (
+            <span className="text-[10px] font-black text-stone-950 px-1.5">{step === 2 ? "Margarita 🌟" : "Margarita Pizza"}</span>
           )}
-          <div className="w-5 h-5 rounded-full border-2 border-white bg-stone-900 shadow-[0_3px_10px_rgba(0,0,0,0.3)] flex items-center justify-center">
-            <Lucide.Hand className="w-2.5 h-2.5 text-white" strokeWidth={3} />
-          </div>
+          <span className="text-[10px] font-black text-emerald-600 px-1.5">250 ₺</span>
+        </div>
+        <motion.div animate={{ top: cursor.y, left: cursor.x, scale: cursor.click ? 0.8 : 1 }} className="w-4 h-4 absolute z-20 pointer-events-none -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-white bg-stone-900 shadow flex items-center justify-center">
+          <Lucide.Hand className="w-2.5 h-2.5 text-white" strokeWidth={3} />
         </motion.div>
       </div>
     </div>
@@ -153,101 +89,56 @@ function InlineHelpDemo() {
 
 function ModalHelpDemo() {
   const [step, setStep] = useState(0);
-
   useEffect(() => {
-    const interval = setInterval(() => {
-      setStep((prev) => (prev + 1) % 5);
-    }, 2500);
-    return () => clearInterval(interval);
+    const timer = setInterval(() => setStep((s) => (s + 1) % 3), 2000);
+    return () => clearInterval(timer);
   }, []);
 
-  const cursorCoords = [
-    { top: '80%', left: '80%', clicked: false },  // Step 0: Rest
-    { top: '50%', left: '50%', clicked: true },   // Step 1: Click Card
-    { top: '50%', left: '50%', clicked: false },  // Step 2: Modal Open
-    { top: '35%', left: '62%', clicked: true },   // Step 3: Click X close button
-    { top: '80%', left: '80%', clicked: false },  // Step 4: Reset
-  ];
-
-  const currentCursor = cursorCoords[step];
+  const cursor = [
+    { y: '80%', x: '80%', click: false },
+    { y: '50%', x: '50%', click: true },
+    { y: '35%', x: '62%', click: true }
+  ][step];
 
   return (
     <div className="w-full h-full relative flex items-center justify-center bg-stone-50 overflow-hidden select-none">
-      {/* Product Card */}
-      <div className="w-[240px] h-[88px] bg-white border border-stone-200/80 rounded-2xl p-3 flex gap-3 shadow-sm relative">
-        <div className="w-16 h-16 rounded-xl bg-gradient-to-tr from-amber-100 to-orange-200 shrink-0 flex items-center justify-center text-2xl shadow-inner">
-          🍕
-        </div>
+      <div className="w-[220px] h-[76px] bg-white border border-stone-200/80 rounded-2xl p-2.5 flex gap-2.5 shadow-sm">
+        <div className="w-12 h-12 rounded-xl bg-amber-100 flex items-center justify-center text-xl shrink-0">🍕</div>
         <div className="flex-1 flex flex-col justify-between py-0.5">
-          <span className="text-[11px] font-black text-stone-900 px-1.5">Margarita Pizza</span>
-          <span className="text-[9px] font-bold text-stone-400 px-1.5">Taze fesleğenli</span>
-          <span className="text-[11px] font-black text-emerald-600 px-1.5">250 ₺</span>
+          <span className="text-[10px] font-black text-stone-950 px-1.5">Margarita Pizza</span>
+          <span className="text-[10px] font-black text-emerald-600 px-1.5">250 ₺</span>
         </div>
       </div>
 
-      {/* Simulated Detail Modal Layer */}
       <AnimatePresence>
-        {(step === 2 || step === 3) && (
+        {step === 2 && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="absolute inset-0 bg-stone-900/40 backdrop-blur-[2px] flex items-center justify-center z-10"
+            className="absolute inset-0 bg-stone-900/30 backdrop-blur-[1px] flex items-center justify-center z-10"
           >
-            {/* Modal Body */}
             <motion.div
-              initial={{ scale: 0.85, y: 10, opacity: 0 }}
-              animate={{ scale: 1, y: 0, opacity: 1 }}
-              exit={{ scale: 0.85, y: 10, opacity: 0 }}
-              transition={{ type: 'spring', stiffness: 350, damping: 25 }}
-              className="w-[180px] bg-white rounded-2xl p-3 border border-stone-200 shadow-xl relative flex flex-col gap-2"
+              initial={{ scale: 0.9, y: 5 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.9, y: 5 }}
+              className="w-[160px] bg-white rounded-2xl p-2.5 border border-stone-200 shadow-lg relative flex flex-col gap-1.5"
             >
-              {/* Close Button */}
-              <div className="absolute top-2 right-2 w-4 h-4 bg-stone-100 rounded-full flex items-center justify-center text-stone-400">
+              <div className="absolute top-1.5 right-1.5 w-4 h-4 bg-stone-100 rounded-full flex items-center justify-center text-stone-400">
                 <Lucide.X size={8} strokeWidth={3} />
               </div>
-              {/* Modal Image */}
-              <div className="w-full h-14 bg-gradient-to-tr from-amber-100 to-orange-200 rounded-lg flex items-center justify-center text-2xl shadow-inner">
-                🍕
-              </div>
-              {/* Modal Text */}
-              <div className="space-y-0.5">
-                <h4 className="text-[9px] font-black text-stone-900 uppercase">Margarita Pizza</h4>
-                <p className="text-[7px] font-bold text-stone-400 leading-normal">
-                  Domates sosu, peynir ve taze fesleğen.
-                </p>
-                <div className="flex justify-between items-center mt-1.5 pt-1 border-t border-stone-100">
-                  <span className="text-[9px] font-black text-emerald-600">250 ₺</span>
-                  <span className="text-[7px] font-black text-white bg-stone-900 px-1.5 py-0.5 rounded">DETAY</span>
-                </div>
+              <div className="w-full h-12 bg-amber-100 rounded-lg flex items-center justify-center text-xl">🍕</div>
+              <div className="flex justify-between items-center text-[9px] font-black text-stone-900">
+                <span>Margarita Pizza</span>
+                <span className="text-emerald-600">250 ₺</span>
               </div>
             </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
 
-      {/* Simulated Cursor */}
-      <motion.div
-        animate={{
-          top: currentCursor.top,
-          left: currentCursor.left,
-          scale: currentCursor.clicked ? 0.85 : 1
-        }}
-        transition={{ type: 'spring', stiffness: 200, damping: 25 }}
-        className="w-5 h-5 absolute z-20 pointer-events-none"
-        style={{ transform: 'translate(-50%, -50%)' }}
-      >
-        {currentCursor.clicked && (
-          <motion.div
-            initial={{ scale: 0.5, opacity: 0.8 }}
-            animate={{ scale: 2.2, opacity: 0 }}
-            transition={{ duration: 0.4 }}
-            className="absolute inset-0 -m-1.5 border border-amber-500 rounded-full bg-amber-500/10"
-          />
-        )}
-        <div className="w-5 h-5 rounded-full border-2 border-white bg-stone-900 shadow-[0_3px_10px_rgba(0,0,0,0.3)] flex items-center justify-center">
-          <Lucide.Hand className="w-2.5 h-2.5 text-white" strokeWidth={3} />
-        </div>
+      <motion.div animate={{ top: cursor.y, left: cursor.x, scale: cursor.click ? 0.8 : 1 }} className="w-4 h-4 absolute z-20 pointer-events-none -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-white bg-stone-900 shadow flex items-center justify-center">
+        <Lucide.Hand className="w-2.5 h-2.5 text-white" strokeWidth={3} />
       </motion.div>
     </div>
   );
