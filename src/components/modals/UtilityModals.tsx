@@ -447,7 +447,7 @@ export function PinModal({
               <div className="bg-white/5 backdrop-blur-md p-6 rounded-[2.5rem] border border-white/10 shadow-2xl">
                 <Turnstile
                   onVerify={() => flow.setIsRobotVerified(true)}
-                  options={{ theme: 'dark', size: 'normal' }}
+                  options={{ theme: 'dark', size: 'compact' }}
                 />
               </div>
               <Button
