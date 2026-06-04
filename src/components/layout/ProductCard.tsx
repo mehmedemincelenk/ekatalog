@@ -146,6 +146,7 @@ const ProductCard = memo(
                   ? {
                       contentEditable: true,
                       suppressContentEditableWarning: true,
+                      spellCheck: false,
                       onBlur: (event: React.FocusEvent<HTMLDivElement>) =>
                         handleDataFieldUpdate(
                           'name',
@@ -170,6 +171,7 @@ const ProductCard = memo(
                 >
                   <textarea
                     defaultValue={product.description || ''}
+                    spellCheck={false}
                     onBlur={(event) =>
                       handleDataFieldUpdate(
                         'description',
@@ -225,6 +227,7 @@ const ProductCard = memo(
                     <div
                       contentEditable={isAdmin && isInlineEnabled}
                       suppressContentEditableWarning
+                      spellCheck={false}
                       onBlur={(event: React.FocusEvent<HTMLDivElement>) => {
                         const inputPrice =
                           event.currentTarget.textContent?.trim() || '';

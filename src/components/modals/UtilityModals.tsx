@@ -730,6 +730,7 @@ export function ProductDetailModal({
                     type="text"
                     value={product.name}
                     onChange={(e) => onUpdate?.(product.id, { name: e.target.value })}
+                    spellCheck={false}
                     className="text-lg font-black text-stone-900 tracking-tighter leading-tight w-full uppercase bg-transparent outline-none focus:bg-stone-100 hover:bg-stone-50 rounded px-1 -mx-1 border-none focus:ring-0 focus:outline-none transition-all"
                     placeholder="ÜRÜN ADI"
                   />
@@ -742,6 +743,7 @@ export function ProductDetailModal({
                 {isAdmin ? (
                   <textarea
                     value={product.description || ''}
+                    spellCheck={false}
                     onChange={(e) => {
                       onUpdate?.(product.id, { description: e.target.value });
                       e.target.style.height = 'auto';
