@@ -262,3 +262,30 @@ export const sortCategories = (categories: string[], order: string[]) => {
     return indexA - indexB;
   });
 };
+
+/**
+ * resolveLegacyImagePath: Maps flat root public images to their categorized subfolders.
+ */
+export function resolveLegacyImagePath(path: string | null | undefined): string | null {
+  if (!path) return null;
+  if (path.startsWith('http://') || path.startsWith('https://')) {
+    return path;
+  }
+  if (path.startsWith('/images/mockup/')) {
+    return path;
+  }
+
+  const filename = path.split('/').pop() || '';
+  if (!filename) return path;
+
+  if (filename.includes('stuffs-logo') || filename.includes('stuffs_logo')) {
+    return '/images/mockup/brand/stuffs_logo.png';
+  }
+
+  if (filename.startsWith('banner_')) {
+    return `/images/mockup/banners/${filename}`;
+  }
+
+  return `/images/mockup/products/${filename}`;
+}
+

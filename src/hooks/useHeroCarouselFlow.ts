@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useStore } from '../store';
 import { supabase } from '../supabase';
-import { getActiveStoreSlug, reorderArray } from '../utils/core';
+import { getActiveStoreSlug, reorderArray, resolveLegacyImagePath } from '../utils/core';
 import { CarouselSlide } from '../types';
 import { CAROUSEL, TECH } from '../data/config';
 import { PanInfo } from 'motion/react';
@@ -63,7 +63,11 @@ export function useHeroCarouselFlow(isAdminModeActive: boolean) {
       .eq('slug', activeStoreSlug)
       .single();
     if (storeData && !fetchError && storeData.carousel_data?.slides) {
-      setMarketingSlides(storeData.carousel_data.slides);
+      const mapped = storeData.carousel_data.slides.map((slide: any) => ({
+        ...slide,
+        src: resolveLegacyImagePath(slide.src),
+      }));
+      setMarketingSlides(mapped);
     }
     setLoading(false);
   }, [activeStoreSlug]);

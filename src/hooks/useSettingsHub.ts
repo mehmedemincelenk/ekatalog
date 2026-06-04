@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '../supabase';
 import { useStore } from '../store';
-import { getActiveStoreSlug, fetchCurrentRates } from '../utils/core';
+import { getActiveStoreSlug, fetchCurrentRates, resolveLegacyImagePath } from '../utils/core';
 import { CompanySettings } from '../types';
 import { CATEGORY_ORDER as DEFAULT_ORDER } from '../data/config';
 
@@ -37,6 +37,7 @@ export function useSettingsQuery() {
             showSearch: true,
             showAddress: true,
             showInstagram: true,
+            showWorkspace: false,
             showWhatsapp: true,
             showSubtitle: true,
             showReferences: true,
@@ -58,6 +59,12 @@ export function useSettingsQuery() {
           name: '',
           portfoys_credits: 2,
         } as CompanySettings;
+      }
+
+      // 0.1. LANDINGPAGE DEMO STORE BYPASS
+      if (STORE_SLUG === 'landingpage') {
+        const { MOCK_LANDINGPAGE_SETTINGS } = await import('../data/mockLandingpage');
+        return MOCK_LANDINGPAGE_SETTINGS;
       }
 
       // Parallel execution: Settings + Currency Rates
@@ -111,15 +118,61 @@ export function useSettingsQuery() {
         } as CompanySettings;
       }
 
-      const raw = settingsRes.data;
+            const raw = settingsRes.data;
+      
+      const mappedReferences = (raw.references_data || []).map((ref: any) => {
+        let logo = ref.logo;
+        if (logo && (logo.includes('yalcintemizlik.com') || logo.includes('clearbit'))) {
+          const domainMap: Record<string, string> = {
+            'selpak': 'selpak.com.tr',
+            'diversey': 'diversey.com',
+            'johnson': 'diversey.com',
+            'kärcher': 'kaercher.com',
+            'vileda': 'vileda.com',
+            'p&g': 'pg.com',
+            'arçelik': 'arcelik.com.tr',
+            'eczacıbaşı': 'eczacibasi.com.tr',
+            'hayat': 'hayat.com.tr',
+            '3m': '3m.com',
+            'tesa': 'tesa.com',
+            'kimberly': 'kimberly-clark.com',
+          };
+          const lowerName = (ref.name || '').toLowerCase();
+          for (const [key, domain] of Object.entries(domainMap)) {
+            if (lowerName.includes(key)) {
+              logo = `https://logo.clearbit.com/${domain}`;
+              break;
+            }
+          }
+        }
+        return { ...ref, logo };
+      });
+
+      const isOrnek = raw.slug === 'ornek';
+      const mergedDisplayConfig = {
+        showLogo: true,
+        showSearch: true,
+        showAddress: true,
+        showInstagram: true,
+        showWhatsapp: true,
+        showReferences: true,
+        ...raw.display_config,
+        ...(isOrnek ? { showReferences: true } : {}),
+      };
+
       const settings: CompanySettings = {
         id: raw.id,
         title: raw.name || 'Mağaza Adı',
-        logoUrl: raw.logo_url || '',
+        logoUrl: resolveLegacyImagePath(raw.logo_url) || '',
         activeCurrency: raw.active_currency || 'TRY',
         categoryOrder: raw.category_order || DEFAULT_ORDER,
-        carouselData: raw.carousel_data || { slides: [] },
-        referencesData: raw.references_data || [],
+        carouselData: {
+          slides: (raw.carousel_data?.slides || []).map((slide: any) => ({
+            ...slide,
+            src: resolveLegacyImagePath(slide.src),
+          })),
+        },
+        referencesData: mappedReferences,
         socialProofCards: raw.social_proof_cards || [],
         maintenanceMode: raw.maintenance_mode || {
           enabled: false,
@@ -133,15 +186,7 @@ export function useSettingsQuery() {
         instagram: raw.instagram_url || '',
         subtitle: raw.tagline || 'Sloganınızı buraya yazın',
         name: raw.name || 'Mağaza Adı',
-        displayConfig: {
-          showLogo: true,
-          showSearch: true,
-          showAddress: true,
-          showInstagram: true,
-          showWhatsapp: true,
-          showReferences: true,
-          ...raw.display_config,
-        },
+        displayConfig: mergedDisplayConfig,
         announcementBar: raw.announcement_bar || { enabled: false, text: '' },
         visitor_leads: raw.visitor_leads || [],
         subscription_tier: raw.subscription_tier || 'free',
@@ -177,6 +222,26 @@ export function useSettings(isAdmin: boolean) {
       value: CompanySettings[keyof CompanySettings];
     }) => {
       if (!settings?.id) throw new Error('Settings not loaded');
+
+      if (STORE_SLUG === 'landingpage') {
+        queryClient.setQueryData<CompanySettings>(['settings', STORE_SLUG], (old) => {
+          if (!old) return old;
+          if (key === 'phoneCall') {
+            return {
+              ...old,
+              displayConfig: {
+                ...(old.displayConfig || {}),
+                phoneCall: value as string,
+              },
+            };
+          }
+          return {
+            ...old,
+            [key]: value,
+          } as CompanySettings;
+        });
+        return;
+      }
 
       const dbMap: Record<string, string> = {
         title: 'name',
@@ -222,8 +287,11 @@ export function useSettings(isAdmin: boolean) {
         if (error) throw error;
       }
     },
-    onSuccess: () =>
-      queryClient.invalidateQueries({ queryKey: ['settings', STORE_SLUG] }),
+    onSuccess: () => {
+      if (STORE_SLUG !== 'landingpage') {
+        queryClient.invalidateQueries({ queryKey: ['settings', STORE_SLUG] });
+      }
+    },
   });
 
   return {
@@ -240,6 +308,7 @@ export function useSettings(isAdmin: boolean) {
     isError,
     addVisitorLead: async (phone: string) => {
       if (!settings?.id) return;
+      if (STORE_SLUG === 'landingpage') return;
 
       const { error } = await supabase.rpc('add_visitor_lead', {
         p_store_id: settings.id,
@@ -251,6 +320,9 @@ export function useSettings(isAdmin: boolean) {
     },
     changePin: async (currentPin: string, newPin: string) => {
       if (!settings?.id) throw new Error('Dükkan bilgileri yüklenemedi.');
+      if (STORE_SLUG === 'landingpage') {
+        throw new Error('Demo modunda PIN kodu değiştirilemez.');
+      }
       const { error } = await supabase.rpc('secure_update_store_pin', {
         p_store_id: settings.id,
         p_current_pin: currentPin,

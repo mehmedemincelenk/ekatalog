@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '../supabase';
 import { Product, NewProductPayload, CompanySettings } from '../types';
-import { reorderArray, smartSearch, sortCategories } from '../utils/core';
+import { reorderArray, smartSearch, sortCategories, getActiveStoreSlug, resolveLegacyImagePath } from '../utils/core';
 import { useStore } from '../store';
 import { TECH } from '../data/config';
 
@@ -19,9 +19,14 @@ import { TECH } from '../data/config';
 // --- 1. QUERY HOOK (Data Layer) ---
 
 export function useProductsQuery(storeId?: string) {
+  const STORE_SLUG = getActiveStoreSlug();
   return useQuery<Product[]>({
     queryKey: ['products', storeId],
     queryFn: async () => {
+      if (STORE_SLUG === 'landingpage') {
+        const { MOCK_LANDINGPAGE_PRODUCTS } = await import('../data/mockLandingpage');
+        return MOCK_LANDINGPAGE_PRODUCTS;
+      }
       if (!storeId) return [];
       const { data, error } = await supabase
         .from('prods')
@@ -31,7 +36,11 @@ export function useProductsQuery(storeId?: string) {
         .order('created_at', { ascending: false });
 
       if (error) throw error;
-      return data || [];
+      const products = data || [];
+      return products.map((p) => ({
+        ...p,
+        image_url: resolveLegacyImagePath(p.image_url) || '',
+      }));
     },
     enabled: !!storeId,
     staleTime: 1000 * 60 * 5, // 5 minutes
@@ -44,6 +53,7 @@ export function useProductsActions() {
   const queryClient = useQueryClient();
   const { settings, adminPin } = useStore();
   const queryKey = ['products', settings?.id];
+  const STORE_SLUG = getActiveStoreSlug();
 
   const updateMutation = useMutation({
     mutationFn: async ({
@@ -53,6 +63,13 @@ export function useProductsActions() {
       id: string;
       changes: Partial<Product>;
     }) => {
+      if (STORE_SLUG === 'landingpage') {
+        queryClient.setQueryData<Product[]>(queryKey, (old) => {
+          if (!old) return [];
+          return old.map((p) => (p.id === id ? { ...p, ...changes } : p));
+        });
+        return;
+      }
       if (!adminPin) throw new Error('Yetkisiz işlem: PIN gerekli');
       const { error } = await supabase.rpc('secure_update_product', {
         p_id: id,
@@ -61,11 +78,22 @@ export function useProductsActions() {
       });
       if (error) throw error;
     },
-    onSuccess: () => queryClient.invalidateQueries({ queryKey }),
+    onSuccess: () => {
+      if (STORE_SLUG !== 'landingpage') {
+        queryClient.invalidateQueries({ queryKey });
+      }
+    },
   });
 
   const deleteMutation = useMutation({
     mutationFn: async (id: string) => {
+      if (STORE_SLUG === 'landingpage') {
+        queryClient.setQueryData<Product[]>(queryKey, (old) => {
+          if (!old) return [];
+          return old.filter((p) => p.id !== id);
+        });
+        return;
+      }
       if (!adminPin) throw new Error('Yetkisiz işlem: PIN gerekli');
       const { error } = await supabase.rpc('secure_delete_product', {
         p_id: id,
@@ -73,11 +101,25 @@ export function useProductsActions() {
       });
       if (error) throw error;
     },
-    onSuccess: () => queryClient.invalidateQueries({ queryKey }),
+    onSuccess: () => {
+      if (STORE_SLUG !== 'landingpage') {
+        queryClient.invalidateQueries({ queryKey });
+      }
+    },
   });
 
   const reorderCategoryMutation = useMutation({
     mutationFn: async (newOrder: string[]) => {
+      if (STORE_SLUG === 'landingpage') {
+        queryClient.setQueryData<CompanySettings>(['settings', STORE_SLUG], (old) => {
+          if (!old) return old;
+          return {
+            ...old,
+            categoryOrder: newOrder,
+          };
+        });
+        return;
+      }
       if (!settings?.id || !adminPin) throw new Error('Yetkisiz işlem');
       const { error } = await supabase.rpc('secure_reorder_categories', {
         p_store_id: settings.id,
@@ -86,7 +128,11 @@ export function useProductsActions() {
       });
       if (error) throw error;
     },
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['settings'] }),
+    onSuccess: () => {
+      if (STORE_SLUG !== 'landingpage') {
+        queryClient.invalidateQueries({ queryKey: ['settings', STORE_SLUG] });
+      }
+    },
   });
 
   const renameCategoryMutation = useMutation({
@@ -97,6 +143,22 @@ export function useProductsActions() {
       oldName: string;
       newName: string;
     }) => {
+      if (STORE_SLUG === 'landingpage') {
+        queryClient.setQueryData<Product[]>(queryKey, (old) => {
+          if (!old) return [];
+          return old.map((p) =>
+            p.category === oldName ? { ...p, category: newName } : p
+          );
+        });
+        queryClient.setQueryData<CompanySettings>(['settings', STORE_SLUG], (old) => {
+          if (!old) return old;
+          const updatedOrder = (old.categoryOrder || []).map((cat) =>
+            cat === oldName ? newName : cat
+          );
+          return { ...old, categoryOrder: updatedOrder };
+        });
+        return;
+      }
       if (!settings?.id || !adminPin) throw new Error('Yetkisiz işlem');
       const { error } = await supabase.rpc('secure_rename_category', {
         p_store_id: settings.id,
@@ -106,7 +168,11 @@ export function useProductsActions() {
       });
       if (error) throw error;
     },
-    onSuccess: () => queryClient.invalidateQueries({ queryKey }),
+    onSuccess: () => {
+      if (STORE_SLUG !== 'landingpage') {
+        queryClient.invalidateQueries({ queryKey });
+      }
+    },
   });
 
   const reorderProductsMutation = useMutation({
@@ -117,6 +183,15 @@ export function useProductsActions() {
       id: string;
       newSortOrder: number;
     }) => {
+      if (STORE_SLUG === 'landingpage') {
+        queryClient.setQueryData<Product[]>(queryKey, (old) => {
+          if (!old) return [];
+          return old.map((p) =>
+            p.id === id ? { ...p, sort_order: newSortOrder } : p
+          );
+        });
+        return;
+      }
       if (!adminPin) throw new Error('Yetkisiz işlem');
       const { error } = await supabase.rpc('secure_update_product', {
         p_id: id,
@@ -125,11 +200,42 @@ export function useProductsActions() {
       });
       if (error) throw error;
     },
-    onSuccess: () => queryClient.invalidateQueries({ queryKey }),
+    onSuccess: () => {
+      if (STORE_SLUG !== 'landingpage') {
+        queryClient.invalidateQueries({ queryKey });
+      }
+    },
   });
 
   const addMutation = useMutation({
     mutationFn: async (newProduct: NewProductPayload) => {
+      if (STORE_SLUG === 'landingpage') {
+        const generatedId = `mock-${Date.now()}`;
+        const mockProduct: Product = {
+          id: generatedId,
+          name: newProduct.name,
+          category: newProduct.category || '',
+          price: newProduct.price || '',
+          description: newProduct.description || '',
+          image_url: newProduct.image_url || '',
+          original_image_url: null,
+          polished_image_url: null,
+          is_polished_pending: false,
+          polished_ready_dismissed: false,
+          text_polished_dismissed: false,
+          suggested_name: null,
+          suggested_description: null,
+          sort_order: 999,
+          out_of_stock: false,
+          is_archived: false,
+          store_id: settings?.id || 'landingpage',
+        };
+        queryClient.setQueryData<Product[]>(queryKey, (old) => {
+          if (!old) return [mockProduct];
+          return [...old, mockProduct];
+        });
+        return generatedId;
+      }
       if (!settings?.id || !adminPin) throw new Error('Yetkisiz işlem');
       const { data, error } = await supabase.rpc('secure_add_product', {
         p_pin: adminPin,
@@ -141,11 +247,25 @@ export function useProductsActions() {
       if (error) throw error;
       return data.id as string;
     },
-    onSuccess: () => queryClient.invalidateQueries({ queryKey }),
+    onSuccess: () => {
+      if (STORE_SLUG !== 'landingpage') {
+        queryClient.invalidateQueries({ queryKey });
+      }
+    },
   });
 
   const uploadImageMutation = useMutation({
     mutationFn: async ({ id, file }: { id: string; file: File }) => {
+      if (STORE_SLUG === 'landingpage') {
+        const localUrl = URL.createObjectURL(file);
+        queryClient.setQueryData<Product[]>(queryKey, (old) => {
+          if (!old) return [];
+          return old.map((p) =>
+            p.id === id ? { ...p, image_url: localUrl, is_polished_pending: false } : p
+          );
+        });
+        return localUrl;
+      }
       if (!adminPin) throw new Error('Yetkisiz işlem: PIN gerekli');
       const cachedProducts = queryClient.getQueryData<Product[]>(queryKey);
       const targetProduct = cachedProducts?.find((p) => p.id === id);
@@ -175,7 +295,11 @@ export function useProductsActions() {
       }
       return finalizedUrl;
     },
-    onSuccess: () => queryClient.invalidateQueries({ queryKey }),
+    onSuccess: () => {
+      if (STORE_SLUG !== 'landingpage') {
+        queryClient.invalidateQueries({ queryKey });
+      }
+    },
   });
 
   const bulkActionMutation = useMutation({
@@ -191,6 +315,41 @@ export function useProductsActions() {
       }[],
     ) => {
       if (!actions.length) return;
+      if (STORE_SLUG === 'landingpage') {
+        const { formatNumberToCurrency } = await import('../utils/core');
+        queryClient.setQueryData<Product[]>(queryKey, (old) => {
+          if (!old) return [];
+          let updated = [...old];
+          for (const action of actions) {
+            if (action.delete) {
+              updated = updated.filter((p) => p.id !== action.productId);
+            } else {
+              updated = updated.map((p) => {
+                if (p.id !== action.productId) return p;
+                const changes: Partial<Product> = {};
+                if (action.newPrice !== undefined) {
+                  changes.price = action.newPrice === 0 ? '' : formatNumberToCurrency(action.newPrice);
+                }
+                if (action.newSortOrder !== undefined) {
+                  changes.sort_order = action.newSortOrder;
+                }
+                if (action.category !== undefined) {
+                  changes.category = action.category;
+                }
+                if (action.out_of_stock !== undefined) {
+                  changes.out_of_stock = action.out_of_stock;
+                }
+                if (action.is_archived !== undefined) {
+                  changes.is_archived = action.is_archived;
+                }
+                return { ...p, ...changes };
+              });
+            }
+          }
+          return updated;
+        });
+        return;
+      }
       if (!adminPin) throw new Error('Yetkisiz işlem: PIN gerekli');
 
       // Process actions to match RPC format (converting prices if needed)
@@ -212,7 +371,11 @@ export function useProductsActions() {
 
       if (error) throw error;
     },
-    onSuccess: () => queryClient.invalidateQueries({ queryKey }),
+    onSuccess: () => {
+      if (STORE_SLUG !== 'landingpage') {
+        queryClient.invalidateQueries({ queryKey });
+      }
+    },
   });
 
   return {

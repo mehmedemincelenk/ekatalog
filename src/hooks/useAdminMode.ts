@@ -60,6 +60,26 @@ export function useAdminMode() {
 
       if (isLockedOut) return false;
 
+      if (STORE_SLUG === 'landingpage') {
+        const isSuccess = pin === '1234';
+        if (!isSuccess) {
+          const newAttempts = failedAttempts + 1;
+          setFailedAttempts(newAttempts);
+
+          if (newAttempts >= 3) {
+            const until = Date.now() + 60000;
+            setLockoutUntil(until);
+            sessionStorage.setItem('admin_lockout_until', String(until));
+            setIsLockedOut(true);
+          }
+        } else {
+          setFailedAttempts(0);
+          setIsLockedOut(false);
+          setAdminPin(pin);
+        }
+        return isSuccess;
+      }
+
       const { data: isSuccess, error } = await supabase.rpc(
         'verify_admin_access',
         {
