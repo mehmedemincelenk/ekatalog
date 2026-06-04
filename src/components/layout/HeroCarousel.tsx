@@ -292,7 +292,7 @@ export default function HeroCarousel({ isAdminModeActive, isStatic = false }: He
                       flow.setIsTransitioning(true);
                       flow.setCurrentIndex(dotIndex);
                     }}
-                    className="h-[2px] w-full rounded-full cursor-pointer bg-white/20 relative overflow-hidden shadow-[0_1px_2px_rgba(0,0,0,0.4)]"
+                    className="h-[2px] w-full rounded-full cursor-pointer bg-white/20 relative overflow-hidden"
                   >
                     {/* Active dynamic progress bar */}
                     {isActive ? (

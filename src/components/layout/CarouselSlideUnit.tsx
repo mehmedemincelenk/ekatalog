@@ -67,7 +67,7 @@ const CarouselSlideUnit = memo(
         <AnimatePresence>
           {isAdmin && (
             <div
-              className={`absolute top-8 right-4 flex items-center gap-2 z-[1000] transition-opacity duration-500 ${isCurrentlyActive ? 'opacity-100' : 'opacity-40'}`}
+              className={`absolute top-12 right-4 flex items-center gap-2 z-[1000] transition-opacity duration-500 ${isCurrentlyActive ? 'opacity-100' : 'opacity-40'}`}
             >
               {/* INTERACTIVE SEQUENCE BADGE */}
               <div

@@ -409,6 +409,34 @@ export function PinModal({
   const theme = THEME.pinModal;
   const globalIcons = THEME.icons;
 
+  useEffect(() => {
+    if (isStatic) return;
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) {
+        return;
+      }
+
+      if (e.key >= '0' && e.key <= '9') {
+        e.preventDefault();
+        flow.handleDigitEntry(e.key);
+      } else if (e.key === 'Backspace' || e.key === 'Delete') {
+        e.preventDefault();
+        if (!flow.isInputDisabled) {
+          flow.setCurrentPinAttempt((prev) => prev.slice(0, -1));
+        }
+      } else if (e.key === 'Escape') {
+        e.preventDefault();
+        onModalClose();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [flow, onModalClose, isStatic]);
+
   return (
     <motion.div
       initial={isStatic ? { opacity: 1 } : { opacity: 0 }}

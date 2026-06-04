@@ -257,12 +257,20 @@ export default function BaseFloatingMenu({
             }}
           >
             {isExpanded ? (
-              activeMainIcon || <Lucide.ChevronDown size={16} className="text-stone-900 animate-in fade-in" strokeWidth={2.5} />
+              activeMainIcon || (
+                !mainIcon ? (
+                  <span className="text-[10px] font-black tracking-wider uppercase leading-none text-stone-900 animate-in fade-in">KAPAT</span>
+                ) : (
+                  <Lucide.ChevronDown size={16} className="text-stone-900 animate-in fade-in" strokeWidth={2.5} />
+                )
+              )
             ) : (
               <div className="flex items-center gap-1 text-stone-900 justify-center w-full h-full">
-                {mainIcon || <Lucide.Menu size={16} strokeWidth={2.5} />}
-                {labelText && (
-                  <span className="text-[10px] font-black tracking-wider uppercase leading-none truncate max-w-[65px]">{labelText}</span>
+                {mainIcon}
+                {(labelText || !mainIcon) && (
+                  <span className="text-[10px] font-black tracking-wider uppercase leading-none truncate max-w-[65px]">
+                    {labelText || 'MENÜ'}
+                  </span>
                 )}
               </div>
             )}
