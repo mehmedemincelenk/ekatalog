@@ -466,26 +466,21 @@ export function PinModal({
               exit={{ opacity: 0 }}
               className="w-full"
             >
-              <div className="flex flex-col items-center justify-center h-20 mb-4">
-                <div className={theme.headerIconWrapper + ' !mb-0'}>
-                  <div className={`${theme.headerIconSize} flex items-center justify-center`}>
-                    {flow.isVerifying ? (
-                      <div className={THEME.loading.spinner + ' w-5 h-5'} />
-                    ) : flow.activeIsLockedOut ? (
-                      '⏳'
-                    ) : (
-                      globalIcons.lock
-                    )}
+              <div className="flex items-center justify-center h-12 mb-4 w-full">
+                {flow.isVerifying ? (
+                  <div className={THEME.loading.spinner + ' w-5 h-5'} />
+                ) : flow.activeIsLockedOut ? (
+                  <span className="text-base">⏳</span>
+                ) : (
+                  <div className={theme.dotsWrapper + ' !mb-0'}>
+                    {[...Array(4)].map((_, i) => (
+                      <div
+                        key={i}
+                        className={`${theme.dotBase} ${i < flow.currentPinAttempt.length ? theme.dotActive : theme.dotInactive} ${flow.hasAuthError ? theme.dotError : ''}`}
+                      />
+                    ))}
                   </div>
-                </div>
-              </div>
-              <div className={theme.dotsWrapper}>
-                {[...Array(4)].map((_, i) => (
-                  <div
-                    key={i}
-                    className={`${theme.dotBase} ${i < flow.currentPinAttempt.length ? theme.dotActive : theme.dotInactive} ${flow.hasAuthError ? theme.dotError : ''}`}
-                  />
-                ))}
+                )}
               </div>
               <div
                 className={`${theme.keyboardGrid} ${flow.isInputDisabled ? 'opacity-30 pointer-events-none grayscale' : 'transition-all'}`}
