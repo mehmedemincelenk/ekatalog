@@ -26,10 +26,10 @@ export const ANIMATIONS = {
     transition: { type: 'spring' as const, damping: 25, stiffness: 350, duration: 0.3 }
   },
   pin: {
-    initial: { opacity: 0, scale: 0.8, filter: 'blur(10px)' },
-    animate: { opacity: 1, scale: 1, filter: 'blur(0px)' },
-    exit: { opacity: 0, scale: 1.1, filter: 'blur(20px)' },
-    transition: { type: 'spring' as const, damping: 25, stiffness: 300, duration: 0.4 }
+    initial: { opacity: 0, scale: 0.85 },
+    animate: { opacity: 1, scale: 1 },
+    exit: { opacity: 0, scale: 0.85 },
+    transition: { type: 'spring' as const, damping: 28, stiffness: 450, duration: 0.22 }
   }
 };
 
@@ -474,7 +474,7 @@ export const THEME = {
 
   pinModal: {
     overlay:
-      'fixed inset-0 z-[10000] flex items-center justify-center p-4 bg-black/70 backdrop-blur-2xl pointer-events-auto',
+      'fixed inset-0 z-[10000] flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm pointer-events-auto',
     container:
       'relative w-full max-w-[240px] flex flex-col items-center select-none transform transition-transform duration-300',
     headerWrapper: 'text-center mb-6',

@@ -421,14 +421,16 @@ export function PinModal({
       initial={isStatic ? { opacity: 1 } : { opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className={isStatic ? 'relative z-0' : `${theme.overlay} z-[10000]`}
+      className={isStatic ? 'relative z-0' : `${theme.overlay} z-[10000] cursor-pointer`}
+      onClick={onModalClose}
     >
       <motion.div
         initial={isStatic ? undefined : ANIMATIONS.pin.initial}
         animate={isStatic ? undefined : ANIMATIONS.pin.animate}
         exit={isStatic ? undefined : ANIMATIONS.pin.exit}
         transition={isStatic ? undefined : ANIMATIONS.pin.transition}
-        className={`${isStatic ? 'relative w-full max-w-sm mx-auto' : theme.container} ${flow.hasAuthError ? theme.animations.shake : ''}`}
+        className={`${isStatic ? 'relative w-full max-w-sm mx-auto' : theme.container} ${flow.hasAuthError ? theme.animations.shake : ''} cursor-default`}
+        onClick={(e) => e.stopPropagation()}
       >
         <AnimatePresence mode="wait">
           {flow.requiresCaptcha && !flow.isRobotVerified ? (
@@ -466,7 +468,7 @@ export function PinModal({
             >
               <div className="flex flex-col items-center justify-center h-20 mb-4">
                 <div className={theme.headerIconWrapper + ' !mb-0'}>
-                  <div className={theme.headerIconSize}>
+                  <div className={`${theme.headerIconSize} flex items-center justify-center`}>
                     {flow.isVerifying ? (
                       <div className={THEME.loading.spinner + ' w-5 h-5'} />
                     ) : flow.activeIsLockedOut ? (
@@ -481,7 +483,7 @@ export function PinModal({
                 {[...Array(4)].map((_, i) => (
                   <div
                     key={i}
-                    className={`${theme.dotBase} ${i < flow.currentPinAttempt.length ? (flow.isVerifying && !flow.hasAuthError ? `bg-emerald-500 ${THEME.shadows.glow}` : theme.dotActive) : theme.dotInactive} ${flow.hasAuthError ? theme.dotError : ''}`}
+                    className={`${theme.dotBase} ${i < flow.currentPinAttempt.length ? theme.dotActive : theme.dotInactive} ${flow.hasAuthError ? theme.dotError : ''}`}
                   />
                 ))}
               </div>
