@@ -474,7 +474,7 @@ export const THEME = {
 
   pinModal: {
     overlay:
-      'fixed inset-0 z-[10000] flex items-end justify-end p-4 pb-16 pointer-events-auto bg-black/15 backdrop-blur-[4px]',
+      'fixed inset-0 z-[10000] flex items-end justify-end p-4 pb-16 pointer-events-auto bg-white/40 backdrop-blur-2xl',
     container:
       'relative w-full max-w-[230px] flex flex-col items-center select-none bg-white/70 backdrop-blur-2xl saturate-[190%] border border-white/30 rounded-[2rem] p-5 shadow-2xl transform transition-transform duration-300',
     headerWrapper: 'text-center mb-4',
