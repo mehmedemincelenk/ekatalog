@@ -1050,14 +1050,6 @@ export default function DisplaySettingsModal({
                     {HELP_CONTENTS.maintenance.onText}
                   </p>
                 </div>
-                <div className="bg-stone-50 border border-stone-100 p-5 rounded-3xl opacity-60 text-stone-500 flex items-center gap-4">
-                  <div className="w-8 h-8 bg-stone-200 rounded-xl flex items-center justify-center shrink-0 text-stone-400">
-                    <Lucide.X size={18} strokeWidth={3} />
-                  </div>
-                  <p className="text-[11px] leading-relaxed font-bold">
-                    {HELP_CONTENTS.maintenance.offText}
-                  </p>
-                </div>
               </div>
             )}
           </div>
