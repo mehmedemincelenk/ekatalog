@@ -7,6 +7,26 @@ const DOMAIN_EXTENSIONS = ['site', 'coffee', 'cafe', 'ltd', 'io'];
 
 export default function LandingPage() {
   const [domainIndex, setDomainIndex] = useState(0);
+  const [mockupState, setMockupState] = useState<{
+    activeModal: string | null;
+    isAdmin: boolean;
+  }>({
+    activeModal: null,
+    isAdmin: false,
+  });
+
+  useEffect(() => {
+    const handleMessage = (event: MessageEvent) => {
+      if (event.data && event.data.type === 'EKATALOG_MOCKUP_STATE') {
+        setMockupState({
+          activeModal: event.data.activeModal,
+          isAdmin: event.data.isAdmin,
+        });
+      }
+    };
+    window.addEventListener('message', handleMessage);
+    return () => window.removeEventListener('message', handleMessage);
+  }, []);
 
   useEffect(() => {
     const domainInterval = setInterval(() => {
@@ -397,6 +417,9 @@ export default function LandingPage() {
               <p className="text-5xl font-black text-stone-900 tracking-tighter leading-none pr-1">
                 ₺299
                 <span className="text-lg font-bold opacity-30 ml-2">/ ay</span>
+              </p>
+              <p className="text-xs font-bold text-emerald-600 mt-2 uppercase tracking-wider">
+                30 GÜN ÜCRETSİZ DENE
               </p>
             </div>
           </div>

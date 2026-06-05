@@ -14,7 +14,7 @@ import BaseModal from './BaseModal';
 import FormInput from '../ui/FormInput';
 import Turnstile from '../ui/Turnstile';
 import { openExternalMap, openWhatsApp, callPhone } from '../../utils/contact';
-import { copyToClipboard } from '../../utils/core';
+import { copyToClipboard, getActiveStoreSlug } from '../../utils/core';
 import { usePinFlow } from '../../hooks/usePinFlow';
 
 // ---------------------------------------------------------------------------
@@ -455,7 +455,9 @@ export function PinModal({
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       className={
-        isStatic ? 'relative z-0' : `${theme.overlay} z-[10000] cursor-pointer`
+        isStatic
+          ? 'relative z-0'
+          : `${theme.overlay} ${getActiveStoreSlug() === 'landingpage' ? '!bg-transparent' : ''} z-[10000] cursor-pointer`
       }
       onClick={onModalClose}
     >

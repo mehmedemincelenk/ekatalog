@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import * as Lucide from 'lucide-react';
 import { useStore } from '../store';
 import { LABELS, UI } from '../data/config';
-import { fetchCurrentRates } from '../utils/core';
+import { fetchCurrentRates, getActiveStoreSlug } from '../utils/core';
 import { useProducts } from '../hooks/useProductsHub';
 import { useAdminMode } from '../hooks/useAdminMode';
 import { useSettings } from '../hooks/useSettingsHub';
@@ -42,6 +42,7 @@ export default function CatalogPage() {
     visitorCurrency,
     openModal,
     setExchangeRates,
+    activeModal,
   } = useStore();
 
   // 2. CURRENCY ORCHESTRATION (Diamond Engine)
@@ -79,6 +80,26 @@ export default function CatalogPage() {
   } = useProducts(search, [], isAdmin, storeSettings);
 
   useSyncMetadata(storeSettings, isAdmin);
+
+  // If we are in the landingpage mockup iframe, report changes to parent window
+  useEffect(() => {
+    if (typeof window !== 'undefined' && getActiveStoreSlug() === 'landingpage') {
+      window.parent.postMessage({
+        type: 'EKATALOG_MOCKUP_STATE',
+        activeModal,
+        isAdmin,
+      }, '*');
+    }
+  }, [activeModal, isAdmin]);
+
+  const [hasVisitedAdmin, setHasVisitedAdmin] = useState(false);
+
+  // Track if user has entered admin mode at least once to prevent showing overlay again
+  useEffect(() => {
+    if (isAdmin) {
+      setHasVisitedAdmin(true);
+    }
+  }, [isAdmin]);
 
   const [visibleCategoryLimit, setVisibleCategoryLimit] = useState(2);
   const [activeAdminProductId, setActiveAdminProductId] = useState<
@@ -145,6 +166,13 @@ export default function CatalogPage() {
   const mobileContent = (
     <>
       <div className="relative w-full h-full overflow-hidden flex flex-col">
+        {/* Onboarding Glassmorphic/Blur Overlay (covers content, excludes Navbar [z-100] and Floating Menu/Tooltip [z-400]) */}
+        {getActiveStoreSlug() === 'landingpage' && !isAdmin && (
+          (!hasVisitedAdmin && !activeModal) || activeModal === 'PIN'
+        ) && (
+          <div className="fixed md:absolute inset-0 z-[50] bg-white/20 backdrop-blur-[2px] pointer-events-auto animate-in fade-in duration-300" />
+        )}
+
         {/* FLOATING GLASS NAVBAR OVERLAY - Fixed on mobile, absolute inside phone frame on desktop */}
         <div className="print:hidden fixed md:absolute top-0 left-0 right-0 z-[100] w-full pointer-events-none">
           <Navbar isInlineEnabled={isInlineEnabled} />
@@ -217,6 +245,22 @@ export default function CatalogPage() {
       {!isAdmin && (
         <div className="fixed inset-0 pointer-events-none z-[400] print:hidden">
           <div className="absolute bottom-3 right-4 pointer-events-auto">
+            {/* Onboarding Tooltip for Demo (inside the iframe, completely hidden from LandingPage context) */}
+            {getActiveStoreSlug() === 'landingpage' && !hasVisitedAdmin && !activeModal && (
+              <div className="absolute bottom-[48px] right-2 pointer-events-none animate-in fade-in slide-in-from-bottom-2 duration-300">
+                <div className="bg-stone-950/95 border border-white/15 backdrop-blur-md text-white text-[11px] font-bold py-2 px-3 rounded-xl shadow-[0_10px_30px_rgba(0,0,0,0.5)] flex flex-col items-center gap-0.5 whitespace-nowrap relative select-none">
+                  <div className="flex items-center gap-1">
+                    <span>💡 <b>Örnek E-Katalog</b></span>
+                  </div>
+                  <span className="text-[10px] text-stone-400 font-normal">Dünyanın en basit yönetim paneline giriş için</span>
+                  <span className="text-[10px] text-stone-400 font-normal">butona basılı tutun • Şifre: 12345</span>
+                  
+                  {/* Little down arrow point */}
+                  <div className="absolute bottom-[-5px] right-[45px] w-2.5 h-2.5 bg-stone-950/95 border-r border-b border-white/15 rotate-45"></div>
+                </div>
+              </div>
+            )}
+
             <FloatingGuestMenu
               onPointerDown={handleMenuPointerDown}
               onPointerUp={handleMenuPointerUp}

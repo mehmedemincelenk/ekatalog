@@ -61,7 +61,7 @@ export function useAdminMode() {
       if (isLockedOut) return false;
 
       if (STORE_SLUG === 'landingpage') {
-        const isSuccess = pin === '1234';
+        const isSuccess = pin === '1234' || pin === '12345';
         if (!isSuccess) {
           const newAttempts = failedAttempts + 1;
           setFailedAttempts(newAttempts);
