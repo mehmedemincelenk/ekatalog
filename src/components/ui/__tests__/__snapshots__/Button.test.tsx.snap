@@ -1,0 +1,43 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Button Component (Diamond Standard) > should render correctly with text and match snapshot 1`] = `
+<DocumentFragment>
+  <button
+    class="relative inline-flex items-center justify-center transition-all duration-300 font-black uppercase tracking-widest active:scale-95 disabled:opacity-50 disabled:pointer-events-none overflow-hidden bg-stone-100 text-stone-900 hover:bg-stone-200 px-6 py-3 text-xs gap-2 rounded-2xl  "
+  >
+    <div
+      class=" "
+    >
+      Devam
+    </div>
+  </button>
+</DocumentFragment>
+`;
+
+exports[`Button Component (Diamond Standard) > should support different semantic variants 1`] = `
+<DocumentFragment>
+  <button
+    class="relative inline-flex items-center justify-center transition-all duration-300 font-black uppercase tracking-widest active:scale-95 disabled:opacity-50 disabled:pointer-events-none overflow-hidden bg-emerald-500 text-white hover:bg-emerald-600 shadow-lg shadow-emerald-100 px-6 py-3 text-xs gap-2 rounded-2xl  "
+  >
+    <div
+      class=" "
+    >
+      Tamam
+    </div>
+  </button>
+</DocumentFragment>
+`;
+
+exports[`Button Component (Diamond Standard) > should support different semantic variants 2`] = `
+<DocumentFragment>
+  <button
+    class="relative inline-flex items-center justify-center transition-all duration-300 font-black uppercase tracking-widest active:scale-95 disabled:opacity-50 disabled:pointer-events-none overflow-hidden bg-red-50 text-red-600 hover:bg-red-600 hover:text-white px-6 py-3 text-xs gap-2 rounded-2xl  "
+  >
+    <div
+      class=" "
+    >
+      Sil
+    </div>
+  </button>
+</DocumentFragment>
+`;

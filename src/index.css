@@ -36,6 +36,12 @@
     font-size: clamp(14px, 0.9vw, 24px);
     scroll-behavior: smooth;
     overflow-x: hidden;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+  
+  html::-webkit-scrollbar {
+    display: none; /* Chrome, Safari and Opera */
   }
 
   /* MASAÜSTÜ KİLİDİ: PC'de telefon çerçevesi içindeki içerik, mobil boyutlarda kalmalı. */
@@ -50,6 +56,8 @@
     background-color: var(--bg-main);
     color: var(--text-main);
     overflow-x: hidden;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
     font-family:
       'Inter',
       -apple-system,
@@ -63,6 +71,10 @@
       'Segoe UI Emoji',
       'Segoe UI Symbol';
     @apply selection:bg-stone-900 selection:text-white antialiased;
+  }
+  
+  body::-webkit-scrollbar {
+    display: none; /* Chrome, Safari and Opera */
   }
 }
 

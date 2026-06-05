@@ -1,0 +1,43 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`StatusToggle Component (Diamond Standard) > should render off state correctly and match snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="flex items-center justify-between select-none"
+  >
+    <span
+      class="text-[10px] font-black text-stone-400 uppercase tracking-tight pr-2"
+    >
+      Duyuru Çubuğu
+    </span>
+    <div
+      class="relative w-[44px] h-[24px] rounded-full transition-colors duration-300 p-[2px] flex items-center shrink-0 justify-start cursor-pointer bg-stone-800"
+    >
+      <div
+        class="w-[20px] h-[20px] bg-white rounded-full shadow-[0_2px_4px_rgba(0,0,0,0.2)]"
+      />
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`StatusToggle Component (Diamond Standard) > should render on state correctly and match snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="flex items-center justify-between select-none"
+  >
+    <span
+      class="text-[10px] font-black text-stone-400 uppercase tracking-tight pr-2"
+    >
+      Duyuru Çubuğu
+    </span>
+    <div
+      class="relative w-[44px] h-[24px] rounded-full transition-colors duration-300 p-[2px] flex items-center shrink-0 justify-end cursor-pointer bg-emerald-500"
+    >
+      <div
+        class="w-[20px] h-[20px] bg-white rounded-full shadow-[0_2px_4px_rgba(0,0,0,0.2)]"
+      />
+    </div>
+  </div>
+</DocumentFragment>
+`;
