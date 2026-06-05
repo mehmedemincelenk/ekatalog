@@ -29,8 +29,24 @@ export default function HeroCarousel({
 
   const [activeHeight, setActiveHeight] = useState<number | 'auto'>('auto');
   const slideRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const [prevIndex, setPrevIndex] = useState(flow.currentIndex);
   const [direction, setDirection] = useState(1);
-  const prevIndexRef = useRef(flow.currentIndex);
+
+  if (flow.currentIndex !== prevIndex && flow.marketingSlides.length > 0) {
+    const total = flow.marketingSlides.length;
+    let dir = 1;
+    if (flow.currentIndex === 0 && prevIndex === total - 1) {
+      dir = 1;
+    } else if (flow.currentIndex === total - 1 && prevIndex === 0) {
+      dir = -1;
+    } else if (flow.currentIndex > prevIndex) {
+      dir = 1;
+    } else {
+      dir = -1;
+    }
+    setDirection(dir);
+    setPrevIndex(flow.currentIndex);
+  }
 
   // Viewport & Tab Visibility Observer (High-Fidelity Engine Optimization)
   useEffect(() => {
@@ -67,28 +83,6 @@ export default function HeroCarousel({
       document.removeEventListener('visibilitychange', handleVisibilityChange);
     };
   }, [flow.setIsPaused, isAdminModeActive, flow.marketingSlides.length]);
-
-  useEffect(() => {
-    if (flow.marketingSlides.length === 0) return;
-    if (flow.currentIndex !== prevIndexRef.current) {
-      const total = flow.marketingSlides.length;
-      const prev = prevIndexRef.current;
-      const curr = flow.currentIndex;
-
-      let dir = 1;
-      if (curr === 0 && prev === total - 1) {
-        dir = 1;
-      } else if (curr === total - 1 && prev === 0) {
-        dir = -1;
-      } else if (curr > prev) {
-        dir = 1;
-      } else {
-        dir = -1;
-      }
-      setDirection(dir);
-      prevIndexRef.current = curr;
-    }
-  }, [flow.currentIndex, flow.marketingSlides.length]);
 
   // Smooth Height Auto-Optimizer (Diamond Edition)
   useEffect(() => {
