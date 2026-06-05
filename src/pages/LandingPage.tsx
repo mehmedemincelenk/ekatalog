@@ -124,7 +124,7 @@ export default function LandingPage() {
               <div className="w-full h-full rounded-[1.25rem] overflow-hidden bg-stone-50 border border-stone-900 relative">
                 <iframe
                   src="/landingpage"
-                  className="w-[120%] h-[120%] border-none origin-top-left scale-[0.8333]"
+                  className="border-none origin-top-left w-[140%] h-[140%] scale-[0.714] sm:w-[120%] sm:h-[120%] sm:scale-[0.8333]"
                   title="E-Katalog Canlı Demo"
                 />
               </div>
