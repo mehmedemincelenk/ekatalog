@@ -395,7 +395,7 @@ export default function LandingPage() {
                 ₺499 / AY
               </p>
               <p className="text-5xl font-black text-stone-900 tracking-tighter leading-none pr-1">
-                ₺199
+                ₺299
                 <span className="text-lg font-bold opacity-30 ml-2">/ ay</span>
               </p>
             </div>
