@@ -87,17 +87,29 @@ export default function WorkspaceDesign() {
     setItems(updated);
   };
 
+  // Advanced Pixel-Perfect Export using html2canvas API
   const exportAsPng = async () => {
     if (!exportRef.current) return;
     setIsExporting(true);
 
     try {
-      // Create high-res canvas (x2 density for crisp text)
+      // Ensure all custom fonts are completely loaded before capturing
+      if (document.fonts) {
+        await document.fonts.ready;
+      }
+
       const canvas = await html2canvas(exportRef.current, {
-        scale: 2,
+        scale: 2, // High DPI scaling
         useCORS: true,
+        allowTaint: true,
         backgroundColor: null,
         logging: false,
+        width: 1080,
+        height: 1920,
+        windowWidth: 1080,
+        windowHeight: 1920,
+        scrollX: 0,
+        scrollY: 0,
       });
 
       const imgData = canvas.toDataURL('image/png');
@@ -112,27 +124,17 @@ export default function WorkspaceDesign() {
     }
   };
 
-  const isLongList = items.length > 7;
-
-  // Dynamic CSS classes for 1080x1920 scale
-  const itemContainerClass = isLongList
-    ? 'py-4.5 px-8 rounded-[1.8rem] bg-white/[0.02] border border-white/[0.04] backdrop-blur-md flex gap-6 items-start'
-    : 'py-7 px-9 rounded-[2.2rem] bg-white/[0.02] border border-white/[0.04] backdrop-blur-md flex gap-8 items-start';
-
-  const iconBoxClass = isLongList
-    ? 'w-15 h-15 rounded-xl bg-white/[0.03] border border-white/[0.05] flex items-center justify-center text-3xl font-black shrink-0'
-    : 'w-18 h-18 rounded-2xl bg-white/[0.03] border border-white/[0.05] flex items-center justify-center text-4xl font-black shrink-0';
-
-  const textClass = isLongList
-    ? 'text-[28px] font-bold text-stone-200 leading-snug'
-    : 'text-[35px] font-bold text-stone-200 leading-snug';
-
-  const titleClass = isLongList
-    ? 'text-8xl font-black tracking-tighter leading-tight capitalize max-w-3xl text-stone-100'
-    : 'text-9xl font-black tracking-tighter leading-tight capitalize max-w-3xl text-stone-100';
-
-  const mainContentGap = isLongList ? 'space-y-10' : 'space-y-16';
-  const listGap = isLongList ? 'space-y-[26px]' : 'space-y-[45px]';
+  // Math-based continuous scaling engine to prevent layout breakages:
+  const N = items.length;
+  
+  // Font sizes scale continuously based on item count
+  const fontSizePx = Math.max(28, Math.min(38, Math.round(44 - (N * 1.5))));
+  const titleSizePx = Math.max(74, Math.min(100, Math.round(112 - (N * 3.6))));
+  const iconSizePx = Math.max(54, Math.min(74, Math.round(86 - (N * 3.2))));
+  
+  // Padding & Gaps scale continuously
+  const paddingYPx = Math.max(16, Math.min(32, Math.round(36 - (N * 2))));
+  const gapPx = Math.max(20, Math.min(60, Math.round(220 / (N - 2 || 1))));
 
   return (
     <div className="min-h-screen bg-stone-900 text-stone-100 font-sans flex flex-col md:flex-row">
@@ -261,19 +263,44 @@ export default function WorkspaceDesign() {
             </div>
 
             {/* MAIN CARD CONTENT */}
-            <div className={`relative z-10 ${mainContentGap}`}>
-              <h2 className={titleClass}>
+            <div className="relative z-10 flex-1 flex flex-col justify-center my-8">
+              <h2 
+                className="font-black tracking-tighter leading-tight capitalize max-w-3xl text-stone-100 mb-8"
+                style={{ fontSize: `${titleSizePx}px` }}
+              >
                 {header}
               </h2>
 
-              <div className={`max-w-4xl ${listGap}`}>
+              <div 
+                className="max-w-4xl flex flex-col"
+                style={{ gap: `${gapPx}px` }}
+              >
                 {items.map((item, idx) => (
-                  <div key={idx} className={itemContainerClass}>
-                    <div className={iconBoxClass}>
-                      <span className={activeTemplate.color}>{activeTemplate.icon}</span>
+                  <div 
+                    key={idx} 
+                    className="px-8 rounded-[1.8rem] bg-white/[0.02] border border-white/[0.04] backdrop-blur-md flex gap-6 items-start"
+                    style={{ 
+                      paddingTop: `${paddingYPx}px`, 
+                      paddingBottom: `${paddingYPx}px` 
+                    }}
+                  >
+                    <div className="shrink-0">
+                      <div 
+                        className="rounded-xl bg-white/[0.03] border border-white/[0.05] flex items-center justify-center font-black"
+                        style={{ 
+                          width: `${iconSizePx}px`, 
+                          height: `${iconSizePx}px`,
+                          fontSize: `${iconSizePx * 0.45}px`
+                        }}
+                      >
+                        <span className={activeTemplate.color}>{activeTemplate.icon}</span>
+                      </div>
                     </div>
-                    <div className="flex-1 pt-2">
-                      <p className={textClass}>
+                    <div className="flex-1 pt-2.5">
+                      <p 
+                        className="font-bold text-stone-200 leading-snug"
+                        style={{ fontSize: `${fontSizePx}px` }}
+                      >
                         {item}
                       </p>
                     </div>
