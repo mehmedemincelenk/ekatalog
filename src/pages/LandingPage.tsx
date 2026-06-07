@@ -7,7 +7,7 @@ const DOMAIN_EXTENSIONS = ['site', 'coffee', 'cafe', 'ltd', 'io'];
 
 export default function LandingPage() {
   const [domainIndex, setDomainIndex] = useState(0);
-  const [mockupState, setMockupState] = useState<{
+  const [_mockupState, setMockupState] = useState<{
     activeModal: string | null;
     isAdmin: boolean;
   }>({
@@ -133,8 +133,8 @@ export default function LandingPage() {
           </h1>
 
           <p className="max-w-2xl mx-auto text-lg text-stone-500 font-medium leading-relaxed relative z-10">
-            sahada, ofiste, {' '}
-            <span className="font-black text-stone-900">cepte.</span>
+            PDF/Excel/Matbaa angaryalarına son. Fiyatları cepten{' '}
+            <span className="font-black text-stone-900">değiştirin, gösterin, öğrenin.</span>
           </p>
 
           <div className="pt-8 flex flex-col items-center justify-center relative z-20 space-y-4">
@@ -198,47 +198,23 @@ export default function LandingPage() {
             <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-3 px-4 pt-2">
               <div className="flex items-center gap-2 bg-stone-50/80 border border-stone-100/80 rounded-full py-1.5 px-4 text-xs font-bold text-stone-600 shadow-sm shadow-stone-100/50 hover:bg-stone-100/50 transition-colors">
                 <span className="text-[10px] text-red-500 font-black">✕</span>
-                <span>karmaşık pdf'ler</span>
+                <span>fiyat değiştikçe her gün yeni PDF hazırlamaktan</span>
               </div>
               <div className="flex items-center gap-2 bg-stone-50/80 border border-stone-100/80 rounded-full py-1.5 px-4 text-xs font-bold text-stone-600 shadow-sm shadow-stone-100/50 hover:bg-stone-100/50 transition-colors">
                 <span className="text-[10px] text-red-500 font-black">✕</span>
-                <span>karmaşık yönetim panelleri</span>
+                <span>eski PDF fiyatına bakıp indirim isteyen müşterilerle tartışmaktan</span>
               </div>
               <div className="flex items-center gap-2 bg-stone-50/80 border border-stone-100/80 rounded-full py-1.5 px-4 text-xs font-bold text-stone-600 shadow-sm shadow-stone-100/50 hover:bg-stone-100/50 transition-colors">
                 <span className="text-[10px] text-red-500 font-black">✕</span>
-                <span>tasarımcı beklemek</span>
+                <span>günde 50 kez "bunun fiyatı ne kadar?" sorusunu cevaplamaktan</span>
               </div>
               <div className="flex items-center gap-2 bg-stone-50/80 border border-stone-100/80 rounded-full py-1.5 px-4 text-xs font-bold text-stone-600 shadow-sm shadow-stone-100/50 hover:bg-stone-100/50 transition-colors">
                 <span className="text-[10px] text-red-500 font-black">✕</span>
-                <span>müşteri bekletmek</span>
+                <span>stok bittiği halde sipariş alıp mahcup olmaktan</span>
               </div>
               <div className="flex items-center gap-2 bg-stone-50/80 border border-stone-100/80 rounded-full py-1.5 px-4 text-xs font-bold text-stone-600 shadow-sm shadow-stone-100/50 hover:bg-stone-100/50 transition-colors">
                 <span className="text-[10px] text-red-500 font-black">✕</span>
-                <span>websiteye eleman tutmak</span>
-              </div>
-              <div className="flex items-center gap-2 bg-stone-50/80 border border-stone-100/80 rounded-full py-1.5 px-4 text-xs font-bold text-stone-600 shadow-sm shadow-stone-100/50 hover:bg-stone-100/50 transition-colors">
-                <span className="text-[10px] text-red-500 font-black">✕</span>
-                <span>yazılımcı beklemek</span>
-              </div>
-              <div className="flex items-center gap-2 bg-stone-50/80 border border-stone-100/80 rounded-full py-1.5 px-4 text-xs font-bold text-stone-600 shadow-sm shadow-stone-100/50 hover:bg-stone-100/50 transition-colors">
-                <span className="text-[10px] text-red-500 font-black">✕</span>
-                <span>gönderilen pdf'i güncelleyememek</span>
-              </div>
-              <div className="flex items-center gap-2 bg-stone-50/80 border border-stone-100/80 rounded-full py-1.5 px-4 text-xs font-bold text-stone-600 shadow-sm shadow-stone-100/50 hover:bg-stone-100/50 transition-colors">
-                <span className="text-[10px] text-red-500 font-black">✕</span>
-                <span>stokta olmayan ürüne sipariş almak</span>
-              </div>
-              <div className="flex items-center gap-2 bg-stone-50/80 border border-stone-100/80 rounded-full py-1.5 px-4 text-xs font-bold text-stone-600 shadow-sm shadow-stone-100/50 hover:bg-stone-100/50 transition-colors">
-                <span className="text-[10px] text-red-500 font-black">✕</span>
-                <span>müşteriyle fiyat sorunuz sürtüşmesi</span>
-              </div>
-              <div className="flex items-center gap-2 bg-stone-50/80 border border-stone-100/80 rounded-full py-1.5 px-4 text-xs font-bold text-stone-600 shadow-sm shadow-stone-100/50 hover:bg-stone-100/50 transition-colors">
-                <span className="text-[10px] text-red-500 font-black">✕</span>
-                <span>hantal süreçlerle rakibe müşteri kaptırmak</span>
-              </div>
-              <div className="flex items-center gap-2 bg-stone-50/80 border border-stone-100/80 rounded-full py-1.5 px-4 text-xs font-bold text-stone-600 shadow-sm shadow-stone-100/50 hover:bg-stone-100/50 transition-colors">
-                <span className="text-[10px] text-red-500 font-black">✕</span>
-                <span>mesai dışında fiyat verememek</span>
+                <span>dosya boyutu büyük diye açılmayan, kasan PDF'lerden</span>
               </div>
             </div>
           </div>
@@ -398,6 +374,22 @@ export default function LandingPage() {
                     Tüm dükkandaki fiyatları ister yüzde ister tutar bazlı tek
                     tıkla toplu güncelleyin ve benzeri toplu işlemlerle zaman
                     kazanın.
+                  </p>
+                </div>
+              </div>
+
+              {/* Pillar 10: Tek Tıkla Reklam (Yakında) */}
+              <div className="flex gap-3 items-start">
+                <Lucide.Megaphone
+                  size={16}
+                  className="text-stone-900 shrink-0 mt-0.5"
+                />
+                <div className="space-y-0.5">
+                  <h3 className="text-sm font-black text-stone-900 tracking-tight flex items-center gap-1.5">
+                    tek tıkla reklam <span className="text-[9px] bg-emerald-500/10 text-emerald-600 px-1.5 py-0.5 rounded font-black uppercase tracking-wider">yakında</span>
+                  </h3>
+                  <p className="text-xs text-stone-500 font-medium leading-relaxed">
+                    Instagram, Facebook veya Google hesabı açmakla uğraşmayın; karmaşık reklam panelleri profesyoneller içindir, sizin için değil. Sadece reklam bütçenizi seçin; bedeli Turkcell, Vodafone veya Türk Telekom faturanıza yansısın, yapay zekamız da reklamınızı yapsın.
                   </p>
                 </div>
               </div>

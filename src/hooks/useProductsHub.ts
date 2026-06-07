@@ -26,8 +26,9 @@ import { TECH } from '../data/config';
 
 export function useProductsQuery(storeId?: string) {
   const STORE_SLUG = getActiveStoreSlug();
+  const queryKey = ['products', storeId];
   return useQuery<Product[]>({
-    queryKey: ['products', storeId],
+    queryKey,
     queryFn: async () => {
       if (STORE_SLUG === 'landingpage') {
         const { MOCK_LANDINGPAGE_PRODUCTS } =
@@ -43,11 +44,29 @@ export function useProductsQuery(storeId?: string) {
         .order('created_at', { ascending: false });
 
       if (error) throw error;
-      const products = data || [];
-      return products.map((p) => ({
+      const products = (data || []).map((p) => ({
         ...p,
         image_url: resolveLegacyImagePath(p.image_url) || '',
       }));
+
+      if (typeof window !== 'undefined' && storeId) {
+        localStorage.setItem(`ekatalog_local_products_${storeId}`, JSON.stringify(products));
+      }
+
+      return products;
+    },
+    initialData: () => {
+      if (typeof window !== 'undefined' && storeId && STORE_SLUG !== 'landingpage') {
+        const cached = localStorage.getItem(`ekatalog_local_products_${storeId}`);
+        if (cached) {
+          try {
+            return JSON.parse(cached) as Product[];
+          } catch (e) {
+            return undefined;
+          }
+        }
+      }
+      return undefined;
     },
     enabled: !!storeId,
     staleTime: 1000 * 60 * 5, // 5 minutes
@@ -70,13 +89,7 @@ export function useProductsActions() {
       id: string;
       changes: Partial<Product>;
     }) => {
-      if (STORE_SLUG === 'landingpage') {
-        queryClient.setQueryData<Product[]>(queryKey, (old) => {
-          if (!old) return [];
-          return old.map((p) => (p.id === id ? { ...p, ...changes } : p));
-        });
-        return;
-      }
+      if (STORE_SLUG === 'landingpage') return;
       if (!adminPin) throw new Error('Yetkisiz işlem: PIN gerekli');
       const { error } = await supabase.rpc('secure_update_product', {
         p_id: id,
@@ -85,7 +98,30 @@ export function useProductsActions() {
       });
       if (error) throw error;
     },
-    onSuccess: () => {
+    onMutate: async ({ id, changes }) => {
+      await queryClient.cancelQueries({ queryKey });
+      const previousProducts = queryClient.getQueryData<Product[]>(queryKey);
+
+      if (previousProducts) {
+        const updated = previousProducts.map((p) =>
+          p.id === id ? { ...p, ...changes } : p
+        );
+        queryClient.setQueryData<Product[]>(queryKey, updated);
+        if (typeof window !== 'undefined' && settings?.id) {
+          localStorage.setItem(`ekatalog_local_products_${settings.id}`, JSON.stringify(updated));
+        }
+      }
+      return { previousProducts };
+    },
+    onError: (_err, _variables, context) => {
+      if (context?.previousProducts) {
+        queryClient.setQueryData<Product[]>(queryKey, context.previousProducts);
+        if (typeof window !== 'undefined' && settings?.id) {
+          localStorage.setItem(`ekatalog_local_products_${settings.id}`, JSON.stringify(context.previousProducts));
+        }
+      }
+    },
+    onSettled: () => {
       if (STORE_SLUG !== 'landingpage') {
         queryClient.invalidateQueries({ queryKey });
       }
@@ -94,13 +130,7 @@ export function useProductsActions() {
 
   const deleteMutation = useMutation({
     mutationFn: async (id: string) => {
-      if (STORE_SLUG === 'landingpage') {
-        queryClient.setQueryData<Product[]>(queryKey, (old) => {
-          if (!old) return [];
-          return old.filter((p) => p.id !== id);
-        });
-        return;
-      }
+      if (STORE_SLUG === 'landingpage') return;
       if (!adminPin) throw new Error('Yetkisiz işlem: PIN gerekli');
       const { error } = await supabase.rpc('secure_delete_product', {
         p_id: id,
@@ -108,7 +138,28 @@ export function useProductsActions() {
       });
       if (error) throw error;
     },
-    onSuccess: () => {
+    onMutate: async (id) => {
+      await queryClient.cancelQueries({ queryKey });
+      const previousProducts = queryClient.getQueryData<Product[]>(queryKey);
+
+      if (previousProducts) {
+        const updated = previousProducts.filter((p) => p.id !== id);
+        queryClient.setQueryData<Product[]>(queryKey, updated);
+        if (typeof window !== 'undefined' && settings?.id) {
+          localStorage.setItem(`ekatalog_local_products_${settings.id}`, JSON.stringify(updated));
+        }
+      }
+      return { previousProducts };
+    },
+    onError: (_err, _id, context) => {
+      if (context?.previousProducts) {
+        queryClient.setQueryData<Product[]>(queryKey, context.previousProducts);
+        if (typeof window !== 'undefined' && settings?.id) {
+          localStorage.setItem(`ekatalog_local_products_${settings.id}`, JSON.stringify(context.previousProducts));
+        }
+      }
+    },
+    onSettled: () => {
       if (STORE_SLUG !== 'landingpage') {
         queryClient.invalidateQueries({ queryKey });
       }
@@ -117,19 +168,7 @@ export function useProductsActions() {
 
   const reorderCategoryMutation = useMutation({
     mutationFn: async (newOrder: string[]) => {
-      if (STORE_SLUG === 'landingpage') {
-        queryClient.setQueryData<CompanySettings>(
-          ['settings', STORE_SLUG],
-          (old) => {
-            if (!old) return old;
-            return {
-              ...old,
-              categoryOrder: newOrder,
-            };
-          },
-        );
-        return;
-      }
+      if (STORE_SLUG === 'landingpage') return;
       if (!settings?.id || !adminPin) throw new Error('Yetkisiz işlem');
       const { error } = await supabase.rpc('secure_reorder_categories', {
         p_store_id: settings.id,
@@ -138,7 +177,33 @@ export function useProductsActions() {
       });
       if (error) throw error;
     },
-    onSuccess: () => {
+    onMutate: async (newOrder) => {
+      const settingsKey = ['settings', STORE_SLUG];
+      await queryClient.cancelQueries({ queryKey: settingsKey });
+      const previousSettings = queryClient.getQueryData<CompanySettings>(settingsKey);
+
+      if (previousSettings) {
+        const updated = {
+          ...previousSettings,
+          categoryOrder: newOrder,
+        };
+        queryClient.setQueryData<CompanySettings>(settingsKey, updated);
+        if (typeof window !== 'undefined') {
+          localStorage.setItem(`ekatalog_local_settings_${STORE_SLUG}`, JSON.stringify(updated));
+        }
+      }
+      return { previousSettings };
+    },
+    onError: (_err, _variables, context) => {
+      const settingsKey = ['settings', STORE_SLUG];
+      if (context?.previousSettings) {
+        queryClient.setQueryData<CompanySettings>(settingsKey, context.previousSettings);
+        if (typeof window !== 'undefined') {
+          localStorage.setItem(`ekatalog_local_settings_${STORE_SLUG}`, JSON.stringify(context.previousSettings));
+        }
+      }
+    },
+    onSettled: () => {
       if (STORE_SLUG !== 'landingpage') {
         queryClient.invalidateQueries({ queryKey: ['settings', STORE_SLUG] });
       }
@@ -153,25 +218,7 @@ export function useProductsActions() {
       oldName: string;
       newName: string;
     }) => {
-      if (STORE_SLUG === 'landingpage') {
-        queryClient.setQueryData<Product[]>(queryKey, (old) => {
-          if (!old) return [];
-          return old.map((p) =>
-            p.category === oldName ? { ...p, category: newName } : p,
-          );
-        });
-        queryClient.setQueryData<CompanySettings>(
-          ['settings', STORE_SLUG],
-          (old) => {
-            if (!old) return old;
-            const updatedOrder = (old.categoryOrder || []).map((cat) =>
-              cat === oldName ? newName : cat,
-            );
-            return { ...old, categoryOrder: updatedOrder };
-          },
-        );
-        return;
-      }
+      if (STORE_SLUG === 'landingpage') return;
       if (!settings?.id || !adminPin) throw new Error('Yetkisiz işlem');
       const { error } = await supabase.rpc('secure_rename_category', {
         p_store_id: settings.id,
@@ -181,9 +228,58 @@ export function useProductsActions() {
       });
       if (error) throw error;
     },
-    onSuccess: () => {
+    onMutate: async ({ oldName, newName }) => {
+      const settingsKey = ['settings', STORE_SLUG];
+      await queryClient.cancelQueries({ queryKey });
+      await queryClient.cancelQueries({ queryKey: settingsKey });
+
+      const previousProducts = queryClient.getQueryData<Product[]>(queryKey);
+      const previousSettings = queryClient.getQueryData<CompanySettings>(settingsKey);
+
+      if (previousProducts) {
+        const updatedProds = previousProducts.map((p) =>
+          p.category === oldName ? { ...p, category: newName } : p
+        );
+        queryClient.setQueryData<Product[]>(queryKey, updatedProds);
+        if (typeof window !== 'undefined' && settings?.id) {
+          localStorage.setItem(`ekatalog_local_products_${settings.id}`, JSON.stringify(updatedProds));
+        }
+      }
+
+      if (previousSettings) {
+        const updatedSettings = {
+          ...previousSettings,
+          categoryOrder: (previousSettings.categoryOrder || []).map((cat) =>
+            cat === oldName ? newName : cat
+          ),
+        };
+        queryClient.setQueryData<CompanySettings>(settingsKey, updatedSettings);
+        if (typeof window !== 'undefined') {
+          localStorage.setItem(`ekatalog_local_settings_${STORE_SLUG}`, JSON.stringify(updatedSettings));
+        }
+      }
+
+      return { previousProducts, previousSettings };
+    },
+    onError: (_err, _variables, context) => {
+      const settingsKey = ['settings', STORE_SLUG];
+      if (context?.previousProducts) {
+        queryClient.setQueryData<Product[]>(queryKey, context.previousProducts);
+        if (typeof window !== 'undefined' && settings?.id) {
+          localStorage.setItem(`ekatalog_local_products_${settings.id}`, JSON.stringify(context.previousProducts));
+        }
+      }
+      if (context?.previousSettings) {
+        queryClient.setQueryData<CompanySettings>(settingsKey, context.previousSettings);
+        if (typeof window !== 'undefined') {
+          localStorage.setItem(`ekatalog_local_settings_${STORE_SLUG}`, JSON.stringify(context.previousSettings));
+        }
+      }
+    },
+    onSettled: () => {
       if (STORE_SLUG !== 'landingpage') {
         queryClient.invalidateQueries({ queryKey });
+        queryClient.invalidateQueries({ queryKey: ['settings', STORE_SLUG] });
       }
     },
   });
@@ -196,15 +292,7 @@ export function useProductsActions() {
       id: string;
       newSortOrder: number;
     }) => {
-      if (STORE_SLUG === 'landingpage') {
-        queryClient.setQueryData<Product[]>(queryKey, (old) => {
-          if (!old) return [];
-          return old.map((p) =>
-            p.id === id ? { ...p, sort_order: newSortOrder } : p,
-          );
-        });
-        return;
-      }
+      if (STORE_SLUG === 'landingpage') return;
       if (!adminPin) throw new Error('Yetkisiz işlem');
       const { error } = await supabase.rpc('secure_update_product', {
         p_id: id,
@@ -213,7 +301,30 @@ export function useProductsActions() {
       });
       if (error) throw error;
     },
-    onSuccess: () => {
+    onMutate: async ({ id, newSortOrder }) => {
+      await queryClient.cancelQueries({ queryKey });
+      const previousProducts = queryClient.getQueryData<Product[]>(queryKey);
+
+      if (previousProducts) {
+        const updated = previousProducts.map((p) =>
+          p.id === id ? { ...p, sort_order: newSortOrder } : p
+        );
+        queryClient.setQueryData<Product[]>(queryKey, updated);
+        if (typeof window !== 'undefined' && settings?.id) {
+          localStorage.setItem(`ekatalog_local_products_${settings.id}`, JSON.stringify(updated));
+        }
+      }
+      return { previousProducts };
+    },
+    onError: (_err, _variables, context) => {
+      if (context?.previousProducts) {
+        queryClient.setQueryData<Product[]>(queryKey, context.previousProducts);
+        if (typeof window !== 'undefined' && settings?.id) {
+          localStorage.setItem(`ekatalog_local_products_${settings.id}`, JSON.stringify(context.previousProducts));
+        }
+      }
+    },
+    onSettled: () => {
       if (STORE_SLUG !== 'landingpage') {
         queryClient.invalidateQueries({ queryKey });
       }
@@ -330,44 +441,7 @@ export function useProductsActions() {
       }[],
     ) => {
       if (!actions.length) return;
-      if (STORE_SLUG === 'landingpage') {
-        const { formatNumberToCurrency } = await import('../utils/core');
-        queryClient.setQueryData<Product[]>(queryKey, (old) => {
-          if (!old) return [];
-          let updated = [...old];
-          for (const action of actions) {
-            if (action.delete) {
-              updated = updated.filter((p) => p.id !== action.productId);
-            } else {
-              updated = updated.map((p) => {
-                if (p.id !== action.productId) return p;
-                const changes: Partial<Product> = {};
-                if (action.newPrice !== undefined) {
-                  changes.price =
-                    action.newPrice === 0
-                      ? ''
-                      : formatNumberToCurrency(action.newPrice);
-                }
-                if (action.newSortOrder !== undefined) {
-                  changes.sort_order = action.newSortOrder;
-                }
-                if (action.category !== undefined) {
-                  changes.category = action.category;
-                }
-                if (action.out_of_stock !== undefined) {
-                  changes.out_of_stock = action.out_of_stock;
-                }
-                if (action.is_archived !== undefined) {
-                  changes.is_archived = action.is_archived;
-                }
-                return { ...p, ...changes };
-              });
-            }
-          }
-          return updated;
-        });
-        return;
-      }
+      if (STORE_SLUG === 'landingpage') return;
       if (!adminPin) throw new Error('Yetkisiz işlem: PIN gerekli');
 
       // Process actions to match RPC format (converting prices if needed)
@@ -389,7 +463,58 @@ export function useProductsActions() {
 
       if (error) throw error;
     },
-    onSuccess: () => {
+    onMutate: async (actions) => {
+      await queryClient.cancelQueries({ queryKey });
+      const previousProducts = queryClient.getQueryData<Product[]>(queryKey);
+
+      if (previousProducts) {
+        const { formatNumberToCurrency } = await import('../utils/core');
+        let updated = [...previousProducts];
+        for (const action of actions) {
+          if (action.delete) {
+            updated = updated.filter((p) => p.id !== action.productId);
+          } else {
+            updated = updated.map((p) => {
+              if (p.id !== action.productId) return p;
+              const changes: Partial<Product> = {};
+              if (action.newPrice !== undefined) {
+                changes.price =
+                  action.newPrice === 0
+                    ? ''
+                    : formatNumberToCurrency(action.newPrice);
+              }
+              if (action.newSortOrder !== undefined) {
+                changes.sort_order = action.newSortOrder;
+              }
+              if (action.category !== undefined) {
+                changes.category = action.category;
+              }
+              if (action.out_of_stock !== undefined) {
+                changes.out_of_stock = action.out_of_stock;
+              }
+              if (action.is_archived !== undefined) {
+                changes.is_archived = action.is_archived;
+              }
+              return { ...p, ...changes };
+            });
+          }
+        }
+        queryClient.setQueryData<Product[]>(queryKey, updated);
+        if (typeof window !== 'undefined' && settings?.id) {
+          localStorage.setItem(`ekatalog_local_products_${settings.id}`, JSON.stringify(updated));
+        }
+      }
+      return { previousProducts };
+    },
+    onError: (_err, _variables, context) => {
+      if (context?.previousProducts) {
+        queryClient.setQueryData<Product[]>(queryKey, context.previousProducts);
+        if (typeof window !== 'undefined' && settings?.id) {
+          localStorage.setItem(`ekatalog_local_products_${settings.id}`, JSON.stringify(context.previousProducts));
+        }
+      }
+    },
+    onSettled: () => {
       if (STORE_SLUG !== 'landingpage') {
         queryClient.invalidateQueries({ queryKey });
       }

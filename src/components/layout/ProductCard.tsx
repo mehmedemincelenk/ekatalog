@@ -43,8 +43,6 @@ const ProductCard = memo(
     const cardContainerRef = useRef<HTMLElement>(null);
 
     const {
-      isUpdatingOrder,
-      setIsUpdatingOrder,
       showSuccess,
       setShowSuccess,
       isUploadingImage,
@@ -283,18 +281,15 @@ const ProductCard = memo(
               <div className="relative group">
                 <select
                   value={orderIndex}
-                  disabled={isUpdatingOrder}
                   onChange={async (e) => {
                     e.stopPropagation();
                     const newPos = Number(e.target.value);
-                    setIsUpdatingOrder(true);
+                    setShowSuccess(true);
+                    setTimeout(() => setShowSuccess(false), 1500);
                     try {
                       await onOrderIndexChange?.(product.id, newPos);
-                      setIsUpdatingOrder(false);
-                      setShowSuccess(true);
-                      setTimeout(() => setShowSuccess(false), 1500);
                     } catch {
-                      setIsUpdatingOrder(false);
+                      setShowSuccess(false);
                     }
                   }}
                   className="absolute inset-0 opacity-0 cursor-pointer z-10 w-7 h-7"
@@ -309,12 +304,10 @@ const ProductCard = memo(
                 <div
                   className={`
                   w-7 h-7 rounded-md flex items-center justify-center transition-all border border-white/20 shadow-xl backdrop-blur-md
-                  ${isUpdatingOrder ? 'bg-stone-900' : showSuccess ? 'bg-emerald-500' : 'bg-stone-900/60 hover:bg-stone-900/80'}
+                  ${showSuccess ? 'bg-emerald-500' : 'bg-stone-900/60 hover:bg-stone-900/80'}
                 `}
                 >
-                  {isUpdatingOrder ? (
-                    <div className="w-3 h-3 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                  ) : showSuccess ? (
+                  {showSuccess ? (
                     <Lucide.Check
                       size={12}
                       className="text-white"

@@ -28,7 +28,6 @@ const ReferenceItem = memo(
     const [hasError, setHasError] = useState(false);
     const [isActive, setIsActive] = useState(false);
     const timerRef = useRef<NodeJS.Timeout | null>(null);
-    const [isUpdatingOrder, setIsUpdatingOrder] = useState(false);
     const [showSuccess, setShowSuccess] = useState(false);
 
     const showTextFallback =
@@ -100,26 +99,23 @@ const ReferenceItem = memo(
             <div className="relative w-8 h-8 flex items-center justify-center rounded-md border border-white/20 shadow-xl bg-stone-900/60 backdrop-blur-md transition-all duration-200 active:scale-95 cursor-pointer hover:bg-stone-900/80">
               <select
                 value={currentIndex}
-                disabled={isUpdatingOrder}
                 onChange={async (e) => {
                   e.stopPropagation();
                   const newPos = Number(e.target.value);
-                  setIsUpdatingOrder(true);
+                  setShowSuccess(true);
+                  setTimeout(() => setShowSuccess(false), 1500);
                   try {
                     await onOrderChange?.(refData.id, newPos);
-                    setIsUpdatingOrder(false);
-                    setShowSuccess(true);
-                    setTimeout(() => setShowSuccess(false), 1500);
                   } catch (err) {
                     console.error(err);
+                    setShowSuccess(false);
                   } finally {
-                    setIsUpdatingOrder(false);
                     setIsActive(false);
                     onActiveStateChange?.(false);
                     if (timerRef.current) clearTimeout(timerRef.current);
                   }
                 }}
-                className={`absolute inset-0 cursor-pointer z-10 ${isUpdatingOrder || showSuccess ? 'opacity-0' : 'opacity-0'}`}
+                className="absolute inset-0 cursor-pointer z-10 opacity-0"
               >
                 {Array.from({ length: totalItems }).map((_, i) => (
                   <option key={i} value={i}>
@@ -127,9 +123,7 @@ const ReferenceItem = memo(
                   </option>
                 ))}
               </select>
-              {isUpdatingOrder ? (
-                <div className="w-3.5 h-3.5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-              ) : showSuccess ? (
+              {showSuccess ? (
                 <Lucide.Check
                   size={14}
                   className="text-emerald-400"

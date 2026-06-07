@@ -171,7 +171,24 @@ export function useSettingsQuery() {
         portfoys_credits: raw.portfoys_credits,
       };
 
+      if (settings && typeof window !== 'undefined' && STORE_SLUG !== 'empty-state' && STORE_SLUG !== 'landingpage') {
+        localStorage.setItem(`ekatalog_local_settings_${STORE_SLUG}`, JSON.stringify(settings));
+      }
+
       return settings;
+    },
+    initialData: () => {
+      if (typeof window !== 'undefined' && STORE_SLUG !== 'empty-state' && STORE_SLUG !== 'landingpage') {
+        const cached = localStorage.getItem(`ekatalog_local_settings_${STORE_SLUG}`);
+        if (cached) {
+          try {
+            return JSON.parse(cached) as CompanySettings;
+          } catch (e) {
+            return undefined;
+          }
+        }
+      }
+      return undefined;
     },
     staleTime: 1000 * 60 * 30, // 30 minutes
   });
@@ -196,30 +213,8 @@ export function useSettings(isAdmin: boolean) {
       key: keyof CompanySettings;
       value: CompanySettings[keyof CompanySettings];
     }) => {
+      if (STORE_SLUG === 'landingpage') return;
       if (!settings?.id) throw new Error('Settings not loaded');
-
-      if (STORE_SLUG === 'landingpage') {
-        queryClient.setQueryData<CompanySettings>(
-          ['settings', STORE_SLUG],
-          (old) => {
-            if (!old) return old;
-            if (key === 'phoneCall') {
-              return {
-                ...old,
-                displayConfig: {
-                  ...(old.displayConfig || {}),
-                  phoneCall: value as string,
-                },
-              };
-            }
-            return {
-              ...old,
-              [key]: value,
-            } as CompanySettings;
-          },
-        );
-        return;
-      }
 
       const dbMap: Record<string, string> = {
         title: 'name',
@@ -265,7 +260,47 @@ export function useSettings(isAdmin: boolean) {
         if (error) throw error;
       }
     },
-    onSuccess: () => {
+    onMutate: async ({ key, value }) => {
+      await queryClient.cancelQueries({ queryKey: ['settings', STORE_SLUG] });
+      const previousSettings = queryClient.getQueryData<CompanySettings>(['settings', STORE_SLUG]);
+
+      if (previousSettings) {
+        let updated: CompanySettings;
+        if (key === 'phoneCall') {
+          updated = {
+            ...previousSettings,
+            displayConfig: {
+              ...(previousSettings.displayConfig || {}),
+              phoneCall: value as string,
+            },
+          } as CompanySettings;
+        } else {
+          updated = {
+            ...previousSettings,
+            [key]: value,
+          } as CompanySettings;
+        }
+
+        setSettingsStore(updated);
+        queryClient.setQueryData<CompanySettings>(['settings', STORE_SLUG], updated);
+
+        if (typeof window !== 'undefined' && STORE_SLUG !== 'empty-state' && STORE_SLUG !== 'landingpage') {
+          localStorage.setItem(`ekatalog_local_settings_${STORE_SLUG}`, JSON.stringify(updated));
+        }
+      }
+
+      return { previousSettings };
+    },
+    onError: (_err, _variables, context) => {
+      if (context?.previousSettings) {
+        setSettingsStore(context.previousSettings);
+        queryClient.setQueryData<CompanySettings>(['settings', STORE_SLUG], context.previousSettings);
+        if (typeof window !== 'undefined' && STORE_SLUG !== 'empty-state' && STORE_SLUG !== 'landingpage') {
+          localStorage.setItem(`ekatalog_local_settings_${STORE_SLUG}`, JSON.stringify(context.previousSettings));
+        }
+      }
+    },
+    onSettled: () => {
       if (STORE_SLUG !== 'landingpage') {
         queryClient.invalidateQueries({ queryKey: ['settings', STORE_SLUG] });
       }

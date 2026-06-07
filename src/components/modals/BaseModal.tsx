@@ -81,7 +81,7 @@ export default function BaseModal({
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={handleBackdropClick}
-              className="absolute inset-0 bg-stone-900/60 backdrop-blur-sm print:hidden"
+              className="absolute inset-0 bg-stone-950/10 backdrop-blur-sm print:hidden"
             />
           )}
 
@@ -138,7 +138,7 @@ export default function BaseModal({
                   variant="secondary"
                   size="sm"
                   mode="circle"
-                  className="relative !bg-white !text-stone-900/50 hover:!text-stone-900 hover:!bg-stone-50 shadow-xl border-2 border-stone-100 w-8 h-8 flex items-center justify-center transition-all hover:scale-110 active:scale-90 before:content-[''] before:absolute before:-inset-2 before:z-[-1]"
+                  className="relative !bg-white/80 backdrop-blur-md !text-stone-900/60 hover:!text-stone-900 hover:!bg-white shadow-lg border border-white/30 w-8 h-8 flex items-center justify-center transition-all hover:scale-110 active:scale-90 before:content-[''] before:absolute before:-inset-2 before:z-[-1]"
                   icon={<Lucide.X size={16} strokeWidth={3} />}
                   title="Kapat"
                 />
@@ -146,7 +146,7 @@ export default function BaseModal({
             )}
 
             {/* CONTENT WRAPPER (Preserves Corner Masking) */}
-            <div className="bg-white rounded-3xl overflow-hidden flex flex-col flex-1 border border-stone-100 relative">
+            <div className="bg-white/80 backdrop-blur-xl rounded-3xl overflow-hidden flex flex-col flex-1 border border-white/20 shadow-[inset_0_1px_1px_rgba(255,255,255,0.4)] relative">
               {/* HEADER AREA */}
               {(title || icon) && !progress && (
                 <div
@@ -182,7 +182,7 @@ export default function BaseModal({
 
               {/* WIZARD HEADER (Title + Progress Dots) */}
               {progress && (
-                <div className="flex items-center justify-between p-5 border-b border-stone-100 bg-stone-50/50 print:hidden shrink-0">
+                <div className="flex items-center justify-between p-5 border-b border-white/10 bg-white/20 print:hidden shrink-0">
                   <div className="flex flex-col">
                     <div className="flex items-center gap-1.5 mb-4">
                       {Array.from({ length: progress.total }).map((_, idx) => {
@@ -223,7 +223,7 @@ export default function BaseModal({
 
               {/* FOOTER ACTIONS */}
               {footer && (
-                <div className="p-4 border-t border-stone-100 bg-stone-50/50 print:hidden shrink-0 mt-auto">
+                <div className="p-4 border-t border-white/10 bg-white/20 print:hidden shrink-0 mt-auto">
                   {footer}
                 </div>
               )}

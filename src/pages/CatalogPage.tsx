@@ -106,6 +106,38 @@ export default function CatalogPage() {
     string | null
   >(null);
 
+  const [showWelcome, setShowWelcome] = useState(false);
+  const storeSlug = getActiveStoreSlug();
+
+  useEffect(() => {
+    if (storeSlug && storeSlug !== 'landingpage') {
+      localStorage.removeItem(`ekatalog_welcomed_${storeSlug}`);
+      
+      const isDev = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+      const hasVisited = sessionStorage.getItem(`ekatalog_welcomed_${storeSlug}`);
+      
+      if (!hasVisited || isDev) {
+        setShowWelcome(true);
+      }
+    }
+  }, [storeSlug]);
+
+  useEffect(() => {
+    if (showWelcome) {
+      const timer = setTimeout(() => {
+        handleWelcomeDismiss();
+      }, 1000);
+      return () => clearTimeout(timer);
+    }
+  }, [showWelcome]);
+
+  const handleWelcomeDismiss = () => {
+    setShowWelcome(false);
+    if (storeSlug) {
+      sessionStorage.setItem(`ekatalog_welcomed_${storeSlug}`, 'true');
+    }
+  };
+
   // 2. LOADING & ERROR STATES (Bulletproof)
   if (settingsLoading) {
     return (
@@ -166,10 +198,8 @@ export default function CatalogPage() {
   const mobileContent = (
     <>
       <div className="relative w-full h-full overflow-hidden flex flex-col">
-        {/* Onboarding Glassmorphic/Blur Overlay (covers content, excludes Navbar [z-100] and Floating Menu/Tooltip [z-400]) */}
-        {getActiveStoreSlug() === 'landingpage' && !isAdmin && (
-          (!hasVisitedAdmin && !activeModal) || activeModal === 'PIN'
-        ) && (
+        {/* Onboarding or Modal active Glassmorphic/Blur Overlay */}
+        {((getActiveStoreSlug() === 'landingpage' && !isAdmin && !hasVisitedAdmin) || !!activeModal) && (
           <div className="fixed md:absolute inset-0 z-[50] bg-white/20 backdrop-blur-[2px] pointer-events-auto animate-in fade-in duration-300" />
         )}
 
@@ -247,13 +277,13 @@ export default function CatalogPage() {
           <div className="absolute bottom-3 right-4 pointer-events-auto">
             {/* Onboarding Tooltip for Demo (inside the iframe, completely hidden from LandingPage context) */}
             {getActiveStoreSlug() === 'landingpage' && !hasVisitedAdmin && !activeModal && (
-              <div className="absolute bottom-[48px] right-2 pointer-events-none animate-in fade-in slide-in-from-bottom-2 duration-300">
-                <div className="bg-stone-950/95 border border-white/15 backdrop-blur-md text-white text-[11px] font-bold py-2 px-3 rounded-xl shadow-[0_10px_30px_rgba(0,0,0,0.5)] flex flex-col items-center gap-0.5 whitespace-nowrap relative select-none">
+              <div className="absolute bottom-[52px] right-2 pointer-events-none animate-in fade-in slide-in-from-bottom-2 duration-300">
+                <div className="bg-stone-950/95 border border-white/15 backdrop-blur-md text-white text-[14px] font-bold py-3 px-4 rounded-2xl shadow-[0_10px_35px_rgba(0,0,0,0.6)] flex flex-col items-start gap-1.5 whitespace-nowrap relative select-none">
                   <div className="flex items-center gap-1">
-                    <span>💡 <b>Örnek E-Katalog</b></span>
+                    <span><b>Örnek ekatalog</b></span>
                   </div>
-                  <span className="text-[10px] text-stone-400 font-normal">Dünyanın en basit yönetim paneline giriş için</span>
-                  <span className="text-[10px] text-stone-400 font-normal">butona basılı tutun • Şifre: 12345</span>
+                  <span className="text-[12px] text-stone-400 font-medium">Dünyanın en basit yönetim paneline giriş için</span>
+                  <span className="text-[12px] text-stone-300 font-bold">butona basılı tutun • Şifre: 0000</span>
                   
                   {/* Little down arrow point */}
                   <div className="absolute bottom-[-5px] right-[45px] w-2.5 h-2.5 bg-stone-950/95 border-r border-b border-white/15 rotate-45"></div>
@@ -371,6 +401,56 @@ export default function CatalogPage() {
             {mobileContent}
             <div className="hidden md:block absolute bottom-2 left-1/2 -translate-x-1/2 w-28 h-1 bg-stone-900/10 rounded-full z-[500] hover:bg-stone-900/20 transition-colors" />
           </div>
+
+          {/* Welcome Splash Overlay */}
+          <AnimatePresence>
+            {showWelcome && (
+              <motion.div
+                initial={{ opacity: 1 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0, scale: 1.05 }}
+                transition={{ duration: 0.4, ease: 'easeInOut' }}
+                className="absolute inset-0 z-[9999] bg-stone-950 flex flex-col items-center justify-center p-6 text-center select-none md:rounded-[2.5rem]"
+              >
+                {/* Logo Wrapper */}
+                <motion.div
+                  initial={{ scale: 0.9, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  transition={{ delay: 0.1, duration: 0.3 }}
+                  className="w-28 h-28 rounded-[2rem] bg-white/5 border border-white/10 flex items-center justify-center overflow-hidden mb-6 shadow-2xl p-4"
+                >
+                  {storeSettings?.logoUrl ? (
+                    <img
+                      src={storeSettings.logoUrl}
+                      alt={storeSettings.title || 'Logo'}
+                      className="w-full h-full object-contain"
+                    />
+                  ) : (
+                    <span className="text-4xl">📦</span>
+                  )}
+                </motion.div>
+
+                {/* Typography */}
+                <motion.h2
+                  initial={{ y: 10, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ delay: 0.2, duration: 0.3 }}
+                  className="text-white text-3xl font-black tracking-widest uppercase mb-2"
+                >
+                  Hoşgeldiniz
+                </motion.h2>
+
+                <motion.p
+                  initial={{ y: 10, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ delay: 0.3, duration: 0.3 }}
+                  className="text-stone-400 font-bold text-xs tracking-wider uppercase"
+                >
+                  {storeSettings?.title || 'Katalog'}
+                </motion.p>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </div>
     </div>

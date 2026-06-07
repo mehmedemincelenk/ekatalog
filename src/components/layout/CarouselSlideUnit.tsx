@@ -37,7 +37,6 @@ const CarouselSlideUnit = memo(
     onUpload: (e: React.ChangeEvent<HTMLInputElement>) => void;
     onOrderChange?: (newPos: number) => void;
   }) => {
-    const [isUpdatingOrder, setIsUpdatingOrder] = useState(false);
     const [showSuccess, setShowSuccess] = useState(false);
     const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -75,21 +74,18 @@ const CarouselSlideUnit = memo(
               >
                 <select
                   value={currentIndex}
-                  disabled={isUpdatingOrder}
                   onChange={async (e) => {
                     e.stopPropagation();
                     const newPos = Number(e.target.value);
-                    setIsUpdatingOrder(true);
+                    setShowSuccess(true);
+                    setTimeout(() => setShowSuccess(false), 1500);
                     try {
                       await onOrderChange?.(newPos);
-                      setIsUpdatingOrder(false);
-                      setShowSuccess(true);
-                      setTimeout(() => setShowSuccess(false), 1500);
-                    } finally {
-                      setIsUpdatingOrder(false);
+                    } catch {
+                      setShowSuccess(false);
                     }
                   }}
-                  className={`absolute inset-0 cursor-pointer z-10 ${isUpdatingOrder || showSuccess ? 'opacity-0' : 'opacity-0'}`}
+                  className="absolute inset-0 cursor-pointer z-10 opacity-0"
                 >
                   {Array.from({ length: totalSlides }).map((_, i) => (
                     <option key={i} value={i}>
@@ -97,9 +93,7 @@ const CarouselSlideUnit = memo(
                     </option>
                   ))}
                 </select>
-                {isUpdatingOrder ? (
-                  <div className="w-3 h-3 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                ) : showSuccess ? (
+                {showSuccess ? (
                   <motion.div
                     initial={{ scale: 0.5, opacity: 0 }}
                     animate={{ scale: 1, opacity: 1 }}

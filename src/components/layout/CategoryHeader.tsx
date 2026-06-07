@@ -28,7 +28,6 @@ const CategoryHeader = memo(
     const theme = THEME.productGrid.header;
     const [isRenameModalOpen, setIsRenameModalOpen] = useState(false);
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-    const [isUpdatingOrder, setIsUpdatingOrder] = useState(false);
     const [showSuccess, setShowSuccess] = useState(false);
 
     return (
@@ -47,18 +46,15 @@ const CategoryHeader = memo(
                 <div className="relative">
                   <select
                     value={currentOrder}
-                    disabled={isUpdatingOrder}
                     onChange={async (e) => {
                       e.stopPropagation();
                       const newPos = Number(e.target.value);
-                      setIsUpdatingOrder(true);
+                      setShowSuccess(true);
+                      setTimeout(() => setShowSuccess(false), 1500);
                       try {
                         await onOrderChange?.(categoryName, newPos);
-                        setIsUpdatingOrder(false);
-                        setShowSuccess(true);
-                        setTimeout(() => setShowSuccess(false), 1500);
                       } catch {
-                        setIsUpdatingOrder(false);
+                        setShowSuccess(false);
                       }
                     }}
                     className="absolute inset-0 opacity-0 cursor-pointer z-10 w-full h-full"
@@ -73,12 +69,10 @@ const CategoryHeader = memo(
                   <div
                     className={`
                   w-6 h-6 rounded-md flex items-center justify-center transition-all border border-stone-200/10 shadow-md backdrop-blur-sm
-                  ${isUpdatingOrder ? 'bg-stone-900' : showSuccess ? 'bg-emerald-500' : 'bg-stone-900/60 hover:bg-stone-900/80'}
+                  ${showSuccess ? 'bg-emerald-500' : 'bg-stone-900/60 hover:bg-stone-900/80'}
                 `}
                   >
-                    {isUpdatingOrder ? (
-                      <div className="w-2.5 h-2.5 border border-white/30 border-t-white rounded-full animate-spin" />
-                    ) : showSuccess ? (
+                    {showSuccess ? (
                       <Lucide.Check
                         size={10}
                         className="text-white"
