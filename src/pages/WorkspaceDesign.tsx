@@ -31,7 +31,7 @@ const TEMPLATES = [
     id: 'kurtulacaklar',
     name: 'Kurtulacaklarınız',
     header: 'kurtulacaklarınız',
-    icon: 'X',
+    icon: '✕',
     color: 'text-red-500',
     items: [
       'fiyat değiştikçe her gün yeni PDF hazırlamaktan',
@@ -39,6 +39,8 @@ const TEMPLATES = [
       'günde 50 kez "bunun fiyatı ne kadar?" sorusunu cevaplamaktan',
       'stok bittiği halde sipariş alıp mahcup olmaktan',
       'dosya boyutu büyük diye açılmayan, kasan PDF\'lerden',
+      'tasarımcı ve yazılımcı beklemekten yorulmaktan',
+      'mesai saatleri dışında fiyat veremeyip müşteri kaçırmaktan',
     ],
   },
   {
@@ -50,23 +52,11 @@ const TEMPLATES = [
     items: [
       'kendi web siteniz (www.firmaniz.com)',
       'telefondan fiyatları saniyeler içinde güncelleme',
-      'tek tıkla telefona mobil uygulama olarak kurma',
+      'hem web sitesi hem mobil uygulama',
       'müşteriye özel indirim ve geçici fiyat tanımlama',
-      'TL, USD ve EUR arası döviz çevirici ve kolay PIN kodu',
-    ],
-  },
-  {
-    id: 'reklam',
-    name: 'Tek Tıkla Reklam',
-    header: 'tek tıkla reklam',
-    icon: '📢',
-    color: 'text-amber-500',
-    items: [
-      'Instagram, Facebook veya Google hesabı açmakla uğraşmayın.',
-      'Karmaşık reklam panelleri profesyoneller içindir, sizin için değil.',
-      'Sadece reklam bütçenizi seçin; bedelini faturanıza yansıtsın.',
-      'Yapay zekamız reklamınızı anında yapsın.',
-      'Turkcell • Vodafone • Türk Telekom faturası ile ödeme kolaylığı.',
+      'TL, USD ve EUR arası tek tıkla döviz çevirici',
+      'toplu fiyat güncelleme ile saatler kazanma',
+      'tek tıkla faturaya yansıyan reklam otomasyonu',
     ],
   },
 ];
@@ -246,21 +236,21 @@ export default function WorkspaceDesign() {
             </div>
 
             {/* MAIN CARD CONTENT */}
-            <div className="space-y-16 relative z-10">
+            <div className="space-y-12 relative z-10">
               <h2 className="text-7xl font-black tracking-tighter leading-tight capitalize max-w-2xl text-stone-100">
                 {header}
               </h2>
 
-              <div className="space-y-8 max-w-4xl">
+              <div className="space-y-5 max-w-4xl">
                 {items.map((item, idx) => (
-                  <div key={idx} className="flex gap-6 items-start bg-white/[0.02] border border-white/[0.04] backdrop-blur-md p-8 rounded-[2rem]">
+                  <div key={idx} className="flex gap-6 items-start bg-white/[0.02] border border-white/[0.04] backdrop-blur-md p-6 rounded-[1.8rem]">
                     <div className="shrink-0">
-                      <div className={`w-16 h-16 rounded-2xl bg-white/[0.03] border border-white/[0.05] flex items-center justify-center text-3xl font-black ${activeTemplate.color}`}>
+                      <div className={`w-14 h-14 rounded-xl bg-white/[0.03] border border-white/[0.05] flex items-center justify-center text-2xl font-black ${activeTemplate.color}`}>
                         {activeTemplate.icon}
                       </div>
                     </div>
-                    <div className="space-y-1.5 flex-1 pt-2">
-                      <p className="text-3xl font-bold text-stone-200 leading-snug">
+                    <div className="space-y-1 flex-1 pt-1.5">
+                      <p className="text-2xl font-bold text-stone-200 leading-snug">
                         {item}
                       </p>
                     </div>
