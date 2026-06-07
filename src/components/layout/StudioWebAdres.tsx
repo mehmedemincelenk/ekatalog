@@ -74,9 +74,14 @@ export default function StudioWebAdres({
 
         {/* Feature Copy */}
         <div className="space-y-4 px-2 text-left">
-          <h2 className={`text-5xl font-black tracking-tighter leading-tight ${isLight ? 'text-stone-900' : 'text-stone-100'}`}>
-            {title}
-          </h2>
+          <div className="flex items-center gap-4">
+            <h2 className={`text-5xl font-black tracking-tighter leading-tight ${isLight ? 'text-stone-900' : 'text-stone-100'}`}>
+              {title}
+            </h2>
+            <span className="bg-emerald-500 text-stone-950 text-xs font-black px-3 py-1 rounded-full uppercase tracking-widest shrink-0">
+              HEDİYEMİZ
+            </span>
+          </div>
           <p className={`text-2xl font-medium leading-relaxed ${isLight ? 'text-stone-500' : 'text-stone-400'}`}>
             {desc}
           </p>
