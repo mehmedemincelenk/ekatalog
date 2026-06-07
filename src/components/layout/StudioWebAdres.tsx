@@ -46,14 +46,20 @@ export default function StudioWebAdres({
           <div className={`w-full max-w-[540px] rounded-[2rem] rounded-br-[0.5rem] p-8 space-y-4 relative ${bubbleBg}`}>
             
             {/* Direct Message text */}
-            <p className="text-2xl font-semibold leading-relaxed tracking-tight">
-              abi sadece buna tıkla, ürünlerimizin hepsine ulaşabilirsin:
-            </p>
-            
-            {/* Inline blue website link */}
-            <p className="text-2xl font-black text-sky-200 hover:text-sky-100 underline break-all block">
-              {website}
-            </p>
+            <div className="space-y-4">
+              <p className="text-2xl font-semibold leading-relaxed tracking-tight">
+                abi sadece buna tıkla, ürünlerimizin hepsine ulaşabilirsin:
+              </p>
+              
+              {/* Inline blue website link */}
+              <p className="text-2xl font-black text-sky-200 hover:text-sky-100 underline break-all block">
+                {website}
+              </p>
+
+              <p className="text-2xl font-semibold leading-relaxed tracking-tight pt-2 border-t border-white/10">
+                ekatalogumuzu telefonuna uygulama olarak eklemek istersen bize haber ver ekleyelim.
+              </p>
+            </div>
 
             {/* Micro badge indicator (Delivered/Sent) */}
             <div className="flex justify-end items-center opacity-70">
