@@ -48,7 +48,7 @@ export default function WorkspaceDesign() {
 
   // Editable inputs for the first feature: Web Address
   const [title, setTitle] = useState('Kendi Web Adresiniz');
-  const [desc, setDesc] = useState('www.sirketadim.ekatalog.site adresiyle dükkanınız 7/24 kesintisiz ve prestijli yayın yapar.');
+  const [desc, setDesc] = useState("ekatalog'un hediyesi www.sirketadim.ekatalog.site adresiyle dükkanınız 7/24 kesintisiz yayın yapar.");
   const [website, setWebsite] = useState('www.sirketadim.ekatalog.site');
 
   const exportRef = useRef<HTMLDivElement>(null);
