@@ -50,13 +50,16 @@ const TEMPLATES = [
     icon: '✓',
     color: 'text-emerald-500',
     items: [
-      'kendi web siteniz (www.firmaniz.com)',
-      'telefondan fiyatları saniyeler içinde güncelleme',
-      'hem web sitesi hem mobil uygulama',
-      'müşteriye özel indirim ve geçici fiyat tanımlama',
+      'kendi web siteniz (www.firmaniz.com veya markaniz.ekatalog.site)',
+      'telefondan fiyatları saniyeler içinde anında güncelleme',
+      'hem web adresi hem mobil uygulama olarak kurulum kolaylığı',
+      'dilediğiniz müşteriye özel geçici fiyat ve indirim tanımlama',
       'TL, USD ve EUR arası tek tıkla döviz çevirici',
-      'toplu fiyat güncelleme ile saatler kazanma',
-      'tek tıkla faturaya yansıyan reklam otomasyonu',
+      '4 haneli PIN kodu ile dükkanınıza hızlı ve güvenli erişim',
+      'portfoys.pro işbirliğiyle dilediğiniz sektörün bilgilerine ulaşım',
+      'ürünleri tek tıkla Instagram/WhatsApp reklam görseline dönüştürme',
+      'tüm dükkanda toplu fiyat güncelleme ile saatler kazanma',
+      'tek tıkla telefon faturanıza yansıyan reklam otomasyonu',
     ],
   },
 ];
@@ -108,6 +111,8 @@ export default function WorkspaceDesign() {
       setIsExporting(false);
     }
   };
+
+  const isLongList = items.length > 7;
 
   return (
     <div className="min-h-screen bg-stone-900 text-stone-100 font-sans flex flex-col md:flex-row">
@@ -236,21 +241,32 @@ export default function WorkspaceDesign() {
             </div>
 
             {/* MAIN CARD CONTENT */}
-            <div className="space-y-12 relative z-10">
+            <div className={`relative z-10 ${isLongList ? 'space-y-8' : 'space-y-12'}`}>
               <h2 className="text-7xl font-black tracking-tighter leading-tight capitalize max-w-2xl text-stone-100">
                 {header}
               </h2>
 
-              <div className="space-y-5 max-w-4xl">
+              <div className={`max-w-4xl ${isLongList ? 'space-y-3.5' : 'space-y-5'}`}>
                 {items.map((item, idx) => (
-                  <div key={idx} className="flex gap-6 items-start bg-white/[0.02] border border-white/[0.04] backdrop-blur-md p-6 rounded-[1.8rem]">
+                  <div 
+                    key={idx} 
+                    className={`flex gap-6 items-start bg-white/[0.02] border border-white/[0.04] backdrop-blur-md transition-all ${
+                      isLongList ? 'p-4.5 rounded-[1.3rem]' : 'p-6 rounded-[1.8rem]'
+                    }`}
+                  >
                     <div className="shrink-0">
-                      <div className={`w-14 h-14 rounded-xl bg-white/[0.03] border border-white/[0.05] flex items-center justify-center text-2xl font-black ${activeTemplate.color}`}>
+                      <div className={`flex items-center justify-center font-black transition-all ${
+                        isLongList 
+                          ? 'w-11 h-11 rounded-lg text-xl bg-white/[0.03] border border-white/[0.05]' 
+                          : 'w-14 h-14 rounded-xl text-2xl bg-white/[0.03] border border-white/[0.05]'
+                      } ${activeTemplate.color}`}>
                         {activeTemplate.icon}
                       </div>
                     </div>
-                    <div className="space-y-1 flex-1 pt-1.5">
-                      <p className="text-2xl font-bold text-stone-200 leading-snug">
+                    <div className={`flex-1 ${isLongList ? 'pt-1' : 'pt-1.5'}`}>
+                      <p className={`font-bold text-stone-200 leading-snug ${
+                        isLongList ? 'text-2xl' : 'text-2xl'
+                      }`}>
                         {item}
                       </p>
                     </div>
