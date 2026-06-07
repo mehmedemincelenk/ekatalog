@@ -1,4 +1,3 @@
-import * as Lucide from 'lucide-react';
 
 interface StudioWebAdresProps {
   title: string;
@@ -23,10 +22,6 @@ export default function StudioWebAdres({
   const bubbleBg = isLight 
     ? 'bg-[#d9fdd3] text-[#303030] border border-[#e1f7dd]' 
     : 'bg-[#005c4b] text-[#e9edef] border border-[#007560]/50 shadow-xl';
-
-  const previewCardBg = isLight
-    ? 'bg-[#cfe9c9]'
-    : 'bg-[#025143]';
 
   return (
     <div
@@ -57,35 +52,18 @@ export default function StudioWebAdres({
       {/* Center Layout: Mockup and Copy */}
       <div className="relative z-10 flex-1 flex flex-col justify-center gap-16 my-6">
         
-        {/* Centered Large Chat Bubble (Without Phone Window Frame) */}
+        {/* Centered Chat Bubble with Inline Blue Link */}
         <div className="w-full flex justify-center py-4">
-          <div className={`w-full max-w-[580px] rounded-[2.5rem] rounded-tr-none p-8 space-y-6 shadow-2xl relative border ${bubbleBg}`}>
+          <div className={`w-full max-w-[540px] rounded-[2.5rem] rounded-tr-none p-8 space-y-6 shadow-2xl relative border ${bubbleBg}`}>
             
-            {/* The Text */}
-            <p className="text-2xl font-black leading-snug">
-              abi sadece buna tıkla, ürünlerimizin hepsine ulaşabilirsin.
-            </p>
-
-            {/* Link Preview Box */}
-            <div className={`rounded-2xl overflow-hidden flex flex-col border border-white/[0.04] p-5 text-left ${previewCardBg}`}>
-              <div className="flex gap-4 items-center">
-                <div className={`w-16 h-16 rounded-xl flex items-center justify-center shrink-0 ${
-                  isLight ? 'bg-white/80' : 'bg-black/20'
-                }`}>
-                  <Lucide.Globe className="text-emerald-500" size={28} />
-                </div>
-                <div className="space-y-1 min-w-0">
-                  <h5 className={`text-base font-black truncate ${isLight ? 'text-stone-900' : 'text-white'}`}>
-                    {title}
-                  </h5>
-                  <p className="text-xs font-medium leading-relaxed truncate opacity-70">
-                    Dijital menümüz ve anında güncel fiyatlar.
-                  </p>
-                  <p className="text-xs font-bold text-sky-400 truncate tracking-wide">
-                    {website}
-                  </p>
-                </div>
-              </div>
+            {/* The Message Text + Blue Inline Link */}
+            <div className="space-y-4 text-left">
+              <p className="text-2xl font-bold leading-relaxed">
+                abi sadece buna tıkla, ürünlerimizin hepsine ulaşabilirsin:
+              </p>
+              <p className="text-2xl font-black text-sky-400 hover:underline break-all block pt-1">
+                {website}
+              </p>
             </div>
 
             {/* Timestamp tick */}
