@@ -114,6 +114,26 @@ export default function WorkspaceDesign() {
 
   const isLongList = items.length > 7;
 
+  // Dynamic CSS classes for 1080x1920 scale
+  const itemContainerClass = isLongList
+    ? 'p-5 px-7 rounded-[1.8rem] bg-white/[0.02] border border-white/[0.04] backdrop-blur-md flex gap-6 items-start'
+    : 'p-7 px-9 rounded-[2.2rem] bg-white/[0.02] border border-white/[0.04] backdrop-blur-md flex gap-8 items-start';
+
+  const iconBoxClass = isLongList
+    ? 'w-15 h-15 rounded-xl bg-white/[0.03] border border-white/[0.05] flex items-center justify-center text-3xl font-black shrink-0'
+    : 'w-18 h-18 rounded-2xl bg-white/[0.03] border border-white/[0.05] flex items-center justify-center text-4xl font-black shrink-0';
+
+  const textClass = isLongList
+    ? 'text-[29px] font-black text-stone-200 leading-snug'
+    : 'text-[36px] font-black text-stone-200 leading-snug';
+
+  const titleClass = isLongList
+    ? 'text-8xl font-black tracking-tighter leading-tight capitalize max-w-3xl text-stone-100'
+    : 'text-9xl font-black tracking-tighter leading-tight capitalize max-w-3xl text-stone-100';
+
+  const mainContentGap = isLongList ? 'space-y-10' : 'space-y-16';
+  const listGap = isLongList ? 'space-y-4.5' : 'space-y-6';
+
   return (
     <div className="min-h-screen bg-stone-900 text-stone-100 font-sans flex flex-col md:flex-row">
       {/* SIDEBAR: CONTROLS */}
@@ -241,32 +261,19 @@ export default function WorkspaceDesign() {
             </div>
 
             {/* MAIN CARD CONTENT */}
-            <div className={`relative z-10 ${isLongList ? 'space-y-8' : 'space-y-12'}`}>
-              <h2 className="text-7xl font-black tracking-tighter leading-tight capitalize max-w-2xl text-stone-100">
+            <div className={`relative z-10 ${mainContentGap}`}>
+              <h2 className={titleClass}>
                 {header}
               </h2>
 
-              <div className={`max-w-4xl ${isLongList ? 'space-y-3.5' : 'space-y-5'}`}>
+              <div className={`max-w-4xl ${listGap}`}>
                 {items.map((item, idx) => (
-                  <div 
-                    key={idx} 
-                    className={`flex gap-6 items-start bg-white/[0.02] border border-white/[0.04] backdrop-blur-md transition-all ${
-                      isLongList ? 'p-4.5 rounded-[1.3rem]' : 'p-6 rounded-[1.8rem]'
-                    }`}
-                  >
-                    <div className="shrink-0">
-                      <div className={`flex items-center justify-center font-black transition-all ${
-                        isLongList 
-                          ? 'w-11 h-11 rounded-lg text-xl bg-white/[0.03] border border-white/[0.05]' 
-                          : 'w-14 h-14 rounded-xl text-2xl bg-white/[0.03] border border-white/[0.05]'
-                      } ${activeTemplate.color}`}>
-                        {activeTemplate.icon}
-                      </div>
+                  <div key={idx} className={itemContainerClass}>
+                    <div className={iconBoxClass}>
+                      <span className={activeTemplate.color}>{activeTemplate.icon}</span>
                     </div>
-                    <div className={`flex-1 ${isLongList ? 'pt-1' : 'pt-1.5'}`}>
-                      <p className={`font-bold text-stone-200 leading-snug ${
-                        isLongList ? 'text-2xl' : 'text-2xl'
-                      }`}>
+                    <div className="flex-1 pt-2">
+                      <p className={textClass}>
                         {item}
                       </p>
                     </div>
