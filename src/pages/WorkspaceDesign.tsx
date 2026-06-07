@@ -1,7 +1,7 @@
 import { useState, useRef } from 'react';
 import * as Lucide from 'lucide-react';
 import html2canvas from 'html2canvas';
-import StudioKazanacaklar from '../components/layout/StudioKazanacaklar';
+import StudioWebAdres from '../components/layout/StudioWebAdres';
 
 const PRESETS = [
   {
@@ -46,32 +46,12 @@ export default function WorkspaceDesign() {
   const [activePreset, setActivePreset] = useState(PRESETS[0]);
   const [isExporting, setIsExporting] = useState(false);
 
-  // Editable "Kazanacaklarınız" Content
-  const [header, setHeader] = useState('ekatalog ile Neler Kazanacaksınız?');
-  const [items, setItems] = useState([
-    'Tasarımcı beklemeden anında fiyat güncelleme',
-    'WhatsApp üzerinden doğrudan sipariş alma',
-    'Telefon faturası ile tek tıkla reklam verme',
-  ]);
-  const [website, setWebsite] = useState('www.dukkaniniz.ekatalog.site');
+  // Editable inputs for the first feature: Web Address
+  const [title, setTitle] = useState('Kendi Web Adresiniz');
+  const [desc, setDesc] = useState('www.firmaniz.com veya markaniz.ekatalog.site adresiyle dükkanınız 7/24 kesintisiz ve prestijli yayın yapar.');
+  const [website, setWebsite] = useState('www.firmaniz.com');
 
   const exportRef = useRef<HTMLDivElement>(null);
-
-  const handleItemChange = (idx: number, value: string) => {
-    setItems((prev) => prev.map((item, i) => (i === idx ? value : item)));
-  };
-
-  const addItem = () => {
-    if (items.length < 5) {
-      setItems((prev) => [...prev, '']);
-    }
-  };
-
-  const removeItem = (idx: number) => {
-    if (items.length > 1) {
-      setItems((prev) => prev.filter((_, i) => i !== idx));
-    }
-  };
 
   const exportAsPng = async () => {
     if (!exportRef.current) return;
@@ -98,7 +78,7 @@ export default function WorkspaceDesign() {
 
       const imgData = canvas.toDataURL('image/png');
       const link = document.createElement('a');
-      link.download = `ekatalog_kazanacaklar_${activeFormatId}.png`;
+      link.download = `ekatalog_web_adresi_${activeFormatId}.png`;
       link.href = imgData;
       link.click();
     } catch (err) {
@@ -124,7 +104,7 @@ export default function WorkspaceDesign() {
             <img src="/images/logo_dark.svg?v=5" alt="ekatalog" className="w-6 h-6" />
             <h1 className="text-xl font-black tracking-tight">ekatalog stüdyo</h1>
           </div>
-          <p className="text-xs text-stone-500 font-medium">Kazanacaklarınız Şablon Tasarımcısı</p>
+          <p className="text-xs text-stone-500 font-medium">Özellik Tasarım Stüdyosu (1. Web Adresi)</p>
         </div>
 
         {/* FORMAT SEÇİMİ */}
@@ -178,12 +158,12 @@ export default function WorkspaceDesign() {
           </div>
 
           <div className="space-y-1.5">
-            <span className="text-[10px] font-bold text-stone-500 uppercase">Katalog Adresi (Alt Bilgi)</span>
+            <span className="text-[10px] font-bold text-stone-500 uppercase">Görsel Web Adresi (Örnek)</span>
             <input
               type="text"
               value={website}
               onChange={(e) => setWebsite(e.target.value)}
-              placeholder="Örn: www.dukkaniniz.ekatalog.site"
+              placeholder="Örn: www.firmaniz.com"
               className="w-full bg-stone-900 border border-stone-800 rounded-lg py-2 px-3 text-xs font-medium text-stone-200 focus:outline-none focus:border-emerald-500"
             />
           </div>
@@ -197,47 +177,23 @@ export default function WorkspaceDesign() {
           </div>
 
           <div className="space-y-2">
-            <span className="text-[10px] font-bold text-stone-500 uppercase">Görsel Ana Başlığı</span>
+            <span className="text-[10px] font-bold text-stone-500 uppercase">Özellik Başlığı</span>
             <input
               type="text"
-              value={header}
-              onChange={(e) => setHeader(e.target.value)}
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
               className="w-full bg-stone-900 border border-stone-800 rounded-lg py-2 px-3 text-xs font-bold text-stone-200 focus:outline-none focus:border-emerald-500"
             />
           </div>
 
-          <div className="space-y-3 pt-2">
-            <div className="flex justify-between items-center">
-              <span className="text-[10px] font-bold text-stone-500 uppercase">Kazanılacak Maddeler</span>
-              {items.length < 5 && (
-                <button
-                  onClick={addItem}
-                  className="text-[10px] font-bold text-emerald-500 hover:underline flex items-center gap-0.5"
-                >
-                  <Lucide.Plus size={10} /> Madde Ekle
-                </button>
-              )}
-            </div>
-
-            {items.map((item, idx) => (
-              <div key={idx} className="flex gap-2 items-center">
-                <input
-                  type="text"
-                  value={item}
-                  onChange={(e) => handleItemChange(idx, e.target.value)}
-                  placeholder="Madde yazın..."
-                  className="flex-1 bg-stone-900 border border-stone-800 rounded-lg py-2 px-3 text-xs font-medium text-stone-200 focus:outline-none focus:border-emerald-500"
-                />
-                {items.length > 1 && (
-                  <button
-                    onClick={() => removeItem(idx)}
-                    className="p-2 text-stone-500 hover:text-red-400 transition-colors"
-                  >
-                    <Lucide.Trash2 size={14} />
-                  </button>
-                )}
-              </div>
-            ))}
+          <div className="space-y-2">
+            <span className="text-[10px] font-bold text-stone-500 uppercase">Özellik Açıklaması</span>
+            <textarea
+              value={desc}
+              onChange={(e) => setDesc(e.target.value)}
+              rows={3}
+              className="w-full bg-stone-900 border border-stone-800 rounded-lg py-2 px-3 text-xs font-medium text-stone-300 focus:outline-none focus:border-emerald-500 resize-none custom-scrollbar"
+            />
           </div>
         </div>
 
@@ -279,9 +235,9 @@ export default function WorkspaceDesign() {
             }}
           >
             <div ref={exportRef} className="w-full h-full">
-              <StudioKazanacaklar
-                header={header}
-                items={items}
+              <StudioWebAdres
+                title={title}
+                desc={desc}
                 website={website}
                 presetClass={activePreset.class}
                 glowColor={glowColorVal}
