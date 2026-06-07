@@ -8,6 +8,7 @@ import { useSaaSLifecycle } from './hooks/useSaaSLifecycle';
 // PAGES
 import LandingPage from './pages/LandingPage';
 import CatalogPage from './pages/CatalogPage';
+import WorkspaceDesign from './pages/WorkspaceDesign';
 
 // COMPONENTS
 import StatusOverlay from './components/ui/StatusOverlay';
@@ -41,6 +42,16 @@ function GlobalFeedbackOverlay() {
  * Mağaza slug'ına göre Landing Page veya Catalog Page arasında geçiş yapar.
  */
 export default function App() {
+  // 0. Stüdyo Sayfası Yükleme
+  if (window.location.pathname === '/studio' || window.location.hash === '#studio') {
+    return (
+      <>
+        <WorkspaceDesign />
+        <GlobalFeedbackOverlay />
+      </>
+    );
+  }
+
   const currentSlug = getActiveStoreSlug();
   const isAdmin = useStore((state) => state.isAdmin);
   const { isStorefrontClosed, isAdminLocked, daysLeft, isSubscriptionExpired } =
