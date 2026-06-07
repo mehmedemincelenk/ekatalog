@@ -240,7 +240,6 @@ export default function WorkspaceDesign() {
             presetClass={activePreset.class}
             glowColor={glowColorVal}
             isLight={isLight}
-            formatType={activeFormat.type}
           />
         </div>
       </div>
@@ -273,7 +272,6 @@ export default function WorkspaceDesign() {
                 presetClass={activePreset.class}
                 glowColor={glowColorVal}
                 isLight={isLight}
-                formatType={activeFormat.type}
               />
             </div>
           </div>

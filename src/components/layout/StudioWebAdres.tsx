@@ -5,7 +5,6 @@ interface StudioWebAdresProps {
   presetClass: string;
   glowColor: string;
   isLight: boolean;
-  formatType: 'story' | 'post';
 }
 
 export default function StudioWebAdres({
@@ -15,7 +14,6 @@ export default function StudioWebAdres({
   presetClass,
   glowColor,
   isLight,
-  formatType,
 }: StudioWebAdresProps) {
   // Next Sosyal style signature chat bubble colors (Indigo-violet gradient)
   const bubbleBg = isLight 
@@ -24,7 +22,7 @@ export default function StudioWebAdres({
 
   return (
     <div
-      className={`w-full h-full relative flex flex-col justify-between p-24 select-none overflow-hidden ${presetClass}`}
+      className={`w-full h-full relative flex flex-col justify-center p-24 select-none overflow-hidden ${presetClass}`}
     >
       {/* Background Glow (Dark Mode Only) */}
       {!isLight && (
@@ -40,16 +38,8 @@ export default function StudioWebAdres({
         </>
       )}
 
-      {/* Top Header Label */}
-      <div className="flex justify-between items-center relative z-10">
-        <span className="text-xl font-bold tracking-[0.3em] text-stone-500 uppercase">Kazanacaklarınız</span>
-        <span className="text-sm font-bold tracking-[0.1em] text-stone-500 uppercase">
-          {formatType === 'story' ? 'Instagram Hikaye' : 'Instagram Gönderi'}
-        </span>
-      </div>
-
       {/* Center Layout: Mockup and Copy */}
-      <div className="relative z-10 flex-1 flex flex-col justify-center gap-16 my-6">
+      <div className="relative z-10 flex flex-col justify-center gap-16">
         
         {/* Next Sosyal Custom Direct Message Bubble Mockup */}
         <div className="w-full flex justify-center py-4">
@@ -82,13 +72,6 @@ export default function StudioWebAdres({
           </p>
         </div>
 
-      </div>
-
-      {/* Footer website address */}
-      <div className="flex justify-center items-center relative z-10">
-        <span className={`text-2xl font-black tracking-wide ${isLight ? 'text-stone-900' : 'text-stone-200'}`}>
-          {website}
-        </span>
       </div>
     </div>
   );
