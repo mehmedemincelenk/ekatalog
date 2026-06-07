@@ -234,7 +234,11 @@ export default function WorkspaceDesign() {
               height: `${activeFormat.height}px`,
             }}
           >
-            <div ref={exportRef} className="w-full h-full">
+            <div 
+              ref={exportRef} 
+              style={{ width: `${activeFormat.width}px`, height: `${activeFormat.height}px` }}
+              className="relative"
+            >
               <StudioWebAdres
                 title={title}
                 desc={desc}
