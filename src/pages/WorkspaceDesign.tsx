@@ -217,6 +217,34 @@ export default function WorkspaceDesign() {
         </button>
       </div>
 
+      {/* Off-screen high-res container for exporting (no CSS scale transforms) */}
+      <div 
+        style={{ 
+          position: 'absolute',
+          left: '-9999px',
+          top: '-9999px',
+          width: `${activeFormat.width}px`,
+          height: `${activeFormat.height}px`,
+          pointerEvents: 'none',
+        }}
+      >
+        <div 
+          ref={exportRef} 
+          style={{ width: `${activeFormat.width}px`, height: `${activeFormat.height}px` }}
+          className="relative"
+        >
+          <StudioWebAdres
+            title={title}
+            desc={desc}
+            website={website}
+            presetClass={activePreset.class}
+            glowColor={glowColorVal}
+            isLight={isLight}
+            formatType={activeFormat.type}
+          />
+        </div>
+      </div>
+
       {/* CANVAS PREVIEW AREA */}
       <div className="flex-1 bg-stone-900 flex items-center justify-center p-4 md:p-8 overflow-auto">
         <div 
@@ -235,7 +263,6 @@ export default function WorkspaceDesign() {
             }}
           >
             <div 
-              ref={exportRef} 
               style={{ width: `${activeFormat.width}px`, height: `${activeFormat.height}px` }}
               className="relative"
             >
