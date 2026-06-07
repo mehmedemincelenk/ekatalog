@@ -19,6 +19,15 @@ export default function StudioWebAdres({
   isLight,
   formatType,
 }: StudioWebAdresProps) {
+  // Outgoing chat bubble colors based on background preset
+  const bubbleBg = isLight 
+    ? 'bg-[#d9fdd3] text-[#303030] border border-[#e1f7dd]' 
+    : 'bg-[#005c4b]/80 text-[#e9edef] border border-[#007560]/40 backdrop-blur-md';
+
+  const previewCardBg = isLight
+    ? 'bg-[#cfe9c9]'
+    : 'bg-[#025143]';
+
   return (
     <div
       className={`w-full h-full relative flex flex-col justify-between p-20 select-none overflow-hidden ${presetClass}`}
@@ -48,46 +57,90 @@ export default function StudioWebAdres({
       {/* Center Layout: Mockup and Copy */}
       <div className="relative z-10 flex-1 flex flex-col justify-center gap-12 my-6">
         
-        {/* Browser Mockup */}
-        <div className={`rounded-[2rem] border overflow-hidden shadow-2xl backdrop-blur-md ${
-          isLight ? 'bg-white/60 border-stone-200/50' : 'bg-white/[0.02] border-white/[0.05]'
+        {/* WhatsApp Mobile Chat Mockup */}
+        <div className={`rounded-[2.5rem] border overflow-hidden shadow-2xl relative ${
+          isLight ? 'bg-[#efeae2] border-stone-200/60' : 'bg-[#0b141a] border-white/[0.05]'
         }`}>
-          {/* Browser Top Bar */}
-          <div className={`px-6 py-4 flex items-center justify-between border-b ${
-            isLight ? 'bg-stone-100/80 border-stone-200/50' : 'bg-white/[0.03] border-white/[0.05]'
+          {/* Header area of Chat */}
+          <div className={`px-6 py-5 flex items-center justify-between border-b ${
+            isLight ? 'bg-[#f0f2f5] border-stone-200/60' : 'bg-[#202c33] border-stone-850'
           }`}>
-            {/* Dots */}
-            <div className="flex gap-2">
-              <span className="w-3.5 h-3.5 rounded-full bg-red-500/70" />
-              <span className="w-3.5 h-3.5 rounded-full bg-yellow-500/70" />
-              <span className="w-3.5 h-3.5 rounded-full bg-green-500/70" />
-            </div>
-
-            {/* Address Bar */}
-            <div className={`flex-1 mx-8 py-2.5 px-4 rounded-xl flex items-center justify-between text-xs font-semibold ${
-              isLight ? 'bg-white border border-stone-200' : 'bg-black/30 border border-white/[0.04]'
-            }`}>
-              <div className="flex items-center gap-2 text-stone-400">
-                <Lucide.Lock size={12} className="text-emerald-500" />
-                <span className="text-emerald-500 select-none">https://</span>
-                <span className={isLight ? 'text-stone-800 font-bold' : 'text-stone-200 font-bold'}>{website}</span>
+            <div className="flex items-center gap-3">
+              {/* Back Arrow */}
+              <Lucide.ArrowLeft size={18} className={isLight ? 'text-[#54656f]' : 'text-[#aebac1]'} />
+              
+              {/* User Avatar */}
+              <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
+                isLight ? 'bg-stone-300' : 'bg-stone-700'
+              }`}>
+                <Lucide.User size={18} className={isLight ? 'text-stone-600' : 'text-stone-300'} />
               </div>
-              <span className="text-[10px] text-emerald-500 bg-emerald-500/10 px-2 py-0.5 rounded-full font-black uppercase tracking-wider">GÜVENLİ</span>
+
+              {/* Name & Status */}
+              <div>
+                <h4 className={`text-sm font-bold ${isLight ? 'text-[#111b21]' : 'text-[#e9edef]'}`}>
+                  Ahmet Abi
+                </h4>
+                <p className="text-[10px] text-emerald-500 font-bold uppercase tracking-wider">Çevrimiçi</p>
+              </div>
             </div>
 
-            {/* Empty Right for Alignment */}
-            <div className="w-14" />
+            {/* Chat Call/More Icons */}
+            <div className={`flex gap-4 ${isLight ? 'text-[#54656f]' : 'text-[#aebac1]'}`}>
+              <Lucide.Phone size={16} />
+              <Lucide.MoreVertical size={16} />
+            </div>
           </div>
 
-          {/* Browser Body Mockup Content */}
-          <div className="p-10 flex flex-col items-center justify-center text-center gap-6 min-h-[200px]">
-            <div className={`w-20 h-20 rounded-3xl flex items-center justify-center ${isLight ? 'bg-stone-100' : 'bg-white/[0.02]'}`}>
-              <Lucide.Globe className="text-emerald-500 animate-pulse" size={40} />
+          {/* Date Separator */}
+          <div className="flex justify-center my-4">
+            <span className={`text-[10px] font-bold px-3 py-1 rounded-lg ${
+              isLight ? 'bg-white text-[#54656f] shadow-sm' : 'bg-[#182229] text-[#8696a0]'
+            }`}>
+              BUGÜN
+            </span>
+          </div>
+
+          {/* Chat Messages Stream Area */}
+          <div className="px-6 pb-6 pt-2 flex flex-col items-end">
+            
+            {/* Outgoing Msg (Green Bubble) */}
+            <div className={`max-w-[85%] rounded-2xl rounded-tr-none p-4 space-y-3 shadow-[0_1px_0.5px_rgba(0,0,0,0.15)] relative ${bubbleBg}`}>
+              
+              {/* The Text */}
+              <p className="text-sm font-bold leading-normal">
+                abi sadece buna tıkla, ürünlerimizin hepsine ulaşabilirsin.
+              </p>
+
+              {/* Link Preview Box */}
+              <div className={`rounded-xl overflow-hidden flex flex-col border border-white/[0.04] p-3 text-left ${previewCardBg}`}>
+                <div className="flex gap-3">
+                  <div className={`w-12 h-12 rounded-lg flex items-center justify-center shrink-0 ${
+                    isLight ? 'bg-white/80' : 'bg-black/20'
+                  }`}>
+                    <Lucide.Globe className="text-emerald-500" size={20} />
+                  </div>
+                  <div className="space-y-0.5 min-w-0">
+                    <h5 className={`text-[11px] font-black truncate ${isLight ? 'text-stone-900' : 'text-white'}`}>
+                      {title}
+                    </h5>
+                    <p className={`text-[9px] font-medium leading-relaxed truncate opacity-70`}>
+                      Dijital menümüz ve anında güncel fiyatlar.
+                    </p>
+                    <p className="text-[9px] font-bold text-sky-400 truncate tracking-wide">
+                      {website}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Timestamp tick */}
+              <div className="flex justify-end items-center gap-1 opacity-60">
+                <span className="text-[9px]">15:10</span>
+                <span className="text-sky-400 text-xs font-black">✓✓</span>
+              </div>
             </div>
-            <div className="space-y-1">
-              <span className="text-[10px] font-black text-emerald-500 uppercase tracking-widest">7/24 Kesintisiz Erişim</span>
-              <p className={`text-sm font-bold ${isLight ? 'text-stone-500' : 'text-stone-400'}`}>Dükkanınız tüm dünyaya açık</p>
-            </div>
+
           </div>
         </div>
 
