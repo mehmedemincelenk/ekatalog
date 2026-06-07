@@ -130,11 +130,12 @@ export default function WorkspaceDesign() {
   // Font sizes scale continuously based on item count
   const fontSizePx = Math.max(28, Math.min(38, Math.round(44 - (N * 1.5))));
   const titleSizePx = Math.max(74, Math.min(100, Math.round(112 - (N * 3.6))));
-  const iconSizePx = Math.max(54, Math.min(74, Math.round(86 - (N * 3.2))));
+  const iconSizePx = Math.max(56, Math.min(76, Math.round(88 - (N * 3.0))));
   
-  // Padding & Gaps scale continuously
-  const paddingYPx = Math.max(16, Math.min(32, Math.round(36 - (N * 2))));
-  const gapPx = Math.max(20, Math.min(60, Math.round(220 / (N - 2 || 1))));
+  // Padding & Gaps scale continuously with safe minima (floors) for breathing room
+  const paddingYPx = Math.max(24, Math.min(40, Math.round(48 - (N * 2.2))));
+  const titleMbPx = Math.max(48, Math.min(80, Math.round(100 - (N * 4.0))));
+  const gapPx = Math.max(24, Math.min(60, Math.round(240 / (N - 2 || 1))));
 
   return (
     <div className="min-h-screen bg-stone-900 text-stone-100 font-sans flex flex-col md:flex-row">
@@ -265,8 +266,11 @@ export default function WorkspaceDesign() {
             {/* MAIN CARD CONTENT */}
             <div className="relative z-10 flex-1 flex flex-col justify-center my-8">
               <h2 
-                className="font-black tracking-tighter leading-tight capitalize max-w-3xl text-stone-100 mb-8"
-                style={{ fontSize: `${titleSizePx}px` }}
+                className="font-black tracking-tighter leading-tight capitalize max-w-3xl text-stone-100"
+                style={{ 
+                  fontSize: `${titleSizePx}px`,
+                  marginBottom: `${titleMbPx}px` 
+                }}
               >
                 {header}
               </h2>
@@ -278,7 +282,7 @@ export default function WorkspaceDesign() {
                 {items.map((item, idx) => (
                   <div 
                     key={idx} 
-                    className="px-8 rounded-[1.8rem] bg-white/[0.02] border border-white/[0.04] backdrop-blur-md flex gap-6 items-start"
+                    className="px-10 rounded-[1.8rem] bg-white/[0.02] border border-white/[0.04] backdrop-blur-md flex gap-6 items-start"
                     style={{ 
                       paddingTop: `${paddingYPx}px`, 
                       paddingBottom: `${paddingYPx}px` 
