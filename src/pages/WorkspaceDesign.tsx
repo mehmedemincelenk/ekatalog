@@ -8,28 +8,35 @@ const PRESETS = [
     id: 'emerald',
     name: 'Emerald Glow',
     class: 'bg-gradient-to-tr from-emerald-950 via-stone-950 to-stone-900 text-white',
-    glow: 'from-emerald-400/20 to-transparent',
+    glowColor: 'rgba(16,185,129,0.12)',
     colorMode: 'dark',
   },
   {
     id: 'dark',
     name: 'Sleek Dark',
     class: 'bg-stone-950 text-white',
-    glow: 'from-emerald-500/10 to-transparent',
+    glowColor: 'rgba(255,255,255,0.03)',
     colorMode: 'dark',
   },
   {
     id: 'kraft',
     name: 'Kraft Earthy',
-    class: 'bg-gradient-to-tr from-[#5C3E26] via-[#2F1F13] to-stone-950 text-white',
-    glow: 'from-[#A67B5B]/20 to-transparent',
+    class: 'bg-gradient-to-tr from-[#2F1F13] via-[#1C120B] to-stone-950 text-white',
+    glowColor: 'rgba(166,123,91,0.12)',
+    colorMode: 'dark',
+  },
+  {
+    id: 'pink',
+    name: 'Sunset Pink',
+    class: 'bg-gradient-to-tr from-[#3D0C27] via-[#1A0612] to-stone-950 text-white',
+    glowColor: 'rgba(255,0,105,0.12)',
     colorMode: 'dark',
   },
   {
     id: 'light',
     name: 'Clean Light',
     class: 'bg-stone-50 text-stone-900 border border-stone-200/50',
-    glow: 'from-stone-200/40 to-transparent',
+    glowColor: 'rgba(0,0,0,0.02)',
     colorMode: 'light',
   },
 ];
@@ -89,11 +96,7 @@ export default function WorkspaceDesign() {
   };
 
   const isLight = activePreset.colorMode === 'light';
-  const glowColorVal = activePreset.glow.split(' ')[0].includes('emerald')
-    ? 'rgba(16,185,129,0.12)'
-    : activePreset.glow.split(' ')[0].includes('#A67B5B')
-    ? 'rgba(166,123,91,0.15)'
-    : 'rgba(220,38,38,0.12)';
+
 
   return (
     <div className="min-h-screen bg-stone-900 text-stone-100 font-sans flex flex-col md:flex-row">
@@ -238,7 +241,7 @@ export default function WorkspaceDesign() {
             desc={desc}
             website={website}
             presetClass={activePreset.class}
-            glowColor={glowColorVal}
+            glowColor={activePreset.glowColor}
             isLight={isLight}
           />
         </div>
@@ -270,7 +273,7 @@ export default function WorkspaceDesign() {
                 desc={desc}
                 website={website}
                 presetClass={activePreset.class}
-                glowColor={glowColorVal}
+                glowColor={activePreset.glowColor}
                 isLight={isLight}
               />
             </div>
