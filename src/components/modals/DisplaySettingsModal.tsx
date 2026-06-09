@@ -313,11 +313,11 @@ const IdentityField = ({
 }: IdentityFieldProps) => {
   return (
     <div className="flex items-start gap-4 group">
-      <div className="mt-3.5 text-stone-400 group-focus-within:text-stone-900 transition-colors shrink-0 select-none">
+      <div className="mt-[26px] text-stone-400 group-focus-within:text-stone-900 transition-colors shrink-0 select-none">
         {icon}
       </div>
       <div className="flex-1 flex flex-col gap-1 relative">
-        <label className="text-[10px] font-bold text-stone-400 absolute -top-2 left-3 bg-white px-1 z-10 select-none transition-colors group-focus-within:text-stone-900">
+        <label className="text-[10px] font-bold text-stone-400 select-none transition-colors group-focus-within:text-stone-900 px-1">
           {label}
         </label>
         {isTextArea ? (
@@ -643,7 +643,7 @@ export default function DisplaySettingsModal({
       >
         <motion.div
           layout="position"
-          className="p-4 flex flex-col gap-4 pb-2 max-h-[70vh] overflow-y-auto custom-scrollbar"
+          className="p-4 flex flex-col gap-6 pb-2 max-h-[70vh] overflow-y-auto custom-scrollbar"
         >
           <input
             type="file"
@@ -686,13 +686,13 @@ export default function DisplaySettingsModal({
           </div>
 
           {/* İŞLETME BİLGİLERİ */}
-          <div className="flex flex-col gap-3">
-            <div className="w-full flex justify-center gap-2 mt-4 mb-2">
-              <h5 className="font-black text-stone-900 text-lg font-serif italic text-center">
+          <div className="bg-white border border-stone-200/60 rounded-2xl p-5 shadow-[0_8px_30px_rgba(0,0,0,0.02)] flex flex-col gap-4">
+            <div className="border-b border-stone-100 pb-3">
+              <h5 className="text-[10px] uppercase tracking-[0.22em] font-black text-stone-900">
                 İşletme Bilgileri
               </h5>
             </div>
-            <div className="flex flex-col gap-6 px-2">
+            <div className="flex flex-col gap-6 px-1">
               {IDENTITY_FIELDS.map((field) => {
                 if (field.isSlug) {
                   return (
@@ -700,11 +700,11 @@ export default function DisplaySettingsModal({
                       key={field.key}
                       className="flex items-start gap-4 group"
                     >
-                      <div className="mt-3.5 text-stone-400 group-focus-within:text-stone-900 transition-colors shrink-0 select-none">
+                      <div className="mt-[26px] text-stone-400 group-focus-within:text-stone-900 transition-colors shrink-0 select-none">
                         {field.icon}
                       </div>
                       <div className="flex-1 flex flex-col gap-1 relative">
-                        <label className="text-[10px] font-bold text-stone-400 absolute -top-2 left-3 bg-white px-1 z-10 select-none transition-colors group-focus-within:text-stone-900">
+                        <label className="text-[10px] font-bold text-stone-400 select-none transition-colors group-focus-within:text-stone-900 px-1">
                           www.
                           <span className="text-emerald-500 font-extrabold">
                             {formState.slug || 'slug'}
@@ -731,7 +731,7 @@ export default function DisplaySettingsModal({
                           className="w-full h-11 px-3 border border-stone-200 focus:border-stone-900 focus:ring-1 focus:ring-stone-900 rounded-xl bg-stone-50/10 text-[12px] font-extrabold text-emerald-500 outline-none transition-all shadow-inner disabled:opacity-50"
                         />
                         {checkingSlug && (
-                          <div className="absolute right-3 top-3.5 select-none flex items-center gap-1 text-stone-400">
+                          <div className="absolute right-3 bottom-3.5 select-none flex items-center gap-1 text-stone-400">
                             <Lucide.Loader
                               className="animate-spin text-stone-400"
                               size={12}
@@ -854,21 +854,21 @@ export default function DisplaySettingsModal({
           </div>
 
           {/* TABELA */}
-          <div className="flex flex-col gap-3">
-            <div className="w-full flex justify-center gap-2 mt-4 mb-1">
-              <h5 className="text-[10px] uppercase tracking-[0.2em] font-black text-stone-900 text-center">
+          <div className="bg-white border border-stone-200/60 rounded-2xl p-5 shadow-[0_8px_30px_rgba(0,0,0,0.02)] flex flex-col gap-4">
+            <div className="border-b border-stone-100 pb-3">
+              <h5 className="text-[10px] uppercase tracking-[0.22em] font-black text-stone-900">
                 TABELA (NAVBAR BİLEŞENLERİ)
               </h5>
             </div>
 
             {/* Live Tabela Preview */}
             <div className="select-none pointer-events-none w-full my-1">
-              <div className="w-full overflow-hidden rounded-xl border border-stone-200/60 shadow-sm bg-white/5">
+              <div className="w-full overflow-hidden rounded-2xl border border-stone-100 shadow-[inset_0_1px_3px_rgba(0,0,0,0.05)] bg-stone-50">
                 <Navbar isInlineEnabled={false} isPreview={true} />
               </div>
             </div>
 
-            <div className="grid grid-cols-1 gap-2">
+            <div className="grid grid-cols-1 gap-2.5">
               <motion.div
                 layout="position"
                 className="relative flex items-center justify-between p-3 rounded-2xl border border-stone-100 bg-stone-50 text-stone-900 h-12 shadow-sm overflow-hidden hover:border-stone-200 transition-all"
@@ -910,14 +910,14 @@ export default function DisplaySettingsModal({
           </div>
 
           {/* VİTRİN VE TASARIM */}
-          <div className="flex flex-col gap-3">
-            <div className="w-full flex justify-center gap-2 mt-4">
-              <h5 className="text-[10px] uppercase tracking-[0.2em] font-black text-stone-900 text-center">
+          <div className="bg-white border border-stone-200/60 rounded-2xl p-5 shadow-[0_8px_30px_rgba(0,0,0,0.02)] flex flex-col gap-4">
+            <div className="border-b border-stone-100 pb-3">
+              <h5 className="text-[10px] uppercase tracking-[0.22em] font-black text-stone-900">
                 VİTRİN VE TASARIM
               </h5>
             </div>
 
-            <div className="flex flex-col gap-4 bg-stone-50/30 border border-stone-100 rounded-3xl p-4 my-1">
+            <div className="flex flex-col gap-4 bg-stone-50 border border-stone-100/80 rounded-2xl p-4 my-1">
               {/* Live Vitrin Preview */}
               <div className="w-full flex flex-col gap-2 relative overflow-hidden select-none pointer-events-none">
                 <AnimatePresence initial={false}>
@@ -1016,35 +1016,35 @@ export default function DisplaySettingsModal({
                     )}
                 </AnimatePresence>
               </div>
+            </div>
 
-              {/* Toggles Area (Grid with 2 columns) */}
-              <div className="grid grid-cols-2 gap-2">
-                {BRANDING_OPTIONS.map((opt) => (
-                  <SettingCard
-                    key={opt.key}
-                    option={{
-                      key: opt.key,
-                      label: opt.label,
-                      isOn: flow.getOptionState(opt.key),
-                      onToggle: () => flow.toggleOption(opt.key),
-                    }}
-                    onHelpTrigger={flow.setHelpId}
-                    isHiddenHelp={flow.hiddenHelpIds.includes(opt.key)}
-                  />
-                ))}
-              </div>
+            {/* Toggles Area (Grid with 2 columns) */}
+            <div className="grid grid-cols-2 gap-2.5">
+              {BRANDING_OPTIONS.map((opt) => (
+                <SettingCard
+                  key={opt.key}
+                  option={{
+                    key: opt.key,
+                    label: opt.label,
+                    isOn: flow.getOptionState(opt.key),
+                    onToggle: () => flow.toggleOption(opt.key),
+                  }}
+                  onHelpTrigger={flow.setHelpId}
+                  isHiddenHelp={flow.hiddenHelpIds.includes(opt.key)}
+                />
+              ))}
             </div>
           </div>
 
           {/* YÜZEN MENÜ BİLEŞENLERİ */}
-          <div className="flex flex-col gap-3">
-            <div className="w-full flex justify-center gap-2 mt-4">
-              <h5 className="text-[10px] uppercase tracking-[0.2em] font-black text-stone-900 text-center">
+          <div className="bg-white border border-stone-200/60 rounded-2xl p-5 shadow-[0_8px_30px_rgba(0,0,0,0.02)] flex flex-col gap-4">
+            <div className="border-b border-stone-100 pb-3">
+              <h5 className="text-[10px] uppercase tracking-[0.22em] font-black text-stone-900">
                 YÜZEN MENÜ BİLEŞENLERİ
               </h5>
             </div>
 
-            <div className="grid grid-cols-[auto_1fr] gap-6 my-2 px-2 items-center">
+            <div className="grid grid-cols-[auto_1fr] gap-6 items-center bg-stone-50 border border-stone-100/80 rounded-2xl p-4 my-1">
               {/* Sol Taraf: Live Preview Wrapper */}
               <div
                 style={{
@@ -1089,14 +1089,14 @@ export default function DisplaySettingsModal({
           </div>
 
           {/* SİSTEM YÖNETİMİ */}
-          <div className="flex flex-col gap-3">
-            <div className="w-full flex justify-center gap-2 mt-4 mb-2">
-              <h5 className="text-[10px] uppercase tracking-[0.2em] font-black text-stone-900 text-center">
+          <div className="bg-white border border-stone-200/60 rounded-2xl p-5 shadow-[0_8px_30px_rgba(0,0,0,0.02)] flex flex-col gap-4">
+            <div className="border-b border-stone-100 pb-3">
+              <h5 className="text-[10px] uppercase tracking-[0.22em] font-black text-stone-900">
                 SİSTEM YÖNETİMİ
               </h5>
             </div>
             
-            <div className="grid grid-cols-1 gap-2">
+            <div className="grid grid-cols-1 gap-2.5">
               <motion.div
                 layout="position"
                 className="relative flex items-center justify-between p-3 rounded-2xl border border-stone-100 bg-stone-50 text-stone-900 h-12 shadow-sm overflow-hidden hover:border-stone-200 transition-all"
@@ -1144,13 +1144,13 @@ export default function DisplaySettingsModal({
           </div>
 
           {/* GÜVENLİK */}
-          <div className="flex flex-col gap-3">
-            <div className="w-full flex justify-center gap-2 mt-4 mb-2">
-              <h5 className="text-[10px] uppercase tracking-[0.2em] font-black text-stone-900 text-center">
+          <div className="bg-white border border-stone-200/60 rounded-2xl p-5 shadow-[0_8px_30px_rgba(0,0,0,0.02)] flex flex-col gap-4">
+            <div className="border-b border-stone-100 pb-3">
+              <h5 className="text-[10px] uppercase tracking-[0.22em] font-black text-stone-900">
                 GÜVENLİK
               </h5>
             </div>
-            <div className="px-2">
+            <div className="px-1">
               <div
                 onClick={() => useStore.getState().openModal('CHANGE_PIN')}
                 className="flex items-center justify-between p-4 border border-stone-200 hover:border-stone-950 rounded-2xl bg-stone-50/30 transition-all cursor-pointer group"

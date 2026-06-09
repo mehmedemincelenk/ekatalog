@@ -43,7 +43,8 @@ function GlobalFeedbackOverlay() {
  */
 export default function App() {
   // 0. Stüdyo Sayfası Yükleme
-  if (window.location.pathname === '/studio' || window.location.hash === '#studio') {
+  const normalizedPath = window.location.pathname.toLowerCase().replace(/\/+$/, '');
+  if (normalizedPath === '/studio' || window.location.hash === '#studio') {
     return (
       <>
         <WorkspaceDesign />

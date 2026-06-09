@@ -52,7 +52,7 @@ export default function StudioKazanacaklar({
         </h2>
 
         <div className="flex flex-col gap-6">
-          {items.map((item, idx) => (
+          {(items || []).map((item, idx) => (
             <div 
               key={idx}
               className={`p-8 rounded-[2rem] border backdrop-blur-md flex gap-6 items-center transition-all ${

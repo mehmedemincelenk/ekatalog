@@ -122,7 +122,6 @@ export function useSettingsQuery() {
         return { ...ref, logo };
       });
 
-      const isOrnek = raw.slug === 'ornek';
       const mergedDisplayConfig = {
         showLogo: true,
         showSearch: true,
@@ -131,7 +130,6 @@ export function useSettingsQuery() {
         showWhatsapp: true,
         showReferences: true,
         ...raw.display_config,
-        ...(isOrnek ? { showReferences: true } : {}),
       };
 
       const settings: CompanySettings = {

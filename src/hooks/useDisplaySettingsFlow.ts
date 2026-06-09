@@ -48,6 +48,7 @@ export function useDisplaySettingsFlow(
     if (key === 'showQR') return val !== false;
     if (key === 'showPhone') return val !== false;
     if (key === 'showTitle') return val !== false;
+    if (key === 'showReferences') return val !== false;
     return !!val;
   };
 

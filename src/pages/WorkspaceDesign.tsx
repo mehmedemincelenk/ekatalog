@@ -2,6 +2,8 @@ import { useState, useRef } from 'react';
 import * as Lucide from 'lucide-react';
 import html2canvas from 'html2canvas';
 import StudioWebAdres from '../components/layout/StudioWebAdres';
+import StudioKazanacaklar from '../components/layout/StudioKazanacaklar';
+import StudioB2BRehber from '../components/layout/StudioB2BRehber';
 
 const PRESETS = [
   {
@@ -46,6 +48,121 @@ const FORMATS = [
   { id: 'post', name: 'Instagram Gönderi (1:1)', width: 1080, height: 1080, previewScale: 0.52, type: 'post' as const },
 ];
 
+interface FieldConfig {
+  key: string;
+  label: string;
+  type: 'text' | 'textarea' | 'list';
+  defaultValue: any;
+}
+
+interface ProductionConfig {
+  id: string;
+  name: string;
+  icon: string;
+  fields: FieldConfig[];
+  render: (
+    values: any,
+    presetClass: string,
+    glowColor: string,
+    isLight: boolean,
+    formatType: 'story' | 'post'
+  ) => React.ReactNode;
+}
+
+const PRODUCTIONS: ProductionConfig[] = [
+  {
+    id: 'web-adres',
+    name: 'Web Adresi',
+    icon: 'Link',
+    fields: [
+      { key: 'title', label: 'Özellik Başlığı', type: 'text', defaultValue: 'Kendi Web Adresiniz' },
+      {
+        key: 'desc',
+        label: 'Özellik Açıklaması',
+        type: 'textarea',
+        defaultValue: "ekatalog'un hediyesi www.sirketadim.ekatalog.site adresiyle dükkanınız 7/24 kesintisiz yayın yapar.",
+      },
+      { key: 'website', label: 'Görsel Web Adresi', type: 'text', defaultValue: 'www.sirketadim.ekatalog.site' },
+    ],
+    render: (values, presetClass, glowColor, isLight) => (
+      <StudioWebAdres
+        title={values.title}
+        desc={values.desc}
+        website={values.website}
+        presetClass={presetClass}
+        glowColor={glowColor}
+        isLight={isLight}
+      />
+    ),
+  },
+  {
+    id: 'b2b-rehber',
+    name: 'B2B Rehber',
+    icon: 'Users',
+    fields: [
+      { key: 'title', label: 'Özellik Başlığı', type: 'text', defaultValue: 'eKatalog Rehberim & B2B Müşteri Bulucu' },
+      {
+        key: 'desc',
+        label: 'Özellik Açıklaması',
+        type: 'textarea',
+        defaultValue: 'Sektörünüzdeki diğer kurumsal firmalara, toptancılara veya potansiyel müşterilere tek tıkla ulaşın.',
+      },
+      { key: 'searchQuery', label: 'Görsel Arama Terimi', type: 'text', defaultValue: 'Oto Çekici' },
+      { key: 'leadName1', label: '1. Şirket Adı', type: 'text', defaultValue: 'Kaya Ambalaj A.Ş.' },
+      { key: 'leadInfo1', label: '1. Şirket Detayı', type: 'text', defaultValue: 'Toptan Karton Kutu İmalatı' },
+      { key: 'leadName2', label: '2. Şirket Adı', type: 'text', defaultValue: 'Başakşehir Oto Çekici' },
+      { key: 'leadInfo2', label: '2. Şirket Detayı', type: 'text', defaultValue: 'Yol Yardım & Çekici Hizmetleri' },
+      { key: 'website', label: 'Görsel Web Adresi', type: 'text', defaultValue: 'www.sirketadim.ekatalog.site' },
+    ],
+    render: (values, presetClass, glowColor, isLight, formatType) => (
+      <StudioB2BRehber
+        title={values.title}
+        desc={values.desc}
+        searchQuery={values.searchQuery}
+        leadName1={values.leadName1}
+        leadInfo1={values.leadInfo1}
+        leadName2={values.leadName2}
+        leadInfo2={values.leadInfo2}
+        website={values.website}
+        presetClass={presetClass}
+        glowColor={glowColor}
+        isLight={isLight}
+        formatType={formatType}
+      />
+    ),
+  },
+  {
+    id: 'kazanacaklar',
+    name: 'Kazanacaklarınız',
+    icon: 'CheckSquare',
+    fields: [
+      { key: 'header', label: 'Başlık', type: 'text', defaultValue: 'ekatalog ile Neler Kazanacaksınız?' },
+      {
+        key: 'items',
+        label: 'Maddeler',
+        type: 'list',
+        defaultValue: [
+          '7/24 Kesintisiz Sipariş Alımı',
+          'Sıfır Komisyon, Doğrudan Satış',
+          'Arama Motorlarında Kolay Bulunma',
+        ],
+      },
+      { key: 'website', label: 'Görsel Web Adresi', type: 'text', defaultValue: 'www.sirketadim.ekatalog.site' },
+    ],
+    render: (values, presetClass, glowColor, isLight, formatType) => (
+      <StudioKazanacaklar
+        header={values.header}
+        items={values.items}
+        website={values.website}
+        presetClass={presetClass}
+        glowColor={glowColor}
+        isLight={isLight}
+        formatType={formatType}
+      />
+    ),
+  },
+];
+
 export default function WorkspaceDesign() {
   const [activeFormatId, setActiveFormatId] = useState('highlight');
   const activeFormat = FORMATS.find((f) => f.id === activeFormatId) || FORMATS[0];
@@ -53,10 +170,32 @@ export default function WorkspaceDesign() {
   const [activePreset, setActivePreset] = useState(PRESETS[0]);
   const [isExporting, setIsExporting] = useState(false);
 
-  // Editable inputs for the first feature: Web Address
-  const [title, setTitle] = useState('Kendi Web Adresiniz');
-  const [desc, setDesc] = useState("ekatalog'un hediyesi www.sirketadim.ekatalog.site adresiyle dükkanınız 7/24 kesintisiz yayın yapar.");
-  const [website, setWebsite] = useState('www.sirketadim.ekatalog.site');
+  const [activeProductionId, setActiveProductionId] = useState('web-adres');
+  const activeProduction = PRODUCTIONS.find((p) => p.id === activeProductionId) || PRODUCTIONS[0];
+
+  // Dynamic state container grouped by production template id to avoid input data loss during switching
+  const [productionValues, setProductionValues] = useState<Record<string, any>>(() => {
+    const initial: Record<string, any> = {};
+    PRODUCTIONS.forEach((prod) => {
+      initial[prod.id] = {};
+      prod.fields.forEach((f) => {
+        initial[prod.id][f.key] = f.defaultValue;
+      });
+    });
+    return initial;
+  });
+
+  const values = productionValues[activeProductionId] || {};
+
+  const updateValue = (key: string, val: any) => {
+    setProductionValues((prev) => ({
+      ...prev,
+      [activeProductionId]: {
+        ...prev[activeProductionId],
+        [key]: val,
+      },
+    }));
+  };
 
   const exportRef = useRef<HTMLDivElement>(null);
 
@@ -85,7 +224,7 @@ export default function WorkspaceDesign() {
 
       const imgData = canvas.toDataURL('image/png');
       const link = document.createElement('a');
-      link.download = `ekatalog_web_adresi_${activeFormatId}.png`;
+      link.download = `ekatalog_${activeProductionId}_${activeFormatId}.png`;
       link.href = imgData;
       link.click();
     } catch (err) {
@@ -97,7 +236,6 @@ export default function WorkspaceDesign() {
 
   const isLight = activePreset.colorMode === 'light';
 
-
   return (
     <div className="min-h-screen bg-stone-900 text-stone-100 font-sans flex flex-col md:flex-row">
       {/* SIDEBAR CONTROL */}
@@ -107,14 +245,44 @@ export default function WorkspaceDesign() {
             <img src="/images/logo_dark.svg?v=5" alt="ekatalog" className="w-6 h-6" />
             <h1 className="text-xl font-black tracking-tight">ekatalog stüdyo</h1>
           </div>
-          <p className="text-xs text-stone-500 font-medium">Özellik Tasarım Stüdyosu (1. Web Adresi)</p>
+          <p className="text-xs text-stone-500 font-medium">Özellik Tasarım Stüdyosu ({activeProduction.name})</p>
+        </div>
+
+        {/* ÜRETİM ŞABLONU SEÇİMİ */}
+        <div className="border border-stone-900 bg-stone-900/20 rounded-2xl p-4 space-y-3">
+          <div className="flex items-center gap-2 pb-1 border-b border-stone-900">
+            <Lucide.Layers size={14} className="text-emerald-500" />
+            <span className="text-xs font-black uppercase tracking-wider text-stone-400">1. Şablon Seçimi</span>
+          </div>
+          <div className="grid grid-cols-2 gap-2">
+            {PRODUCTIONS.map((prod) => {
+              const isSelected = activeProductionId === prod.id;
+              const Icon = (Lucide as any)[prod.icon] || Lucide.FileText;
+              return (
+                <button
+                  key={prod.id}
+                  onClick={() => setActiveProductionId(prod.id)}
+                  className={`py-2.5 px-3 rounded-xl text-left text-xs font-bold border transition-all flex flex-col gap-1.5 ${
+                    isSelected
+                      ? 'bg-emerald-500/10 border-emerald-500 text-emerald-400 shadow-[0_0_15px_rgba(16,185,129,0.1)]'
+                      : 'bg-stone-900 border-stone-850 text-stone-400 hover:bg-stone-850'
+                  }`}
+                >
+                  <div className="flex items-center gap-1.5">
+                    <Icon size={14} />
+                    <span>{prod.name}</span>
+                  </div>
+                </button>
+              );
+            })}
+          </div>
         </div>
 
         {/* FORMAT SEÇİMİ */}
         <div className="border border-stone-900 bg-stone-900/20 rounded-2xl p-4 space-y-3">
           <div className="flex items-center gap-2 pb-1 border-b border-stone-900">
             <Lucide.Maximize size={14} className="text-emerald-500" />
-            <span className="text-xs font-black uppercase tracking-wider text-stone-400">1. Görsel Formatı</span>
+            <span className="text-xs font-black uppercase tracking-wider text-stone-400">2. Görsel Formatı</span>
           </div>
           <div className="grid grid-cols-1 gap-2">
             {FORMATS.map((f) => (
@@ -138,7 +306,7 @@ export default function WorkspaceDesign() {
         <div className="border border-stone-900 bg-stone-900/20 rounded-2xl p-4 space-y-4">
           <div className="flex items-center gap-2 pb-1 border-b border-stone-900">
             <Lucide.Palette size={14} className="text-emerald-500" />
-            <span className="text-xs font-black uppercase tracking-wider text-stone-400">2. Stil & Web Adresi</span>
+            <span className="text-xs font-black uppercase tracking-wider text-stone-400">3. Stil ve Tema</span>
           </div>
 
           <div className="space-y-1.5">
@@ -159,45 +327,87 @@ export default function WorkspaceDesign() {
               ))}
             </div>
           </div>
-
-          <div className="space-y-1.5">
-            <span className="text-[10px] font-bold text-stone-500 uppercase">Görsel Web Adresi (Örnek)</span>
-            <input
-              type="text"
-              value={website}
-              onChange={(e) => setWebsite(e.target.value)}
-              placeholder="Örn: www.firmaniz.com"
-              className="w-full bg-stone-900 border border-stone-800 rounded-lg py-2 px-3 text-xs font-medium text-stone-200 focus:outline-none focus:border-emerald-500"
-            />
-          </div>
         </div>
 
         {/* İÇERİK EDİTÖRÜ */}
         <div className="border border-stone-900 bg-stone-900/20 rounded-2xl p-4 space-y-4">
           <div className="flex items-center gap-2 pb-1 border-b border-stone-900">
             <Lucide.ListTodo size={14} className="text-emerald-500" />
-            <span className="text-xs font-black uppercase tracking-wider text-stone-400">3. İçerik Düzenleme</span>
+            <span className="text-xs font-black uppercase tracking-wider text-stone-400">4. İçerik Düzenleme</span>
           </div>
 
-          <div className="space-y-2">
-            <span className="text-[10px] font-bold text-stone-500 uppercase">Özellik Başlığı</span>
-            <input
-              type="text"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              className="w-full bg-stone-900 border border-stone-800 rounded-lg py-2 px-3 text-xs font-bold text-stone-200 focus:outline-none focus:border-emerald-500"
-            />
-          </div>
-
-          <div className="space-y-2">
-            <span className="text-[10px] font-bold text-stone-500 uppercase">Özellik Açıklaması</span>
-            <textarea
-              value={desc}
-              onChange={(e) => setDesc(e.target.value)}
-              rows={3}
-              className="w-full bg-stone-900 border border-stone-800 rounded-lg py-2 px-3 text-xs font-medium text-stone-300 focus:outline-none focus:border-emerald-500 resize-none custom-scrollbar"
-            />
-          </div>
+          {activeProduction.fields.map((field) => {
+            if (field.type === 'text') {
+              return (
+                <div key={field.key} className="space-y-2">
+                  <span className="text-[10px] font-bold text-stone-500 uppercase">{field.label}</span>
+                  <input
+                    type="text"
+                    value={values[field.key] || ''}
+                    onChange={(e) => updateValue(field.key, e.target.value)}
+                    className="w-full bg-stone-900 border border-stone-800 rounded-lg py-2 px-3 text-xs font-bold text-stone-200 focus:outline-none focus:border-emerald-500"
+                  />
+                </div>
+              );
+            }
+            if (field.type === 'textarea') {
+              return (
+                <div key={field.key} className="space-y-2">
+                  <span className="text-[10px] font-bold text-stone-500 uppercase">{field.label}</span>
+                  <textarea
+                    value={values[field.key] || ''}
+                    onChange={(e) => updateValue(field.key, e.target.value)}
+                    rows={3}
+                    className="w-full bg-stone-900 border border-stone-800 rounded-lg py-2 px-3 text-xs font-medium text-stone-300 focus:outline-none focus:border-emerald-500 resize-none custom-scrollbar"
+                  />
+                </div>
+              );
+            }
+            if (field.type === 'list') {
+              return (
+                <div key={field.key} className="space-y-2">
+                  <div className="flex justify-between items-center">
+                    <span className="text-[10px] font-bold text-stone-500 uppercase">{field.label}</span>
+                    <button
+                      onClick={() => {
+                        const currentList = values[field.key] || [];
+                        updateValue(field.key, [...currentList, '']);
+                      }}
+                      className="text-[10px] font-black text-emerald-500 hover:text-emerald-400 flex items-center gap-1"
+                    >
+                      <Lucide.Plus size={10} strokeWidth={3} /> Ekle
+                    </button>
+                  </div>
+                  <div className="space-y-2 max-h-[220px] overflow-y-auto pr-1 custom-scrollbar">
+                    {(values[field.key] || []).map((item: string, index: number) => (
+                      <div key={index} className="flex gap-2 items-center">
+                        <input
+                          type="text"
+                          value={item}
+                          onChange={(e) => {
+                            const newList = [...(values[field.key] || [])];
+                            newList[index] = e.target.value;
+                            updateValue(field.key, newList);
+                          }}
+                          className="flex-1 bg-stone-900 border border-stone-800 rounded-lg py-2 px-3 text-xs font-medium text-stone-200 focus:outline-none focus:border-emerald-500"
+                        />
+                        <button
+                          onClick={() => {
+                            const newList = (values[field.key] || []).filter((_: any, i: number) => i !== index);
+                            updateValue(field.key, newList);
+                          }}
+                          className="p-2 text-stone-500 hover:text-red-400 bg-stone-900 border border-stone-800 rounded-lg flex items-center justify-center shrink-0"
+                        >
+                          <Lucide.Trash2 size={14} />
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              );
+            }
+            return null;
+          })}
         </div>
 
         {/* DIŞA AKTAR BUTTON */}
@@ -236,14 +446,13 @@ export default function WorkspaceDesign() {
           style={{ width: `${activeFormat.width}px`, height: `${activeFormat.height}px` }}
           className="relative"
         >
-          <StudioWebAdres
-            title={title}
-            desc={desc}
-            website={website}
-            presetClass={activePreset.class}
-            glowColor={activePreset.glowColor}
-            isLight={isLight}
-          />
+          {activeProduction.render(
+            values,
+            activePreset.class,
+            activePreset.glowColor,
+            isLight,
+            activeFormat.type
+          )}
         </div>
       </div>
 
@@ -268,14 +477,13 @@ export default function WorkspaceDesign() {
               style={{ width: `${activeFormat.width}px`, height: `${activeFormat.height}px` }}
               className="relative"
             >
-              <StudioWebAdres
-                title={title}
-                desc={desc}
-                website={website}
-                presetClass={activePreset.class}
-                glowColor={activePreset.glowColor}
-                isLight={isLight}
-              />
+              {activeProduction.render(
+                values,
+                activePreset.class,
+                activePreset.glowColor,
+                isLight,
+                activeFormat.type
+              )}
             </div>
           </div>
         </div>
