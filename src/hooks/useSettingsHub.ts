@@ -11,6 +11,8 @@ import { CompanySettings } from '../types';
 import { CATEGORY_ORDER as DEFAULT_ORDER } from '../data/config';
 
 const STORE_SLUG = getActiveStoreSlug();
+const isVirtual = STORE_SLUG === 'landingpage' || STORE_SLUG === 'misal' || STORE_SLUG === 'ornek';
+let isSettingsFirstLoad = true;
 
 /**
  * SETTINGS HUB (DIAMOND EDITION)
@@ -22,6 +24,11 @@ const STORE_SLUG = getActiveStoreSlug();
 
 export function useSettingsQuery() {
   const STORE_SLUG = getActiveStoreSlug();
+
+  if (typeof window !== 'undefined' && isSettingsFirstLoad && isVirtual) {
+    localStorage.removeItem(`ekatalog_local_settings_${STORE_SLUG}`);
+    isSettingsFirstLoad = false;
+  }
 
   return useQuery({
     queryKey: ['settings', STORE_SLUG],
@@ -72,8 +79,20 @@ export function useSettingsQuery() {
         return MOCK_LANDINGPAGE_SETTINGS;
       }
 
+      // If virtual, check localStorage first (to retain temporary edits during session)
+      if (isVirtual && typeof window !== 'undefined') {
+        const cached = localStorage.getItem(`ekatalog_local_settings_${STORE_SLUG}`);
+        if (cached) {
+          try {
+            return JSON.parse(cached) as CompanySettings;
+          } catch (e) {
+            // ignore and fetch
+          }
+        }
+      }
+
       // Parallel execution: Settings + Currency Rates
-      const [settingsRes, rates] = await Promise.all([
+      let [settingsRes, rates] = await Promise.all([
         supabase
           .from('stores')
           .select('*')
@@ -84,7 +103,66 @@ export function useSettingsQuery() {
 
       if (settingsRes.error) throw settingsRes.error;
 
-      // 1. FALLBACK TO PLACEHOLDERS IF NOT FOUND
+      // 1. FUZZY SLUG FALLBACK FOR DIRECT URL VISITS
+      if (!settingsRes.data && STORE_SLUG && STORE_SLUG !== 'landing' && STORE_SLUG !== 'empty-state') {
+        const { data: allStores } = await supabase
+          .from('stores')
+          .select('id, slug');
+
+        if (allStores && allStores.length > 0) {
+          const getSimilarity = (req: string, store: string) => {
+            const r = req.toLowerCase().replace(/[^a-z0-9]/g, '');
+            const s = store.toLowerCase().replace(/[^a-z0-9]/g, '');
+            if (!r || !s) return 0;
+            if (r === s) return 1.0;
+            if (r[0] !== s[0]) return 0;
+            if (s.startsWith(r) || r.startsWith(s)) return 0.9;
+            if (s.includes(r) || r.includes(s)) return 0.8;
+
+            let matches = 0;
+            let sIndex = 0;
+            for (let i = 0; i < r.length; i++) {
+              const char = r[i];
+              const found = s.indexOf(char, sIndex);
+              if (found !== -1) {
+                matches++;
+                sIndex = found + 1;
+              }
+            }
+            return matches / Math.max(r.length, s.length);
+          };
+
+          let bestMatch = null;
+          let highestScore = 0;
+
+          for (const store of allStores) {
+            const score = getSimilarity(STORE_SLUG, store.slug);
+            if (score > highestScore) {
+              highestScore = score;
+              bestMatch = store;
+            }
+          }
+
+          if (bestMatch && highestScore >= 0.8) {
+            const retryRes = await supabase
+              .from('stores')
+              .select('*')
+              .eq('id', bestMatch.id)
+              .maybeSingle();
+
+            if (retryRes.data) {
+              settingsRes = retryRes;
+              
+              if (typeof window !== 'undefined') {
+                const newUrl = `${window.location.protocol}//${window.location.host}/${bestMatch.slug}${window.location.search}${window.location.hash}`;
+                window.history.replaceState({ path: newUrl }, '', newUrl);
+              }
+            }
+          }
+        }
+      }
+
+      // 2. FALLBACK TO PLACEHOLDERS IF NOT FOUND
       if (!settingsRes.data) {
         return null;
       }
@@ -169,14 +247,14 @@ export function useSettingsQuery() {
         portfoys_credits: raw.portfoys_credits,
       };
 
-      if (settings && typeof window !== 'undefined' && STORE_SLUG !== 'empty-state' && STORE_SLUG !== 'landingpage') {
+      if (settings && typeof window !== 'undefined' && STORE_SLUG !== 'empty-state') {
         localStorage.setItem(`ekatalog_local_settings_${STORE_SLUG}`, JSON.stringify(settings));
       }
 
       return settings;
     },
     initialData: () => {
-      if (typeof window !== 'undefined' && STORE_SLUG !== 'empty-state' && STORE_SLUG !== 'landingpage') {
+      if (typeof window !== 'undefined' && STORE_SLUG !== 'empty-state') {
         const cached = localStorage.getItem(`ekatalog_local_settings_${STORE_SLUG}`);
         if (cached) {
           try {
@@ -211,7 +289,7 @@ export function useSettings(isAdmin: boolean) {
       key: keyof CompanySettings;
       value: CompanySettings[keyof CompanySettings];
     }) => {
-      if (STORE_SLUG === 'landingpage') return;
+      if (isVirtual) return;
       if (!settings?.id) throw new Error('Settings not loaded');
 
       const dbMap: Record<string, string> = {
@@ -282,7 +360,7 @@ export function useSettings(isAdmin: boolean) {
         setSettingsStore(updated);
         queryClient.setQueryData<CompanySettings>(['settings', STORE_SLUG], updated);
 
-        if (typeof window !== 'undefined' && STORE_SLUG !== 'empty-state' && STORE_SLUG !== 'landingpage') {
+        if (typeof window !== 'undefined' && STORE_SLUG !== 'empty-state') {
           localStorage.setItem(`ekatalog_local_settings_${STORE_SLUG}`, JSON.stringify(updated));
         }
       }
@@ -293,13 +371,13 @@ export function useSettings(isAdmin: boolean) {
       if (context?.previousSettings) {
         setSettingsStore(context.previousSettings);
         queryClient.setQueryData<CompanySettings>(['settings', STORE_SLUG], context.previousSettings);
-        if (typeof window !== 'undefined' && STORE_SLUG !== 'empty-state' && STORE_SLUG !== 'landingpage') {
+        if (typeof window !== 'undefined' && STORE_SLUG !== 'empty-state') {
           localStorage.setItem(`ekatalog_local_settings_${STORE_SLUG}`, JSON.stringify(context.previousSettings));
         }
       }
     },
     onSettled: () => {
-      if (STORE_SLUG !== 'landingpage') {
+      if (!isVirtual) {
         queryClient.invalidateQueries({ queryKey: ['settings', STORE_SLUG] });
       }
     },
@@ -319,7 +397,7 @@ export function useSettings(isAdmin: boolean) {
     isError,
     addVisitorLead: async (phone: string) => {
       if (!settings?.id) return;
-      if (STORE_SLUG === 'landingpage') return;
+      if (isVirtual) return;
 
       const { error } = await supabase.rpc('add_visitor_lead', {
         p_store_id: settings.id,
@@ -331,7 +409,7 @@ export function useSettings(isAdmin: boolean) {
     },
     changePin: async (currentPin: string, newPin: string) => {
       if (!settings?.id) throw new Error('Dükkan bilgileri yüklenemedi.');
-      if (STORE_SLUG === 'landingpage') {
+      if (isVirtual) {
         throw new Error('Demo modunda PIN kodu değiştirilemez.');
       }
       const { error } = await supabase.rpc('secure_update_store_pin', {

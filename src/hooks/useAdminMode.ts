@@ -8,6 +8,7 @@ import { getActiveStoreSlug } from '../utils/core';
 import { useStore } from '../store';
 
 const STORE_SLUG = getActiveStoreSlug();
+const isVirtual = STORE_SLUG === 'landingpage' || STORE_SLUG === 'misal' || STORE_SLUG === 'ornek';
 
 /**
  * ADMIN SESSION & GESTURE ENGINE (Diamond Standard)
@@ -60,8 +61,8 @@ export function useAdminMode() {
 
       if (isLockedOut) return false;
 
-      if (STORE_SLUG === 'landingpage') {
-        const isSuccess = pin === '0000';
+      if (isVirtual) {
+        const isSuccess = pin === '0000' || pin === '1111';
         if (!isSuccess) {
           const newAttempts = failedAttempts + 1;
           setFailedAttempts(newAttempts);

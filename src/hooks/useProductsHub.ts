@@ -22,11 +22,20 @@ import { TECH } from '../data/config';
  * 4. Storage Service (Visual Asset Management)
  */
 
+const STORE_SLUG = getActiveStoreSlug();
+const isVirtual = STORE_SLUG === 'landingpage' || STORE_SLUG === 'misal' || STORE_SLUG === 'ornek';
+let isProductsFirstLoad = true;
+
 // --- 1. QUERY HOOK (Data Layer) ---
 
 export function useProductsQuery(storeId?: string) {
-  const STORE_SLUG = getActiveStoreSlug();
   const queryKey = ['products', storeId];
+
+  if (typeof window !== 'undefined' && isProductsFirstLoad && isVirtual && storeId) {
+    localStorage.removeItem(`ekatalog_local_products_${storeId}`);
+    isProductsFirstLoad = false;
+  }
+
   return useQuery<Product[]>({
     queryKey,
     queryFn: async () => {
@@ -35,6 +44,19 @@ export function useProductsQuery(storeId?: string) {
           await import('../data/mockLandingpage');
         return MOCK_LANDINGPAGE_PRODUCTS;
       }
+
+      // If virtual, check localStorage first (to retain temporary edits during session)
+      if (isVirtual && typeof window !== 'undefined' && storeId) {
+        const cached = localStorage.getItem(`ekatalog_local_products_${storeId}`);
+        if (cached) {
+          try {
+            return JSON.parse(cached) as Product[];
+          } catch (e) {
+            // ignore and fetch
+          }
+        }
+      }
+
       if (!storeId) return [];
       const { data, error } = await supabase
         .from('prods')
@@ -56,7 +78,7 @@ export function useProductsQuery(storeId?: string) {
       return products;
     },
     initialData: () => {
-      if (typeof window !== 'undefined' && storeId && STORE_SLUG !== 'landingpage') {
+      if (typeof window !== 'undefined' && storeId) {
         const cached = localStorage.getItem(`ekatalog_local_products_${storeId}`);
         if (cached) {
           try {
@@ -69,7 +91,7 @@ export function useProductsQuery(storeId?: string) {
       return undefined;
     },
     enabled: !!storeId,
-    staleTime: 1000 * 60 * 5, // 5 minutes
+    staleTime: 0,
   });
 }
 
@@ -79,7 +101,6 @@ export function useProductsActions() {
   const queryClient = useQueryClient();
   const { settings, adminPin } = useStore();
   const queryKey = ['products', settings?.id];
-  const STORE_SLUG = getActiveStoreSlug();
 
   const updateMutation = useMutation({
     mutationFn: async ({
@@ -89,7 +110,7 @@ export function useProductsActions() {
       id: string;
       changes: Partial<Product>;
     }) => {
-      if (STORE_SLUG === 'landingpage') return;
+      if (isVirtual) return;
       if (!adminPin) throw new Error('Yetkisiz işlem: PIN gerekli');
       const { error } = await supabase.rpc('secure_update_product', {
         p_id: id,
@@ -122,7 +143,7 @@ export function useProductsActions() {
       }
     },
     onSettled: () => {
-      if (STORE_SLUG !== 'landingpage') {
+      if (!isVirtual) {
         queryClient.invalidateQueries({ queryKey });
       }
     },
@@ -130,7 +151,7 @@ export function useProductsActions() {
 
   const deleteMutation = useMutation({
     mutationFn: async (id: string) => {
-      if (STORE_SLUG === 'landingpage') return;
+      if (isVirtual) return;
       if (!adminPin) throw new Error('Yetkisiz işlem: PIN gerekli');
       const { error } = await supabase.rpc('secure_delete_product', {
         p_id: id,
@@ -160,7 +181,7 @@ export function useProductsActions() {
       }
     },
     onSettled: () => {
-      if (STORE_SLUG !== 'landingpage') {
+      if (!isVirtual) {
         queryClient.invalidateQueries({ queryKey });
       }
     },
@@ -168,7 +189,7 @@ export function useProductsActions() {
 
   const reorderCategoryMutation = useMutation({
     mutationFn: async (newOrder: string[]) => {
-      if (STORE_SLUG === 'landingpage') return;
+      if (isVirtual) return;
       if (!settings?.id || !adminPin) throw new Error('Yetkisiz işlem');
       const { error } = await supabase.rpc('secure_reorder_categories', {
         p_store_id: settings.id,
@@ -204,7 +225,7 @@ export function useProductsActions() {
       }
     },
     onSettled: () => {
-      if (STORE_SLUG !== 'landingpage') {
+      if (!isVirtual) {
         queryClient.invalidateQueries({ queryKey: ['settings', STORE_SLUG] });
       }
     },
@@ -218,7 +239,7 @@ export function useProductsActions() {
       oldName: string;
       newName: string;
     }) => {
-      if (STORE_SLUG === 'landingpage') return;
+      if (isVirtual) return;
       if (!settings?.id || !adminPin) throw new Error('Yetkisiz işlem');
       const { error } = await supabase.rpc('secure_rename_category', {
         p_store_id: settings.id,
@@ -277,7 +298,7 @@ export function useProductsActions() {
       }
     },
     onSettled: () => {
-      if (STORE_SLUG !== 'landingpage') {
+      if (!isVirtual) {
         queryClient.invalidateQueries({ queryKey });
         queryClient.invalidateQueries({ queryKey: ['settings', STORE_SLUG] });
       }
@@ -292,7 +313,7 @@ export function useProductsActions() {
       id: string;
       newSortOrder: number;
     }) => {
-      if (STORE_SLUG === 'landingpage') return;
+      if (isVirtual) return;
       if (!adminPin) throw new Error('Yetkisiz işlem');
       const { error } = await supabase.rpc('secure_update_product', {
         p_id: id,
@@ -325,7 +346,7 @@ export function useProductsActions() {
       }
     },
     onSettled: () => {
-      if (STORE_SLUG !== 'landingpage') {
+      if (!isVirtual) {
         queryClient.invalidateQueries({ queryKey });
       }
     },
@@ -333,7 +354,7 @@ export function useProductsActions() {
 
   const addMutation = useMutation({
     mutationFn: async (newProduct: NewProductPayload) => {
-      if (STORE_SLUG === 'landingpage') {
+      if (isVirtual) {
         const generatedId = `mock-${Date.now()}`;
         const mockProduct: Product = {
           id: generatedId,
@@ -372,15 +393,20 @@ export function useProductsActions() {
       return data.id as string;
     },
     onSuccess: () => {
-      if (STORE_SLUG !== 'landingpage') {
+      if (!isVirtual) {
         queryClient.invalidateQueries({ queryKey });
+      } else {
+        const updated = queryClient.getQueryData<Product[]>(queryKey);
+        if (updated && typeof window !== 'undefined' && settings?.id) {
+          localStorage.setItem(`ekatalog_local_products_${settings.id}`, JSON.stringify(updated));
+        }
       }
     },
   });
 
   const uploadImageMutation = useMutation({
     mutationFn: async ({ id, file }: { id: string; file: File }) => {
-      if (STORE_SLUG === 'landingpage') {
+      if (isVirtual) {
         const localUrl = URL.createObjectURL(file);
         queryClient.setQueryData<Product[]>(queryKey, (old) => {
           if (!old) return [];
@@ -422,8 +448,13 @@ export function useProductsActions() {
       return finalizedUrl;
     },
     onSuccess: () => {
-      if (STORE_SLUG !== 'landingpage') {
+      if (!isVirtual) {
         queryClient.invalidateQueries({ queryKey });
+      } else {
+        const updated = queryClient.getQueryData<Product[]>(queryKey);
+        if (updated && typeof window !== 'undefined' && settings?.id) {
+          localStorage.setItem(`ekatalog_local_products_${settings.id}`, JSON.stringify(updated));
+        }
       }
     },
   });
@@ -441,7 +472,7 @@ export function useProductsActions() {
       }[],
     ) => {
       if (!actions.length) return;
-      if (STORE_SLUG === 'landingpage') return;
+      if (isVirtual) return;
       if (!adminPin) throw new Error('Yetkisiz işlem: PIN gerekli');
 
       // Process actions to match RPC format (converting prices if needed)
@@ -515,7 +546,7 @@ export function useProductsActions() {
       }
     },
     onSettled: () => {
-      if (STORE_SLUG !== 'landingpage') {
+      if (!isVirtual) {
         queryClient.invalidateQueries({ queryKey });
       }
     },
@@ -551,7 +582,16 @@ export function useCatalogEngine(
   isAdmin: boolean,
 ) {
   const groupedProducts = useMemo(() => {
-    return products.reduce(
+    const sortedProducts = [...products].sort((a, b) => {
+      const orderA = a.sort_order ?? 999;
+      const orderB = b.sort_order ?? 999;
+      if (orderA !== orderB) return orderA - orderB;
+      const dateA = a.created_at ? new Date(a.created_at).getTime() : 0;
+      const dateB = b.created_at ? new Date(b.created_at).getTime() : 0;
+      return dateB - dateA;
+    });
+
+    return sortedProducts.reduce(
       (acc, product) => {
         const category = product.category || TECH.products.fallbackCategory;
         if (!acc[category]) acc[category] = [];

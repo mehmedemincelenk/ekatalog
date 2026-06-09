@@ -9,32 +9,21 @@ Bu dosya, projenin evrimsel sürecini, alınan kritik kararları ve teknik kıs�
 
 ## 📜 PROJE HAFIZASI (LOGS)
 
-### [2026-06-09] - VIRTUAL SANDBOX ENVIRONMENT STABILIZATION (LOCKED 🔒)
-- **Objective:** Standardize and stabilize virtual store sandbox slugs (`landingpage`, `misal`, `ornek`) to have transient, in-session state that mimics non-persistent environments while bypassing database writes.
+### [2026-06-06] - FIRST-TIME VISIT WELCOME OVERLAY (LOCKED 🔒)
+- **Objective:** Display an elegant, full-screen loading splash with the company logo and "Hoşgeldiniz" message to users visiting the e-catalog for the first time, auto-dismissing after 1 second.
 - **Key Actions:**
-    - **In-Session Local Cache Persistence:** Restored `localStorage` writes inside all mutations (`updateProduct`, `deleteProduct`, `reorderCategories`, etc.) for virtual stores to prevent UI loss during active sessions.
-    - **First Load cache clearance:** Implemented `isProductsFirstLoad` and `isSettingsFirstLoad` to clean local storage on first mount for virtual stores, providing a clean canvas upon initial loading or hard refresh.
-    - **Unified isVirtual Check:** Standardized bypasses using the single source of truth `isVirtual` boolean instead of hardcoded lists, extending sandbox coverage to `ornek`.
-    - **Universal PIN Configuration:** Set up verification logic to accept both `0000` and `1111` PINs for all virtual/sandbox stores (`landingpage`, `misal`, `ornek`) to bypass database checks entirely.
-    - **UI Product Sorting Fix:** Implemented explicit `sort_order` sorting in `useCatalogEngine` before grouping products, ensuring that local cache sort order mutations reflect instantly on-screen for virtual/sandbox stores without needing a database invalidation cycle.
-    - **TypeScript & Build Safety:** Confirmed complete compilation with `tsc --noEmit` and successfully outputted optimized production bundle with Vite.
+    - **First-Time Detection:** Added logic in `CatalogPage.tsx` using `localStorage` to check if a specific store slug has been welcomed before.
+    - **Full-Screen Welcome Splash:** Created an elegant `AnimatePresence`-powered dark-mode full-screen splash layout showing the company's logo, title, and a greeting message.
+    - **Auto-Dismiss Timer:** Set up a 1-second timeout in `useEffect` to automatically trigger the fade-out exit animation to reveal the catalog page.
+    - **Excluded Mockup:** Conditioned the welcome overlay to only trigger for active store sites, bypassing it when the store slug is `'landingpage'`.
 
-### [2026-06-07] - STUDIO MODULAR PRODUCTION TEMPLATE: TELEFONDAN DÜZENLE (LOCKED 🔒)
-- **Objective:** Design and integrate a third modular template representing the "easy phone-based edit" feature in `/studio`.
+### [2026-06-06] - REMOVAL OF SEQUENCE UPDATE LOADING SPINNER (LOCKED 🔒)
+- **Objective:** Optimize user experience during product/category sorting by eliminating the spinner and showing the checkmark immediately (since data sync is instant/optimistic).
 - **Key Actions:**
-    - **StudioTelefondanDuzenle Component:** Implemented `StudioTelefondanDuzenle.tsx` rendering a high-fidelity visual mockup of phone price updates, complete with old/new prices, edit cursor, fingerprint verification button, and pointer overlay.
-    - **Registry Integration:** Registered `telefondan-duzenle` template in the `PRODUCTIONS` registry inside `WorkspaceDesign.tsx`.
-    - **TS & Build Verification:** Verified compile status with `npx tsc --noEmit` which completed successfully with zero warnings/errors.
-    - **Diamond Standards:** Followed standard Lucide namespace imports and atomic button/badge conventions.
+    - **Spinner Elimination:** Removed the `isUpdatingOrder` local states and loaders from `ProductCard.tsx`, `CategoryHeader.tsx`, `CarouselSlideUnit.tsx`, and `References.tsx`.
+    - **Instant Success Feedback:** Modified select change handlers to trigger `showSuccess` and display the checkmark instantly upon change, aligning with the cached optimistic UX.
 
-### [2026-06-07] - STUDIO MODULAR PRODUCTION ARCHITECTURE (LOCKED 🔒)
-- **Objective:** Refactor /studio to handle multiple feature mockups/productions in a clean, registry-driven, extensible way.
-- **Key Actions:**
-    - **Modular Registry:** Established a structured `PRODUCTIONS` registry inside `WorkspaceDesign.tsx` separating data definitions, layouts, and edit forms from page orchestrators.
-    - **Multi-template Support:** Hooked up both `StudioWebAdres.tsx` and `StudioKazanacaklar.tsx` mockups as selectable templates.
-    - **Persistence of Form States:** Maintained form inputs for each template independently under a grouped state structure, avoiding data loss during template switching.
-    - **Dynamic Form Field Renderer:** Designed field renderers that dynamically generate text, textarea, and list input fields based on active template specifications.
-    - **TypeScript & Build Health:** Tested compilation and verified zero TSC warnings/errors (`tsc --noEmit` exit code 0).
+### [2026-06-05] - TOGGLEBUTTON MODERNIZATION & TEST LAB INITIALIZATION (LOCKED 🔒)
 - **Objective:** Modernize admin setting controls with the atomic ToggleButton component and establish reference unit/snapshot tests.
 - **Key Actions:**
     - **ToggleButton Integration:** Integrated ToggleButton for Currency and Stock selections in `AddProductModal.tsx` and active currency settings in `DisplaySettingsModal.tsx`.
@@ -401,5 +390,4 @@ Yeni bir dükkan eklenirken veya mevcut bir dükkanın bilgileri güncellenirken
     - Descriptions/Subheaders should be removed to maximize vertical space.
     - Onboarding cards must be responsive: Horizontal (`flex-row`) on mobile with image-left, Vertical (`flex-col`) on desktop with image-top.
     - Sequence numbers must be absolute-positioned at the top-left of the card.
-    - Final confirmation buttons must follow the 'TAMAM' (Primary) vs 'ANLADIM' (Secondary) pattern with fingerprints.
     - Final confirmation buttons must follow the 'TAMAM' (Primary) vs 'ANLADIM' (Secondary) pattern with fingerprints.
