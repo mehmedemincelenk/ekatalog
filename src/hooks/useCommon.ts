@@ -263,3 +263,36 @@ export function useSyncMetadata(
     }
   }, [isAdmin, settings]);
 }
+
+/**
+ * useElementHeight: Dynamically measures and tracks the height of a DOM element using ResizeObserver.
+ */
+export function useElementHeight(defaultHeight: number = 56) {
+  const [height, setHeight] = useState(defaultHeight);
+  const [element, setElement] = useState<HTMLElement | null>(null);
+
+  const ref = useCallback((node: HTMLElement | null) => {
+    setElement(node);
+    if (node) {
+      setHeight(node.clientHeight);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!element) return;
+
+    const resizeObserver = new ResizeObserver((entries) => {
+      for (const entry of entries) {
+        setHeight(entry.target.clientHeight);
+      }
+    });
+
+    resizeObserver.observe(element);
+    return () => {
+      resizeObserver.disconnect();
+    };
+  }, [element]);
+
+  return [ref, height] as const;
+}
+

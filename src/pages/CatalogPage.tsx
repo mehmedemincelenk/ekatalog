@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import * as Lucide from 'lucide-react';
 import { useStore } from '../store';
@@ -7,7 +7,7 @@ import { fetchCurrentRates, getActiveStoreSlug } from '../utils/core';
 import { useProducts } from '../hooks/useProductsHub';
 import { useAdminMode } from '../hooks/useAdminMode';
 import { useSettings } from '../hooks/useSettingsHub';
-import { useSyncMetadata } from '../hooks/useCommon';
+import { useSyncMetadata, useElementHeight } from '../hooks/useCommon';
 
 // COMPONENTS
 import Navbar from '../components/layout/Navbar';
@@ -81,6 +81,9 @@ export default function CatalogPage() {
 
   useSyncMetadata(storeSettings, isAdmin);
 
+  const [navbarRef, navbarHeight] = useElementHeight(56);
+
+
   // If we are in the landingpage mockup iframe, report changes to parent window
   useEffect(() => {
     if (typeof window !== 'undefined' && getActiveStoreSlug() === 'landingpage') {
@@ -122,6 +125,13 @@ export default function CatalogPage() {
     }
   }, [storeSlug]);
 
+  const handleWelcomeDismiss = useCallback(() => {
+    setShowWelcome(false);
+    if (storeSlug) {
+      sessionStorage.setItem(`ekatalog_welcomed_${storeSlug}`, 'true');
+    }
+  }, [storeSlug]);
+
   useEffect(() => {
     if (showWelcome) {
       const timer = setTimeout(() => {
@@ -129,14 +139,7 @@ export default function CatalogPage() {
       }, 1000);
       return () => clearTimeout(timer);
     }
-  }, [showWelcome]);
-
-  const handleWelcomeDismiss = () => {
-    setShowWelcome(false);
-    if (storeSlug) {
-      sessionStorage.setItem(`ekatalog_welcomed_${storeSlug}`, 'true');
-    }
-  };
+  }, [showWelcome, handleWelcomeDismiss]);
 
   // 2. LOADING & ERROR STATES (Bulletproof)
   if (settingsLoading) {
@@ -185,17 +188,8 @@ export default function CatalogPage() {
     );
   }
 
-  const announcementConfig = storeSettings?.announcementBar ?? {
-    enabled: false,
-    text: '',
-  };
-  const showAnnouncementBar =
-    announcementConfig.enabled &&
-    (announcementConfig.text || isAdmin);
-
-  const navbarHeight = showAnnouncementBar ? '80px' : '56px';
-
   const mobileContent = (
+
     <>
       <div className="relative w-full h-full overflow-hidden flex flex-col">
         {/* Onboarding or Modal active Glassmorphic/Blur Overlay */}
@@ -204,16 +198,20 @@ export default function CatalogPage() {
         )}
 
         {/* FLOATING GLASS NAVBAR OVERLAY - Fixed on mobile, absolute inside phone frame on desktop */}
-        <div className="print:hidden fixed md:absolute top-0 left-0 right-0 z-[100] w-full pointer-events-none">
+        <div
+          ref={navbarRef}
+          className="print:hidden fixed md:absolute top-0 left-0 right-0 z-[100] w-full pointer-events-none"
+        >
           <Navbar isInlineEnabled={isInlineEnabled} />
         </div>
 
         {/* SCROLLABLE LAYER */}
         <div
           id="mobile-viewport-scroll"
-          style={{ paddingTop: navbarHeight }}
+          style={{ paddingTop: `${navbarHeight}px` }}
           className="flex-1 overflow-y-auto overflow-x-hidden no-scrollbar scroll-smooth relative z-10"
         >
+
           <main className="bg-stone-50">
             {storeSettings?.displayConfig?.showCarousel !== false && (
               <HeroCarousel isAdminModeActive={isAdmin} />
