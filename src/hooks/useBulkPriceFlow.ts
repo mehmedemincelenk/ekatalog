@@ -73,7 +73,13 @@ export function useBulkPriceFlow(
     const initialDesk: Record<string, DeskItemState> = {};
 
     productsForDesk.forEach((p) => {
-      initialDesk[p.id] = { included: true };
+      if (actionType === 'STOCK') {
+        initialDesk[p.id] = { included: !p.out_of_stock };
+      } else if (actionType === 'ARCHIVE') {
+        initialDesk[p.id] = { included: !p.is_archived };
+      } else {
+        initialDesk[p.id] = { included: true };
+      }
     });
     setDeskItems(initialDesk);
     setCurrentStep(targetStep);
@@ -129,29 +135,55 @@ export function useBulkPriceFlow(
   const handleApply = async () => {
     setIsProcessing(true);
     try {
-      const itemsToUpdate = Object.entries(deskItems)
-        .filter(([_, state]) => state.included)
-        .map(([id]) => id);
-
-      await onGranularUpdate(
-        itemsToUpdate.map((id) => {
+      const updates = Object.entries(deskItems)
+        .map(([id, state]) => {
           const product = allProducts.find((p) => p.id === id);
-          return {
-            productId: id,
-            newPrice:
-              actionType === 'PRICE'
-                ? calculateNewPrice(
-                    transformCurrencyStringToNumber(product?.price || '0'),
-                  )
-                : undefined,
-            delete: actionType === 'DELETE',
-            out_of_stock:
-              actionType === 'STOCK' ? !product?.out_of_stock : undefined,
-            is_archived:
-              actionType === 'ARCHIVE' ? !product?.is_archived : undefined,
-          };
-        }),
-      );
+          if (!product) return null;
+
+          if (actionType === 'PRICE') {
+            if (!state.included) return null;
+            return {
+              productId: id,
+              newPrice: calculateNewPrice(
+                transformCurrencyStringToNumber(product.price || '0'),
+              ),
+            };
+          }
+
+          if (actionType === 'DELETE') {
+            if (!state.included) return null;
+            return {
+              productId: id,
+              delete: true,
+            };
+          }
+
+          if (actionType === 'STOCK') {
+            const newOutOfStock = !state.included;
+            if (newOutOfStock === product.out_of_stock) return null;
+            return {
+              productId: id,
+              out_of_stock: newOutOfStock,
+            };
+          }
+
+          if (actionType === 'ARCHIVE') {
+            const newIsArchived = !state.included;
+            if (newIsArchived === product.is_archived) return null;
+            return {
+              productId: id,
+              is_archived: newIsArchived,
+            };
+          }
+
+          return null;
+        })
+        .filter((upd): upd is NonNullable<typeof upd> => upd !== null);
+
+      if (updates.length > 0) {
+        await onGranularUpdate(updates);
+      }
+
       setSubmitStatus('success');
       setTimeout(() => {
         onClose();

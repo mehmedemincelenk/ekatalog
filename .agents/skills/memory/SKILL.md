@@ -495,12 +495,13 @@ Bu dosya, projenin evrimsel sürecini, alınan kritik kararları ve teknik kıs�
     - **Verification:** Successfully pushed clean code to the `main` branch.
 
 ### [2026-06-10] - BULK OPERATIONS COLOR-CODED CONFIRMATION & SELECTION FLOW (LOCKED 🔒)
-- **Objective:** Redesign the bulk admin action desk to eliminate the confusing de-selected-by-default gray initial state, introduce action-specific color-coded toggle states (Orange for Stock/Archive, Red for Delete, Green for Price), and add user instructions.
+- **Objective:** Redesign the bulk admin action desk to eliminate confusing status inversion, introduce action-specific color-coded toggle states (Green for Stock/Archive/Price, Red for Delete), and track actual target state changes directly.
 - **Key Actions:**
-    - **Default Selection State:** Changed `prepareDeskAndDirectTo` in `useBulkPriceFlow.ts` to initialize all target products with `included: true` by default. This avoids the confusing "everything is disabled and gray" initial visual state.
-    - **Color Coding Integration:** Added dynamic `activeColor` selection logic inside `DeskItemRow` within `AdminOperationsModal.tsx` based on `actionType`. Uses `bg-orange-500` for `STOCK` and `ARCHIVE`, `bg-red-500` for `DELETE`, and `bg-emerald-500` for `PRICE`.
-    - **UX Helper Hints:** Added top instructional helper status bars explaining what actions the colors represent (e.g., Orange: change status, Red: delete, Green: change price, Gray: keep constant).
-    - **Height Polish:** Optimized confirmation screen scroll limits (`max-h-[42vh]`) to guarantee zero vertical overflow on compact screens with the new instruction bar.
+    - **Current-State-Based Defaults:** Updated `prepareDeskAndDirectTo` in `useBulkPriceFlow.ts` to initialize `included` for `STOCK` and `ARCHIVE` using current product database fields (`!p.out_of_stock` / `!p.is_archived`). This accurately maps green/active toggles to "in stock" and "published/visible" and gray/inactive to "out of stock" and "archived".
+    - **Color Coding & Diagnostics:** Simplified color assignments in `DeskItemRow`. Pass `bg-red-500` for `DELETE` (Red active = to be deleted) and `bg-emerald-500` for all other actions (Green active = in stock, published, or price changing).
+    - **Direct Status Modification:** Overhauled `handleApply` to directly calculate and apply the target status (e.g. `out_of_stock: !state.included`) for changed items instead of blindly inverting the previous state of selected items.
+    - **Smart Apply Button Lifecycle:** Replaced row-count-based disabled logic with a `hasChanges` state, enabling the Apply button if and only if there's at least one actual state difference (`state.included !== initialStatus`) for status edits.
+    - **UX Helper Hints:** Added top instructional helper status bars explaining what actions the colors represent (e.g., Green: in stock / published, Red: delete, Gray: out of stock / archived).
     - **Verification:** Ran type checks (`npm run type-check`) and all test suites successfully.
 
 ## 💎 B2B MAĞAZA SCRAPE VE OLUŞTURMA STANDARTLARI (LOCKED 🔒)

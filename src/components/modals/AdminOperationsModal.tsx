@@ -1,4 +1,4 @@
-import { memo, useState } from 'react';
+import { memo, useState, useMemo } from 'react';
 import { motion } from 'motion/react';
 import Button from '../ui/Button';
 import BaseModal from './BaseModal';
@@ -35,7 +35,6 @@ const DeskItemRow = memo(
     onToggle: (id: string) => void;
   }) => {
     const getActiveColor = () => {
-      if (actionType === 'STOCK' || actionType === 'ARCHIVE') return 'bg-orange-500';
       if (actionType === 'DELETE') return 'bg-red-500';
       return 'bg-emerald-500';
     };
@@ -540,16 +539,24 @@ function ActionDeskScreen({
   handleApply,
   isProcessing,
 }: ActionDeskScreenProps) {
-  const activeDeskItemsCount = Object.values(deskItems).filter((d) => d.included).length;
+  const hasChanges = useMemo(() => {
+    return initialProductsForDesk.some((p) => {
+      const state = deskItems[p.id];
+      if (!state) return false;
+      if (actionType === 'STOCK') return state.included !== !p.out_of_stock;
+      if (actionType === 'ARCHIVE') return state.included !== !p.is_archived;
+      return state.included;
+    });
+  }, [initialProductsForDesk, deskItems, actionType]);
 
   return (
     <div className="space-y-4 fade-in">
       {/* Help Hint Text */}
       <div className="px-1 text-[9px] font-black text-stone-400 uppercase tracking-widest text-center select-none bg-stone-50 py-2.5 rounded-xl border border-stone-100/50">
-        {actionType === 'STOCK' && 'Stok Durumu Değişecek Ürünleri Seçin (Turuncu: Değişecek / Gri: Sabit)'}
-        {actionType === 'ARCHIVE' && 'Yayın Durumu Değişecek Ürünleri Seçin (Turuncu: Değişecek / Gri: Sabit)'}
-        {actionType === 'PRICE' && 'Fiyatı Güncellenecek Ürünleri Seçin (Yeşil: Güncellenecek / Gri: Sabit)'}
-        {actionType === 'DELETE' && 'Silinecek Ürünleri Seçin (Kırmızı: Silinecek / Gri: İptal)'}
+        {actionType === 'STOCK' && 'Stoktaki ürünleri yeşil (aktif), stok dışı ürünleri gri (deaktif) yapın.'}
+        {actionType === 'ARCHIVE' && 'Yayındaki ürünleri yeşil (aktif), arşivdeki ürünleri gri (deaktif) yapın.'}
+        {actionType === 'PRICE' && 'Fiyatı güncellenecek ürünleri yeşil (aktif) yapın.'}
+        {actionType === 'DELETE' && 'Silinecek ürünleri kırmızı (aktif) yapın.'}
       </div>
 
       <div className="max-h-[42vh] overflow-y-auto pr-1 space-y-5 custom-scrollbar">
@@ -597,7 +604,7 @@ function ActionDeskScreen({
         </Button>
         <Button
           onClick={handleApply}
-          disabled={isProcessing || activeDeskItemsCount === 0}
+          disabled={isProcessing || !hasChanges}
           variant="primary"
           className="flex-1 h-16 font-black !rounded-[24px]"
           loading={isProcessing}
