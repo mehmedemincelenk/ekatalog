@@ -131,7 +131,7 @@ export const MOCK_LANDINGPAGE_SETTINGS: CompanySettings = {
   activeCurrency: 'TRY',
   subscription_tier: 'free',
   subscription_expires_at: null,
-  portfoys_credits: 37,
+  portfoys_credits: 2,
 };
 
 export const MOCK_LANDINGPAGE_PRODUCTS: Product[] = [

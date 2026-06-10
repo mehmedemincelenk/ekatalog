@@ -518,6 +518,12 @@ Bu dosya, projenin evrimsel sürecini, alınan kritik kararları ve teknik kıs�
     - **Object Fit Adjustment:** Changed `productCard.image.fit` from `object-contain` to `object-cover` inside `src/data/config/theme.tsx`. This makes all product grid images fill the aspect-square card container from the center, identical to the modal detail visual style.
     - **Verification:** Verified compilation and all test suites successfully.
 
+### [2026-06-10] - CORRECTED PORTFOYS CREDITS MOCK VALUE (LOCKED 🔒)
+- **Objective:** Fix the B2B customer search credits count showing incorrect initial value (`37/2` instead of `2/2`) when simulating the system on the default `landingpage` demo store.
+- **Key Actions:**
+    - **Value Alignment:** Adjusted `portfoys_credits` value inside `MOCK_LANDINGPAGE_SETTINGS` from `37` to `2` in `src/data/mockLandingpage.ts`.
+    - **Verification:** Verified compilation and all test suites successfully.
+
 ## 💎 B2B MAĞAZA SCRAPE VE OLUŞTURMA STANDARTLARI (LOCKED 🔒)
 
 Yeni bir dükkan eklenirken veya mevcut bir dükkanın bilgileri güncellenirken, en yüksek kalitede sonuç elde etmek için aşağıdaki kurallar ve metotlar harfiyen uygulanır:
