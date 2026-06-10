@@ -532,6 +532,13 @@ Bu dosya, projenin evrimsel sürecini, alınan kritik kararları ve teknik kıs�
     - **Flow Coverage:** Verified initial hub layout (Step 1 buttons/lists), single action triggers (add product, categories, references, carousels), bulk action wizard navigation (category filter chips), and WhatsApp redirection on the bulk upload screen.
     - **Verification:** Verified compilation and all test suites successfully.
 
+### [2026-06-10] - ELEGANT WELCOME SCREEN & DELETE ARCHIVE WARNING OPTIMIZATION (LOCKED 🔒)
+- **Objective:** Eliminate the initial generic loading spinner in favor of an elegant, iOS-style minimalist "hoşgeldiniz" welcome screen, and optimize category deletion warning text when deleting the "Arşiv" category itself.
+- **Key Actions:**
+    - **Welcome Screen:** Replaced `Loading` spinner in `CatalogPage.tsx` with a centered, lowercase, light font `hoşgeldiniz` screen using `animate-pulse` during the initial loading states of settings and empty products list.
+    - **Category Warning Optimization:** Modified `CategoryHeader.tsx` to display a custom notification if the target category is "Arşiv" (or "Arşiv"), avoiding redundant statements about moving products to "Arşiv" and stating that products will remain archived.
+    - **Verification:** Verified compilation and all test suites successfully.
+
 ## 💎 B2B MAĞAZA SCRAPE VE OLUŞTURMA STANDARTLARI (LOCKED 🔒)
 
 Yeni bir dükkan eklenirken veya mevcut bir dükkanın bilgileri güncellenirken, en yüksek kalitede sonuç elde etmek için aşağıdaki kurallar ve metotlar harfiyen uygulanır:
