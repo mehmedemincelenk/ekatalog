@@ -512,6 +512,12 @@ Bu dosya, projenin evrimsel sürecini, alınan kritik kararları ve teknik kıs�
     - **Defaulting Behavior:** Preserved `INITIAL_FORM_STATE.isProductInStock = true` in `useAddProductFlow.ts` so all newly created products are automatically submitted as active and in stock.
     - **Verification:** Verified compilation and all test suites successfully.
 
+### [2026-06-10] - STANDARDIZED PRODUCT CARD IMAGE FIT (LOCKED 🔒)
+- **Objective:** Fix vertical or irregular dimension product images displaying with empty white space on the sides in the product grid, forcing them to fill the container nicely.
+- **Key Actions:**
+    - **Object Fit Adjustment:** Changed `productCard.image.fit` from `object-contain` to `object-cover` inside `src/data/config/theme.tsx`. This makes all product grid images fill the aspect-square card container from the center, identical to the modal detail visual style.
+    - **Verification:** Verified compilation and all test suites successfully.
+
 ## 💎 B2B MAĞAZA SCRAPE VE OLUŞTURMA STANDARTLARI (LOCKED 🔒)
 
 Yeni bir dükkan eklenirken veya mevcut bir dükkanın bilgileri güncellenirken, en yüksek kalitede sonuç elde etmek için aşağıdaki kurallar ve metotlar harfiyen uygulanır:

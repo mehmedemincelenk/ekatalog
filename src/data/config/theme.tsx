@@ -386,7 +386,7 @@ export const THEME = {
         'relative w-full transition-smooth overflow-hidden group/img rounded-t-[var(--radius-card)] rounded-b-none',
       aspect: 'aspect-square',
       bg: 'bg-transparent',
-      fit: 'object-contain',
+      fit: 'object-cover',
       transition: 'transition-smooth',
       outOfStock: 'grayscale opacity-40',
       uploading: 'opacity-50 blur-[2px]',
