@@ -84,7 +84,9 @@ export function useSettingsQuery() {
         const cached = localStorage.getItem(`ekatalog_local_settings_${STORE_SLUG}`);
         if (cached) {
           try {
-            return JSON.parse(cached) as CompanySettings;
+            const parsed = JSON.parse(cached) as CompanySettings;
+            parsed.portfoys_credits = 2; // Always force 2 for virtual stores
+            return parsed;
           } catch (e) {
             // ignore and fetch
           }
@@ -247,7 +249,7 @@ export function useSettingsQuery() {
         subscription_expires_at: raw.subscription_expires_at,
         created_at: raw.created_at,
         slug: raw.slug || '',
-        portfoys_credits: raw.portfoys_credits,
+        portfoys_credits: isVirtual ? 2 : (raw.portfoys_credits ?? 2),
       };
 
       if (settings && typeof window !== 'undefined' && STORE_SLUG !== 'empty-state') {
