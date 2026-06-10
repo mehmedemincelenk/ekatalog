@@ -27,6 +27,7 @@ const StatusToggle = memo(
     const toggleWidth = isCompact ? 'w-[36px]' : 'w-[44px]';
     const toggleHeight = isCompact ? 'h-[20px]' : 'h-[24px]';
     const knobSize = isCompact ? 'w-[16px] h-[16px]' : 'w-[20px] h-[20px]';
+    const travelDistance = isCompact ? 16 : 20;
 
     // Helper to safely extract background color classes from compound color definitions
     const getBgColorClass = (colorStr: string, fallback: string) => {
@@ -54,14 +55,12 @@ const StatusToggle = memo(
             e.stopPropagation();
             if (!disabled) onChange(!value);
           }}
-          className={`relative ${toggleWidth} ${toggleHeight} rounded-full transition-colors duration-300 p-[2px] flex items-center shrink-0 ${
-            value ? 'justify-end' : 'justify-start'
-          } ${disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'} ${
-            value ? resolvedActiveBg : resolvedInactiveBg
-          }`}
+          className={`relative ${toggleWidth} ${toggleHeight} rounded-full transition-colors duration-300 p-[2px] flex items-center justify-start shrink-0 ${
+            disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'
+          } ${value ? resolvedActiveBg : resolvedInactiveBg}`}
         >
           <motion.div
-            layout
+            animate={{ x: value ? travelDistance : 0 }}
             transition={{ type: 'spring', stiffness: 500, damping: 30 }}
             className={`${knobSize} bg-white rounded-full shadow-[0_2px_4px_rgba(0,0,0,0.2)]`}
           />

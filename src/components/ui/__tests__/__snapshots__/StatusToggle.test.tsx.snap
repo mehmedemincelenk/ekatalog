@@ -11,7 +11,7 @@ exports[`StatusToggle Component (Diamond Standard) > should render off state cor
       Duyuru Çubuğu
     </span>
     <div
-      class="relative w-[44px] h-[24px] rounded-full transition-colors duration-300 p-[2px] flex items-center shrink-0 justify-start cursor-pointer bg-stone-800"
+      class="relative w-[44px] h-[24px] rounded-full transition-colors duration-300 p-[2px] flex items-center justify-start shrink-0 cursor-pointer bg-stone-800"
     >
       <div
         class="w-[20px] h-[20px] bg-white rounded-full shadow-[0_2px_4px_rgba(0,0,0,0.2)]"
@@ -32,7 +32,7 @@ exports[`StatusToggle Component (Diamond Standard) > should render on state corr
       Duyuru Çubuğu
     </span>
     <div
-      class="relative w-[44px] h-[24px] rounded-full transition-colors duration-300 p-[2px] flex items-center shrink-0 justify-end cursor-pointer bg-emerald-500"
+      class="relative w-[44px] h-[24px] rounded-full transition-colors duration-300 p-[2px] flex items-center justify-start shrink-0 cursor-pointer bg-emerald-500"
     >
       <div
         class="w-[20px] h-[20px] bg-white rounded-full shadow-[0_2px_4px_rgba(0,0,0,0.2)]"
