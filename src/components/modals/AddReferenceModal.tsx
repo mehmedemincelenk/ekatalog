@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect, memo } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
 import BaseModal from './BaseModal';
 import FormInput from '../ui/FormInput';
 import Button from '../ui/Button';
@@ -86,6 +87,8 @@ const AddReferenceModal = memo(({ isOpen, onClose, onSave }: AddReferenceModalPr
   };
 
   const isValid = name.trim() || selectedFile;
+  const showUploadArea = !name.trim();
+  const showNameInput = !selectedFile;
 
   return (
     <BaseModal
@@ -96,82 +99,106 @@ const AddReferenceModal = memo(({ isOpen, onClose, onSave }: AddReferenceModalPr
       disableClickOutside={isLoading}
       hideCloseButton={isLoading}
     >
-      <div className="flex flex-col gap-6">
+      <div className="flex flex-col gap-0">
         {/* LOGO UPLOAD AREA */}
-        <div className="flex flex-col gap-2">
-          <label className="text-[10px] font-black uppercase tracking-[0.2em] text-stone-400">
-            REFERANS LOGOSU (OPSİYONEL)
-          </label>
-          
-          <input
-            ref={fileInputRef}
-            type="file"
-            accept="image/*"
-            className="hidden"
-            onChange={handleFileChange}
-          />
-
-          {previewUrl ? (
-            <div 
-              onClick={handleTriggerUpload}
-              className="relative w-full h-32 border-2 border-solid border-stone-200 rounded-2xl bg-stone-50/50 flex items-center justify-center cursor-pointer group overflow-hidden transition-all duration-300 hover:border-stone-400"
+        <AnimatePresence initial={false}>
+          {showUploadArea && (
+            <motion.div
+              key="upload-area"
+              initial={{ opacity: 0, height: 0, marginBottom: 0 }}
+              animate={{ opacity: 1, height: 'auto', marginBottom: 24 }}
+              exit={{ opacity: 0, height: 0, marginBottom: 0 }}
+              transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+              className="overflow-hidden flex flex-col gap-2"
             >
-              <img
-                src={previewUrl}
-                alt="Selected Logo Preview"
-                className="max-h-24 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
-              />
+              <label className="text-[10px] font-black uppercase tracking-[0.2em] text-stone-400">
+                REFERANS LOGOSU (OPSİYONEL)
+              </label>
               
-              {/* Overlay Action Buttons */}
-              <div className="absolute inset-0 bg-stone-900/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-2">
-                <Button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleTriggerUpload();
-                  }}
-                  variant="glass"
-                  size="sm"
-                  className="!text-stone-900"
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept="image/*"
+                className="hidden"
+                onChange={handleFileChange}
+              />
+
+              {previewUrl ? (
+                <div 
+                  onClick={handleTriggerUpload}
+                  className="relative w-full h-32 border-2 border-solid border-stone-200 rounded-2xl bg-stone-50/50 flex items-center justify-center cursor-pointer group overflow-hidden transition-all duration-300 hover:border-stone-400"
                 >
-                  DEĞİŞTİR
-                </Button>
-                <Button
-                  onClick={handleRemoveImage}
-                  variant="danger"
-                  size="sm"
+                  <img
+                    src={previewUrl}
+                    alt="Selected Logo Preview"
+                    className="max-h-24 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+                  />
+                  
+                  {/* Overlay Action Buttons */}
+                  <div className="absolute inset-0 bg-stone-900/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-2">
+                    <Button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleTriggerUpload();
+                      }}
+                      variant="glass"
+                      size="sm"
+                      className="!text-stone-900"
+                    >
+                      DEĞİŞTİR
+                    </Button>
+                    <Button
+                      onClick={handleRemoveImage}
+                      variant="danger"
+                      size="sm"
+                    >
+                      SİL
+                    </Button>
+                  </div>
+                </div>
+              ) : (
+                <button
+                  type="button"
+                  onClick={handleTriggerUpload}
+                  className="w-full h-32 border-2 border-dashed border-stone-200 hover:border-stone-950/40 rounded-2xl bg-stone-50/50 hover:bg-stone-50 flex flex-col items-center justify-center gap-2 transition-all duration-300 outline-none cursor-pointer group"
                 >
-                  SİL
-                </Button>
-              </div>
-            </div>
-          ) : (
-            <button
-              type="button"
-              onClick={handleTriggerUpload}
-              className="w-full h-32 border-2 border-dashed border-stone-200 hover:border-stone-950/40 rounded-2xl bg-stone-50/50 hover:bg-stone-50 flex flex-col items-center justify-center gap-2 transition-all duration-300 outline-none cursor-pointer group"
-            >
-              <div className="w-10 h-10 rounded-full bg-white shadow-sm flex items-center justify-center text-stone-400 group-hover:text-stone-700 transition-colors duration-300">
-                <Lucide.Image size={18} strokeWidth={2.5} />
-              </div>
-              <span className="text-[10px] font-black uppercase tracking-[0.2em] text-stone-400 group-hover:text-stone-700 transition-colors duration-300">
-                GALERİDEN LOGO SEÇ
-              </span>
-            </button>
+                  <div className="w-10 h-10 rounded-full bg-white shadow-sm flex items-center justify-center text-stone-400 group-hover:text-stone-700 transition-colors duration-300">
+                    <Lucide.Image size={18} strokeWidth={2.5} />
+                  </div>
+                  <span className="text-[10px] font-black uppercase tracking-[0.2em] text-stone-400 group-hover:text-stone-700 transition-colors duration-300">
+                    GALERİDEN LOGO SEÇ
+                  </span>
+                </button>
+              )}
+            </motion.div>
           )}
-        </div>
+        </AnimatePresence>
 
         {/* REFERENCE NAME INPUT */}
-        <FormInput
-          id="reference-name"
-          labelText="REFERANS / İŞ ORTAĞI ADI"
-          placeholder="Örn: Lider İş Ortakları"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          disabled={isLoading}
-        />
+        <AnimatePresence initial={false}>
+          {showNameInput && (
+            <motion.div
+              key="name-input"
+              initial={{ opacity: 0, height: 0, marginBottom: 0 }}
+              animate={{ opacity: 1, height: 'auto', marginBottom: 24 }}
+              exit={{ opacity: 0, height: 0, marginBottom: 0 }}
+              transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+              className="overflow-hidden"
+            >
+              <FormInput
+                id="reference-name"
+                labelText="REFERANS / İŞ ORTAĞI ADI"
+                placeholder="Örn: Lider İş Ortakları"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                disabled={isLoading}
+              />
+            </motion.div>
+          )}
+        </AnimatePresence>
 
         {/* ACTION BUTTONS */}
-        <div className="flex gap-3 mt-2">
+        <div className="flex gap-3">
           <Button
             onClick={handleResetAndClose}
             variant="secondary"
