@@ -525,6 +525,13 @@ Bu dosya, projenin evrimsel sürecini, alınan kritik kararları ve teknik kıs�
     - **Database Update:** Ran SQL update in the Supabase database to set `portfoys_credits = 2` for all stores where it was `37` (including `ornek`, `misal`, `eksiornek`, and `degistirdim`).
     - **Verification:** Verified compilation and all test suites successfully.
 
+### [2026-06-10] - IMPLEMENTED ADMIN OPERATIONS MODAL TESTS (LOCKED 🔒)
+- **Objective:** Establish robust, automated unit test coverage for the admin menu operations hub to ensure stability of all single and bulk action paths.
+- **Key Actions:**
+    - **Test Implementation:** Created `src/components/modals/__tests__/AdminOperationsModal.test.tsx` using Vitest and React Testing Library.
+    - **Flow Coverage:** Verified initial hub layout (Step 1 buttons/lists), single action triggers (add product, categories, references, carousels), bulk action wizard navigation (category filter chips), and WhatsApp redirection on the bulk upload screen.
+    - **Verification:** Verified compilation and all test suites successfully.
+
 ## 💎 B2B MAĞAZA SCRAPE VE OLUŞTURMA STANDARTLARI (LOCKED 🔒)
 
 Yeni bir dükkan eklenirken veya mevcut bir dükkanın bilgileri güncellenirken, en yüksek kalitede sonuç elde etmek için aşağıdaki kurallar ve metotlar harfiyen uygulanır:
