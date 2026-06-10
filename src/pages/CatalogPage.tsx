@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import * as Lucide from 'lucide-react';
 import { useStore } from '../store';
-import { LABELS, UI } from '../data/config';
+import { UI } from '../data/config';
 import { fetchCurrentRates, getActiveStoreSlug } from '../utils/core';
 import { useProducts } from '../hooks/useProductsHub';
 import { useAdminMode } from '../hooks/useAdminMode';
@@ -66,6 +66,7 @@ export default function CatalogPage() {
 
   const {
     products,
+    allProducts,
     categoryOrder,
     sortedList,
     stats,
@@ -142,10 +143,12 @@ export default function CatalogPage() {
   }, [showWelcome, handleWelcomeDismiss]);
 
   // 2. LOADING & ERROR STATES (Bulletproof)
-  if (settingsLoading) {
+  if (settingsLoading || (productsFetching && allProducts.length === 0)) {
     return (
       <div className="fixed inset-0 z-[999999] flex items-center justify-center bg-stone-50">
-        <Loading size="xl" label={LABELS.loading} />
+        <div className="text-[13px] font-extralight tracking-[0.3em] text-stone-400 lowercase select-none animate-pulse">
+          hoşgeldiniz
+        </div>
       </div>
     );
   }

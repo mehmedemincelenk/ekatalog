@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import AdminOperationsModal from '../AdminOperationsModal';
 import { useStore } from '../../../store';
 import { Product } from '../../../types';
@@ -17,7 +17,6 @@ vi.mock('motion/react', () => ({
 }));
 
 // Mock window.open
-const originalOpen = window.open;
 beforeEach(() => {
   window.open = vi.fn();
   // Reset zustand store to defaults
@@ -27,7 +26,7 @@ beforeEach(() => {
   });
 });
 
-const mockProducts: Product[] = [
+const mockProducts = [
   {
     id: 'prod-1',
     name: 'Elma',
@@ -55,7 +54,7 @@ const mockProducts: Product[] = [
     is_archived: true,
     image_url: '',
   },
-];
+] as Product[];
 
 const mockCategories = ['Meyve', 'Sebze'];
 
