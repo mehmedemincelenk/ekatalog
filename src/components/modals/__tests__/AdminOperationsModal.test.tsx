@@ -208,4 +208,52 @@ describe('AdminOperationsModal Component (Diamond Standard)', () => {
     expect(screen.getByText('Meyve')).not.toBeNull();
     expect(screen.getByText('Sebze')).not.toBeNull();
   });
+
+  it('should require correct PIN in Step 3 to execute bulk action', () => {
+    // Set admin PIN in store
+    useStore.setState({ adminPin: '1234' });
+
+    const handleGranularUpdate = vi.fn().mockResolvedValue(undefined);
+    render(
+      <AdminOperationsModal
+        isOpen={true}
+        onClose={vi.fn()}
+        allProducts={mockProducts}
+        categories={mockCategories}
+        onGranularUpdate={handleGranularUpdate}
+      />
+    );
+
+    // 1. Click "SİL İŞLEMİ" to start delete bulk flow and go to Step 2
+    fireEvent.click(screen.getByText('SİL İŞLEMİ'));
+
+    // 2. Select "Meyve" category chip
+    fireEvent.click(screen.getByText('Meyve'));
+
+    // 3. Click "DEVAM ET" to transition to Step 3 (ActionDeskScreen)
+    fireEvent.click(screen.getByText('DEVAM ET'));
+
+    // Should be at ONAY (Step 3) title
+    expect(screen.getByText('ONAY')).not.toBeNull();
+
+    // Check PIN input exists
+    const pinInput = screen.getByPlaceholderText('Toplu işlemi onaylamak için şifreyi girin');
+    expect(pinInput).not.toBeNull();
+
+    // Enter incorrect PIN
+    fireEvent.change(pinInput, { target: { value: '9999' } });
+    
+    // Find confirm button (it's the last button in the step 3 controls)
+    const buttons = screen.getAllByRole('button');
+    const lastButton = buttons[buttons.length - 1];
+    
+    fireEvent.click(lastButton);
+    expect(screen.getByText('Hatalı yönetici şifresi.')).not.toBeNull();
+    expect(handleGranularUpdate).not.toHaveBeenCalled();
+
+    // Enter correct PIN
+    fireEvent.change(pinInput, { target: { value: '1234' } });
+    fireEvent.click(lastButton);
+    expect(screen.queryByText('Hatalı yönetici şifresi.')).toBeNull();
+  });
 });

@@ -538,6 +538,9 @@ function ActionDeskScreen({
   handleApply,
   isProcessing,
 }: ActionDeskScreenProps) {
+  const [confirmPin, setConfirmPin] = useState('');
+  const [pinError, setPinError] = useState('');
+
   const hasChanges = useMemo(() => {
     return initialProductsForDesk.some((p) => {
       const state = deskItems[p.id];
@@ -547,6 +550,15 @@ function ActionDeskScreen({
       return state.included;
     });
   }, [initialProductsForDesk, deskItems, actionType]);
+
+  const onConfirmClick = () => {
+    const activePin = useStore.getState().adminPin;
+    if (confirmPin !== activePin) {
+      setPinError('Hatalı yönetici şifresi.');
+      return;
+    }
+    handleApply();
+  };
 
   return (
     <div className="space-y-4 fade-in">
@@ -592,6 +604,26 @@ function ActionDeskScreen({
           ))}
       </div>
 
+      {/* PIN Verification Input */}
+      <div className="flex flex-col gap-2 mt-4 text-left border-t border-stone-100 pt-4">
+        <FormInput
+          id="bulk-confirm-pin"
+          labelText="YÖNETİCİ ŞİFRESİ (PIN)"
+          placeholder="Toplu işlemi onaylamak için şifreyi girin"
+          type="password"
+          value={confirmPin}
+          onChange={(e) => {
+            setConfirmPin(e.target.value);
+            if (pinError) setPinError('');
+          }}
+        />
+        {pinError && (
+          <span className="text-[10px] font-bold text-red-500 uppercase tracking-wider px-1">
+            {pinError}
+          </span>
+        )}
+      </div>
+
       <div className="pt-4 flex gap-3">
         <Button
           onClick={prevStep}
@@ -602,8 +634,8 @@ function ActionDeskScreen({
           <Lucide.ChevronLeft size={24} strokeWidth={4} />
         </Button>
         <Button
-          onClick={handleApply}
-          disabled={isProcessing || !hasChanges}
+          onClick={onConfirmClick}
+          disabled={isProcessing || !hasChanges || !confirmPin}
           variant="primary"
           className="flex-1 h-16 font-black !rounded-[24px]"
           loading={isProcessing}
