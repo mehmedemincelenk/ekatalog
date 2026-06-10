@@ -18,6 +18,7 @@ Bu dosya, projenin evrimsel sürecini, alınan kritik kararları ve teknik kıs�
     - **Category Deletion Optimization & Warning:** Updated `CategoryHeader.tsx` to conditionally warn that products will be moved to "Genel" for normal categories, or that all products under "Genel" will be permanently deleted if deleting "Genel" itself.
     - **Permanent Bulk Deletion on Fallback Delete:** Modified `deleteCategory` in `useProductsHub.ts` to execute permanent product deletions if the "Genel" category is deleted.
     - **Reference Modal UX Refinement:** Removed automatic reference name population from filename when selecting a logo in `AddReferenceModal.tsx`, keeping the text input field clean and preventing user confusion.
+    - **Operations Modal Carousel Fix:** Prevented the Operations Modal from closing when clicking "AFİŞ EKLE" by removing the synchronous `onClose()` call from its click handler, allowing the native file chooser to open without prematurely hiding the modal.
     - **TS & Build Health:** Confirmed zero compilation warnings and 100% test pass rate.
 
 ### [2026-06-10] - CLOUD ASSET MIGRATION & DOMESTIC REFERENCES (LOCKED 🔒)

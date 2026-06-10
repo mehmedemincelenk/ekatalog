@@ -163,7 +163,6 @@ function SingleActionsGrid({ onClose, onAddAction }: SingleActionsGridProps) {
         <Button
           onClick={() => {
             onAddAction?.('CAROUSEL');
-            onClose();
           }}
           variant="primary"
           className="!h-14 !px-4 !rounded-[18px] border-none flex !flex-row !items-center !justify-start gap-2.5 group transition-all"
