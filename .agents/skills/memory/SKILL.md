@@ -522,8 +522,7 @@ Bu dosya, projenin evrimsel sürecini, alınan kritik kararları ve teknik kıs�
 - **Objective:** Fix the B2B customer search credits count showing incorrect initial value (`37/2` instead of `2/2`) when simulating the system on the default `landingpage` demo store.
 - **Key Actions:**
     - **Value Alignment:** Adjusted `portfoys_credits` value inside `MOCK_LANDINGPAGE_SETTINGS` from `37` to `2` in `src/data/mockLandingpage.ts`.
-    - **Fallback Logic:** Updated `useSettingsHub.ts` to automatically force `portfoys_credits = 2` for all virtual/demo stores (`landingpage`, `misal`, `ornek`), preventing browser caching (`localStorage`) or previous database entries from restoring the outdated value `37`.
-    - **Database Update:** Ran SQL update in the Supabase database to set `portfoys_credits = 2` for the `ornek`, `misal`, `eksiornek`, and `degistirdim` slugs.
+    - **Database Update:** Ran SQL update in the Supabase database to set `portfoys_credits = 2` for all stores where it was `37` (including `ornek`, `misal`, `eksiornek`, and `degistirdim`).
     - **Verification:** Verified compilation and all test suites successfully.
 
 ## 💎 B2B MAĞAZA SCRAPE VE OLUŞTURMA STANDARTLARI (LOCKED 🔒)
