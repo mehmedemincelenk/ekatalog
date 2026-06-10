@@ -6,6 +6,8 @@ import { THEME, LABELS } from '../../data/config';
 import { QuickEditModal } from '../modals/UtilityModals';
 import BaseModal from '../modals/BaseModal';
 import Button from '../ui/Button';
+import FormInput from '../ui/FormInput';
+import { useStore } from '../../store';
 import { CategoryHeaderProps } from '../../types';
 
 /**
@@ -30,6 +32,32 @@ const CategoryHeader = memo(
     const [isRenameModalOpen, setIsRenameModalOpen] = useState(false);
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
     const [showSuccess, setShowSuccess] = useState(false);
+    const [confirmPin, setConfirmPin] = useState('');
+    const [pinError, setPinError] = useState('');
+
+    const handleCloseDeleteModal = () => {
+      setIsDeleteModalOpen(false);
+      setConfirmPin('');
+      setPinError('');
+    };
+
+    const handleDeleteConfirm = async () => {
+      const isFallbackCategory = categoryName.trim().toLowerCase() === 'genel';
+      if (isFallbackCategory) {
+        const activePin = useStore.getState().adminPin;
+        if (confirmPin !== activePin) {
+          setPinError('Hatalı yönetici şifresi.');
+          return;
+        }
+      }
+      
+      try {
+        await onDelete?.(categoryName);
+        handleCloseDeleteModal();
+      } catch (err) {
+        console.error('Delete category failed:', err);
+      }
+    };
 
     return (
       <div
@@ -159,7 +187,7 @@ const CategoryHeader = memo(
         {/* ADMIN DELETE MODAL */}
         <BaseModal
           isOpen={isDeleteModalOpen}
-          onClose={() => setIsDeleteModalOpen(false)}
+          onClose={handleCloseDeleteModal}
           title="KATEGORİYİ SİL"
           subtitle={`"${categoryName}" kategorisini silmek istediğinize emin misiniz?`}
         >
@@ -175,26 +203,41 @@ const CategoryHeader = memo(
                 </>
               )}
             </p>
+
+            {categoryName.trim().toLowerCase() === 'genel' && (
+              <div className="flex flex-col gap-2 mt-2 text-left">
+                <FormInput
+                  id="delete-confirm-pin"
+                  labelText="YÖNETİCİ ŞİFRESİ (PIN)"
+                  placeholder="Şifreyi girin"
+                  type="password"
+                  value={confirmPin}
+                  onChange={(e) => {
+                    setConfirmPin(e.target.value);
+                    if (pinError) setPinError('');
+                  }}
+                />
+                {pinError && (
+                  <span className="text-[10px] font-bold text-red-500 uppercase tracking-wider px-1">
+                    {pinError}
+                  </span>
+                )}
+              </div>
+            )}
+
             <div className="flex gap-3 mt-4">
               <Button
-                onClick={() => setIsDeleteModalOpen(false)}
+                onClick={handleCloseDeleteModal}
                 variant="secondary"
                 className="flex-1 h-12"
               >
                 İPTAL
               </Button>
               <Button
-                onClick={async () => {
-                  try {
-                    await onDelete?.(categoryName);
-                  } catch (err) {
-                    console.error('Delete category failed:', err);
-                  } finally {
-                    setIsDeleteModalOpen(false);
-                  }
-                }}
+                onClick={handleDeleteConfirm}
                 variant="danger"
                 className="flex-1 h-12"
+                disabled={categoryName.trim().toLowerCase() === 'genel' && !confirmPin}
               >
                 SİL
               </Button>
