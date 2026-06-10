@@ -10,16 +10,30 @@ import {
   QuickEditModal,
 } from './UtilityModals';
 
-const AddProductModal = lazy(() => import('./AddProductModal'));
-const AdminOperationsModal = lazy(() => import('./AdminOperationsModal'));
-const DisplaySettingsModal = lazy(() => import('./DisplaySettingsModal'));
-const ChangePinModal = lazy(() => import('./ChangePinModal'));
-const PriceListModal = lazy(() => import('./PriceListModal'));
+const safeLazy = <T extends React.ComponentType<any>>(
+  importFn: () => Promise<{ default: T }>,
+) => {
+  return lazy(async () => {
+    try {
+      return await importFn();
+    } catch (error) {
+      console.error('Dynamic import failed, reloading page:', error);
+      window.location.reload();
+      return new Promise<{ default: T }>(() => {});
+    }
+  });
+};
 
-const SocialExportModal = lazy(() => import('./SocialExportModal'));
-const PortfoysLeadModal = lazy(() => import('./PortfoysLeadModal'));
-const FeaturesModal = lazy(() => import('./FeaturesModal'));
-const AddReferenceModal = lazy(() => import('./AddReferenceModal'));
+const AddProductModal = safeLazy(() => import('./AddProductModal'));
+const AdminOperationsModal = safeLazy(() => import('./AdminOperationsModal'));
+const DisplaySettingsModal = safeLazy(() => import('./DisplaySettingsModal'));
+const ChangePinModal = safeLazy(() => import('./ChangePinModal'));
+const PriceListModal = safeLazy(() => import('./PriceListModal'));
+
+const SocialExportModal = safeLazy(() => import('./SocialExportModal'));
+const PortfoysLeadModal = safeLazy(() => import('./PortfoysLeadModal'));
+const FeaturesModal = safeLazy(() => import('./FeaturesModal'));
+const AddReferenceModal = safeLazy(() => import('./AddReferenceModal'));
 
 import { useStore } from '../../store';
 import { useProducts } from '../../hooks/useProductsHub';

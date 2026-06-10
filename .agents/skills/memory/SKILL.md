@@ -19,6 +19,7 @@ Bu dosya, projenin evrimsel sürecini, alınan kritik kararları ve teknik kıs�
     - **Permanent Bulk Deletion on Fallback Delete:** Modified `deleteCategory` in `useProductsHub.ts` to execute permanent product deletions if the "Genel" category is deleted.
     - **Reference Modal UX Refinement:** Removed automatic reference name population from filename when selecting a logo in `AddReferenceModal.tsx`, keeping the text input field clean and preventing user confusion.
     - **Operations Modal Carousel Fix:** Prevented the Operations Modal from closing when clicking "AFİŞ EKLE" by removing the synchronous `onClose()` call from its click handler, allowing the native file chooser to open without prematurely hiding the modal.
+    - **Dynamic Import Auto-Reload (safeLazy):** Introduced a `safeLazy` wrapper function for all dynamic React components (`AddProductModal`, `AdminOperationsModal`, etc.) in `AppModals.tsx` to catch `ChunkLoadError`/`TypeError` caused by outdated client cache after new builds, forcing an automatic `window.location.reload()` to retrieve active files.
     - **TS & Build Health:** Confirmed zero compilation warnings and 100% test pass rate.
 
 ### [2026-06-10] - CLOUD ASSET MIGRATION & DOMESTIC REFERENCES (LOCKED 🔒)
