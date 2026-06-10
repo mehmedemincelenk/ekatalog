@@ -486,6 +486,23 @@ Bu dosya, projenin evrimsel sürecini, alınan kritik kararları ve teknik kıs�
     - **Actions Grouping:** Integrated both `STOK` and `YAYIN` toggles on the left side of this container with a separating vertical line (`pr-3 border-r border-stone-200`), and grouped the compact `DOWNLOAD` and `DELETE` icon buttons on the right side.
     - **Verification:** Checked type safety (`npm run type-check`) and executed tests cleanly.
 
+### [2026-06-10] - STATUSTOGGLE KNOB POSITION DRIFT FIX (LOCKED 🔒)
+- **Objective:** Resolve visual displacement where the toggle knob ("topçuk") was jumping outside the track boundary when toggled inside animated modals.
+- **Key Actions:**
+    - **Animation Strategy Shift:** Replaced Framer Motion's `layout` prop on the knob with an explicit `animate={{ x }}` relative transform. This eliminates the screen-space bounding box calculations that fail when elements render inside scaling/animated containers.
+    - **Travel Distance Calculation:** Set exact travel distances based on toggle variant (16px for compact, 20px for default) to maintain pixel-perfect 2px padding on both states.
+    - **Tests & Snapshot Update:** Ran Vitest and updated affected snapshot tests (`npm run test -- -u`).
+    - **Verification:** Successfully pushed clean code to the `main` branch.
+
+### [2026-06-10] - BULK OPERATIONS COLOR-CODED CONFIRMATION & SELECTION FLOW (LOCKED 🔒)
+- **Objective:** Redesign the bulk admin action desk to eliminate the confusing de-selected-by-default gray initial state, introduce action-specific color-coded toggle states (Orange for Stock/Archive, Red for Delete, Green for Price), and add user instructions.
+- **Key Actions:**
+    - **Default Selection State:** Changed `prepareDeskAndDirectTo` in `useBulkPriceFlow.ts` to initialize all target products with `included: true` by default. This avoids the confusing "everything is disabled and gray" initial visual state.
+    - **Color Coding Integration:** Added dynamic `activeColor` selection logic inside `DeskItemRow` within `AdminOperationsModal.tsx` based on `actionType`. Uses `bg-orange-500` for `STOCK` and `ARCHIVE`, `bg-red-500` for `DELETE`, and `bg-emerald-500` for `PRICE`.
+    - **UX Helper Hints:** Added top instructional helper status bars explaining what actions the colors represent (e.g., Orange: change status, Red: delete, Green: change price, Gray: keep constant).
+    - **Height Polish:** Optimized confirmation screen scroll limits (`max-h-[42vh]`) to guarantee zero vertical overflow on compact screens with the new instruction bar.
+    - **Verification:** Ran type checks (`npm run type-check`) and all test suites successfully.
+
 ## 💎 B2B MAĞAZA SCRAPE VE OLUŞTURMA STANDARTLARI (LOCKED 🔒)
 
 Yeni bir dükkan eklenirken veya mevcut bir dükkanın bilgileri güncellenirken, en yüksek kalitede sonuç elde etmek için aşağıdaki kurallar ve metotlar harfiyen uygulanır:

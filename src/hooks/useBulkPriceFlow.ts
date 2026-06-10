@@ -71,10 +71,9 @@ export function useBulkPriceFlow(
         selectedCategories.includes(p.category),
     );
     const initialDesk: Record<string, DeskItemState> = {};
-    const isStatusAction = actionType === 'STOCK' || actionType === 'ARCHIVE';
 
     productsForDesk.forEach((p) => {
-      initialDesk[p.id] = { included: !isStatusAction };
+      initialDesk[p.id] = { included: true };
     });
     setDeskItems(initialDesk);
     setCurrentStep(targetStep);

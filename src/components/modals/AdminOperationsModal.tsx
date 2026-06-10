@@ -34,6 +34,12 @@ const DeskItemRow = memo(
     newPriceValue: number;
     onToggle: (id: string) => void;
   }) => {
+    const getActiveColor = () => {
+      if (actionType === 'STOCK' || actionType === 'ARCHIVE') return 'bg-orange-500';
+      if (actionType === 'DELETE') return 'bg-red-500';
+      return 'bg-emerald-500';
+    };
+
     return (
       <motion.div
         layout
@@ -89,6 +95,7 @@ const DeskItemRow = memo(
             value={state.included}
             onChange={() => onToggle(product.id)}
             variant="compact"
+            activeColor={getActiveColor()}
           />
         </div>
       </motion.div>
@@ -537,7 +544,15 @@ function ActionDeskScreen({
 
   return (
     <div className="space-y-4 fade-in">
-      <div className="max-h-[45vh] overflow-y-auto pr-1 space-y-5 custom-scrollbar">
+      {/* Help Hint Text */}
+      <div className="px-1 text-[9px] font-black text-stone-400 uppercase tracking-widest text-center select-none bg-stone-50 py-2.5 rounded-xl border border-stone-100/50">
+        {actionType === 'STOCK' && 'Stok Durumu Değişecek Ürünleri Seçin (Turuncu: Değişecek / Gri: Sabit)'}
+        {actionType === 'ARCHIVE' && 'Yayın Durumu Değişecek Ürünleri Seçin (Turuncu: Değişecek / Gri: Sabit)'}
+        {actionType === 'PRICE' && 'Fiyatı Güncellenecek Ürünleri Seçin (Yeşil: Güncellenecek / Gri: Sabit)'}
+        {actionType === 'DELETE' && 'Silinecek Ürünleri Seçin (Kırmızı: Silinecek / Gri: İptal)'}
+      </div>
+
+      <div className="max-h-[42vh] overflow-y-auto pr-1 space-y-5 custom-scrollbar">
         {categories
           .filter((cat) =>
             initialProductsForDesk.some((p) => p.category === cat),
