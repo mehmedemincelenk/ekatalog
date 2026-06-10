@@ -165,13 +165,13 @@ const CategoryHeader = memo(
         >
           <div className="flex flex-col gap-4 text-center">
             <p className="text-xs font-bold text-stone-500 leading-relaxed">
-              {categoryName.toLowerCase() === 'arşiv' || categoryName.toLowerCase() === 'arsiv' ? (
+              {categoryName.trim().toLowerCase() === 'genel' ? (
                 <>
-                  Bu kategori altındaki ürünler sistemde <strong>arşivlenmiş olarak</strong> kalmaya devam edecektir.
+                  Bu kategori silinirse altındaki <strong>tüm ürünler kalıcı olarak silinecektir</strong>.
                 </>
               ) : (
                 <>
-                  Bu kategori altındaki ürünler otomatik olarak <strong>"Arşiv"</strong> kategorisine taşınacaktır.
+                  Bu kategori altındaki ürünler otomatik olarak <strong>"Genel"</strong> kategorisine taşınacaktır.
                 </>
               )}
             </p>

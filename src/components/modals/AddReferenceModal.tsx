@@ -36,11 +36,6 @@ const AddReferenceModal = memo(({ isOpen, onClose, onSave }: AddReferenceModalPr
         URL.revokeObjectURL(previewUrl);
       }
       setPreviewUrl(URL.createObjectURL(file));
-      // Auto-populate name from file name if name is empty
-      if (!name) {
-        const baseName = file.name.substring(0, file.name.lastIndexOf('.')) || file.name;
-        setName(baseName);
-      }
     }
   };
 

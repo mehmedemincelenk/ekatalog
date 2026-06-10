@@ -731,16 +731,26 @@ export function useProducts(
       const catProds = allProducts?.filter((p) => p.category === name) || [];
 
       if (catProds.length > 0) {
-        const bulkActions = catProds.map((p) => ({
-          productId: p.id,
-          category: 'Arşiv',
-        }));
-        await actions.executeGranularBulkActions(bulkActions);
+        if (name.trim().toLowerCase() === 'genel') {
+          // Permanently delete all products under the "Genel" category
+          const bulkActions = catProds.map((p) => ({
+            productId: p.id,
+            delete: true,
+          }));
+          await actions.executeGranularBulkActions(bulkActions);
+        } else {
+          // Move products to the "Genel" category
+          const bulkActions = catProds.map((p) => ({
+            productId: p.id,
+            category: 'Genel',
+          }));
+          await actions.executeGranularBulkActions(bulkActions);
+        }
       }
 
       let newOrder = (categoryOrder || []).filter((c) => c !== name);
-      if (catProds.length > 0 && !newOrder.includes('Arşiv')) {
-        newOrder = [...newOrder, 'Arşiv'];
+      if (name.trim().toLowerCase() !== 'genel' && catProds.length > 0 && !newOrder.includes('Genel')) {
+        newOrder = [...newOrder, 'Genel'];
       }
 
       await actions.reorderCategories(newOrder);

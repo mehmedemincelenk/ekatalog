@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import * as Lucide from 'lucide-react';
 import { useStore } from '../store';
@@ -110,37 +110,7 @@ export default function CatalogPage() {
     string | null
   >(null);
 
-  const [showWelcome, setShowWelcome] = useState(false);
-  const storeSlug = getActiveStoreSlug();
 
-  useEffect(() => {
-    if (storeSlug && storeSlug !== 'landingpage') {
-      localStorage.removeItem(`ekatalog_welcomed_${storeSlug}`);
-      
-      const isDev = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-      const hasVisited = sessionStorage.getItem(`ekatalog_welcomed_${storeSlug}`);
-      
-      if (!hasVisited || isDev) {
-        setShowWelcome(true);
-      }
-    }
-  }, [storeSlug]);
-
-  const handleWelcomeDismiss = useCallback(() => {
-    setShowWelcome(false);
-    if (storeSlug) {
-      sessionStorage.setItem(`ekatalog_welcomed_${storeSlug}`, 'true');
-    }
-  }, [storeSlug]);
-
-  useEffect(() => {
-    if (showWelcome) {
-      const timer = setTimeout(() => {
-        handleWelcomeDismiss();
-      }, 1000);
-      return () => clearTimeout(timer);
-    }
-  }, [showWelcome, handleWelcomeDismiss]);
 
   // 2. LOADING & ERROR STATES (Bulletproof)
   if (settingsLoading || (productsFetching && allProducts.length === 0)) {
@@ -403,55 +373,7 @@ export default function CatalogPage() {
             <div className="hidden md:block absolute bottom-2 left-1/2 -translate-x-1/2 w-28 h-1 bg-stone-900/10 rounded-full z-[500] hover:bg-stone-900/20 transition-colors" />
           </div>
 
-          {/* Welcome Splash Overlay */}
-          <AnimatePresence>
-            {showWelcome && (
-              <motion.div
-                initial={{ opacity: 1 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0, scale: 1.05 }}
-                transition={{ duration: 0.4, ease: 'easeInOut' }}
-                className="absolute inset-0 z-[9999] bg-stone-950 flex flex-col items-center justify-center p-6 text-center select-none md:rounded-[2.5rem]"
-              >
-                {/* Logo Wrapper */}
-                <motion.div
-                  initial={{ scale: 0.9, opacity: 0 }}
-                  animate={{ scale: 1, opacity: 1 }}
-                  transition={{ delay: 0.1, duration: 0.3 }}
-                  className="w-28 h-28 rounded-[2rem] bg-white/5 border border-white/10 flex items-center justify-center overflow-hidden mb-6 shadow-2xl p-4"
-                >
-                  {storeSettings?.logoUrl ? (
-                    <img
-                      src={storeSettings.logoUrl}
-                      alt={storeSettings.title || 'Logo'}
-                      className="w-full h-full object-contain"
-                    />
-                  ) : (
-                    <span className="text-4xl">📦</span>
-                  )}
-                </motion.div>
 
-                {/* Typography */}
-                <motion.h2
-                  initial={{ y: 10, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  transition={{ delay: 0.2, duration: 0.3 }}
-                  className="text-white text-3xl font-black tracking-widest uppercase mb-2"
-                >
-                  Hoşgeldiniz
-                </motion.h2>
-
-                <motion.p
-                  initial={{ y: 10, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  transition={{ delay: 0.3, duration: 0.3 }}
-                  className="text-stone-400 font-bold text-xs tracking-wider uppercase"
-                >
-                  {storeSettings?.title || 'Katalog'}
-                </motion.p>
-              </motion.div>
-            )}
-          </AnimatePresence>
         </div>
       </div>
     </div>

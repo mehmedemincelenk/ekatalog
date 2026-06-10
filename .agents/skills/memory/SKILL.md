@@ -9,6 +9,17 @@ Bu dosya, projenin evrimsel sürecini, alınan kritik kararları ve teknik kıs�
 
 ## 📜 PROJE HAFIZASI (LOGS)
 
+### [2026-06-10] - MINIMALIST LOADING SCREEN & GENEL CATEGORY FALLBACK (LOCKED 🔒)
+- **Objective:** Finalize "hoşgeldiniz" welcome overlay experience and rename the fallback category from "Arşiv" to "Genel" with proper deletion warning/behavior.
+- **Key Actions:**
+    - **Welcome Splash Overlay Removal:** Removed secondary/black loading overlay screens (`showWelcome` state and hooks) in `CatalogPage.tsx`. When loading finishes, the catalog is immediately revealed.
+    - **Minimalist Welcome Screen:** Retained the clean, iOS-inspired white pulse screen showing lowercase "hoşgeldiniz" as the sole loading experience.
+    - **Fallback Category Renaming:** Renamed the fallback category from "Arşiv" to "Genel" inside `useProductsHub.ts` and `CategoryHeader.tsx`.
+    - **Category Deletion Optimization & Warning:** Updated `CategoryHeader.tsx` to conditionally warn that products will be moved to "Genel" for normal categories, or that all products under "Genel" will be permanently deleted if deleting "Genel" itself.
+    - **Permanent Bulk Deletion on Fallback Delete:** Modified `deleteCategory` in `useProductsHub.ts` to execute permanent product deletions if the "Genel" category is deleted.
+    - **Reference Modal UX Refinement:** Removed automatic reference name population from filename when selecting a logo in `AddReferenceModal.tsx`, keeping the text input field clean and preventing user confusion.
+    - **TS & Build Health:** Confirmed zero compilation warnings and 100% test pass rate.
+
 ### [2026-06-10] - CLOUD ASSET MIGRATION & DOMESTIC REFERENCES (LOCKED 🔒)
 - **Objective:** Migrate legacy local public folder assets to Supabase Storage and enrich default store references with premium Turkish domestic brands.
 - **Key Actions:**
@@ -530,13 +541,6 @@ Bu dosya, projenin evrimsel sürecini, alınan kritik kararları ve teknik kıs�
 - **Key Actions:**
     - **Test Implementation:** Created `src/components/modals/__tests__/AdminOperationsModal.test.tsx` using Vitest and React Testing Library.
     - **Flow Coverage:** Verified initial hub layout (Step 1 buttons/lists), single action triggers (add product, categories, references, carousels), bulk action wizard navigation (category filter chips), and WhatsApp redirection on the bulk upload screen.
-    - **Verification:** Verified compilation and all test suites successfully.
-
-### [2026-06-10] - ELEGANT WELCOME SCREEN & DELETE ARCHIVE WARNING OPTIMIZATION (LOCKED 🔒)
-- **Objective:** Eliminate the initial generic loading spinner in favor of an elegant, iOS-style minimalist "hoşgeldiniz" welcome screen, and optimize category deletion warning text when deleting the "Arşiv" category itself.
-- **Key Actions:**
-    - **Welcome Screen:** Replaced `Loading` spinner in `CatalogPage.tsx` with a centered, lowercase, light font `hoşgeldiniz` screen using `animate-pulse` during the initial loading states of settings and empty products list.
-    - **Category Warning Optimization:** Modified `CategoryHeader.tsx` to display a custom notification if the target category is "Arşiv" (or "Arşiv"), avoiding redundant statements about moving products to "Arşiv" and stating that products will remain archived.
     - **Verification:** Verified compilation and all test suites successfully.
 
 ## 💎 B2B MAĞAZA SCRAPE VE OLUŞTURMA STANDARTLARI (LOCKED 🔒)
