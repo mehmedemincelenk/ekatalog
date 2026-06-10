@@ -721,19 +721,6 @@ export function useProducts(
     addCategory: async (name: string) => {
       if (!settings?.id) return;
 
-      // 1. Create a placeholder product
-      await actions.addProduct({
-        name: 'Yeni Kategori Ürünü',
-        category: name,
-        price: '0',
-        description: 'Bu ürün kategoriyi oluşturmak için otomatik eklenmiştir.',
-        image_url: null,
-        store_id: settings.id,
-        out_of_stock: false,
-        is_archived: true,
-      });
-
-      // 2. Persist to category_order list in DB
       const currentOrder = settings.categoryOrder || [];
       if (!currentOrder.includes(name)) {
         const updatedOrder = [...currentOrder, name];
@@ -752,7 +739,7 @@ export function useProducts(
       }
 
       let newOrder = (categoryOrder || []).filter((c) => c !== name);
-      if (!newOrder.includes('Arşiv')) {
+      if (catProds.length > 0 && !newOrder.includes('Arşiv')) {
         newOrder = [...newOrder, 'Arşiv'];
       }
 

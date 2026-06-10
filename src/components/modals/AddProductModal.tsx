@@ -6,11 +6,12 @@ import BaseModal from './BaseModal';
 import * as Lucide from 'lucide-react';
 import FormInput from '../ui/FormInput';
 import StatusOverlay from '../ui/StatusOverlay';
-import Badge from '../ui/Badge';
 import { AddProductModalProps } from '../../types';
 import { useAddProductFlow } from '../../hooks/useAddProductFlow';
 import { useStore } from '../../store';
 import { openWhatsApp } from '../../utils/contact';
+import CategoryFilterChip from '../ui/CategoryFilterChip';
+import ProductCard from '../layout/ProductCard';
 
 export default function AddProductModal({
   isModalOpen,
@@ -20,6 +21,7 @@ export default function AddProductModal({
   initialCategory,
   isStatic = false,
   initialStep,
+  allProducts = [],
 }: AddProductModalProps) {
   const {
     currentStep,
@@ -225,7 +227,7 @@ export default function AddProductModal({
             <div className="space-y-1 max-h-[280px] overflow-y-auto pr-2 custom-scrollbar">
               {paddedValues.map((v, i) => (
                 <div key={i} className="flex items-center gap-4 group">
-                  <span className="text-[12px] font-black text-stone-400 w-5 text-right shrink-0">
+                  <span className="text-[12px] font-black text-stone-500 w-5 text-right shrink-0">
                     {i + 1}.
                   </span>
                   <input
@@ -248,7 +250,7 @@ export default function AddProductModal({
                           ? 'Örn: Kırmızı, Beyaz'
                           : 'Örn: 100ad.'
                     }
-                    className="w-full bg-transparent border-b border-stone-100 py-4 text-[14px] font-bold text-stone-900 placeholder:text-stone-300 focus:border-stone-900 outline-none transition-colors"
+                    className="w-full bg-transparent border-b border-stone-200 py-4 text-[14px] font-bold text-stone-900 placeholder:text-stone-400 focus:border-stone-900 outline-none transition-colors"
                     autoFocus={i === paddedValues.length - 1 && i > 2}
                   />
                 </div>
@@ -276,21 +278,19 @@ export default function AddProductModal({
         {currentStep === 4 && (
           <div className="flex flex-col gap-6 py-2">
             <div className="flex flex-wrap gap-2 max-h-[200px] overflow-y-auto pr-2 custom-scrollbar">
-              {availableCategories.map((c) => (
-                <Button
-                  key={c}
-                  onClick={() => handleCategorySelection(c)}
-                  variant={
-                    formState.selectedCategory === c ? 'primary' : 'secondary'
-                  }
-                  className="!h-10 !px-4 !rounded-xl"
-                  mode="rectangle"
-                >
-                  <span className="text-[11px] font-black uppercase tracking-widest">
-                    {c}
-                  </span>
-                </Button>
-              ))}
+              {availableCategories.map((c) => {
+                const count = allProducts ? allProducts.filter((p) => p.category === c).length : 0;
+                return (
+                  <CategoryFilterChip
+                    key={c}
+                    categoryName={c}
+                    isItemSelected={formState.selectedCategory === c}
+                    isAdminMode={false}
+                    productCount={count}
+                    onSelect={handleCategorySelection}
+                  />
+                );
+              })}
             </div>
             <div className="space-y-2">
               <span className="text-[10px] font-black text-stone-400 tracking-widest uppercase px-2">
@@ -355,68 +355,59 @@ export default function AddProductModal({
           </div>
         )}
         {currentStep === 7 && (
-          <div className="flex flex-col gap-6 fade-in pt-2">
-            <div className="bg-stone-50 border border-stone-100 p-6 rounded-[var(--radius-card)] relative overflow-hidden">
-              <div className="flex gap-5 items-center relative z-10">
-                <div className="w-24 h-24 rounded-2xl overflow-hidden bg-stone-200 shrink-0 shadow-sm">
-                  {temporaryImagePreviewUrl ? (
-                    <img
-                      src={temporaryImagePreviewUrl}
-                      className="w-full h-full object-cover"
-                      alt="Preview"
-                    />
-                  ) : (
-                    <div className="w-full h-full flex items-center justify-center text-stone-400">
-                      📷
-                    </div>
-                  )}
-                </div>
-                <div className="flex flex-col min-w-0">
-                  <span className="text-[10px] font-black text-stone-400 tracking-widest uppercase mb-1">
-                    {formState.customCategoryName ||
-                      formState.selectedCategory ||
-                      'DİĞER'}
-                  </span>
-                  <h3 className="text-xl font-black text-stone-900 truncate uppercase tracking-tighter">
-                    {formState.productName || 'İsimsiz Ürün'}
-                  </h3>
-                  <span className="text-xl font-black text-black tracking-tighter mt-1">
-                    {formState.currency}
-                    {formState.productPrice || '0.00'}
-                  </span>
-                </div>
-              </div>
-              <div className="mt-6 pt-6 border-t border-stone-200/50 space-y-3">
-                {formState.productDescription
-                  .split('\n')
-                  .filter((l: string) => l.trim())
-                  .map((l: string, i: number) => (
-                    <div key={i} className="flex gap-3 items-start">
-                      <div className="w-1.5 h-1.5 rounded-full bg-stone-300 mt-1.5 shrink-0" />
-                      <p className="text-[13px] font-bold text-stone-600 leading-relaxed">
-                        {l}
-                      </p>
-                    </div>
-                  ))}
-                <div className="flex gap-3 items-center pt-2">
-                  <div className="flex gap-3 items-center pt-2">
-                    <Badge
-                      variant={
-                        formState.isProductInStock ? 'success' : 'danger'
-                      }
-                      showDot
-                      pulse={formState.isProductInStock}
-                    />
-                    <p className="text-[11px] font-black text-stone-900 tracking-widest uppercase">
-                      {formState.isProductInStock ? 'STOKTA VAR' : 'STOKTA YOK'}
-                    </p>
-                  </div>
-                </div>
-              </div>
+          <div className="flex flex-col gap-6 fade-in pt-2 items-center justify-center">
+            <div className="w-full max-w-[280px]">
+              <ProductCard
+                product={{
+                  id: 'preview-id',
+                  name: formState.productName || 'İsimsiz Ürün',
+                  category: formState.customCategoryName || formState.selectedCategory || 'DİĞER',
+                  price: `${formState.currency}${formState.productPrice || '0.00'}`,
+                  description: formState.productDescription || '',
+                  image_url: temporaryImagePreviewUrl,
+                  original_image_url: temporaryImagePreviewUrl,
+                  polished_image_url: null,
+                  is_polished_pending: false,
+                  polished_ready_dismissed: false,
+                  text_polished_dismissed: false,
+                  suggested_name: null,
+                  suggested_description: null,
+                  out_of_stock: !formState.isProductInStock,
+                  is_archived: false,
+                  sort_order: 0,
+                  store_id: 'preview-store',
+                }}
+                categories={availableCategories}
+                isAdmin={false}
+                isInlineEnabled={false}
+                showPrice={true}
+                onDelete={() => {}}
+                onUpdate={() => {}}
+              />
             </div>
             {formErrorMessage && (
-              <div className="p-4 bg-red-50 text-red-600 rounded-2xl text-[10px] font-black uppercase tracking-widest border border-red-100 animate-in slide-in-from-top-2 duration-300">
-                {formErrorMessage}
+              <div className="flex flex-col gap-3 w-full animate-in slide-in-from-top-2 duration-300">
+                <div className="p-4 bg-stone-50 border border-stone-200 rounded-2xl text-[12px] font-medium text-stone-600 leading-relaxed text-center shadow-sm">
+                  {formErrorMessage}
+                </div>
+                <Button
+                  variant="whatsapp"
+                  mode="rectangle"
+                  className="w-full !h-11 !rounded-xl"
+                  onClick={() => {
+                    openWhatsApp(
+                      '905373420161',
+                      `Merhaba, ürünümü kataloğa eklerken bir durumla karşılaştım. Yardımcı olabilir misiniz? Ürün Adı: ${formState.productName || 'Belirtilmedi'}`,
+                    );
+                  }}
+                >
+                  <div className="flex items-center justify-center gap-2">
+                    <Lucide.MessageCircle size={14} strokeWidth={3} className="text-white" />
+                    <span className="text-[10px] font-black tracking-widest text-white uppercase">
+                      DESTEK EKİBİNE YAZIN
+                    </span>
+                  </div>
+                </Button>
               </div>
             )}
           </div>

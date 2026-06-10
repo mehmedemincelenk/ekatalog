@@ -308,8 +308,8 @@ export function QuickEditModal({
     if (isOpen) setTimeout(() => inputRef.current?.focus(), 100);
   }, [isOpen]);
 
-  const handleSave = () => {
-    const result = onSave(value.trim());
+  const handleSave = async () => {
+    const result = await onSave(value.trim());
     if (result !== false) {
       onClose();
     }

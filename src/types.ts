@@ -186,6 +186,7 @@ export interface AddProductModalProps {
   initialCategory?: string;
   isStatic?: boolean;
   initialStep?: number;
+  allProducts?: Product[];
 }
 
 export interface FormInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
@@ -574,7 +575,7 @@ export interface ReferencesProps {
 export interface QuickEditModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onSave: (value: string) => void | boolean;
+  onSave: (value: string) => void | boolean | Promise<void | boolean>;
   title?: string;
   subtitle?: string;
   initialValue: string;
@@ -635,7 +636,7 @@ export interface StoreState {
   adminPin: string | null;
   setAdminPin: (pin: string | null) => void;
   settings: CompanySettings | null;
-  setSettings: (settings: CompanySettings) => void;
+  setSettings: (settings: CompanySettings | null) => void;
   updateSetting: <K extends keyof CompanySettings>(
     key: K,
     value: CompanySettings[K],

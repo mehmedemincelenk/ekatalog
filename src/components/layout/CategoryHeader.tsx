@@ -4,8 +4,9 @@ import { memo, useState } from 'react';
 import * as Lucide from 'lucide-react';
 import { THEME, LABELS } from '../../data/config';
 import { QuickEditModal } from '../modals/UtilityModals';
+import BaseModal from '../modals/BaseModal';
+import Button from '../ui/Button';
 import { CategoryHeaderProps } from '../../types';
-import { useStore } from '../../store';
 
 /**
  * CATEGORY HEADER (DIAMOND EDITION)
@@ -156,26 +157,42 @@ const CategoryHeader = memo(
         />
 
         {/* ADMIN DELETE MODAL */}
-        <QuickEditModal
+        <BaseModal
           isOpen={isDeleteModalOpen}
           onClose={() => setIsDeleteModalOpen(false)}
-          onSave={(value) => {
-            if (value?.trim().toLowerCase() === 'sil') {
-              onDelete?.(categoryName);
-              setIsDeleteModalOpen(false);
-              return true;
-            } else {
-              useStore
-                .getState()
-                .showFeedback('error', 'Lütfen onaylamak için "sil" yazınız.');
-              return false;
-            }
-          }}
-          initialValue=""
-          placeholder="sil"
-          title="Kategori Silinecek"
-          subtitle={`"${categoryName}" kategorisini silmek için kutuya "sil" yazınız. Ürünler "Arşiv" kategorisine aktarılacaktır.`}
-        />
+          title="KATEGORİYİ SİL"
+          subtitle={`"${categoryName}" kategorisini silmek istediğinize emin misiniz?`}
+        >
+          <div className="flex flex-col gap-4 text-center">
+            <p className="text-xs font-bold text-stone-500 leading-relaxed">
+              Bu kategori altındaki ürünler otomatik olarak <strong>"Arşiv"</strong> kategorisine taşınacaktır.
+            </p>
+            <div className="flex gap-3 mt-4">
+              <Button
+                onClick={() => setIsDeleteModalOpen(false)}
+                variant="secondary"
+                className="flex-1 h-12"
+              >
+                İPTAL
+              </Button>
+              <Button
+                onClick={async () => {
+                  try {
+                    await onDelete?.(categoryName);
+                  } catch (err) {
+                    console.error('Delete category failed:', err);
+                  } finally {
+                    setIsDeleteModalOpen(false);
+                  }
+                }}
+                variant="danger"
+                className="flex-1 h-12"
+              >
+                SİL
+              </Button>
+            </div>
+          </div>
+        </BaseModal>
       </div>
     );
   },

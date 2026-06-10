@@ -29,7 +29,7 @@ export const useStore = create<StoreState>((set) => ({
 
   // Dükkan Ayarları
   settings: null,
-  setSettings: (settings: CompanySettings) => set({ settings }),
+  setSettings: (settings: CompanySettings | null) => set({ settings }),
   updateSetting: <K extends keyof CompanySettings>(
     key: K,
     value: CompanySettings[K],

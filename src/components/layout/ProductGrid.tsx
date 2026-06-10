@@ -88,7 +88,7 @@ const ProductGrid = memo(
                 isInlineEnabled={isInlineEnabled}
               />
 
-              {categoryProducts.length > 0 || isAdmin ? (
+              {categoryProducts.length > 0 ? (
                 <div className={`${theme.cols} ${theme.gap}`}>
                   {categoryProducts.map((product, index) => {
                     const isPriority = priorityCounter < 4;

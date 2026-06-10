@@ -98,7 +98,7 @@ const Navbar = memo(({ isInlineEnabled, isPreview }: NavbarProps) => {
       <nav className={theme.layout}>
         <div className={theme.container}>
           <div
-            className={`${isLight ? 'flex justify-between items-center w-full bg-white/60 backdrop-blur-xl border-b border-stone-200/40 px-4 py-3 pointer-events-auto shadow-sm text-stone-900' : theme.innerWrapper} ${isTitleOnly ? 'justify-center' : 'justify-between'}`}
+            className={`${isLight ? 'flex justify-between items-center w-full bg-white/60 backdrop-blur-xl border-b border-stone-200/40 px-4 py-3 pointer-events-auto text-stone-900' : theme.innerWrapper} ${isTitleOnly ? 'justify-center' : 'justify-between'}`}
             style={{
               backdropFilter: 'blur(30px)',
               WebkitBackdropFilter: 'blur(30px)',

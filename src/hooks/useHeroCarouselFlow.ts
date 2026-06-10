@@ -80,6 +80,13 @@ export function useHeroCarouselFlow(isAdminModeActive: boolean) {
     synchronizeCarouselSlides();
   }, [synchronizeCarouselSlides]);
 
+  useEffect(() => {
+    window.addEventListener('ekatalog:refresh-carousel', synchronizeCarouselSlides);
+    return () => {
+      window.removeEventListener('ekatalog:refresh-carousel', synchronizeCarouselSlides);
+    };
+  }, [synchronizeCarouselSlides]);
+
   const modifySlideContent = useCallback(
     async (slideId: number, contentChanges: Partial<CarouselSlide>) => {
       setMarketingSlides((prev) => {

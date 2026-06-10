@@ -19,7 +19,6 @@ export function useProductCardFlow(
   const { visitorCurrency, exchangeRates } = useStore();
 
   const [isUpdatingOrder, setIsUpdatingOrder] = useState(false);
-  const [showSuccess, setShowSuccess] = useState(false);
   const [isUploadingImage, setIsUploadingImage] = useState(false);
 
   const [optimisticImagePreview, setOptimisticImagePreview] = useState<
@@ -137,8 +136,6 @@ export function useProductCardFlow(
   return {
     isUpdatingOrder,
     setIsUpdatingOrder,
-    showSuccess,
-    setShowSuccess,
     isUploadingImage,
     isZoomDetailOpen,
     setIsZoomDetailOpen,

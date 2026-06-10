@@ -785,9 +785,16 @@ export default function DisplaySettingsModal({
                                         'Dükkan adresi başarıyla güncellendi!',
                                       );
                                     setTimeout(() => {
-                                      window.location.replace(
-                                        '/' + slugConfirm,
-                                      );
+                                      const hostname = window.location.hostname.toLowerCase();
+                                      if (hostname.endsWith('.ekatalog.site')) {
+                                        const baseDomain = 'ekatalog.site';
+                                        window.location.replace(`${window.location.protocol}//${slugConfirm}.${baseDomain}${window.location.search}${window.location.hash}`);
+                                      } else if (hostname.endsWith('.pages.dev')) {
+                                        const baseDomain = 'pages.dev';
+                                        window.location.replace(`${window.location.protocol}//${slugConfirm}.${baseDomain}${window.location.search}${window.location.hash}`);
+                                      } else {
+                                        window.location.replace('/' + slugConfirm);
+                                      }
                                     }, 1200);
                                   } catch (err: any) {
                                     console.error(err);

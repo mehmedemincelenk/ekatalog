@@ -83,7 +83,7 @@ export function useEditProdCardFlow(
     type: 'ARCHIVE' | 'STOCK' | 'DOWNLOAD' | 'CATEGORY',
     value?: string | boolean,
   ) => {
-    if (type === 'ARCHIVE') onUpdate(product.id, { is_archived: !!value });
+    if (type === 'ARCHIVE') onUpdate(product.id, { is_archived: !value });
     else if (type === 'STOCK') onUpdate(product.id, { out_of_stock: !value });
     else if (type === 'DOWNLOAD') handleDownload();
     else if (type === 'CATEGORY' && typeof value === 'string')

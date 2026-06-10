@@ -6,6 +6,7 @@ import * as Lucide from 'lucide-react';
 import FormInput from '../ui/FormInput';
 import StatusOverlay from '../ui/StatusOverlay';
 import StatusToggle from '../ui/StatusToggle';
+import CategoryFilterChip from '../ui/CategoryFilterChip';
 import { transformCurrencyStringToNumber } from '../../utils/core';
 import { AdminOperationsModalProps, Product } from '../../types';
 import { useStore } from '../../store';
@@ -43,56 +44,52 @@ const DeskItemRow = memo(
             ? 'grayscale(0%) opacity(1)'
             : 'grayscale(100%) opacity(0.7)',
         }}
-        className={`flex flex-col items-stretch gap-3 p-3.5 rounded-[28px] border transition-all duration-500 ${state.included ? 'bg-white border-stone-100 shadow-sm' : 'bg-stone-50/30 border-transparent'}`}
+        className={`flex items-center gap-3 p-3.5 rounded-2xl border transition-all duration-500 ${state.included ? 'bg-white border-stone-100 shadow-sm' : 'bg-stone-50/30 border-transparent'}`}
       >
-        {/* ROW 1: PRODUCT INFO */}
-        <div className="flex items-center gap-3 flex-1">
-          <div className="w-10 h-10 rounded-xl overflow-hidden bg-stone-100 border border-stone-100 shrink-0">
-            {product.image_url ? (
-              <img
-                src={product.image_url}
-                alt={product.name}
-                className="w-full h-full object-cover"
-              />
-            ) : (
-              <div className="w-full h-full flex items-center justify-center text-stone-300">
-                <Lucide.Sparkles size={18} />
-              </div>
-            )}
-          </div>
-
-          <div className="flex-1 min-w-0">
-            <p className="text-[11px] font-black text-stone-900 truncate uppercase tracking-tighter leading-none">
-              {product.name}
-            </p>
-            {product.description && (
-              <p className="text-[9px] font-bold text-stone-400 truncate mt-1">
-                {product.description}
-              </p>
-            )}
-          </div>
+        {/* LEFT: IMAGE */}
+        <div className="w-10 h-10 rounded-xl overflow-hidden bg-stone-100 border border-stone-100 shrink-0">
+          {product.image_url ? (
+            <img
+              src={product.image_url}
+              alt={product.name}
+              className="w-full h-full object-cover"
+            />
+          ) : (
+            <div className="w-full h-full flex items-center justify-center text-stone-300">
+              <Lucide.Sparkles size={18} />
+            </div>
+          )}
         </div>
 
-        {/* ROW 2: PRICE & TOGGLE */}
-        <div className="flex items-center justify-between gap-3 pt-2.5 border-t border-stone-100">
+        {/* MIDDLE: INFO */}
+        <div className="flex-1 min-w-0">
+          <p className="text-[11px] font-black text-stone-900 truncate uppercase tracking-tighter leading-none">
+            {product.name}
+          </p>
+          {product.description && (
+            <p className="text-[9px] font-bold text-stone-400 truncate mt-1">
+              {product.description}
+            </p>
+          )}
           {actionType === 'PRICE' && state.included && (
-            <div className="flex items-center gap-2 shrink-0">
+            <div className="flex items-center gap-2 mt-1.5">
               <span className="text-[9px] font-black text-stone-300 line-through">
                 {product.price}
               </span>
-              <span className="text-[11px] font-black text-emerald-600 bg-emerald-50 px-2 py-1 rounded-lg">
+              <span className="text-[11px] font-black text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-lg">
                 {newPriceValue.toLocaleString('tr-TR')} ₺
               </span>
             </div>
           )}
+        </div>
 
-          <div className="shrink-0 pointer-events-auto min-w-[80px]">
-            <StatusToggle
-              value={state.included}
-              onChange={() => onToggle(product.id)}
-              variant="compact"
-            />
-          </div>
+        {/* RIGHT: TOGGLE */}
+        <div className="shrink-0 pointer-events-auto">
+          <StatusToggle
+            value={state.included}
+            onChange={() => onToggle(product.id)}
+            variant="compact"
+          />
         </div>
       </motion.div>
     );
@@ -280,6 +277,7 @@ interface CategorySelectionScreenProps {
   toggleCategory: (cat: string) => void;
   prevStep: () => void;
   nextStep: () => void;
+  allProducts: Product[];
 }
 
 function CategorySelectionScreen({
@@ -288,6 +286,7 @@ function CategorySelectionScreen({
   toggleCategory,
   prevStep,
   nextStep,
+  allProducts,
 }: CategorySelectionScreenProps) {
   const isAllSelected = selectedCategories.length === categories.length;
 
@@ -295,26 +294,25 @@ function CategorySelectionScreen({
     <div className="space-y-6 fade-in py-2">
       <div className="bg-stone-50 p-6 rounded-[32px] border border-stone-100">
         <div className="flex flex-wrap justify-center gap-2">
-          <Button
-            onClick={() => toggleCategory('TÜMÜ')}
-            variant={isAllSelected ? 'primary' : 'secondary'}
-            size="md"
-            className={`!px-6 !py-3 !rounded-2xl !text-[11px] font-black ${isAllSelected ? '!bg-stone-900 !text-white' : ''}`}
-          >
-            TÜMÜ
-          </Button>
+          <CategoryFilterChip
+            categoryName="TÜMÜ"
+            isItemSelected={isAllSelected}
+            productCount={allProducts.length}
+            onSelect={() => toggleCategory('TÜMÜ')}
+            isAdminMode={false}
+          />
           {categories.map((cat) => {
             const isSelected = selectedCategories.includes(cat);
+            const count = allProducts.filter((p) => p.category === cat).length;
             return (
-              <Button
+              <CategoryFilterChip
                 key={cat}
-                onClick={() => toggleCategory(cat)}
-                variant={isSelected ? 'primary' : 'secondary'}
-                size="md"
-                className={`!px-6 !py-3 !rounded-2xl !text-[11px] font-black ${isSelected ? '!bg-stone-900 !text-white' : ''}`}
-              >
-                {cat}
-              </Button>
+                categoryName={cat}
+                isItemSelected={isSelected}
+                productCount={count}
+                onSelect={() => toggleCategory(cat)}
+                isAdminMode={false}
+              />
             );
           })}
         </div>
@@ -585,7 +583,7 @@ function ActionDeskScreen({
         <Button
           onClick={handleApply}
           disabled={isProcessing || activeDeskItemsCount === 0}
-          variant={actionType === 'DELETE' ? 'danger' : 'action'}
+          variant="primary"
           className="flex-1 h-16 font-black !rounded-[24px]"
           loading={isProcessing}
           icon={
@@ -671,7 +669,7 @@ export default function AdminOperationsModal({
   };
 
   const getProgress = () => {
-    if (isBulkUpload || currentStep === 0) return undefined;
+    if (isBulkUpload || currentStep <= 1) return undefined;
     const isPrice = actionType === 'PRICE';
     const total = isPrice ? 6 : 3;
     let current = 1;
@@ -731,6 +729,7 @@ export default function AdminOperationsModal({
             toggleCategory={toggleCategory}
             prevStep={prevStep}
             nextStep={nextStep}
+            allProducts={allProducts}
           />
         )}
 

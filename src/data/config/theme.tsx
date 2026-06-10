@@ -217,7 +217,7 @@ export const THEME = {
     layout: 'w-full min-h-0 select-none bg-transparent',
     container: 'w-full h-full flex items-center',
     innerWrapper:
-      'flex justify-between items-center w-full bg-stone-900/60 backdrop-blur-xl border-b border-white/10 px-4 py-3 pointer-events-auto shadow-lg',
+      'flex justify-between items-center w-full bg-stone-900/60 backdrop-blur-xl border-b border-white/10 px-4 py-3 pointer-events-auto',
     brand: {
       wrapper: 'flex items-center gap-1.5 shrink-0',
       logoWrapper:

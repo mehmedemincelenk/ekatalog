@@ -1,4 +1,4 @@
-import { memo, lazy, Suspense } from 'react';
+import { memo, lazy, Suspense, useState, useRef } from 'react';
 import { AnimatePresence } from 'motion/react';
 import {
   PinModal,
@@ -7,6 +7,7 @@ import {
   LocationModal,
   ContactModal,
   GlobalAddMenuModal,
+  QuickEditModal,
 } from './UtilityModals';
 
 const AddProductModal = lazy(() => import('./AddProductModal'));
@@ -18,11 +19,13 @@ const PriceListModal = lazy(() => import('./PriceListModal'));
 const SocialExportModal = lazy(() => import('./SocialExportModal'));
 const PortfoysLeadModal = lazy(() => import('./PortfoysLeadModal'));
 const FeaturesModal = lazy(() => import('./FeaturesModal'));
+const AddReferenceModal = lazy(() => import('./AddReferenceModal'));
 
 import { useStore } from '../../store';
 import { useProducts } from '../../hooks/useProductsHub';
 import { useAdminMode } from '../../hooks/useAdminMode';
 import { useSettings } from '../../hooks/useSettingsHub';
+import { TECH } from '../../data/config';
 
 /**
  * APP MODALS CONTAINER (DIAMOND EDITION)
@@ -31,6 +34,10 @@ import { useSettings } from '../../hooks/useSettingsHub';
  * Now fully data-driven via useStore (Zustand).
  */
 const AppModals = memo(() => {
+  const [isAddCategoryOpen, setIsAddCategoryOpen] = useState(false);
+  const [isAddReferenceOpen, setIsAddReferenceOpen] = useState(false);
+  const carouselFileInputRef = useRef<HTMLInputElement>(null);
+
   const {
     activeModal,
     modalData,
@@ -64,6 +71,70 @@ const AppModals = memo(() => {
     toggleInlineEdit,
   } = useAdminMode();
 
+  const handleCarouselUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = event.target.files;
+    if (!files || files.length === 0) return;
+
+    const { adminPin, showFeedback } = useStore.getState();
+    if (!adminPin) {
+      showFeedback('error', 'Lütfen yetkilendirme için PIN kodunu girin.');
+      return;
+    }
+
+    try {
+      showFeedback('success', 'Afiş yükleniyor...');
+
+      const { secureUploadVisualAsset } = await import('../../utils/image');
+      const { getActiveStoreSlug } = await import('../../utils/core');
+      const activeStoreSlug = getActiveStoreSlug();
+
+      const filesToUpload = Array.from(files).slice(0, 10);
+      const uploadedUrls = await Promise.all(
+        filesToUpload.map(async (file, idx) => {
+          return secureUploadVisualAsset({
+            file,
+            folder: TECH.storage.heroFolder,
+            adminPin,
+            slugBaseName: `hero-${activeStoreSlug}`,
+            uniqueIdPrefix: `new-${idx}`,
+            isDualQuality: false,
+            maxDimension: TECH.storage.heroWidth,
+          });
+        })
+      );
+
+      const currentSlides = settings?.carouselData?.slides || [];
+      const currentRealSlides = currentSlides.filter(
+        (s: any) => s && s.src && s.src !== '',
+      );
+      const nextId =
+        currentRealSlides.length > 0
+          ? Math.max(...currentRealSlides.map((s: any) => s.id)) + 1
+          : 1;
+
+      const newSlides = uploadedUrls.map((url, idx) => ({
+        id: nextId + idx,
+        src: url,
+        bg: 'bg-stone-200',
+        label: 'Yeni Afiş',
+        sub: 'Düzenlemek için tıklayın.',
+      }));
+
+      const updatedSlides = [...currentRealSlides, ...newSlides];
+
+      await updateSetting('carouselData', { slides: updatedSlides });
+
+      showFeedback('success', 'Afiş başarıyla eklendi.');
+
+      window.dispatchEvent(new CustomEvent('ekatalog:refresh-carousel'));
+    } catch (err) {
+      console.error('Hero upload error:', err);
+      showFeedback('error', 'Afiş yüklenemedi.');
+    } finally {
+      if (event.target) event.target.value = '';
+    }
+  };
+
   const handleGlobalAddAction = async (
     type: 'PRODUCT' | 'CATEGORY' | 'REFERENCE' | 'CAROUSEL',
   ) => {
@@ -71,36 +142,11 @@ const AppModals = memo(() => {
       // Just switch the active modal
       useStore.getState().openModal('ADD_PRODUCT');
     } else if (type === 'CATEGORY') {
-      const name = window.prompt('Yeni Kategori Adı:');
-      if (name) {
-        try {
-          await addCategory(name);
-          useStore.getState().showFeedback('success', 'Kategori eklendi');
-        } catch (err: any) {
-          useStore
-            .getState()
-            .showFeedback('error', err?.message || 'Kategori eklenemedi');
-        }
-      }
+      setIsAddCategoryOpen(true);
     } else if (type === 'REFERENCE') {
-      const name = window.prompt('Yeni Referans/İş Ortağı Adı:');
-      if (name) {
-        const currentRefs = settings?.referencesData || [];
-        try {
-          await updateSetting('referencesData', [
-            ...currentRefs,
-            { id: Date.now(), name: name.trim(), logo: '' },
-          ]);
-          useStore.getState().showFeedback('success', 'Referans eklendi');
-        } catch (err: any) {
-          console.error(err);
-          useStore
-            .getState()
-            .showFeedback('error', err?.message || 'Hata oluştu');
-        }
-      }
+      setIsAddReferenceOpen(true);
     } else if (type === 'CAROUSEL') {
-      window.dispatchEvent(new CustomEvent('ekatalog:add-carousel-slide'));
+      carouselFileInputRef.current?.click();
     }
   };
 
@@ -118,11 +164,16 @@ const AppModals = memo(() => {
                 onProductAddition={async (data, file) => {
                   const newId = await addProduct(data);
                   if (file && newId) {
-                    await uploadImage({ id: newId, file });
+                    try {
+                      await uploadImage({ id: newId, file });
+                    } catch (uploadError) {
+                      console.error('Image upload failed but product was created:', uploadError);
+                    }
                   }
                 }}
                 availableCategories={categoryOrder}
                 initialCategory={(modalData as { category?: string })?.category}
+                allProducts={allProducts}
               />
             </Suspense>
 
@@ -245,6 +296,88 @@ const AppModals = memo(() => {
           products={allProducts}
         />
       </Suspense>
+
+      <QuickEditModal
+        isOpen={isAddCategoryOpen}
+        onClose={() => setIsAddCategoryOpen(false)}
+        title="YENİ KATEGORİ EKLE"
+        placeholder="Kategori Adı girin"
+        initialValue=""
+        onSave={async (name) => {
+          if (!name.trim()) return false;
+          try {
+            await addCategory(name.trim());
+            useStore.getState().showFeedback('success', 'Kategori eklendi');
+            return true;
+          } catch (err: any) {
+            useStore
+              .getState()
+              .showFeedback('error', err?.message || 'Kategori eklenemedi');
+            return false;
+          }
+        }}
+      />
+
+      <Suspense fallback={null}>
+        <AddReferenceModal
+          isOpen={isAddReferenceOpen}
+          onClose={() => setIsAddReferenceOpen(false)}
+          onSave={async (name, file) => {
+            const currentRefs = settings?.referencesData || [];
+            const newId = Date.now();
+            const showFeedback = useStore.getState().showFeedback;
+
+            let logoUrl = '';
+            if (file) {
+              const { secureUploadVisualAsset } = await import('../../utils/image');
+              const adminPin = useStore.getState().adminPin;
+
+              if (!adminPin) {
+                showFeedback('error', 'Lütfen yetkilendirme için PIN kodunu girin.');
+                return false;
+              }
+
+              try {
+                logoUrl = await secureUploadVisualAsset({
+                  file,
+                  folder: 'references',
+                  adminPin,
+                  oldUrl: '',
+                  slugBaseName: `${settings?.name || 'reference'}_ref_${newId}`,
+                  uniqueIdPrefix: 'ref',
+                  isDualQuality: false,
+                });
+              } catch (uploadErr) {
+                console.error('Logo upload failed:', uploadErr);
+                showFeedback('error', 'Logo yüklenirken bir hata oluştu.');
+                return false;
+              }
+            }
+
+            try {
+              await updateSetting('referencesData', [
+                ...currentRefs,
+                { id: newId, name, logo: logoUrl },
+              ]);
+              showFeedback('success', 'Referans eklendi');
+              return true;
+            } catch (err: any) {
+              console.error(err);
+              showFeedback('error', err?.message || 'Hata oluştu');
+              return false;
+            }
+          }}
+        />
+      </Suspense>
+
+      <input
+        ref={carouselFileInputRef}
+        type="file"
+        className="hidden"
+        accept="image/*"
+        multiple
+        onChange={handleCarouselUpload}
+      />
     </>
   );
 });

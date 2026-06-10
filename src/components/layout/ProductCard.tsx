@@ -21,7 +21,7 @@ import { useProductCardFlow } from '../../hooks/useProductCardFlow';
  * Managed via central THEME config. Orchestrates sub-components.
  */
 
-import * as Lucide from 'lucide-react';
+
 
 const ProductCard = memo(
   ({
@@ -43,8 +43,6 @@ const ProductCard = memo(
     const cardContainerRef = useRef<HTMLElement>(null);
 
     const {
-      showSuccess,
-      setShowSuccess,
       isUploadingImage,
       isZoomDetailOpen,
       setIsZoomDetailOpen,
@@ -267,7 +265,7 @@ const ProductCard = memo(
                 size="md"
                 className="-translate-y-4 shadow-2xl"
               >
-                📦
+                ARŞİVDE
               </Badge>
             )}
           </div>
@@ -284,12 +282,10 @@ const ProductCard = memo(
                   onChange={async (e) => {
                     e.stopPropagation();
                     const newPos = Number(e.target.value);
-                    setShowSuccess(true);
-                    setTimeout(() => setShowSuccess(false), 1500);
                     try {
                       await onOrderIndexChange?.(product.id, newPos);
-                    } catch {
-                      setShowSuccess(false);
+                    } catch (err) {
+                      console.error(err);
                     }
                   }}
                   className="absolute inset-0 opacity-0 cursor-pointer z-10 w-7 h-7"
@@ -301,23 +297,10 @@ const ProductCard = memo(
                   ))}
                 </select>
 
-                <div
-                  className={`
-                  w-7 h-7 rounded-md flex items-center justify-center transition-all border border-white/20 shadow-xl backdrop-blur-md
-                  ${showSuccess ? 'bg-emerald-500' : 'bg-stone-900/60 hover:bg-stone-900/80'}
-                `}
-                >
-                  {showSuccess ? (
-                    <Lucide.Check
-                      size={12}
-                      className="text-white"
-                      strokeWidth={4}
-                    />
-                  ) : (
-                    <span className="text-white text-[10px] font-black">
-                      {orderIndex}.
-                    </span>
-                  )}
+                <div className="w-7 h-7 rounded-md flex items-center justify-center transition-all border border-white/20 shadow-xl backdrop-blur-md bg-stone-900/60 hover:bg-stone-900/80">
+                  <span className="text-white text-[10px] font-black">
+                    {orderIndex}.
+                  </span>
                 </div>
               </div>
             </div>

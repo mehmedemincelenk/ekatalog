@@ -7,7 +7,7 @@ export const LABELS = {
   allProductsLoaded: 'Tüm Ürünler Gösteriliyor',
   deleteConfirm: 'Bu ürünü silmek istediğinize emin misiniz?',
   saveError:
-    'İşlem şu an gerçekleştirilemiyor, lütfen kısa süre sonra tekrar dener misin? 🙏',
+    'İşleminiz güvenle tamamlanırken kısa bir süre alıyor olabilir. Kataloğunuzu kontrol etmek veya hızlı destek almak için destek ekibimizle iletişime geçebilirsiniz. 💬',
   backBtn: 'Geri Dön',
   noProductsFound: 'Aradığınız kriterlerde ürün bulunamadı.',
   noProductsAdmin:

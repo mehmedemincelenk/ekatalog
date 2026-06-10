@@ -139,32 +139,27 @@ export function ProductDetailModal({
                 aspectRatio="square"
                 className="w-full h-full"
               />
+              {isAdmin && (
+                <div className="absolute bottom-3 left-3 right-3 z-20">
+                  <button
+                    onClick={() =>
+                      !flow.isUploading && fileInputRef.current?.click()
+                    }
+                    className="w-full h-11 rounded-xl text-[10px] font-black uppercase tracking-widest flex items-center justify-center gap-1.5 border border-white/10 bg-stone-900/40 backdrop-blur-md text-white transition-all active:scale-[0.98] hover:bg-stone-900/60 outline-none"
+                  >
+                    {flow.isUploading ? (
+                      <div className="w-3.5 h-3.5 border-2 border-white/60 border-t-transparent rounded-full animate-spin" />
+                    ) : (
+                      <Lucide.Camera size={14} className="text-white" />
+                    )}
+                    DEĞİŞTİR
+                  </button>
+                </div>
+              )}
             </div>
 
-            {isAdmin && (
-              <div className="mt-3">
-                <Button
-                  onClick={() =>
-                    !flow.isUploading && fileInputRef.current?.click()
-                  }
-                  variant="secondary"
-                  mode="rectangle"
-                  className="w-full !h-11 !rounded-xl text-[10px] font-black uppercase tracking-widest flex items-center justify-center gap-1.5 border border-stone-200 bg-white hover:bg-stone-50 text-stone-700 transition-all active:scale-[0.98]"
-                  icon={
-                    flow.isUploading ? (
-                      <div className="w-3.5 h-3.5 border-2 border-stone-500 border-t-transparent rounded-full animate-spin" />
-                    ) : (
-                      <Lucide.Camera size={14} />
-                    )
-                  }
-                >
-                  DEĞİŞTİR
-                </Button>
-              </div>
-            )}
-
             <div
-              className={`pt-6 px-4 space-y-4 text-left ${isAdmin ? 'pb-6' : 'pb-20'}`}
+              className={`pt-6 px-4 space-y-4 text-left ${isAdmin ? 'pb-0' : 'pb-20'}`}
             >
               <div className="space-y-2">
                 <div>
@@ -240,76 +235,82 @@ export function ProductDetailModal({
                 )}
               </div>
 
-              {isAdmin && showPrice && (
-                <div className="pt-2">
-                  {isPromotionActive ? (
-                    <div className="flex flex-col items-start gap-1">
-                      <span className="text-stone-300 line-through text-[10px] font-bold">
-                        {originalPriceLabel}
-                      </span>
-                      <span className="text-stone-900 text-xl font-black tracking-tighter">
-                        {discountedPriceLabel}
-                      </span>
-                    </div>
-                  ) : (
-                    <div>
-                      <span className="text-stone-900 text-xl font-black tracking-tighter">
-                        {originalPriceLabel}
-                      </span>
-                    </div>
-                  )}
-                </div>
-              )}
-
-              {/* ADMIN CONTROLS BOTTOM ROW */}
+              {/* ADMIN CONTROLS & PRICE BOTTOM ROW */}
               {isAdmin && (
                 <div className="flex items-center justify-between border-t border-stone-100 pt-4 mt-6">
-                  <div className="flex gap-4">
-                    <div className="flex flex-col items-center gap-1 select-none">
-                      <span className="text-[8px] font-black text-stone-400 uppercase tracking-widest">
-                        STOK
-                      </span>
-                      <StatusToggle
-                        value={!product.out_of_stock}
-                        onChange={(val) => flow.handleAction('STOCK', !val)}
-                        variant="compact"
-                        activeColor="bg-emerald-500"
-                        inactiveColor="bg-stone-200"
-                      />
+                  {/* PRICE ON THE LEFT */}
+                  {showPrice ? (
+                    <div>
+                      {isPromotionActive ? (
+                        <div className="flex flex-col items-start leading-none">
+                          <span className="text-stone-300 line-through text-[10px] font-bold mb-0.5">
+                            {originalPriceLabel}
+                          </span>
+                          <span className="text-stone-900 text-xl font-black tracking-tighter">
+                            {discountedPriceLabel}
+                          </span>
+                        </div>
+                      ) : (
+                        <span className="text-stone-900 text-xl font-black tracking-tighter">
+                          {originalPriceLabel}
+                        </span>
+                      )}
                     </div>
-                    <div className="flex flex-col items-center gap-1 select-none">
-                      <span className="text-[8px] font-black text-stone-400 uppercase tracking-widest">
-                        YAYIN
-                      </span>
-                      <StatusToggle
-                        value={!product.is_archived}
-                        onChange={(val) => flow.handleAction('ARCHIVE', !val)}
-                        variant="compact"
-                        activeColor="bg-emerald-500"
-                        inactiveColor="bg-stone-200"
-                      />
+                  ) : (
+                    <div />
+                  )}
+
+                  {/* ACTIONS GROUP ON THE RIGHT */}
+                  <div className="flex items-center gap-3 bg-stone-50 border border-stone-100 rounded-2xl p-2.5">
+                    {/* TOGGLES */}
+                    <div className="flex gap-3.5 pr-3.5 border-r border-stone-200">
+                      <div className="flex flex-col items-center gap-0.5 select-none">
+                        <span className="text-[7px] font-black text-stone-400 uppercase tracking-widest leading-none">
+                          STOK
+                        </span>
+                        <StatusToggle
+                          value={!product.out_of_stock}
+                          onChange={(val) => flow.handleAction('STOCK', val)}
+                          variant="compact"
+                          activeColor="bg-emerald-500"
+                          inactiveColor="bg-stone-200"
+                        />
+                      </div>
+                      <div className="flex flex-col items-center gap-0.5 select-none">
+                        <span className="text-[7px] font-black text-stone-400 uppercase tracking-widest leading-none">
+                          YAYIN
+                        </span>
+                        <StatusToggle
+                          value={!product.is_archived}
+                          onChange={(val) => flow.handleAction('ARCHIVE', val)}
+                          variant="compact"
+                          activeColor="bg-emerald-500"
+                          inactiveColor="bg-stone-200"
+                        />
+                      </div>
                     </div>
-                  </div>
 
-                  <div className="flex gap-2">
-                    <button
-                      onClick={() => flow.handleAction('DOWNLOAD')}
-                      className="w-9 h-9 rounded-xl bg-stone-900/60 hover:bg-stone-900/80 text-white border border-white/20 backdrop-blur-md shadow-xl flex items-center justify-center transition-all active:scale-95 outline-none"
-                      title="Görseli İndir"
-                    >
-                      <Lucide.Download size={16} strokeWidth={2.5} />
-                    </button>
+                    {/* BUTTONS */}
+                    <div className="flex gap-2">
+                      <button
+                        onClick={() => flow.handleAction('DOWNLOAD')}
+                        className="w-9 h-9 rounded-xl bg-stone-900 hover:bg-black text-white flex items-center justify-center transition-all active:scale-95 outline-none shadow-md"
+                        title="Görseli İndir"
+                      >
+                        <Lucide.Download size={15} strokeWidth={2.5} />
+                      </button>
 
-                    <button
-                      onClick={() => {
-                        flow.setShowDeleteConfirm(true);
-                        flow.setDeleteTarget(null);
-                      }}
-                      className="w-9 h-9 rounded-xl bg-stone-900/60 hover:bg-stone-900/80 text-white hover:text-red-300 border border-white/20 backdrop-blur-md shadow-xl flex items-center justify-center transition-all active:scale-95 outline-none"
-                      title="Ürünü Sil"
-                    >
-                      <Lucide.Trash2 size={16} strokeWidth={2.5} />
-                    </button>
+                      <button
+                        onClick={() => {
+                          flow.setShowDeleteConfirm(true);
+                          flow.setDeleteTarget(null);
+                        }}
+                        className="w-9 h-9 rounded-xl bg-stone-900 hover:bg-black hover:text-red-300 text-white flex items-center justify-center transition-all active:scale-95 outline-none shadow-md"
+                        title="Ürünü Sil"
+                      >
+                        <Lucide.Trash2 size={15} strokeWidth={2.5} />
+                      </button>
+                    </div>
                   </div>
                 </div>
               )}

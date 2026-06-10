@@ -164,6 +164,9 @@ export function useSettingsQuery() {
 
       // 2. FALLBACK TO PLACEHOLDERS IF NOT FOUND
       if (!settingsRes.data) {
+        if (typeof window !== 'undefined') {
+          localStorage.removeItem(`ekatalog_local_settings_${STORE_SLUG}`);
+        }
         return null;
       }
 
@@ -253,7 +256,7 @@ export function useSettingsQuery() {
 
       return settings;
     },
-    initialData: () => {
+    placeholderData: () => {
       if (typeof window !== 'undefined' && STORE_SLUG !== 'empty-state') {
         const cached = localStorage.getItem(`ekatalog_local_settings_${STORE_SLUG}`);
         if (cached) {
@@ -278,7 +281,9 @@ export function useSettings(isAdmin: boolean) {
   const { data: settings, isLoading: loading, isError } = useSettingsQuery();
 
   useEffect(() => {
-    if (settings) setSettingsStore(settings);
+    if (settings !== undefined) {
+      setSettingsStore(settings);
+    }
   }, [settings, setSettingsStore]);
 
   const updateMutation = useMutation({
