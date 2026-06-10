@@ -504,6 +504,14 @@ Bu dosya, projenin evrimsel sürecini, alınan kritik kararları ve teknik kıs�
     - **UX Helper Hints:** Added top instructional helper status bars explaining what actions the colors represent (e.g., Green: in stock / published, Red: delete, Gray: out of stock / archived).
     - **Verification:** Ran type checks (`npm run type-check`) and all test suites successfully.
 
+### [2026-06-10] - REMOVED STOCK STATUS STEP IN PRODUCT CREATION (LOCKED 🔒)
+- **Objective:** Streamline the product addition flow by removing the unnecessary "STOKTA MI?" (Is it in stock?) wizard step, since new products default to being in stock.
+- **Key Actions:**
+    - **Step Removal:** Deleted the `'STOKTA MI?'` step (ToggleButton selection) from `AddProductModal.tsx`.
+    - **Index and Progress Alignment:** Reduced total wizard step count from `7` to `6`, updated step titles, forward navigation limits, and mapped the `'ÖNİZLEME'` (Preview) card to step `6`.
+    - **Defaulting Behavior:** Preserved `INITIAL_FORM_STATE.isProductInStock = true` in `useAddProductFlow.ts` so all newly created products are automatically submitted as active and in stock.
+    - **Verification:** Verified compilation and all test suites successfully.
+
 ## 💎 B2B MAĞAZA SCRAPE VE OLUŞTURMA STANDARTLARI (LOCKED 🔒)
 
 Yeni bir dükkan eklenirken veya mevcut bir dükkanın bilgileri güncellenirken, en yüksek kalitede sonuç elde etmek için aşağıdaki kurallar ve metotlar harfiyen uygulanır:

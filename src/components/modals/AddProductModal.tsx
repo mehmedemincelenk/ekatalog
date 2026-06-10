@@ -68,11 +68,10 @@ export default function AddProductModal({
           'DETAYLAR',
           'KATEGORİ',
           'FİYAT',
-          'STOKTA MI?',
           'ÖNİZLEME',
         ][currentStep]
       }
-      progress={{ current: currentStep, total: 7 }}
+      progress={{ current: currentStep, total: 6 }}
       disableClickOutside={isSubmittingData}
       hideCloseButton={isSubmittingData}
       isStatic={isStatic}
@@ -88,7 +87,7 @@ export default function AddProductModal({
               <Lucide.ChevronLeft size={24} strokeWidth={3} />
             </Button>
           )}
-          {currentStep < 7 ? (
+          {currentStep < 6 ? (
             <Button
               onClick={nextStep}
               disabled={!isStepValid()}
@@ -337,24 +336,6 @@ export default function AddProductModal({
           </div>
         )}
         {currentStep === 6 && (
-          <div
-            className={`${theme.wizard.stepContent} relative pt-4 flex flex-col items-center`}
-          >
-            <div className="flex flex-col gap-6 w-full max-w-[320px]">
-              <ToggleButton
-                options={[
-                  { value: true, label: <span className="text-[10px] font-black whitespace-nowrap">STOKTA</span> },
-                  { value: false, label: <span className="text-[10px] font-black whitespace-nowrap">STOKTA YOK</span> },
-                ]}
-                value={formState.isProductInStock}
-                onChange={(val) => setFormState((p) => ({ ...p, isProductInStock: val }))}
-                className="mx-auto w-fit"
-                buttonClassName="px-8 !h-10"
-              />
-            </div>
-          </div>
-        )}
-        {currentStep === 7 && (
           <div className="flex flex-col gap-6 fade-in pt-2 items-center justify-center">
             <div className="w-full max-w-[280px]">
               <ProductCard
