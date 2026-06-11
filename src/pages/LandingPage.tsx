@@ -341,29 +341,23 @@ export default function LandingPage() {
               </p>
             </div>
           </div>
-
-          <p className="text-xs font-bold text-emerald-600 mt-8 uppercase tracking-wider">
-            90 GÜN ÜCRETSİZ DENE • KOLAYCA ÖĞREN
-          </p>
+          {/* Unified CTA Button */}
+          <div className="mt-10 max-w-lg mx-auto w-full px-4">
+            <Button
+              {...({
+                as: 'a',
+                href: 'https://wa.me/905373420161?text=Merhaba,%2090%20günlük%20ücretsiz%20denememi%20başlatmak%20istiyorum.',
+                target: '_blank',
+                rel: 'noreferrer'
+              } as any)}
+              variant="primary"
+              size="lg"
+              className="hover:scale-[1.01] active:scale-[0.99] transition-transform shadow-xl shadow-stone-900/10 w-full text-center"
+            >
+              90 Gün Ücretsiz Deneyin • Fiyatı Sonra Düşünün
+            </Button>
+          </div>
         </div>
-      </section>
-
-      {/* CTA SECTION */}
-      <section className="pb-20 px-4 max-w-md mx-auto w-full md:hidden">
-        <Button
-          {...({
-            as: 'a',
-            href: 'https://wa.me/905373420161',
-            target: '_blank',
-            rel: 'noreferrer'
-          } as any)}
-          variant="whatsapp"
-          size="lg"
-          icon={<div className="w-5 h-5 fill-white">{THEME.icons.whatsapp}</div>}
-          className="hover:scale-[1.02] active:scale-[0.98] transition-transform shadow-xl shadow-green-100/40 w-full text-center"
-        >
-          Eski Katalog Menünüzü Gönderin
-        </Button>
       </section>
 
       <footer className="relative border-t border-stone-100 pt-8 flex items-center justify-between gap-4 px-6 pb-8 max-w-3xl mx-auto w-full">
