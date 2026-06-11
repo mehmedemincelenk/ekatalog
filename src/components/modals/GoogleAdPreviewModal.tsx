@@ -406,6 +406,19 @@ export default function GoogleAdPreviewModal({ isOpen, onClose }: GoogleAdPrevie
           {/* STEP 1: Onboarding */}
           {step === 1 && (
             <div className="space-y-5">
+              {/* Nedir bu Google Reklamları Card */}
+              <div className="bg-stone-50 border border-stone-150 rounded-3xl p-5 space-y-3">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-8 h-8 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
+                    <Lucide.HelpCircle size={16} />
+                  </div>
+                  <h4 className="text-[11px] font-black text-stone-900 uppercase tracking-widest">Nedir Bu "Google Reklamları"?</h4>
+                </div>
+                <p className="text-[10px] font-bold text-stone-600 leading-relaxed">
+                  Google'da dükkanınızla veya ürünlerinizle ilgili (<span className="text-stone-900">"toptan ambalaj"</span>, <span className="text-stone-900">"toptan gıda"</span> vb.) arama yapan hazır müşterilerin karşısına ilk sırada çıkmanızı sağlayan en etkili araçtır.
+                </p>
+              </div>
+
               {/* Simplified Single Explanation Card */}
               <div className="bg-stone-50 border border-stone-150 rounded-3xl p-5 space-y-4">
                 <div className="flex items-center gap-2.5">
@@ -414,32 +427,32 @@ export default function GoogleAdPreviewModal({ isOpen, onClose }: GoogleAdPrevie
                   </div>
                   <div>
                     <h4 className="text-[11px] font-black text-stone-900 uppercase tracking-widest">Bütçenizin Gücü</h4>
-                    <p className="text-[9px] font-bold text-stone-400">10.000 ₺ bütçenin getireceği kesin sonuç:</p>
+                    <p className="text-[9px] font-bold text-stone-400">3.000 ₺ bütçenin getireceği kesin sonuç:</p>
                   </div>
                 </div>
 
                 {/* Visual Share Bar */}
                 <div className="space-y-2">
                   <div className="w-full h-3 bg-stone-200 rounded-full overflow-hidden flex">
-                    <div className="h-full bg-emerald-500 transition-all" style={{ width: '5%' }} />
-                    <div className="h-full bg-stone-300" style={{ width: '95%' }} />
+                    <div className="h-full bg-emerald-500 transition-all" style={{ width: '15%' }} />
+                    <div className="h-full bg-stone-300" style={{ width: '85%' }} />
                   </div>
                   <div className="flex justify-between items-center text-[8px] font-black uppercase tracking-wider">
-                    <span className="text-emerald-600">Sizin Payınız (5.000 Kişi)</span>
-                    <span className="text-stone-400">Diğerleri (95.000 Kişi)</span>
+                    <span className="text-emerald-600">Sizin Payınız (450 Alıcı)</span>
+                    <span className="text-stone-400">Diğerleri (2.550 Alıcı)</span>
                   </div>
                 </div>
 
                 {/* Explanation text */}
                 <div className="text-[10px] font-bold text-stone-600 space-y-2 leading-relaxed pt-3 border-t border-stone-200/60">
                   <p>
-                    Google'da sizinle alakalı kelimeleri her ay <span className="font-black text-stone-900">100.000</span> kişi aratıyor.
+                    Sektörünüzle alakalı kelimeleri Türkiye genelinde her ay ortalama <span className="font-black text-stone-900">3.000</span> potansiyel toptan alıcı aratıyor.
                   </p>
                   <p>
-                    Diğer dükkanlar toplam <span className="font-black text-stone-900">200.000 ₺</span> reklam verirken, siz <span className="font-black text-stone-900">10.000 ₺</span> bütçeyle bu pastadan <span className="font-black text-stone-900">5.000</span> kişilik pay alırsınız.
+                    Aylık <span className="font-black text-stone-900">3.000 ₺</span> bütçeyle bu pastadan <span className="font-black text-stone-900">450</span> hazır alıcıyı doğrudan kendi dükkanınıza çekersiniz.
                   </p>
                   <p>
-                    Google sizi en tepede gösterir. Arayan <span className="font-black text-emerald-600">5.000 müşteri</span> doğrudan sizin dükkanınıza girer.
+                    Google sizi en tepede sponsorlu olarak gösterir. Arayan <span className="font-black text-emerald-600">450 hazır müşteri</span> başka dükkanlar yerine doğrudan sizin sitenize girer.
                   </p>
                 </div>
               </div>
