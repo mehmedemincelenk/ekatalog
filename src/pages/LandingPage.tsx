@@ -246,10 +246,11 @@ export default function LandingPage() {
                 />
                 <div className="space-y-0.5">
                   <h3 className="text-sm font-black text-stone-900 tracking-tight">
-                    sıfır teknik bilgi zahmeti
+                    bikaç tıkla teknoloji
                   </h3>
                   <p className="text-xs text-stone-500 font-medium leading-relaxed">
-                    Yazılım veya tasarım bilmenize gerek yok; tek tıkla kataloğunuzu yönetin, Google reklamı verin, toplu yükleme yapın ve sosyal medya tasarımlarınızı cebe indirin.
+                    <span className="font-bold text-stone-900 block mb-0.5">sıfır teknik bilgi zahmeti</span>
+                    Yazılım veya tasarım bilmenize gerek yok; tek tıkla kataloğunuzu yönetin, <span className="text-emerald-600 font-black">Google reklamı verin</span>, toplu yükleme yapın ve sosyal medya tasarımlarınızı cebe indirin.
                   </p>
                 </div>
               </div>
