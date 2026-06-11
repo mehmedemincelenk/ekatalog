@@ -414,10 +414,10 @@ export default function GoogleAdPreviewModal({ isOpen, onClose }: GoogleAdPrevie
                     <Lucide.Search size={20} />
                   </div>
                   <div className="space-y-0.5">
-                    <span className="text-[9px] font-black text-stone-400 uppercase tracking-wider">1. Toplam Müşteri Araması</span>
-                    <h5 className="text-xs font-black text-stone-950">100.000 Arama / Ay</h5>
+                    <span className="text-[9px] font-black text-stone-400 uppercase tracking-wider">1. Toplam Pasta</span>
+                    <h5 className="text-xs font-black text-stone-950">100.000 Müşteri</h5>
                     <p className="text-[9px] font-bold text-stone-500 leading-normal">
-                      Sektörünüzle alakalı kelimeleri Google'da aratan aylık ortalama kitle.
+                      Her ay Google'da sizin ürünlerinizi arayan tam 100.000 insan var.
                     </p>
                   </div>
                 </div>
@@ -429,19 +429,19 @@ export default function GoogleAdPreviewModal({ isOpen, onClose }: GoogleAdPrevie
                       <Lucide.PieChart size={20} />
                     </div>
                     <div className="space-y-0.5">
-                      <span className="text-[9px] font-black text-stone-400 uppercase tracking-wider">2. Toplam Reklam Havuzu</span>
-                      <h5 className="text-xs font-black text-stone-950">Sizin Payınız: 10.000 ₺ / Toplam: 210.000 ₺</h5>
+                      <span className="text-[9px] font-black text-stone-400 uppercase tracking-wider">2. Pastadaki Diliminiz</span>
+                      <h5 className="text-xs font-black text-stone-950">Sizin Payınız: 5.000 Müşteri</h5>
                     </div>
                   </div>
                   {/* Share Progress Bar */}
                   <div className="space-y-1">
                     <div className="w-full h-3 bg-stone-200 rounded-full overflow-hidden flex">
-                      <div className="h-full bg-emerald-500" style={{ width: '4.76%' }} title="Sizin Payınız" />
-                      <div className="h-full bg-stone-400/50" style={{ width: '95.24%' }} title="Diğer Reklamlar" />
+                      <div className="h-full bg-emerald-500" style={{ width: '5%' }} title="Sizin Diliminiz" />
+                      <div className="h-full bg-stone-400/50" style={{ width: '95%' }} title="Diğerleri" />
                     </div>
                     <div className="flex justify-between items-center text-[8px] font-black uppercase tracking-wider">
-                      <span className="text-emerald-600">Siz (10.000 ₺) — %4.8</span>
-                      <span className="text-stone-400">Rakipler (200.000 ₺) — %95.2</span>
+                      <span className="text-emerald-600">Sizin Diliminiz (5.000 Kişi)</span>
+                      <span className="text-stone-400">Kalan Pasta (95.000 Kişi)</span>
                     </div>
                   </div>
                 </div>
@@ -452,10 +452,10 @@ export default function GoogleAdPreviewModal({ isOpen, onClose }: GoogleAdPrevie
                     <Lucide.MousePointerClick size={20} />
                   </div>
                   <div className="space-y-0.5">
-                    <span className="text-[9px] font-black text-stone-400 uppercase tracking-wider">3. Alacağınız Net Sonuç</span>
-                    <h5 className="text-xs font-black text-stone-950">En Üstte ~4.800 Gösterim & Tıklama</h5>
+                    <span className="text-[9px] font-black text-stone-400 uppercase tracking-wider">3. Dükkanınıza Hücum</span>
+                    <h5 className="text-xs font-black text-stone-950">Google'da En Üste Çıkın</h5>
                     <p className="text-[9px] font-bold text-stone-500 leading-normal">
-                      Reklam payınız oranında (~4.800 arama) en tepede siz çıkarsınız. En üstteki sonuca tıklandığı için bu kitlenin tamamı doğrudan dükkanınıza girer.
+                      Google sizi en üste yerleştirir. Bu 5.000 kişi doğrudan sizin dükkanınıza girer ve hemen sipariş verir.
                     </p>
                   </div>
                 </div>
