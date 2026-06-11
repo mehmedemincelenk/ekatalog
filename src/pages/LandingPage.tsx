@@ -282,6 +282,9 @@ export default function LandingPage() {
         </div>
       </section>
 
+      {/* Section Divider */}
+      <div className="max-w-md mx-auto border-t border-stone-100 my-16" />
+
       {/* PRICING & TRUST SECTION - Clean Modernist Layout */}
       <section className="pb-16 px-4">
         <div className="text-center flex flex-col items-center animate-in fade-in duration-1000 delay-500">
