@@ -422,7 +422,7 @@ export default function GoogleAdPreviewModal({ isOpen, onClose }: GoogleAdPrevie
                     <span className="text-[10px] font-black text-stone-400 uppercase tracking-wider block">Toplam Reklam Bütçesi</span>
                     <p className="text-[9px] font-bold text-stone-500 leading-none">sektörünüzle alakalı google'a ödenmiş toplam reklam bütçesi</p>
                   </div>
-                  <span className="text-[12px] font-black text-stone-900 bg-white border border-stone-200 px-2.5 py-1 rounded-xl shadow-sm whitespace-nowrap">20.000₺ Pasta</span>
+                  <span className="text-[12px] font-black text-stone-900 bg-white border border-stone-200 px-2.5 py-1 rounded-xl shadow-sm whitespace-nowrap">100.000₺ Pasta</span>
                 </div>
 
                 {/* Step 3: Sizin Bütçeniz */}
@@ -431,7 +431,7 @@ export default function GoogleAdPreviewModal({ isOpen, onClose }: GoogleAdPrevie
                     <span className="text-[10px] font-black text-stone-400 uppercase tracking-wider block">Sizin Bütçeniz</span>
                     <p className="text-[9px] font-bold text-stone-500 leading-none">Google'da en üst sıraya çıkmak için ayırdığınız bütçe</p>
                   </div>
-                  <span className="text-[12px] font-black text-emerald-600 bg-white border border-stone-200 px-2.5 py-1 rounded-xl shadow-sm whitespace-nowrap">2.000 ₺</span>
+                  <span className="text-[12px] font-black text-emerald-600 bg-white border border-stone-200 px-2.5 py-1 rounded-xl shadow-sm whitespace-nowrap">10.000 ₺</span>
                 </div>
 
                 {/* Step 4: Sizin Payınız */}
@@ -439,9 +439,9 @@ export default function GoogleAdPreviewModal({ isOpen, onClose }: GoogleAdPrevie
                   <div className="flex justify-between items-center">
                     <div className="space-y-0.5">
                       <span className="text-[10px] font-black text-emerald-600 uppercase tracking-wider block">Sizin Payınız</span>
-                      <p className="text-[9px] font-bold text-stone-500 leading-none">2.000 ₺ / 20.000 ₺ = %10 pay</p>
+                      <p className="text-[9px] font-bold text-stone-500 leading-none">10.000 ₺ / 100.000 ₺ = %10 pay</p>
                     </div>
-                    <span className="text-[12px] font-black text-emerald-600 bg-emerald-50 border border-emerald-200 px-2.5 py-1 rounded-xl shadow-sm whitespace-nowrap">%10 Pay</span>
+                    <span className="text-[12px] font-black text-emerald-600 bg-emerald-50 border border-emerald-200 px-2.5 py-1 rounded-xl shadow-sm whitespace-nowrap">10.000 ₺ Pay</span>
                   </div>
                   {/* Tiny Share Progress Bar */}
                   <div className="w-full h-1.5 bg-stone-200 rounded-full overflow-hidden flex">
