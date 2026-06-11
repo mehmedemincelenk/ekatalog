@@ -486,22 +486,11 @@ export default function GoogleAdPreviewModal({ isOpen, onClose }: GoogleAdPrevie
 
                   <hr className="border-t border-stone-100" />
 
-                  {/* Step 2: Cost per visitor */}
-                  <div className="flex justify-between items-start gap-4">
-                    <div className="space-y-0.5">
-                      <span className="text-[9px] font-black text-stone-400 uppercase tracking-wider block">2. Ziyaretçi Maliyeti</span>
-                      <p className="text-[10px] font-bold text-stone-600 leading-normal">Dükkanınıza tıklayan kişi başına Google'a ödenen ücret</p>
-                    </div>
-                    <span className="text-[12px] font-black text-stone-900 shrink-0">2 ₺</span>
-                  </div>
-
-                  <hr className="border-t border-stone-100" />
-
-                  {/* Step 3: Your monthly share */}
+                  {/* Step 2: Your monthly share */}
                   <div className="bg-emerald-50/40 border border-emerald-150 p-3.5 rounded-xl space-y-2">
                     <div className="flex justify-between items-start gap-4">
                       <div className="space-y-0.5">
-                        <span className="text-[9px] font-black text-emerald-600 uppercase tracking-wider block">3. Sizin Ziyaretçiniz</span>
+                        <span className="text-[9px] font-black text-emerald-600 uppercase tracking-wider block">2. Sizin Ziyaretçiniz</span>
                         <p className="text-[10px] font-bold text-emerald-800 leading-normal">Aylık 2.000 ₺ reklam bütçesi ile dükkanınıza çekeceğiniz kişi sayısı</p>
                       </div>
                       <span className="text-[14px] font-black text-emerald-600 shrink-0">1.000 Kişi</span>
@@ -518,6 +507,17 @@ export default function GoogleAdPreviewModal({ isOpen, onClose }: GoogleAdPrevie
                         <span>Diğer Arayanlar (9.000)</span>
                       </div>
                     </div>
+                  </div>
+
+                  <hr className="border-t border-stone-100" />
+
+                  {/* Step 3: Cost per visitor */}
+                  <div className="flex justify-between items-start gap-4">
+                    <div className="space-y-0.5">
+                      <span className="text-[9px] font-black text-stone-400 uppercase tracking-wider block">3. Ziyaretçi Maliyeti</span>
+                      <p className="text-[10px] font-bold text-stone-600 leading-normal">Dükkanınıza tıklayan kişi başına Google'a ödenen ücret</p>
+                    </div>
+                    <span className="text-[12px] font-black text-stone-900 shrink-0">2 ₺</span>
                   </div>
                 </div>
               </div>
