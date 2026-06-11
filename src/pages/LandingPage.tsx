@@ -347,17 +347,8 @@ export default function LandingPage() {
               >
                 <div className="absolute inset-0 bg-gradient-to-tr from-white/5 to-transparent"></div>
 
-                <div className="relative z-10 flex items-center gap-4">
-                  {/* Left Side: Squircle App Icon Button */}
-                  <div className="shrink-0">
-                    <div className="w-16 h-16 bg-[#25D366] text-white flex items-center justify-center rounded-2xl shadow-none">
-                      <div className="w-8 h-8 fill-white drop-shadow-sm transition-transform duration-300">
-                        {THEME.icons.whatsapp}
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Right Side: Text Copy */}
+                <div className="relative z-10 flex items-center justify-between gap-4">
+                  {/* Left Side: Text Copy */}
                   <div className="flex-1 space-y-1">
                     <h2 className="text-base sm:text-lg font-black text-white tracking-tight leading-snug">
                       90 Gün Ücretsiz Deneyin
@@ -365,6 +356,15 @@ export default function LandingPage() {
                     <p className="text-[10px] font-bold text-emerald-400 uppercase tracking-wider">
                       Fiyatı Sonra Düşünün
                     </p>
+                  </div>
+
+                  {/* Right Side: Squircle App Icon Button */}
+                  <div className="shrink-0">
+                    <div className="w-16 h-16 bg-[#25D366] text-white flex items-center justify-center rounded-2xl shadow-none">
+                      <div className="w-8 h-8 fill-white drop-shadow-sm transition-transform duration-300">
+                        {THEME.icons.whatsapp}
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
