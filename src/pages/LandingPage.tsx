@@ -133,7 +133,7 @@ export default function LandingPage() {
           </h1>
 
           <h2 className="text-lg sm:text-xl font-bold text-stone-900 tracking-tight leading-none relative z-10 pt-2">
-            Katalog Menü Angaryaları/Maliyetleri Geçmişte Kaldı
+            📜 Katalog Menü Angaryaları/Maliyetleri Geçmişte Kaldı 📱
           </h2>
 
 
