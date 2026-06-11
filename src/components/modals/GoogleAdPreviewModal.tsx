@@ -408,104 +408,126 @@ export default function GoogleAdPreviewModal({ isOpen, onClose }: GoogleAdPrevie
           {/* STEP 1: Onboarding */}
           {step === 1 && (
             <div className="space-y-5">
-              {/* Compare Social Media vs Google Ads */}
-              <div className="space-y-4">
-                {/* 1. Comparison Card */}
-                <div className="bg-stone-50 border border-stone-150 rounded-3xl p-5 space-y-4">
-                  <h4 className="text-[11px] font-black text-stone-900 uppercase tracking-widest text-center">
-                    Müşteriyi Nerede Yakalamak İstersiniz?
-                  </h4>
+              {/* 1. Google Arama Simülasyonu */}
+              <div className="bg-stone-50 border border-stone-150 rounded-3xl p-5 space-y-4">
+                <h4 className="text-[11px] font-black text-stone-900 uppercase tracking-widest">
+                  Google Arama Simülasyonu
+                </h4>
 
-                  <div className="space-y-3">
-                    {/* Social Media Card */}
-                    <div className="bg-white border border-stone-200/50 rounded-2xl p-4 space-y-2 opacity-65">
-                      <div className="flex items-center gap-2 text-stone-500">
-                        <Lucide.Smartphone size={15} />
-                        <span className="text-[10px] font-black uppercase tracking-wider">Sosyal Medya (Gezinenler)</span>
-                      </div>
-                      <p className="text-[10px] font-bold text-stone-600 leading-relaxed normal-case">
-                        İnsanlar Instagram'da vakit öldürmek için gezinir. Reklamınızı görseler bile o an satın alma niyetleri yoktur.
-                      </p>
-                    </div>
-
-                    {/* Google Search Card */}
-                    <div className="bg-white border-2 border-emerald-500 rounded-2xl p-4 space-y-2 shadow-sm relative overflow-hidden">
-                      <div className="absolute top-0 right-0 bg-emerald-500 text-white text-[7px] font-black uppercase tracking-widest px-2.5 py-0.5 rounded-bl-lg">
-                        DOĞRU TAKTİK
-                      </div>
-                      <div className="flex items-center gap-2 text-emerald-600">
-                        <Lucide.Search size={15} />
-                        <span className="text-[10px] font-black uppercase tracking-wider">Google Arama (Hazır Alıcılar)</span>
-                      </div>
-                      <p className="text-[10px] font-bold text-stone-600 leading-relaxed normal-case">
-                        Alıcı Google'a sattığınız ürünü yazar. Reklamınız en tepede çıkar. Müşteri doğrudan almak için tıklar.
-                      </p>
-                    </div>
+                <div className="space-y-2">
+                  <label className="text-[9px] font-black text-stone-400 uppercase tracking-widest">
+                    Müşterileriniz Google'da ne yazıp dükkanınızı bulsun?
+                  </label>
+                  <div className="relative">
+                    <input
+                      type="text"
+                      value={keywordInput}
+                      onChange={(e) => setKeywordInput(e.target.value)}
+                      placeholder="Örn: toptan kutu, butik cafe..."
+                      className="w-full bg-white border border-stone-200 focus:border-stone-900 text-stone-900 text-xs font-black px-4 py-2.5 rounded-xl outline-none transition-all pr-8"
+                    />
+                    <Lucide.Search size={14} className="absolute right-3.5 top-1/2 -translate-y-1/2 text-stone-400" />
                   </div>
                 </div>
 
-                {/* 2. Interactive Simulator Card */}
-                <div className="bg-stone-50 border border-stone-150 rounded-3xl p-5 space-y-4">
-                  <h4 className="text-[11px] font-black text-stone-900 uppercase tracking-widest">
-                    Google Arama Simülasyonu
-                  </h4>
-
-                  <div className="space-y-2">
-                    <label className="text-[9px] font-black text-stone-400 uppercase tracking-widest">
-                      Bir kelime yazıp alttaki Google sonucunu görün:
-                    </label>
-                    <div className="relative">
-                      <input
-                        type="text"
-                        value={keywordInput}
-                        onChange={(e) => setKeywordInput(e.target.value)}
-                        placeholder="Örn: toptan kutu, butik cafe..."
-                        className="w-full bg-white border border-stone-200 focus:border-stone-900 text-stone-900 text-xs font-black px-4 py-2.5 rounded-xl outline-none transition-all pr-8"
-                      />
-                      <Lucide.Search size={14} className="absolute right-3.5 top-1/2 -translate-y-1/2 text-stone-400" />
+                {/* Visual Google Search Result Mockup */}
+                <div className="border border-stone-200 rounded-2xl p-4 bg-white shadow-sm space-y-3">
+                  <div className="flex items-center gap-2 border-b border-stone-100 pb-2">
+                    <div className="w-5 h-5 rounded-full bg-stone-100 flex items-center justify-center text-[10px] font-black text-stone-600 shrink-0">G</div>
+                    <div className="flex-1 bg-stone-50 border border-stone-200/50 rounded-full px-3 py-1 flex items-center justify-between text-[9px] font-bold text-stone-700 min-h-[22px]">
+                      <span className="text-stone-850 font-black tracking-normal">{keywordInput || '...'}</span>
+                      <Lucide.Search size={10} className="text-stone-400" />
                     </div>
                   </div>
-
-                  {/* Visual Google Search Result Mockup */}
-                  <div className="border border-stone-200 rounded-2xl p-4 bg-white shadow-sm space-y-3">
-                    <div className="flex items-center gap-2 border-b border-stone-100 pb-2">
-                      <div className="w-5 h-5 rounded-full bg-stone-100 flex items-center justify-center text-[10px] font-black text-stone-600 shrink-0">G</div>
-                      <div className="flex-1 bg-stone-50 border border-stone-200/50 rounded-full px-3 py-1 flex items-center justify-between text-[9px] font-bold text-stone-700 min-h-[22px]">
-                        <span className="text-stone-850 font-black tracking-normal">{keywordInput || '...'}</span>
-                        <Lucide.Search size={10} className="text-stone-400" />
-                      </div>
+                  <div className="space-y-1.5">
+                    <div className="flex items-center gap-1.5">
+                      <span className="text-[9px] font-black bg-stone-100 text-stone-600 px-1 py-0.5 rounded tracking-wider uppercase">Sponsorlu</span>
+                      <span className="text-[9px] font-bold text-stone-400">{settings?.slug || 'slug'}.ekatalog.site</span>
                     </div>
-                    <div className="space-y-1.5">
-                      <div className="flex items-center gap-1.5">
-                        <span className="text-[9px] font-black bg-stone-100 text-stone-600 px-1 py-0.5 rounded tracking-wider uppercase">Sponsorlu</span>
-                        <span className="text-[9px] font-bold text-stone-400">{settings?.slug || 'slug'}.ekatalog.site</span>
-                      </div>
-                      <h4 className="text-[13px] font-black text-blue-600 hover:underline cursor-pointer leading-tight">
-                        {settings?.title || 'Yeni Mağazanız'} | {settings?.subtitle || 'Dijital Katalog'}
-                      </h4>
-                      <p className="text-[10px] font-bold text-stone-500 leading-normal normal-case">
-                        En güncel ürünlerimizi, fiyat listemizi ve kataloğumuzu hemen inceleyin. Hızlı inceleme ve doğrudan sipariş imkanıyla hizmetinizdeyiz.
-                      </p>
-                      
-                      {/* Mock Sitelinks */}
-                      <div className="flex flex-wrap gap-1.5 pt-1">
-                        <span className="px-2 py-1 bg-stone-50 border border-stone-200/50 rounded-lg text-[8px] font-black text-stone-500 uppercase">Menüyü Gör</span>
-                        <span className="px-2 py-1 bg-stone-50 border border-stone-200/50 rounded-lg text-[8px] font-black text-stone-500 uppercase">İletişim</span>
-                      </div>
+                    <h4 className="text-[13px] font-black text-blue-600 hover:underline cursor-pointer leading-tight">
+                      {settings?.title || 'Yeni Mağazanız'} | {settings?.subtitle || 'Dijital Katalog'}
+                    </h4>
+                    <p className="text-[10px] font-bold text-stone-500 leading-normal normal-case">
+                      En güncel ürünlerimizi, fiyat listemizi ve kataloğumuzu hemen inceleyin. Hızlı inceleme ve doğrudan sipariş imkanıyla hizmetinizdeyiz.
+                    </p>
+                    
+                    {/* Mock Sitelinks */}
+                    <div className="flex flex-wrap gap-1.5 pt-1">
+                      <span className="px-2 py-1 bg-stone-50 border border-stone-200/50 rounded-lg text-[8px] font-black text-stone-500 uppercase">Menüyü Gör</span>
+                      <span className="px-2 py-1 bg-stone-50 border border-stone-200/50 rounded-lg text-[8px] font-black text-stone-500 uppercase">İletişim</span>
                     </div>
                   </div>
                 </div>
-
-                {/* Continue button */}
-                <Button
-                  onClick={() => setStep(2)}
-                  variant="primary"
-                  size="lg"
-                  className="w-full"
-                >
-                  DEVAM ET
-                </Button>
               </div>
+
+              {/* 2. Nedir ve Nasıl Çalışır? (Bütçe Gücü) */}
+              <div className="bg-stone-50 border border-stone-150 rounded-3xl p-5 space-y-5">
+                {/* Header Section: What is Google Ads? */}
+                <div className="space-y-2">
+                  <div className="flex items-center gap-2">
+                    <div className="w-6 h-6 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
+                      <Lucide.HelpCircle size={13} />
+                    </div>
+                    <h4 className="text-[11px] font-black text-stone-900 uppercase tracking-widest">Nedir Bu Google Reklamları?</h4>
+                  </div>
+                  <p className="text-[10px] font-bold text-stone-600 leading-relaxed">
+                    Sattığınız ürünleri <span className="text-stone-900 font-black">almaya hazır olan</span> ve o an Google'da arayan müşterilerin karşısına ilk sırada çıkarsınız.
+                  </p>
+                </div>
+
+                <hr className="border-t border-stone-200/60" />
+
+                {/* Body Section: Power of Budget */}
+                <div className="space-y-4">
+                  <div className="flex items-center gap-2.5">
+                    <div className="w-6 h-6 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
+                      <Lucide.PieChart size={13} />
+                    </div>
+                    <div>
+                      <h4 className="text-[11px] font-black text-stone-900 uppercase tracking-widest">Bütçenizin Gücü</h4>
+                      <p className="text-[9px] font-bold text-stone-400">Aylık 3.000 ₺ bütçe ile elde edeceğiniz pay:</p>
+                    </div>
+                  </div>
+
+                  {/* Visual Share Bar */}
+                  <div className="space-y-2 bg-white border border-stone-200/60 p-3 rounded-2xl">
+                    <div className="w-full h-2.5 bg-stone-100 rounded-full overflow-hidden flex">
+                      <div className="h-full bg-emerald-500 transition-all" style={{ width: '15%' }} />
+                      <div className="h-full bg-stone-200" style={{ width: '85%' }} />
+                    </div>
+                    <div className="flex justify-between items-center text-[8px] font-black uppercase tracking-wider">
+                      <span className="text-emerald-600">Sizin Payınız (450 Alıcı)</span>
+                      <span className="text-stone-400">Diğerleri (2.550 Alıcı)</span>
+                    </div>
+                  </div>
+
+                  {/* Bullet points explaining the flow */}
+                  <div className="space-y-2 text-[10px] font-bold text-stone-600 leading-relaxed">
+                    <div className="flex items-start gap-2">
+                      <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full mt-1.5 shrink-0" />
+                      <p>Google'da sattığınız ürünleri arayan hazır alıcılar var.</p>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full mt-1.5 shrink-0" />
+                      <p>Bu reklam sizi en tepeye koyar, alıcılar rakiplerinizden önce sizi görür.</p>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full mt-1.5 shrink-0" />
+                      <p>Dükkanınıza tıklayan hazır alıcı doğrudan sipariş verir.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Devam et button */}
+              <Button
+                onClick={() => setStep(2)}
+                variant="primary"
+                size="lg"
+                className="w-full"
+              >
+                DEVAM ET
+              </Button>
             </div>
           )}
 
