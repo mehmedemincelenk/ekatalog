@@ -486,12 +486,27 @@ export default function GoogleAdPreviewModal({ isOpen, onClose }: GoogleAdPrevie
 
                   <hr className="border-t border-stone-100" />
 
-                  {/* Step 2: Your monthly share */}
+                  {/* Step 2: Budget Pool */}
+                  <div className="flex justify-between items-start gap-4">
+                    <div className="space-y-0.5">
+                      <span className="text-[9px] font-black text-stone-400 uppercase tracking-wider block">2. Reklam Pastası (Bütçe Havuzu)</span>
+                      <p className="text-[10px] font-bold text-stone-600 leading-normal">
+                        Rakiplerin Payı: 18.000 ₺ <span className="text-stone-300">|</span> Sizin Bütçeniz: 2.000 ₺
+                      </p>
+                    </div>
+                    <span className="text-[12px] font-black text-stone-900 shrink-0">20.000 ₺ Havuz</span>
+                  </div>
+
+                  <hr className="border-t border-stone-100" />
+
+                  {/* Step 3: Your monthly share */}
                   <div className="bg-emerald-50/40 border border-emerald-150 p-3.5 rounded-xl space-y-2">
                     <div className="flex justify-between items-start gap-4">
                       <div className="space-y-0.5">
-                        <span className="text-[9px] font-black text-emerald-600 uppercase tracking-wider block">2. Sizin Ziyaretçiniz</span>
-                        <p className="text-[10px] font-bold text-emerald-800 leading-normal">Aylık 2.000 ₺ reklam bütçesi ile dükkanınıza çekeceğiniz kişi sayısı</p>
+                        <span className="text-[9px] font-black text-emerald-600 uppercase tracking-wider block">3. Sizin Ziyaretçi Payınız</span>
+                        <p className="text-[10px] font-bold text-emerald-800 leading-normal">
+                          Toplam bütçedeki payınız <span className="font-black">%10</span> olduğu için, 10.000 aramanın <span className="font-black">%10'u</span> dükkanınıza gelir.
+                        </p>
                       </div>
                       <span className="text-[14px] font-black text-emerald-600 shrink-0">1.000 Kişi</span>
                     </div>
@@ -503,21 +518,10 @@ export default function GoogleAdPreviewModal({ isOpen, onClose }: GoogleAdPrevie
                         <div className="h-full bg-stone-200" style={{ width: '90%' }} />
                       </div>
                       <div className="flex justify-between items-center text-[7px] font-black uppercase tracking-wider text-stone-400">
-                        <span className="text-emerald-600 font-black">Sizin Ziyaretçileriniz (1.000)</span>
-                        <span>Diğer Arayanlar (9.000)</span>
+                        <span className="text-emerald-600 font-black">Sizin Payınız (%10)</span>
+                        <span>Rakiplerin Payı (%90)</span>
                       </div>
                     </div>
-                  </div>
-
-                  <hr className="border-t border-stone-100" />
-
-                  {/* Step 3: Cost per visitor */}
-                  <div className="flex justify-between items-start gap-4">
-                    <div className="space-y-0.5">
-                      <span className="text-[9px] font-black text-stone-400 uppercase tracking-wider block">3. Ziyaretçi Maliyeti</span>
-                      <p className="text-[10px] font-bold text-stone-600 leading-normal">Dükkanınıza tıklayan kişi başına Google'a ödenen ücret</p>
-                    </div>
-                    <span className="text-[12px] font-black text-stone-900 shrink-0">2 ₺</span>
                   </div>
                 </div>
               </div>
