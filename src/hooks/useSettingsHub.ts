@@ -189,7 +189,6 @@ export function useSettingsQuery() {
             vileda: 'vileda.com',
             'p&g': 'pg.com',
             arçelik: 'arcelik.com.tr',
-            eczacıbaşı: 'eczacibasi.com.tr',
             hayat: 'hayat.com.tr',
             '3m': '3m.com',
             tesa: 'tesa.com',
