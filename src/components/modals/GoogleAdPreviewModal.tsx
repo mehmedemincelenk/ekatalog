@@ -406,54 +406,62 @@ export default function GoogleAdPreviewModal({ isOpen, onClose }: GoogleAdPrevie
           {/* STEP 1: Onboarding */}
           {step === 1 && (
             <div className="space-y-5">
-              {/* Nedir bu Google Reklamları Card */}
-              <div className="bg-stone-50 border border-stone-150 rounded-3xl p-5 space-y-3">
-                <div className="flex items-center gap-2.5">
-                  <div className="w-8 h-8 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
-                    <Lucide.HelpCircle size={16} />
+              {/* Synthesized Google Ads Panel */}
+              <div className="bg-stone-50 border border-stone-150 rounded-3xl p-5 space-y-5">
+                {/* Header Section: What is Google Ads? */}
+                <div className="space-y-2.5">
+                  <div className="flex items-center gap-2">
+                    <div className="w-6 h-6 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
+                      <Lucide.HelpCircle size={13} />
+                    </div>
+                    <h4 className="text-[11px] font-black text-stone-900 uppercase tracking-widest">Nedir bu Google Reklamları?</h4>
                   </div>
-                  <h4 className="text-[11px] font-black text-stone-900 uppercase tracking-widest">Nedir Bu "Google Reklamları"?</h4>
-                </div>
-                <p className="text-[10px] font-bold text-stone-600 leading-relaxed">
-                  Google'da dükkanınızla veya ürünlerinizle ilgili (<span className="text-stone-900">"toptan ambalaj"</span>, <span className="text-stone-900">"toptan gıda"</span> vb.) arama yapan hazır müşterilerin karşısına ilk sırada çıkmanızı sağlayan en etkili araçtır.
-                </p>
-              </div>
-
-              {/* Simplified Single Explanation Card */}
-              <div className="bg-stone-50 border border-stone-150 rounded-3xl p-5 space-y-4">
-                <div className="flex items-center gap-2.5">
-                  <div className="w-8 h-8 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
-                    <Lucide.PieChart size={16} />
-                  </div>
-                  <div>
-                    <h4 className="text-[11px] font-black text-stone-900 uppercase tracking-widest">Bütçenizin Gücü</h4>
-                    <p className="text-[9px] font-bold text-stone-400">3.000 ₺ bütçenin getireceği kesin sonuç:</p>
-                  </div>
+                  <p className="text-[10px] font-bold text-stone-600 leading-relaxed">
+                    Google'da dükkanınızla veya ürünlerinizle ilgili (<span className="text-stone-900">"toptan ambalaj"</span>, <span className="text-stone-900">"toptan gıda"</span> vb.) arama yapan hazır alıcıların karşısına sponsorlu olarak ilk sırada çıkmanızı sağlayan en etkili sistemdir.
+                  </p>
                 </div>
 
-                {/* Visual Share Bar */}
-                <div className="space-y-2">
-                  <div className="w-full h-3 bg-stone-200 rounded-full overflow-hidden flex">
-                    <div className="h-full bg-emerald-500 transition-all" style={{ width: '15%' }} />
-                    <div className="h-full bg-stone-300" style={{ width: '85%' }} />
-                  </div>
-                  <div className="flex justify-between items-center text-[8px] font-black uppercase tracking-wider">
-                    <span className="text-emerald-600">Sizin Payınız (450 Alıcı)</span>
-                    <span className="text-stone-400">Diğerleri (2.550 Alıcı)</span>
-                  </div>
-                </div>
+                <hr className="border-t border-stone-200/60" />
 
-                {/* Explanation text */}
-                <div className="text-[10px] font-bold text-stone-600 space-y-2 leading-relaxed pt-3 border-t border-stone-200/60">
-                  <p>
-                    Sektörünüzle alakalı kelimeleri Türkiye genelinde her ay ortalama <span className="font-black text-stone-900">3.000</span> potansiyel toptan alıcı aratıyor.
-                  </p>
-                  <p>
-                    Aylık <span className="font-black text-stone-900">3.000 ₺</span> bütçeyle bu pastadan <span className="font-black text-stone-900">450</span> hazır alıcıyı doğrudan kendi dükkanınıza çekersiniz.
-                  </p>
-                  <p>
-                    Google sizi en tepede sponsorlu olarak gösterir. Arayan <span className="font-black text-emerald-600">450 hazır müşteri</span> başka dükkanlar yerine doğrudan sizin sitenize girer.
-                  </p>
+                {/* Body Section: Power of Budget */}
+                <div className="space-y-4">
+                  <div className="flex items-center gap-2.5">
+                    <div className="w-6 h-6 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
+                      <Lucide.PieChart size={13} />
+                    </div>
+                    <div>
+                      <h4 className="text-[11px] font-black text-stone-900 uppercase tracking-widest">Bütçenizin Gücü</h4>
+                      <p className="text-[9px] font-bold text-stone-400">Aylık 3.000 ₺ bütçe ile elde edeceğiniz pay:</p>
+                    </div>
+                  </div>
+
+                  {/* Visual Share Bar */}
+                  <div className="space-y-2 bg-white border border-stone-200/60 p-3 rounded-2xl">
+                    <div className="w-full h-2.5 bg-stone-100 rounded-full overflow-hidden flex">
+                      <div className="h-full bg-emerald-500 transition-all" style={{ width: '15%' }} />
+                      <div className="h-full bg-stone-200" style={{ width: '85%' }} />
+                    </div>
+                    <div className="flex justify-between items-center text-[8px] font-black uppercase tracking-wider">
+                      <span className="text-emerald-600">Sizin Payınız (450 Alıcı)</span>
+                      <span className="text-stone-400">Diğerleri (2.550 Alıcı)</span>
+                    </div>
+                  </div>
+
+                  {/* Bullet points explaining the flow */}
+                  <div className="space-y-2 text-[10px] font-bold text-stone-600 leading-relaxed">
+                    <div className="flex items-start gap-2">
+                      <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full mt-1.5 shrink-0" />
+                      <p>Sektörünüzü Türkiye genelinde her ay ortalama <span className="font-black text-stone-900">3.000</span> potansiyel toptan alıcı aratıyor.</p>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full mt-1.5 shrink-0" />
+                      <p>Siz bu reklamla arayan <span className="font-black text-stone-900">450 hazır alıcıyı</span> doğrudan kendi dükkanınıza çekersiniz.</p>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full mt-1.5 shrink-0" />
+                      <p>Arayan müşteriler diğer dükkanlar yerine doğrudan sizin <span className="font-black text-emerald-600">ekataloğunuza</span> ulaşır ve sipariş verir.</p>
+                    </div>
+                  </div>
                 </div>
               </div>
 
