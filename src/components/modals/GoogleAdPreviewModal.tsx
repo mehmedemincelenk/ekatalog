@@ -417,7 +417,7 @@ export default function GoogleAdPreviewModal({ isOpen, onClose }: GoogleAdPrevie
                     <h4 className="text-[11px] font-black text-stone-900 uppercase tracking-widest">Nedir bu Google Reklamları?</h4>
                   </div>
                   <p className="text-[10px] font-bold text-stone-600 leading-relaxed">
-                    Müşteri Google'da sattığınız ürünleri aratır, en üstte sizin dükkanınızı görür ve tıklar.
+                    Sattığınız ürünleri <span className="text-stone-900 font-black">almaya hazır olan</span> ve o an Google'da arayan müşterilerin karşısına ilk sırada çıkarsınız.
                   </p>
                 </div>
 
@@ -451,15 +451,15 @@ export default function GoogleAdPreviewModal({ isOpen, onClose }: GoogleAdPrevie
                   <div className="space-y-2 text-[10px] font-bold text-stone-600 leading-relaxed">
                     <div className="flex items-start gap-2">
                       <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full mt-1.5 shrink-0" />
-                      <p>Sattığınız ürünleri Google'da her ay ortalama <span className="font-black text-stone-900">3.000</span> alıcı aratıyor.</p>
+                      <p>Google'da sattığınız ürünleri arayan hazır alıcılar var.</p>
                     </div>
                     <div className="flex items-start gap-2">
                       <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full mt-1.5 shrink-0" />
-                      <p>Aylık 3.000 ₺ bütçeyle bu alıcıların en az <span className="font-black text-stone-900">450 tanesini</span> doğrudan kendi dükkanınıza çekersiniz.</p>
+                      <p>Bu reklam sizi en tepeye koyar, alıcılar rakiplerinizden önce sizi görür.</p>
                     </div>
                     <div className="flex items-start gap-2">
                       <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full mt-1.5 shrink-0" />
-                      <p>Müşteriler başkalarını aramak yerine doğrudan sizin <span className="font-black text-emerald-600">kataloğunuzu</span> görür ve sipariş verir.</p>
+                      <p>Dükkanınıza tıklayan hazır alıcı doğrudan sipariş verir.</p>
                     </div>
                   </div>
                 </div>
