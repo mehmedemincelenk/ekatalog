@@ -132,8 +132,8 @@ export default function LandingPage() {
             ekatalog
           </h1>
 
-          <h2 className="text-lg sm:text-xl font-bold text-stone-900 tracking-tight leading-none relative z-10 pt-2 uppercase">
-            katalog menü angaryaları/maliyetleri geçmişte kalıyor
+          <h2 className="text-lg sm:text-xl font-bold text-stone-900 tracking-tight leading-none relative z-10 pt-2">
+            Katalog Menü Angaryaları/Maliyetleri Geçmişte Kaldı
           </h2>
 
 
