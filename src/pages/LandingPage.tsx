@@ -287,8 +287,8 @@ export default function LandingPage() {
         <div className="text-center flex flex-col items-center animate-in fade-in duration-1000 delay-500">
           <div className="flex flex-col items-center space-y-2">
             <div className="space-y-1">
-              <p className="text-[10px] font-black text-stone-300 uppercase tracking-[0.3em] line-through">
-                ₺499 / AY
+              <p className="text-[10px] font-black text-stone-300 tracking-[0.3em] line-through">
+                ₺499 / ay
               </p>
               <p className="text-5xl font-black text-stone-900 tracking-tighter leading-none pr-1">
                 ₺299
