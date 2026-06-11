@@ -67,7 +67,7 @@ export default function GoogleAdPreviewModal({ isOpen, onClose }: GoogleAdPrevie
   const [consentInput, setConsentInput] = useState('');
   const [addressConsentInput, setAddressConsentInput] = useState('');
   const [refCode, setRefCode] = useState('');
-  const [keywordInput, setKeywordInput] = useState('toptan ambalaj');
+  const [keywordInput, setKeywordInput] = useState('.......');
 
   // Feedback Overlays
   const [statusOverlay, setStatusOverlay] = useState<'idle' | 'success' | 'loading' | 'error'>('idle');
