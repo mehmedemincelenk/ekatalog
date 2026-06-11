@@ -318,7 +318,7 @@ export default function LandingPage() {
                     <h2 className="text-sm sm:text-base font-black text-white tracking-tight leading-snug">
                       90 Gün Ücretsiz Denemenizi Başlatın
                     </h2>
-                    <p className="text-[10px] font-bold text-emerald-400 uppercase tracking-wider">
+                    <p className="text-[9px] font-bold text-emerald-400 uppercase tracking-wider">
                       Fiyatı Sonra Düşünün
                     </p>
                   </div>
