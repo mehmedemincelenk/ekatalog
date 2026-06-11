@@ -218,25 +218,25 @@ export default function LandingPage() {
             <p className="text-[10px] font-black text-stone-300 uppercase tracking-[0.4em]">
               kazanacaklarınız
             </p>
-            <div className="grid grid-cols-1 gap-y-6 max-w-xl mx-auto text-left px-4">
+            <div className="grid grid-cols-1 gap-y-4 max-w-xl mx-auto px-4">
               {/* Pillar 1: App & Web */}
-              <div className="space-y-2.5">
-                <div className="inline-flex items-center gap-2 bg-emerald-50/60 border border-emerald-100/80 rounded-full py-1.5 px-4 text-xs font-bold text-emerald-800/90 shadow-sm shadow-emerald-100/30 hover:bg-emerald-100/40 transition-colors">
+              <div className="bg-stone-50/40 border border-stone-100/80 rounded-2xl p-5 hover:bg-stone-50/80 transition-all shadow-sm shadow-stone-100/10 flex flex-col items-center text-center space-y-3">
+                <div className="inline-flex items-center gap-2 bg-emerald-50/60 border border-emerald-100/80 rounded-lg py-1.5 px-4 text-xs font-bold text-emerald-800/90 shadow-sm shadow-emerald-100/30 hover:bg-emerald-100/40 transition-colors">
                   <Lucide.Globe size={12} className="text-emerald-600" />
                   <span>hem app hem web</span>
                 </div>
-                <p className="text-xs text-stone-500 font-medium leading-relaxed pl-1">
+                <p className="text-xs text-stone-500 font-medium leading-relaxed">
                   markanıza özel ücretsiz web sitesi, cepten yönetim ve mobil uygulama kurulumu
                 </p>
               </div>
 
               {/* Pillar 2: Bikaç Tıkla Teknoloji */}
-              <div className="space-y-2.5">
-                <div className="inline-flex items-center gap-2 bg-emerald-50/60 border border-emerald-100/80 rounded-full py-1.5 px-4 text-xs font-bold text-emerald-800/90 shadow-sm shadow-emerald-100/30 hover:bg-emerald-100/40 transition-colors">
+              <div className="bg-stone-50/40 border border-stone-100/80 rounded-2xl p-5 hover:bg-stone-50/80 transition-all shadow-sm shadow-stone-100/10 flex flex-col items-center text-center space-y-3">
+                <div className="inline-flex items-center gap-2 bg-emerald-50/60 border border-emerald-100/80 rounded-lg py-1.5 px-4 text-xs font-bold text-emerald-800/90 shadow-sm shadow-emerald-100/30 hover:bg-emerald-100/40 transition-colors">
                   <Lucide.Sparkles size={12} className="text-emerald-600" />
                   <span>bikaç tıkla teknoloji</span>
                 </div>
-                <p className="text-xs text-stone-500 font-medium leading-relaxed pl-1">
+                <p className="text-xs text-stone-500 font-medium leading-relaxed">
                   Yazılım veya tasarım bilmenize gerek yok; bikaç tıkla kataloğunuzu yönetin, <span className="font-bold text-stone-900">Google reklamı verin</span>, toplu yükleme yapın ve sosyal medya tasarımlarınızı cebe indirin.
                 </p>
               </div>
