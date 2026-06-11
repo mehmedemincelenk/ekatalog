@@ -460,7 +460,7 @@ export default function GoogleAdPreviewModal({ isOpen, onClose }: GoogleAdPrevie
                 </div>
               </div>
 
-              {/* 2. Nedir ve Nasıl Çalışır? (Bütçe Gücü) */}
+              {/* 2. Nedir ve Matematiksel Dağılım */}
               <div className="bg-stone-50 border border-stone-150 rounded-3xl p-5 space-y-5">
                 {/* Header Section: What is Google Ads? */}
                 <div className="space-y-2">
@@ -471,49 +471,56 @@ export default function GoogleAdPreviewModal({ isOpen, onClose }: GoogleAdPrevie
                     <h4 className="text-[11px] font-black text-stone-900 uppercase tracking-widest">Nedir Bu Google Reklamları?</h4>
                   </div>
                   <p className="text-[10px] font-bold text-stone-600 leading-relaxed">
-                    Sattığınız ürünleri veya hizmetleri o an Google'da arayan potansiyel müşterilerin karşısına ilk sırada çıkarsınız.
+                    Sattığınız ürünleri veya hizmetleri Google'da arayan potansiyel müşterilerin karşısına ilk sırada çıkma sistemidir.
                   </p>
                 </div>
 
                 <hr className="border-t border-stone-200/60" />
 
-                {/* Body Section: Power of Budget */}
+                {/* Mathematical breakdown of Google Ads */}
                 <div className="space-y-4">
                   <div className="flex items-center gap-2.5">
                     <div className="w-6 h-6 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
                       <Lucide.PieChart size={13} />
                     </div>
-                    <div>
-                      <h4 className="text-[11px] font-black text-stone-900 uppercase tracking-widest">Bütçenizin Gücü</h4>
-                      <p className="text-[9px] font-bold text-stone-400">Aylık 3.000 ₺ bütçe ile elde edeceğiniz tahmini ziyaretçi payı:</p>
-                    </div>
+                    <h4 className="text-[11px] font-black text-stone-900 uppercase tracking-widest">Kampanya Matematiği</h4>
                   </div>
 
-                  {/* Visual Share Bar */}
-                  <div className="space-y-2 bg-white border border-stone-200/60 p-3 rounded-2xl">
-                    <div className="w-full h-2.5 bg-stone-100 rounded-full overflow-hidden flex">
-                      <div className="h-full bg-emerald-500 transition-all" style={{ width: '15%' }} />
-                      <div className="h-full bg-stone-200" style={{ width: '85%' }} />
+                  <div className="space-y-3 text-[10px] font-bold text-stone-600 leading-relaxed">
+                    {/* 1. Total Searches */}
+                    <div className="bg-white border border-stone-200/60 p-3 rounded-2xl space-y-1">
+                      <span className="text-[8px] font-black text-stone-400 uppercase tracking-wider block">1. Toplam Arama Hacmi</span>
+                      <p className="text-stone-800">
+                        Google'da ürün ve hizmetlerinizle ilgili aylık ortalama <span className="text-stone-950 font-black">3.000 arama</span> yapılıyor.
+                      </p>
                     </div>
-                    <div className="flex justify-between items-center text-[8px] font-black uppercase tracking-wider">
-                      <span className="text-emerald-600">Sizin Payınız (450 Ziyaretçi)</span>
-                      <span className="text-stone-400">Diğerleri (2.550 Ziyaretçi)</span>
-                    </div>
-                  </div>
 
-                  {/* Bullet points explaining the flow */}
-                  <div className="space-y-2 text-[10px] font-bold text-stone-600 leading-relaxed">
-                    <div className="flex items-start gap-2">
-                      <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full mt-1.5 shrink-0" />
-                      <p>Google'da sattığınız ürünleri veya hizmetleri arayan potansiyel müşteriler var.</p>
+                    {/* 2. Total Market Budget */}
+                    <div className="bg-white border border-stone-200/60 p-3 rounded-2xl space-y-1">
+                      <span className="text-[8px] font-black text-stone-400 uppercase tracking-wider block">2. Rakiplerin Reklam Harcaması</span>
+                      <p className="text-stone-800">
+                        Rakipleriniz bu aramalardan pay almak ve en üstte görünmek için bütçe harcıyor.
+                      </p>
                     </div>
-                    <div className="flex items-start gap-2">
-                      <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full mt-1.5 shrink-0" />
-                      <p>Bu reklam sizi en tepeye koyar, arayanlar rakiplerinizden önce sizi görür.</p>
-                    </div>
-                    <div className="flex items-start gap-2">
-                      <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full mt-1.5 shrink-0" />
-                      <p>Dükkanınıza tıklayan ziyaretçiler ürünlerinizi kolayca inceleyip sizinle iletişime geçebilir.</p>
+
+                    {/* 3. Your Share calculation */}
+                    <div className="bg-emerald-50/40 border border-emerald-150 p-3 rounded-2xl space-y-2">
+                      <span className="text-[8px] font-black text-emerald-600 uppercase tracking-wider block">3. Bütçenizin Getireceği Ziyaretçi</span>
+                      <p className="text-stone-800">
+                        Aylık <span className="text-emerald-700 font-black">3.000 ₺</span> bütçenizle yapılan matematik hesabı sonucu, bu pastadan <span className="text-emerald-700 font-black">%15 pay</span> alarak ortalama <span className="text-emerald-700 font-black">450 ziyaretçiyi</span> kendi dükkanınıza çekersiniz.
+                      </p>
+
+                      {/* Visual Share Bar */}
+                      <div className="space-y-1.5 pt-1">
+                        <div className="w-full h-2 bg-stone-100 rounded-full overflow-hidden flex">
+                          <div className="h-full bg-emerald-500 transition-all" style={{ width: '15%' }} />
+                          <div className="h-full bg-stone-200" style={{ width: '85%' }} />
+                        </div>
+                        <div className="flex justify-between items-center text-[7px] font-black uppercase tracking-wider">
+                          <span className="text-emerald-600">Sizin Payınız (450 Ziyaretçi)</span>
+                          <span className="text-stone-400">Rakiplerin Payı (2.550 Ziyaretçi)</span>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
