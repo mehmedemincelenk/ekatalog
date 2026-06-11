@@ -303,7 +303,7 @@ export default function LandingPage() {
       </section>
 
       {/* CTA SECTION */}
-      <section className="pb-20 px-4 max-w-md mx-auto w-full">
+      <section className="pb-20 px-4 max-w-md mx-auto w-full md:hidden">
         <Button
           {...({
             as: 'a',
