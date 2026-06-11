@@ -409,7 +409,7 @@ export default function GoogleAdPreviewModal({ isOpen, onClose }: GoogleAdPrevie
                   <Lucide.Compass className="text-emerald-500" size={16} /> Google Reklamları Nedir?
                 </h4>
                 <p className="text-[10px] font-bold text-stone-500 leading-relaxed normal-case">
-                  Dükkanınızın Google arama motorunda aratıldığında en üst sırada sponsorlu reklam olarak çıkmasını sağlar. Böylece yakın çevrenizdeki veya hedeflediğiniz bölgelerdeki müşteriler doğrudan sizin e-kataloğunuza ulaşır.
+                  Google'da arama yapan müşterilerin karşısına en tepede çıkmanızı sağlar. Reklamı gören kişiler tek tıkla e-kataloğunuza girer ve doğrudan sipariş verir.
                 </p>
               </div>
 
