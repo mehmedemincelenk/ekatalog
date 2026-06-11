@@ -207,21 +207,8 @@ export default function LandingPage() {
               <div className="flex items-center gap-2 bg-red-50/60 border border-red-100/80 rounded-lg py-1.5 px-4 text-xs font-bold text-red-800/90 shadow-sm shadow-red-100/30 hover:bg-red-100/40 transition-colors">
                 <span>tasarımcı/yazılımcı beklemek</span>
               </div>
-            </div>
-
-            {/* SB7 Emotional Pain Badges */}
-            <div className="flex flex-wrap items-center justify-center gap-2 !mt-3">
-              <div className="flex items-center bg-red-50/20 border border-red-100/30 rounded-md py-1 px-3 text-[10px] font-bold text-red-800/80 shadow-sm">
-                <span>zaman kaybı</span>
-              </div>
-              <div className="flex items-center bg-red-50/20 border border-red-100/30 rounded-md py-1 px-3 text-[10px] font-bold text-red-800/80 shadow-sm">
-                <span>gereksiz masraf</span>
-              </div>
-              <div className="flex items-center bg-red-50/20 border border-red-100/30 rounded-md py-1 px-3 text-[10px] font-bold text-red-800/80 shadow-sm">
-                <span>amatör görünüm</span>
-              </div>
-              <div className="flex items-center bg-red-50/20 border border-red-100/30 rounded-md py-1 px-3 text-[10px] font-bold text-red-800/80 shadow-sm">
-                <span>dışa bağımlılık</span>
+              <div className="flex items-center gap-2 bg-red-50/60 border border-red-100/80 rounded-lg py-1.5 px-4 text-xs font-bold text-red-800/90 shadow-sm shadow-red-100/30 hover:bg-red-100/40 transition-colors">
+                <span>maliyet</span>
               </div>
             </div>
           </div>
