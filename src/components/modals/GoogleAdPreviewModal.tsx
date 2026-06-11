@@ -406,14 +406,59 @@ export default function GoogleAdPreviewModal({ isOpen, onClose }: GoogleAdPrevie
           {/* STEP 1: Onboarding */}
           {step === 1 && (
             <div className="space-y-5">
-              {/* Onboarding Info */}
-              <div className="bg-stone-50 border border-stone-150 rounded-2xl p-4 space-y-2">
-                <h4 className="text-[12px] font-black text-stone-900 uppercase tracking-wider flex items-center gap-2">
-                  <Lucide.Compass className="text-emerald-500" size={16} /> Google Reklamları Nedir?
-                </h4>
-                <p className="text-[10px] font-bold text-stone-500 leading-relaxed normal-case">
-                  Ödediğiniz bütçe kadar müşteri, Google'da sizin sektörünüzle alakalı bir şeyler aradığında en başta sizin dükkanınızı görür. İnsanlar her zaman en üstte çıkana tıkladığı için doğrudan sizin dükkanınıza girmiş olurlar.
-                </p>
+              {/* Google Ads Auction Explainer Cards */}
+              <div className="grid grid-cols-1 gap-3">
+                {/* 1. Market Size */}
+                <div className="bg-stone-50 border border-stone-150 rounded-2xl p-4 flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
+                    <Lucide.Search size={20} />
+                  </div>
+                  <div className="space-y-0.5">
+                    <span className="text-[9px] font-black text-stone-400 uppercase tracking-wider">1. Toplam Müşteri Araması</span>
+                    <h5 className="text-xs font-black text-stone-950">100.000 Arama / Ay</h5>
+                    <p className="text-[9px] font-bold text-stone-500 leading-normal">
+                      Sektörünüzle alakalı kelimeleri Google'da aratan aylık ortalama kitle.
+                    </p>
+                  </div>
+                </div>
+
+                {/* 2. Budget Share Pie/Bar */}
+                <div className="bg-stone-50 border border-stone-150 rounded-2xl p-4 space-y-3">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
+                      <Lucide.PieChart size={20} />
+                    </div>
+                    <div className="space-y-0.5">
+                      <span className="text-[9px] font-black text-stone-400 uppercase tracking-wider">2. Toplam Reklam Havuzu</span>
+                      <h5 className="text-xs font-black text-stone-950">Sizin Payınız: 10.000 ₺ / Toplam: 210.000 ₺</h5>
+                    </div>
+                  </div>
+                  {/* Share Progress Bar */}
+                  <div className="space-y-1">
+                    <div className="w-full h-3 bg-stone-200 rounded-full overflow-hidden flex">
+                      <div className="h-full bg-emerald-500" style={{ width: '4.76%' }} title="Sizin Payınız" />
+                      <div className="h-full bg-stone-400/50" style={{ width: '95.24%' }} title="Diğer Reklamlar" />
+                    </div>
+                    <div className="flex justify-between items-center text-[8px] font-black uppercase tracking-wider">
+                      <span className="text-emerald-600">Siz (10.000 ₺) — %4.8</span>
+                      <span className="text-stone-400">Rakipler (200.000 ₺) — %95.2</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* 3. Expected Clicks */}
+                <div className="bg-stone-50 border border-stone-150 rounded-2xl p-4 flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center shrink-0">
+                    <Lucide.MousePointerClick size={20} />
+                  </div>
+                  <div className="space-y-0.5">
+                    <span className="text-[9px] font-black text-stone-400 uppercase tracking-wider">3. Alacağınız Net Sonuç</span>
+                    <h5 className="text-xs font-black text-stone-950">En Üstte ~4.800 Gösterim & Tıklama</h5>
+                    <p className="text-[9px] font-bold text-stone-500 leading-normal">
+                      Reklam payınız oranında (~4.800 arama) en tepede siz çıkarsınız. En üstteki sonuca tıklandığı için bu kitlenin tamamı doğrudan dükkanınıza girer.
+                    </p>
+                  </div>
+                </div>
               </div>
 
               {/* Static Google Search Mockup */}
