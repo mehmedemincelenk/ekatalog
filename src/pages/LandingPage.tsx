@@ -117,7 +117,7 @@ export default function LandingPage() {
         </p>
       </div>
 
-      <section className="pt-10 pb-12 px-4 text-center">
+      <section className="pt-10 pb-4 px-4 text-center">
         <div className="max-w-4xl mx-auto space-y-2 relative">
           {/* Milli Teknoloji Hamlesi Watermark */}
           <div className="absolute top-[-40px] sm:top-[-80px] left-1/2 -translate-x-[110%] sm:translate-x-[25%] w-56 sm:w-[360px] opacity-[0.07] pointer-events-none select-none z-0">
@@ -247,7 +247,7 @@ export default function LandingPage() {
       </section>
 
       {/* Section Divider */}
-      <div className="max-w-md mx-auto border-t border-stone-100 my-16" />
+      <div className="max-w-md mx-auto border-t border-stone-100 my-8" />
 
       <section className="pb-16 px-4">
         <div className="text-center flex flex-col items-center animate-in fade-in duration-1000 delay-500">
