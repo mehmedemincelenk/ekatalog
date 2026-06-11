@@ -287,7 +287,7 @@ export default function LandingPage() {
       <section className="pb-16 px-4">
         <div className="text-center flex flex-col items-center animate-in fade-in duration-1000 delay-500">
           {/* 90-Day Free Trial Subtitle Banner */}
-          <p className="text-[10px] font-black text-amber-600 uppercase tracking-[0.25em] mb-8">
+          <p className="text-[10px] font-black text-emerald-600 uppercase tracking-[0.25em] mb-8">
             • 90 gün ücretsiz deneyin •
           </p>
 
