@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import * as Lucide from 'lucide-react';
 import { THEME } from '../data/config';
-import Button from '../components/ui/Button';
 
 const DOMAIN_EXTENSIONS = ['site', 'coffee', 'cafe', 'ltd', 'io'];
 
@@ -336,24 +335,40 @@ export default function LandingPage() {
           </div>
           {/* Unified CTA Button */}
           <div className="mt-8 max-w-lg mx-auto w-full px-4">
-            <Button
-              {...({
-                as: 'a',
-                href: 'https://wa.me/905373420161?text=Merhaba,%2090%20günlük%20ücretsiz%20denememi%20başlatmak%20istiyorum.',
-                target: '_blank',
-                rel: 'noreferrer'
-              } as any)}
-              variant="primary"
-              size="lg"
-              icon={
-                <svg viewBox="0 0 24 24" className="w-5 h-5 fill-current shrink-0">
-                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L0 24l6.335-1.662c1.72.937 3.659 1.431 5.633 1.432h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
-                </svg>
-              }
-              className="hover:scale-[1.01] active:scale-[0.99] transition-transform shadow-xl shadow-stone-900/10 w-full text-center"
+            <a
+              href="https://wa.me/905373420161?text=Merhaba,%2090%20günlük%20ücretsiz%20denememi%20başlatmak%20istiyorum."
+              target="_blank"
+              rel="noreferrer"
+              className="block hover:scale-[1.02] active:scale-[0.98] transition-transform duration-200 w-full"
             >
-              90 Gün Ücretsiz Deneyin • Fiyatı Sonra Düşünün
-            </Button>
+              <div
+                className="rounded-[2rem] p-5 shadow-2xl relative overflow-hidden w-full text-left"
+                style={{ backgroundColor: THEME.colors.marketing.brand }}
+              >
+                <div className="absolute inset-0 bg-gradient-to-tr from-white/5 to-transparent"></div>
+
+                <div className="relative z-10 flex items-center gap-4">
+                  {/* Left Side: Squircle App Icon Button */}
+                  <div className="shrink-0">
+                    <div className="w-16 h-16 bg-[#25D366] text-white flex items-center justify-center rounded-2xl shadow-none">
+                      <div className="w-8 h-8 fill-white drop-shadow-sm transition-transform duration-300">
+                        {THEME.icons.whatsapp}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Right Side: Text Copy */}
+                  <div className="flex-1 space-y-1">
+                    <h2 className="text-base sm:text-lg font-black text-white tracking-tight leading-snug">
+                      90 Gün Ücretsiz Deneyin
+                    </h2>
+                    <p className="text-[10px] font-bold text-emerald-400 uppercase tracking-wider">
+                      Fiyatı Sonra Düşünün
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </a>
             {/* Trust Badge / Microcopy */}
             <p className="text-[9px] font-black text-stone-400 mt-4 uppercase tracking-[0.2em]">
               24 Saatte Teslim • Kurulum Bize Ait • Taahhüt Yok
