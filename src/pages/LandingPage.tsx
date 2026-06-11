@@ -196,18 +196,18 @@ export default function LandingPage() {
           {/* AVOID LOSS (STAKES) - Modernist Minimalist (Kurtulacaklarınız) */}
           <div className="pt-16 max-w-3xl mx-auto text-center space-y-4 relative z-10">
             <div className="space-y-2">
-              <p className="text-[10px] font-black text-stone-300 uppercase tracking-[0.4em]">
+              <p className="text-[10px] font-black text-stone-800 uppercase tracking-[0.4em]">
                 bikaç tıkla kurtulacaklarınız
               </p>
             </div>
             <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-3 px-4 pt-2">
-              <div className="flex items-center gap-2 bg-red-50/60 border border-red-100/80 rounded-full py-1.5 px-4 text-xs font-bold text-red-800/90 shadow-sm shadow-red-100/30 hover:bg-red-100/40 transition-colors">
+              <div className="flex items-center gap-2 bg-red-50/60 border border-red-100/80 rounded-lg py-1.5 px-4 text-xs font-bold text-red-800/90 shadow-sm shadow-red-100/30 hover:bg-red-100/40 transition-colors">
                 <span>fiyat değiştirme zorluğu</span>
               </div>
-              <div className="flex items-center gap-2 bg-red-50/60 border border-red-100/80 rounded-full py-1.5 px-4 text-xs font-bold text-red-800/90 shadow-sm shadow-red-100/30 hover:bg-red-100/40 transition-colors">
+              <div className="flex items-center gap-2 bg-red-50/60 border border-red-100/80 rounded-lg py-1.5 px-4 text-xs font-bold text-red-800/90 shadow-sm shadow-red-100/30 hover:bg-red-100/40 transition-colors">
                 <span>fiyat değişikliklerine geç kalmak</span>
               </div>
-              <div className="flex items-center gap-2 bg-red-50/60 border border-red-100/80 rounded-full py-1.5 px-4 text-xs font-bold text-red-800/90 shadow-sm shadow-red-100/30 hover:bg-red-100/40 transition-colors">
+              <div className="flex items-center gap-2 bg-red-50/60 border border-red-100/80 rounded-lg py-1.5 px-4 text-xs font-bold text-red-800/90 shadow-sm shadow-red-100/30 hover:bg-red-100/40 transition-colors">
                 <span>tasarımcı/yazılımcı beklemek</span>
               </div>
             </div>
@@ -215,44 +215,44 @@ export default function LandingPage() {
 
           {/* THE SUPERPOWERS (Kazanacaklarınız) - Flat typographic minimalist design */}
           <div className="pt-16 max-w-4xl mx-auto space-y-8">
-            <p className="text-[10px] font-black text-stone-300 uppercase tracking-[0.4em]">
+            <p className="text-[10px] font-black text-stone-800 uppercase tracking-[0.4em]">
               bikaç tıkla kazanacaklarınız
             </p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-5xl mx-auto px-4">
               {/* Pillar 1: App & Web */}
-              <div className="bg-stone-50/40 border border-stone-100/80 rounded-2xl p-5 hover:bg-stone-50/80 transition-all shadow-sm shadow-stone-100/10 flex flex-col items-center text-center">
-                <div className="inline-flex items-center gap-2 bg-emerald-50/60 border border-emerald-100/80 rounded-lg py-1.5 px-4 text-xs font-bold text-emerald-800/90 shadow-sm shadow-emerald-100/30 hover:bg-emerald-100/40 transition-colors shrink-0">
-                  <Lucide.Globe size={12} className="text-emerald-600" />
-                  <span>teknoloji</span>
+              <div className="bg-emerald-50/40 border border-emerald-100/70 rounded-lg p-5 hover:bg-emerald-50/80 transition-all shadow-sm shadow-emerald-100/20 flex flex-col items-center text-center">
+                <div className="inline-flex items-center gap-2 text-xs font-black text-emerald-800 shrink-0">
+                  <Lucide.Globe size={14} className="text-emerald-600" />
+                  <span className="uppercase tracking-wider">teknoloji</span>
                 </div>
                 <div className="flex-1 flex items-center justify-center pt-3">
-                  <p className="text-xs text-stone-500 font-medium leading-relaxed">
+                  <p className="text-xs text-stone-600 font-medium leading-relaxed">
                     markanıza özel web sitesi, cepten kolay katalog yönetimi, mobil uygulama kurulumu ve toplu ürün yükleme
                   </p>
                 </div>
               </div>
 
               {/* Pillar 2: Bikaç Tıkla Teknoloji */}
-              <div className="bg-stone-50/40 border border-stone-100/80 rounded-2xl p-5 hover:bg-stone-50/80 transition-all shadow-sm shadow-stone-100/10 flex flex-col items-center text-center">
-                <div className="inline-flex items-center gap-2 bg-emerald-50/60 border border-emerald-100/80 rounded-lg py-1.5 px-4 text-xs font-bold text-emerald-800/90 shadow-sm shadow-emerald-100/30 hover:bg-emerald-100/40 transition-colors shrink-0">
-                  <Lucide.Sparkles size={12} className="text-emerald-600" />
-                  <span>reklam</span>
+              <div className="bg-emerald-50/40 border border-emerald-100/70 rounded-lg p-5 hover:bg-emerald-50/80 transition-all shadow-sm shadow-emerald-100/20 flex flex-col items-center text-center">
+                <div className="inline-flex items-center gap-2 text-xs font-black text-emerald-800 shrink-0">
+                  <Lucide.Sparkles size={14} className="text-emerald-600" />
+                  <span className="uppercase tracking-wider">reklam</span>
                 </div>
                 <div className="flex-1 flex items-center justify-center pt-3">
-                  <p className="text-xs text-stone-500 font-medium leading-relaxed">
+                  <p className="text-xs text-stone-600 font-medium leading-relaxed">
                     Yazılım bilmenize gerek yok; bikaç tıkla bütçenizi belirleyin, <span className="font-bold text-stone-900">Google reklamınızı biz verelim</span>, bölgenizdeki müşterilerin sizi ilk sırada görmesini sağlayalım.
                   </p>
                 </div>
               </div>
 
               {/* Pillar 3: Hazır Tasarımlar */}
-              <div className="bg-stone-50/40 border border-stone-100/80 rounded-2xl p-5 hover:bg-stone-50/80 transition-all shadow-sm shadow-stone-100/10 flex flex-col items-center text-center">
-                <div className="inline-flex items-center gap-2 bg-emerald-50/60 border border-emerald-100/80 rounded-lg py-1.5 px-4 text-xs font-bold text-emerald-800/90 shadow-sm shadow-emerald-100/30 hover:bg-emerald-100/40 transition-colors shrink-0">
-                  <Lucide.Palette size={12} className="text-emerald-600" />
-                  <span>tasarım</span>
+              <div className="bg-emerald-50/40 border border-emerald-100/70 rounded-lg p-5 hover:bg-emerald-50/80 transition-all shadow-sm shadow-emerald-100/20 flex flex-col items-center text-center">
+                <div className="inline-flex items-center gap-2 text-xs font-black text-emerald-800 shrink-0">
+                  <Lucide.Palette size={14} className="text-emerald-600" />
+                  <span className="uppercase tracking-wider">tasarım</span>
                 </div>
                 <div className="flex-1 flex items-center justify-center pt-3">
-                  <p className="text-xs text-stone-500 font-medium leading-relaxed">
+                  <p className="text-xs text-stone-600 font-medium leading-relaxed">
                     Tasarımcı beklemeden hazır sosyal medya gönderilerinizi indirip paylaşın; QR masa kartı, kılıf ve kartvizit gibi tüm baskı ürünlerini markanıza özel tasarımlarımızla anında sipariş edin.
                   </p>
                 </div>
