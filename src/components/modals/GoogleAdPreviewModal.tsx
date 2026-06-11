@@ -477,14 +477,9 @@ export default function GoogleAdPreviewModal({ isOpen, onClose }: GoogleAdPrevie
                 <div className="bg-white border border-stone-200/60 rounded-2xl p-4 space-y-4">
                   {/* Step 1: Total Searchers */}
                   <div className="flex justify-between items-start gap-4">
-                    <div className="flex gap-2.5 items-start">
-                      <div className="w-7 h-7 rounded-full bg-stone-100 text-stone-600 flex items-center justify-center shrink-0 mt-0.5">
-                        <Lucide.Search size={13} />
-                      </div>
-                      <div className="space-y-0.5">
-                        <span className="text-[11px] font-black text-stone-400 uppercase tracking-wider block">1. Toplam Arama</span>
-                        <p className="text-[12px] font-bold text-stone-600 leading-normal">Ürünlerinizi arayan aylık toplam kişi sayısı</p>
-                      </div>
+                    <div className="space-y-0.5">
+                      <span className="text-[11px] font-black text-stone-400 uppercase tracking-wider block">1. Toplam Arama</span>
+                      <p className="text-[12px] font-bold text-stone-600 leading-normal">Ürünlerinizi arayan aylık toplam kişi sayısı</p>
                     </div>
                     <span className="text-[14px] font-black text-stone-900 shrink-0 pt-0.5">10.000 Arama</span>
                   </div>
@@ -528,24 +523,19 @@ export default function GoogleAdPreviewModal({ isOpen, onClose }: GoogleAdPrevie
                   <hr className="border-t border-stone-100" />
 
                   {/* Step 3: Your monthly share */}
-                  <div className="bg-emerald-50/40 border border-emerald-150 p-3.5 rounded-xl space-y-2.5">
+                  <div className="space-y-3">
                     <div className="flex justify-between items-start gap-4">
-                      <div className="flex gap-2.5 items-start">
-                        <div className="w-7 h-7 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0 mt-0.5">
-                          <Lucide.TrendingUp size={13} />
-                        </div>
-                        <div className="space-y-0.5">
-                          <span className="text-[11px] font-black text-emerald-600 uppercase tracking-wider block">3. Sizin Ziyaretçiniz</span>
-                          <p className="text-[12px] font-bold text-emerald-800 leading-normal">
-                            Bütçe payınız <span className="font-black">%10</span>. Aramaların <span className="font-black">%10'u</span> dükkanınıza gelir.
-                          </p>
-                        </div>
+                      <div className="space-y-0.5">
+                        <span className="text-[11px] font-black text-emerald-600 uppercase tracking-wider block">3. Sizin Ziyaretçiniz</span>
+                        <p className="text-[12px] font-bold text-stone-600 leading-normal">
+                          Bütçe payınız <span className="font-black text-emerald-600">%10</span>. Aramaların <span className="font-black text-emerald-600">%10'u</span> dükkanınıza gelir.
+                        </p>
                       </div>
                       <span className="text-[16px] font-black text-emerald-600 shrink-0 pt-0.5">1.000 Kişi</span>
                     </div>
 
                     {/* Simple Share Indicator */}
-                    <div className="space-y-1 pt-1.5 border-t border-emerald-150/40">
+                    <div className="space-y-1 pt-1.5 border-t border-stone-100">
                       <div className="w-full h-2 bg-stone-100 rounded-full overflow-hidden flex">
                         <div className="h-full bg-emerald-500" style={{ width: '10%' }} />
                         <div className="h-full bg-stone-200" style={{ width: '90%' }} />
