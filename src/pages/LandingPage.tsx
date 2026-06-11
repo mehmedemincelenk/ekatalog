@@ -300,10 +300,10 @@ export default function LandingPage() {
                 AYLIK ÖDEME
               </span>
               <p className="text-[10px] font-black text-stone-300 tracking-[0.3em] line-through">
-                ₺499 / ay
+                ₺500 / ay
               </p>
               <p className="text-5xl font-black text-stone-900 tracking-tighter leading-none pr-1">
-                ₺299
+                ₺300
                 <span className="text-lg font-bold opacity-30 ml-2">/ ay</span>
               </p>
             </div>
@@ -317,10 +317,10 @@ export default function LandingPage() {
                 YILLIK ÖDEME
               </span>
               <p className="text-[10px] font-black text-stone-300 tracking-[0.3em] line-through">
-                ₺5.999 / yıl
+                ₺6.000 / yıl
               </p>
               <p className="text-5xl font-black text-stone-900 tracking-tighter leading-none pr-1">
-                ₺3.499
+                ₺3.500
                 <span className="text-lg font-bold opacity-30 ml-2">/ yıl</span>
               </p>
             </div>
