@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { CompanySettings, StoreState, ActiveCampaign } from './types';
+import { CompanySettings, StoreState } from './types';
 import { TECH, LABELS } from './data/config';
 import { getNextCurrency } from './utils/price';
 
@@ -128,15 +128,6 @@ export const useStore = create<StoreState>((set) => ({
       localStorage.setItem('ekatalog_inline_edit_v1', String(next));
       return { isInlineEnabled: next };
     }),
-
-  activeCampaign:
-    typeof window !== 'undefined' && localStorage.getItem('ekatalog_active_campaign')
-      ? JSON.parse(localStorage.getItem('ekatalog_active_campaign')!)
-      : { status: 'idle', budget: 0, targetArea: 'Bulunduğum İlçe', refCode: '', voiceUrl: null },
-  setActiveCampaign: (campaign: ActiveCampaign) => {
-    localStorage.setItem('ekatalog_active_campaign', JSON.stringify(campaign));
-    set({ activeCampaign: campaign });
-  },
 
   // UI / Modal Management
   activeModal: null,

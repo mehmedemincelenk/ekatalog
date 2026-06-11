@@ -37,10 +37,10 @@ const FEATURE_ITEMS: FeatureItem[] = [
 ];
 
 export default function FeaturesModal({ isOpen, onClose }: FeaturesModalProps) {
-  const { openModal, activeCampaign } = useStore();
+  const { openModal } = useStore();
 
   const handleFeatureClick = (
-    targetModal: 'SOCIAL_EXPORT' | 'PORTFOYS_SEARCH' | 'PORTFOYS_DIRECTORY' | 'GOOGLE_AD',
+    targetModal: 'SOCIAL_EXPORT' | 'PORTFOYS_SEARCH' | 'PORTFOYS_DIRECTORY',
   ) => {
     onClose();
     setTimeout(() => {
@@ -114,38 +114,26 @@ export default function FeaturesModal({ isOpen, onClose }: FeaturesModalProps) {
         </button>
 
         <button
-          onClick={() => handleFeatureClick('GOOGLE_AD')}
-          className="flex items-center gap-4 p-4 rounded-2xl border border-stone-200 bg-stone-50 hover:bg-white hover:border-stone-400 hover:shadow-md transition-all duration-200 text-left active:scale-98 group cursor-pointer"
+          disabled
+          className="flex items-center gap-4 p-4 rounded-2xl border border-stone-150 bg-stone-50/50 opacity-60 text-left cursor-not-allowed select-none"
         >
-          <div className="w-12 h-12 rounded-xl bg-emerald-500/10 text-emerald-600 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+          <div className="w-12 h-12 rounded-xl bg-emerald-500/10 text-emerald-600 flex items-center justify-center shrink-0">
             <Lucide.Megaphone size={24} strokeWidth={2} />
           </div>
           <div className="flex-1">
             <div className="flex items-center gap-2">
-              <h4 className="text-[12px] font-black text-stone-900 uppercase tracking-wider">
+              <h4 className="text-[12px] font-black text-stone-400 uppercase tracking-wider">
                 Tek Tıkla Reklam Ver
               </h4>
-              {activeCampaign.status === 'active' && (
-                <span className="text-[8px] font-black bg-emerald-500 text-white px-1.5 py-0.5 rounded uppercase tracking-wider animate-pulse">
-                  YAYINDA
-                </span>
-              )}
-              {activeCampaign.status === 'pending' && (
-                <span className="text-[8px] font-black bg-amber-500 text-white px-1.5 py-0.5 rounded uppercase tracking-wider">
-                  ONAY BEKLİYOR
-                </span>
-              )}
+              <span className="text-[8px] font-black bg-stone-200 text-stone-500 px-1.5 py-0.5 rounded uppercase tracking-wider">
+                Yakında
+              </span>
             </div>
             <p className="text-[10px] font-bold text-stone-400 mt-1 leading-normal">
-              {activeCampaign.status === 'active'
-                ? 'Reklamınız yayında, müşterileriniz sizi görüyor.'
-                : 'Sosyal medya hesabı ve karmaşık paneller olmadan kolayca reklam verin.'}
+              Sosyal medya hesabı ve karmaşık paneller olmadan kolayca reklam verin.
             </p>
           </div>
-          <Lucide.ChevronRight
-            size={18}
-            className="text-stone-300 group-hover:translate-x-1 transition-transform"
-          />
+          <Lucide.ChevronRight size={18} className="text-stone-200" />
         </button>
       </div>
     </BaseModal>

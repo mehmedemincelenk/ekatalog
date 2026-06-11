@@ -628,16 +628,7 @@ export type ModalType =
   | 'PORTFOYS_SEARCH'
   | 'PORTFOYS_DIRECTORY'
   | 'FEATURES'
-  | 'GOOGLE_AD'
   | null;
-
-export interface ActiveCampaign {
-  status: 'idle' | 'pending' | 'active';
-  budget: number;
-  targetArea: string;
-  refCode: string;
-  voiceUrl?: string | null;
-}
 
 export interface StoreState {
   isAdmin: boolean;
@@ -690,7 +681,4 @@ export interface StoreState {
     duration?: number,
   ) => void;
   hideFeedback: () => void;
-
-  activeCampaign: ActiveCampaign;
-  setActiveCampaign: (campaign: ActiveCampaign) => void;
 }

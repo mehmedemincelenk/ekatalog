@@ -46,19 +46,39 @@ export const MOCK_LANDINGPAGE_SETTINGS: CompanySettings = {
   },
   referencesData: [
     {
-      id: 1777001524860,
-      logo: 'https://logo.clearbit.com/eczacibasi.com.tr',
-      name: 'Eczacıbaşı',
+      id: 1,
+      logo: 'https://logo.clearbit.com/meysu.com.tr',
+      name: 'meysu',
     },
     {
-      id: 1777001524873,
-      logo: 'https://logo.clearbit.com/arcelik.com.tr',
-      name: 'Arçelik',
+      id: 2,
+      logo: 'https://logo.clearbit.com/meda.com.tr',
+      name: 'meda',
     },
     {
-      id: 1777001524880,
-      logo: 'https://logo.clearbit.com/pakmaya.com.tr',
-      name: 'Pakmaya',
+      id: 3,
+      logo: 'https://logo.clearbit.com/lcwaikiki.com',
+      name: 'LCW',
+    },
+    {
+      id: 4,
+      logo: 'https://logo.clearbit.com/defacto.com.tr',
+      name: 'DEFACTO',
+    },
+    {
+      id: 5,
+      logo: 'https://logo.clearbit.com/casper.com.tr',
+      name: 'Casper',
+    },
+    {
+      id: 6,
+      logo: 'https://logo.clearbit.com/baykartech.com',
+      name: 'BAYKAR',
+    },
+    {
+      id: 7,
+      logo: 'https://logo.clearbit.com/aselsan.com.tr',
+      name: 'ASELSAN',
     },
   ],
   displayConfig: {

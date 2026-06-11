@@ -34,7 +34,6 @@ const SocialExportModal = safeLazy(() => import('./SocialExportModal'));
 const PortfoysLeadModal = safeLazy(() => import('./PortfoysLeadModal'));
 const FeaturesModal = safeLazy(() => import('./FeaturesModal'));
 const AddReferenceModal = safeLazy(() => import('./AddReferenceModal'));
-const GoogleAdModal = safeLazy(() => import('./GoogleAdModal'));
 
 import { useStore } from '../../store';
 import { useProducts } from '../../hooks/useProductsHub';
@@ -241,13 +240,6 @@ const AppModals = memo(() => {
             <Suspense fallback={null}>
               <FeaturesModal
                 isOpen={activeModal === 'FEATURES'}
-                onClose={closeModal}
-              />
-            </Suspense>
-
-            <Suspense fallback={null}>
-              <GoogleAdModal
-                isOpen={activeModal === 'GOOGLE_AD'}
                 onClose={closeModal}
               />
             </Suspense>
