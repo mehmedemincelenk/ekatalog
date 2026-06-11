@@ -344,7 +344,7 @@ export default function GoogleAdPreviewModal({ isOpen, onClose }: GoogleAdPrevie
 
   const getStepTitle = () => {
     switch (step) {
-      case 1: return 'Google Reklamları';
+      case 1: return 'Nedir bu Google Reklamları?';
       case 2: return 'Kampanya Tipi';
       case 3: return hasQA ? 'Reklam Kalitesi' : 'Adres Onayı';
       case 4: return hasQA ? 'Adres Onayı' : 'Hedef Kitle';
@@ -406,92 +406,85 @@ export default function GoogleAdPreviewModal({ isOpen, onClose }: GoogleAdPrevie
           {/* STEP 1: Onboarding */}
           {step === 1 && (
             <div className="space-y-5">
-              {/* Unified Container Box */}
-              <div className="bg-stone-50 border border-stone-150 rounded-3xl p-5 space-y-5">
-                {/* Header Section */}
-                <div className="space-y-1">
-                  <h4 className="text-[11px] font-black text-stone-900 uppercase tracking-widest flex items-center gap-1.5">
-                    <Lucide.PieChart size={14} className="text-emerald-500" />
-                    NEDİR BU REKLAMLAR?
-                  </h4>
-                  <p className="text-[10px] font-bold text-stone-500 leading-relaxed">
-                    Sistem son derece basit çalışır:
-                  </p>
-                </div>
+              {/* Header Section */}
+              <div className="space-y-0.5">
+                <p className="text-[11px] font-bold text-stone-500 leading-relaxed">
+                  Sistem son derece basit çalışır:
+                </p>
+              </div>
 
-                {/* Math Card */}
-                <div className="bg-white border border-stone-200/60 rounded-2xl p-3.5 space-y-3">
-                  {/* Row 1: Toplam Arama */}
-                  <div className="flex justify-between items-center">
-                    <div className="space-y-0.5">
-                      <span className="text-[11px] font-black text-stone-400 uppercase tracking-wider block">1. Toplam Arama</span>
-                      <p className="text-[10px] font-bold text-stone-500 leading-none">Aylık ürünlerinizi arayan kişi sayısı</p>
-                    </div>
-                    <span className="text-[13px] font-black text-stone-900">10.000 Kişi</span>
+              {/* Math Content (Flat) */}
+              <div className="space-y-3">
+                {/* Row 1: Toplam Arama */}
+                <div className="flex justify-between items-center">
+                  <div className="space-y-0.5">
+                    <span className="text-[11px] font-black text-stone-400 uppercase tracking-wider block">1. Toplam Arama</span>
+                    <p className="text-[10px] font-bold text-stone-500 leading-none">Aylık ürünlerinizi arayan kişi sayısı</p>
                   </div>
-                  
-                  <hr className="border-t border-stone-100" />
-                  
-                  {/* Row 2: Reklam Bütçeleri */}
+                  <span className="text-[13px] font-black text-stone-900">10.000 Kişi</span>
+                </div>
+                
+                <hr className="border-t border-stone-100" />
+                
+                {/* Row 2: Reklam Bütçeleri */}
+                <div className="space-y-1.5">
+                  <div className="flex justify-between items-center">
+                    <span className="text-[11px] font-black text-stone-400 uppercase tracking-wider block">2. Bütçe Pastası</span>
+                    <span className="text-[11px] font-black text-stone-900 bg-stone-100 px-2 py-0.5 rounded whitespace-nowrap">%10 Payı</span>
+                  </div>
+                  <div className="flex flex-wrap items-center justify-between gap-x-2 gap-y-1 text-[11px] font-bold text-stone-600 pt-0.5">
+                    <div className="whitespace-nowrap">
+                      Sizin: <span className="font-black text-emerald-600">2.000 ₺</span>
+                    </div>
+                    <div className="whitespace-nowrap">
+                      Rakipler: <span className="font-black text-stone-850">18.000 ₺</span>
+                    </div>
+                    <div className="whitespace-nowrap">
+                      Toplam: <span className="font-black text-stone-900">20.000 ₺</span>
+                    </div>
+                  </div>
+                </div>
+                
+                <hr className="border-t border-stone-100" />
+                
+                {/* Row 3: Sizin Ziyaretçiniz */}
+                <div className="flex justify-between items-center">
+                  <div className="space-y-0.5">
+                    <span className="text-[11px] font-black text-emerald-600 uppercase tracking-wider block">3. Sizin Ziyaretçiniz</span>
+                    <p className="text-[10px] font-bold text-stone-500 leading-none">Aramaların %10'u dükkanınıza gelir</p>
+                  </div>
+                  <span className="text-[14px] font-black text-emerald-600">1.000 Kişi</span>
+                </div>
+              </div>
+
+              <hr className="border-t border-stone-200/60" />
+
+              {/* Google Arama Simülasyonu */}
+              <div className="space-y-2.5">
+                <span className="text-[9px] font-black text-stone-400 uppercase tracking-widest block">
+                  Google Arama Görünümü
+                </span>
+
+                {/* Visual Google Search Result Mockup */}
+                <div className="border border-stone-200 rounded-2xl p-4 bg-white shadow-sm space-y-3">
+                  <div className="flex items-center gap-2 border-b border-stone-100 pb-2">
+                    <div className="w-5 h-5 rounded-full bg-stone-100 flex items-center justify-center text-[10px] font-black text-stone-600 shrink-0">G</div>
+                    <div className="flex-1 bg-stone-50 border border-stone-200/50 rounded-full px-3 py-1 flex items-center justify-between text-[9px] font-bold text-stone-700 min-h-[22px]">
+                      <span className="text-stone-850 font-black tracking-normal">.....</span>
+                      <Lucide.Search size={10} className="text-stone-400" />
+                    </div>
+                  </div>
                   <div className="space-y-1.5">
-                    <div className="flex justify-between items-center">
-                      <span className="text-[11px] font-black text-stone-400 uppercase tracking-wider block">2. Bütçe Pastası</span>
-                      <span className="text-[11px] font-black text-stone-900 bg-stone-100 px-2 py-0.5 rounded whitespace-nowrap">%10 Payı</span>
+                    <div className="flex items-center gap-1.5">
+                      <span className="text-[9px] font-black bg-stone-100 text-stone-600 px-1 py-0.5 rounded tracking-wider uppercase">Sponsorlu</span>
+                      <span className="text-[9px] font-bold text-stone-400">{settings?.slug || 'slug'}.ekatalog.site</span>
                     </div>
-                    <div className="flex flex-wrap items-center justify-between gap-x-2 gap-y-1 text-[11px] font-bold text-stone-600 pt-0.5">
-                      <div className="whitespace-nowrap">
-                        Sizin: <span className="font-black text-emerald-600">2.000 ₺</span>
-                      </div>
-                      <div className="whitespace-nowrap">
-                        Rakipler: <span className="font-black text-stone-800">18.000 ₺</span>
-                      </div>
-                      <div className="whitespace-nowrap">
-                        Toplam: <span className="font-black text-stone-900">20.000 ₺</span>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <hr className="border-t border-stone-100" />
-                  
-                  {/* Row 3: Sizin Ziyaretçiniz */}
-                  <div className="flex justify-between items-center">
-                    <div className="space-y-0.5">
-                      <span className="text-[11px] font-black text-emerald-600 uppercase tracking-wider block">3. Sizin Ziyaretçiniz</span>
-                      <p className="text-[10px] font-bold text-stone-500 leading-none">Aramaların %10'u dükkanınıza gelir</p>
-                    </div>
-                    <span className="text-[14px] font-black text-emerald-600">1.000 Kişi</span>
-                  </div>
-                </div>
-
-                <hr className="border-t border-stone-200/60" />
-
-                {/* Google Arama Simülasyonu */}
-                <div className="space-y-2.5">
-                  <span className="text-[9px] font-black text-stone-400 uppercase tracking-widest block">
-                    Google Arama Görünümü
-                  </span>
-
-                  {/* Visual Google Search Result Mockup */}
-                  <div className="border border-stone-200 rounded-2xl p-4 bg-white shadow-sm space-y-3">
-                    <div className="flex items-center gap-2 border-b border-stone-100 pb-2">
-                      <div className="w-5 h-5 rounded-full bg-stone-100 flex items-center justify-center text-[10px] font-black text-stone-600 shrink-0">G</div>
-                      <div className="flex-1 bg-stone-50 border border-stone-200/50 rounded-full px-3 py-1 flex items-center justify-between text-[9px] font-bold text-stone-700 min-h-[22px]">
-                        <span className="text-stone-850 font-black tracking-normal">.....</span>
-                        <Lucide.Search size={10} className="text-stone-400" />
-                      </div>
-                    </div>
-                    <div className="space-y-1.5">
-                      <div className="flex items-center gap-1.5">
-                        <span className="text-[9px] font-black bg-stone-100 text-stone-600 px-1 py-0.5 rounded tracking-wider uppercase">Sponsorlu</span>
-                        <span className="text-[9px] font-bold text-stone-400">{settings?.slug || 'slug'}.ekatalog.site</span>
-                      </div>
-                      <h4 className="text-[13px] font-black text-blue-600 hover:underline cursor-pointer leading-tight">
-                        {settings?.title || 'Yeni Mağazanız'} | {settings?.subtitle || 'Dijital Katalog'}
-                      </h4>
-                      <p className="text-[10px] font-bold text-stone-500 leading-normal normal-case">
-                        En güncel ürünlerimizi, fiyat listemizi ve kataloğumuzu hemen inceleyin. Hızlı inceleme ve doğrudan sipariş imkanıyla hizmetinizdeyiz.
-                      </p>
-                    </div>
+                    <h4 className="text-[13px] font-black text-blue-600 hover:underline cursor-pointer leading-tight">
+                      {settings?.title || 'Yeni Mağazanız'} | {settings?.subtitle || 'Dijital Katalog'}
+                    </h4>
+                    <p className="text-[10px] font-bold text-stone-500 leading-normal normal-case">
+                      En güncel ürünlerimizi, fiyat listemizi ve kataloğumuzu hemen inceleyin. Hızlı inceleme ve doğrudan sipariş imkanıyla hizmetinizdeyiz.
+                    </p>
                   </div>
                 </div>
               </div>
