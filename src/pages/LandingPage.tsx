@@ -253,7 +253,7 @@ export default function LandingPage() {
                 </div>
                 <div className="flex-1 flex items-center justify-center pt-3">
                   <p className="text-xs text-stone-500 font-medium leading-relaxed">
-                    Tasarımcı beklemeden sosyal medya tasarımlarınızı cebe indirin; QR masa kartları, kartvizitler ve tüm baskı çözümlerini anında sipariş edin.
+                    Tasarımcı beklemeden hazır sosyal medya gönderilerinizi indirip paylaşın; QR masa kartı, kılıf ve kartvizit gibi tüm baskı ürünlerini markanıza özel tasarımlarımızla anında sipariş edin.
                   </p>
                 </div>
               </div>
