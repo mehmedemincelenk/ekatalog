@@ -447,11 +447,11 @@ export default function GoogleAdPreviewModal({ isOpen, onClose }: GoogleAdPrevie
 
                 <hr className="border-t border-stone-200/60" />
 
-                {/* Segment 4: Sizin Payınız */}
+                {/* Segment 4: Pastadan Payınız */}
                 <div className="space-y-1.5">
                   <div className="flex justify-between items-center">
                     <div className="space-y-0.5">
-                      <span className="text-[10px] font-black text-emerald-600 uppercase tracking-wider block">Sizin Payınız</span>
+                      <span className="text-[10px] font-black text-emerald-600 uppercase tracking-wider block">Pastadan Payınız</span>
                       <p className="text-[9px] font-bold text-stone-500 leading-none">10.000 ₺ / 100.000 ₺ = %10</p>
                     </div>
                     <span className="text-[12px] font-black text-white bg-emerald-500 border border-emerald-600 px-2.5 py-1 rounded-xl shadow-sm whitespace-nowrap">%10 (1.000 Müşteri)</span>
