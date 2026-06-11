@@ -223,10 +223,10 @@ export default function LandingPage() {
               <div className="flex gap-3 items-start">
                 <Lucide.Globe
                   size={16}
-                  className="text-stone-900 shrink-0 mt-0.5"
+                  className="text-emerald-600 shrink-0 mt-0.5"
                 />
                 <div className="space-y-0.5">
-                  <h3 className="text-sm font-black text-stone-900 tracking-tight">
+                  <h3 className="text-sm font-black text-emerald-600 tracking-tight">
                     hem app hem web
                   </h3>
                   <p className="text-xs text-stone-500 font-medium leading-relaxed">
@@ -239,14 +239,14 @@ export default function LandingPage() {
               <div className="flex gap-3 items-start">
                 <Lucide.Sparkles
                   size={16}
-                  className="text-stone-900 shrink-0 mt-0.5"
+                  className="text-emerald-600 shrink-0 mt-0.5"
                 />
                 <div className="space-y-0.5">
-                  <h3 className="text-sm font-black text-stone-900 tracking-tight">
+                  <h3 className="text-sm font-black text-emerald-600 tracking-tight">
                     bikaç tıkla teknoloji
                   </h3>
                   <p className="text-xs text-stone-500 font-medium leading-relaxed">
-                    Yazılım veya tasarım bilmenize gerek yok; bikaç tıkla kataloğunuzu yönetin, <span className="text-emerald-600 font-black">Google reklamı verin</span>, toplu yükleme yapın ve sosyal medya tasarımlarınızı cebe indirin.
+                    Yazılım veya tasarım bilmenize gerek yok; bikaç tıkla kataloğunuzu yönetin, <span className="font-bold text-stone-900">Google reklamı verin</span>, toplu yükleme yapın ve sosyal medya tasarımlarınızı cebe indirin.
                   </p>
                 </div>
               </div>
