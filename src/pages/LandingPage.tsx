@@ -289,8 +289,8 @@ export default function LandingPage() {
       <section className="pb-16 px-4">
         <div className="text-center flex flex-col items-center animate-in fade-in duration-1000 delay-500">
           {/* Launch Special Price Subtitle */}
-          <p className="text-[10px] font-black text-amber-600 uppercase tracking-[0.25em] mb-8">
-            • lansmana özel fiyatlar •
+          <p className="text-[10px] font-black text-amber-600 uppercase tracking-[0.2em] mb-8">
+            • lansmana özel • ilk 10 müşterimize özel (son 8 dükkan) •
           </p>
 
           <div className="flex flex-col md:flex-row items-stretch justify-center gap-6 mt-4 max-w-2xl mx-auto w-full px-4">
@@ -342,7 +342,7 @@ export default function LandingPage() {
             </div>
           </div>
           {/* Unified CTA Button */}
-          <div className="mt-10 max-w-lg mx-auto w-full px-4">
+          <div className="mt-8 max-w-lg mx-auto w-full px-4">
             <Button
               {...({
                 as: 'a',
@@ -356,6 +356,10 @@ export default function LandingPage() {
             >
               90 Gün Ücretsiz Deneyin • Fiyatı Sonra Düşünün
             </Button>
+            {/* Trust Badge / Microcopy */}
+            <p className="text-[9px] font-black text-stone-400 mt-4 uppercase tracking-[0.2em]">
+              Kredi Kartı Gerekmez • Kurulum Bize Ait
+            </p>
           </div>
         </div>
       </section>
