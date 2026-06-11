@@ -420,77 +420,43 @@ export default function GoogleAdPreviewModal({ isOpen, onClose }: GoogleAdPrevie
                 </div>
 
                 {/* Math Card */}
-                <div className="bg-white border border-stone-200/60 rounded-2xl p-4 space-y-4">
-                  {/* Step 1: Total Searchers */}
-                  <div className="flex justify-between items-start gap-4">
+                <div className="bg-white border border-stone-200/60 rounded-2xl p-3.5 space-y-3">
+                  {/* Row 1: Toplam Arama */}
+                  <div className="flex justify-between items-center">
                     <div className="space-y-0.5">
                       <span className="text-[11px] font-black text-stone-400 uppercase tracking-wider block">1. Toplam Arama</span>
-                      <p className="text-[12px] font-bold text-stone-600 leading-normal">Ürünlerinizi arayan aylık toplam kişi sayısı</p>
+                      <p className="text-[10px] font-bold text-stone-500 leading-none">Aylık ürünlerinizi arayan kişi sayısı</p>
                     </div>
-                    <span className="text-[14px] font-black text-stone-900 shrink-0 pt-0.5">10.000 Arama</span>
+                    <span className="text-[13px] font-black text-stone-900">10.000 Kişi</span>
                   </div>
-
+                  
                   <hr className="border-t border-stone-100" />
-
-                  {/* Step 2: Budget Pool */}
-                  <div className="space-y-2.5">
-                    <span className="text-[11px] font-black text-stone-400 uppercase tracking-wider block">2. Reklam Bütçeleri</span>
-                    
-                    <div className="grid grid-cols-3 gap-2 pt-0.5">
-                      {/* Sizin Bütçeniz */}
-                      <div className="bg-emerald-50/30 border border-emerald-100/50 rounded-2xl p-2.5 text-center space-y-1">
-                        <div className="w-7 h-7 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto">
-                          <Lucide.User size={13} />
-                        </div>
-                        <span className="text-[9px] font-black text-stone-400 uppercase tracking-wider block">Sizin</span>
-                        <span className="text-[13px] font-black text-emerald-600">2.000 ₺</span>
+                  
+                  {/* Row 2: Reklam Bütçeleri */}
+                  <div className="space-y-1.5">
+                    <div className="flex justify-between items-center">
+                      <span className="text-[11px] font-black text-stone-400 uppercase tracking-wider block">2. Bütçe Pastası</span>
+                      <span className="text-[11px] font-black text-stone-900 bg-stone-100 px-1.5 py-0.5 rounded">%10 Bütçe Payı</span>
+                    </div>
+                    <div className="flex justify-between items-center text-[10px] font-bold text-stone-600 bg-stone-50/50 rounded-xl p-2 border border-stone-150/50">
+                      <div>
+                        Sizin: <span className="font-black text-emerald-600">2.000 ₺</span> 
+                        <span className="mx-1.5 text-stone-300">|</span> 
+                        Rakiplerin: <span className="font-black text-stone-850">18.000 ₺</span>
                       </div>
-
-                      {/* Rakiplerin Bütçesi */}
-                      <div className="bg-stone-50 border border-stone-200/50 rounded-2xl p-2.5 text-center space-y-1">
-                        <div className="w-7 h-7 rounded-full bg-stone-100 text-stone-600 flex items-center justify-center mx-auto">
-                          <Lucide.Users size={13} />
-                        </div>
-                        <span className="text-[9px] font-black text-stone-400 uppercase tracking-wider block">Rakipler</span>
-                        <span className="text-[13px] font-black text-stone-800">18.000 ₺</span>
-                      </div>
-
-                      {/* Toplam Bütçe */}
-                      <div className="bg-stone-50 border border-stone-200/50 rounded-2xl p-2.5 text-center space-y-1">
-                        <div className="w-7 h-7 rounded-full bg-stone-100 text-stone-600 flex items-center justify-center mx-auto">
-                          <Lucide.Coins size={13} />
-                        </div>
-                        <span className="text-[9px] font-black text-stone-400 uppercase tracking-wider block">Toplam</span>
-                        <span className="text-[13px] font-black text-stone-900">20.000 ₺</span>
-                      </div>
+                      <span className="text-[10px] font-black text-stone-900">Toplam: 20.000 ₺</span>
                     </div>
                   </div>
-
+                  
                   <hr className="border-t border-stone-100" />
-
-                  {/* Step 3: Your monthly share */}
-                  <div className="space-y-3">
-                    <div className="flex justify-between items-start gap-4">
-                      <div className="space-y-0.5">
-                        <span className="text-[11px] font-black text-emerald-600 uppercase tracking-wider block">3. Sizin Ziyaretçiniz</span>
-                        <p className="text-[12px] font-bold text-stone-600 leading-normal">
-                          Bütçe payınız <span className="font-black text-emerald-600">%10</span>. Aramaların <span className="font-black text-emerald-600">%10'u</span> dükkanınıza gelir.
-                        </p>
-                      </div>
-                      <span className="text-[16px] font-black text-emerald-600 shrink-0 pt-0.5">1.000 Kişi</span>
+                  
+                  {/* Row 3: Sizin Ziyaretçiniz */}
+                  <div className="flex justify-between items-center">
+                    <div className="space-y-0.5">
+                      <span className="text-[11px] font-black text-emerald-600 uppercase tracking-wider block">3. Sizin Ziyaretçiniz</span>
+                      <p className="text-[10px] font-bold text-stone-500 leading-none">Aramaların %10'u dükkanınıza gelir</p>
                     </div>
-
-                    {/* Simple Share Indicator */}
-                    <div className="space-y-1 pt-1.5 border-t border-stone-100">
-                      <div className="w-full h-2 bg-stone-100 rounded-full overflow-hidden flex">
-                        <div className="h-full bg-emerald-500" style={{ width: '10%' }} />
-                        <div className="h-full bg-stone-200" style={{ width: '90%' }} />
-                      </div>
-                      <div className="flex justify-between items-center text-[9px] font-black uppercase tracking-wider text-stone-400">
-                        <span className="text-emerald-600 font-black">Sizin (%10)</span>
-                        <span>Rakipler (%90)</span>
-                      </div>
-                    </div>
+                    <span className="text-[14px] font-black text-emerald-600">1.000 Kişi</span>
                   </div>
                 </div>
 
