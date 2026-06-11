@@ -202,10 +202,7 @@ export default function LandingPage() {
             </div>
             <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-3 px-4 pt-2">
               <div className="flex items-center gap-2 bg-red-50/60 border border-red-100/80 rounded-lg py-1.5 px-4 text-xs font-bold text-red-800/90 shadow-sm shadow-red-100/30 hover:bg-red-100/40 transition-colors">
-                <span>fiyat değiştirme zorluğu</span>
-              </div>
-              <div className="flex items-center gap-2 bg-red-50/60 border border-red-100/80 rounded-lg py-1.5 px-4 text-xs font-bold text-red-800/90 shadow-sm shadow-red-100/30 hover:bg-red-100/40 transition-colors">
-                <span>fiyat değişikliklerine geç kalmak</span>
+                <span>fiyat değişikliklerine yetişememek</span>
               </div>
               <div className="flex items-center gap-2 bg-red-50/60 border border-red-100/80 rounded-lg py-1.5 px-4 text-xs font-bold text-red-800/90 shadow-sm shadow-red-100/30 hover:bg-red-100/40 transition-colors">
                 <span>tasarımcı/yazılımcı beklemek</span>
