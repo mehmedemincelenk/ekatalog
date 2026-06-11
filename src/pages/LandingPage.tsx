@@ -285,9 +285,12 @@ export default function LandingPage() {
       {/* Section Divider */}
       <div className="max-w-md mx-auto border-t border-stone-100 my-16" />
 
-      {/* PRICING & TRUST SECTION - Clean Modernist Layout */}
       <section className="pb-16 px-4">
         <div className="text-center flex flex-col items-center animate-in fade-in duration-1000 delay-500">
+          {/* 90-Day Free Trial Subtitle Banner */}
+          <p className="text-[10px] font-black text-amber-600 uppercase tracking-[0.25em] mb-8">
+            • 90 gün ücretsiz deneyin •
+          </p>
 
           <div className="flex flex-col md:flex-row items-stretch justify-center gap-6 mt-4 max-w-2xl mx-auto w-full px-4">
             {/* Monthly Plan Card */}
