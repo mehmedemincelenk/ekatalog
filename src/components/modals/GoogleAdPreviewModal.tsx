@@ -416,21 +416,21 @@ export default function GoogleAdPreviewModal({ isOpen, onClose }: GoogleAdPrevie
                   <span className="text-[12px] font-black text-stone-900 bg-white border border-stone-200 px-2.5 py-1 rounded-xl shadow-sm whitespace-nowrap">10.000 Kişi</span>
                 </div>
 
-                {/* Step 2: Toplam Reklam Pastası */}
+                {/* Step 2: Toplam Reklam Bütçesi */}
                 <div className="bg-stone-50 border border-stone-200/60 rounded-2xl p-3 flex justify-between items-center">
                   <div className="space-y-0.5">
-                    <span className="text-[10px] font-black text-stone-400 uppercase tracking-wider block">Toplam Reklam Pastası</span>
-                    <p className="text-[9px] font-bold text-stone-500 leading-none">Sektördeki dükkanların toplam harcaması</p>
+                    <span className="text-[10px] font-black text-stone-400 uppercase tracking-wider block">Toplam Reklam Bütçesi</span>
+                    <p className="text-[9px] font-bold text-stone-500 leading-none">Sektördeki rakiplerinizin toplam harcaması</p>
                   </div>
                   <span className="text-[12px] font-black text-stone-900 bg-white border border-stone-200 px-2.5 py-1 rounded-xl shadow-sm whitespace-nowrap">20.000 ₺</span>
                 </div>
 
-                {/* Step 3: Sizin Reklam Payınız */}
+                {/* Step 3: Sizin Bütçeniz */}
                 <div className="bg-stone-50 border border-stone-200/60 rounded-2xl p-3 space-y-1.5">
                   <div className="flex justify-between items-center">
                     <div className="space-y-0.5">
-                      <span className="text-[10px] font-black text-emerald-600 uppercase tracking-wider block">Sizin Reklam Payınız</span>
-                      <p className="text-[9px] font-bold text-stone-500 leading-none">Koyduğunuz 2.000 ₺ bütçe karşılığı</p>
+                      <span className="text-[10px] font-black text-emerald-600 uppercase tracking-wider block">Sizin Bütçeniz</span>
+                      <p className="text-[9px] font-bold text-stone-500 leading-none">2.000 ₺ / 20.000 ₺ = %10 pay</p>
                     </div>
                     <span className="text-[12px] font-black text-emerald-600 bg-emerald-50 border border-emerald-200 px-2.5 py-1 rounded-xl shadow-sm whitespace-nowrap">%10 Payı</span>
                   </div>
@@ -445,7 +445,7 @@ export default function GoogleAdPreviewModal({ isOpen, onClose }: GoogleAdPrevie
                 <div className="bg-emerald-50/50 border border-emerald-200 rounded-2xl p-3 flex justify-between items-center shadow-sm">
                   <div className="space-y-0.5">
                     <span className="text-[10px] font-black text-emerald-600 uppercase tracking-wider block">Dükkanınıza Gelenler</span>
-                    <p className="text-[9px] font-bold text-stone-500 leading-none">Aramaların %10'u doğrudan size gelir</p>
+                    <p className="text-[9px] font-bold text-stone-500 leading-none">10.000 Arayan x %10 pay = 1.000 Müşteri</p>
                   </div>
                   <span className="text-[13px] font-black text-white bg-emerald-500 border border-emerald-600 px-2.5 py-1 rounded-xl shadow-sm whitespace-nowrap">1.000 Müşteri</span>
                 </div>
