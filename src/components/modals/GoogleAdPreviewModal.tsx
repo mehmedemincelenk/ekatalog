@@ -407,45 +407,45 @@ export default function GoogleAdPreviewModal({ isOpen, onClose }: GoogleAdPrevie
             <div className="space-y-5">
               {/* Math Content (Stack Layout) */}
               <div className="space-y-3">
-                {/* Step 1: Google'da Arayanlar */}
+                {/* Step 1: Ürünlerinizi Arayanlar */}
                 <div className="bg-stone-50 border border-stone-200/60 rounded-2xl p-3 flex justify-between items-center">
                   <div className="space-y-0.5">
-                    <span className="text-[10px] font-black text-stone-400 uppercase tracking-wider block">Google'da Arayanlar</span>
-                    <p className="text-[9px] font-bold text-stone-500 leading-none">Aylık ürünlerinizi arayan kişi sayısı</p>
+                    <span className="text-[10px] font-black text-stone-400 uppercase tracking-wider block">Ürünlerinizi Arayanlar</span>
+                    <p className="text-[9px] font-bold text-stone-500 leading-none">Aylık potansiyel müşteri pastası</p>
                   </div>
-                  <span className="text-[12px] font-black text-stone-900 bg-white border border-stone-200 px-2.5 py-1 rounded-xl shadow-sm whitespace-nowrap">10.000 Müşteri</span>
+                  <span className="text-[12px] font-black text-stone-900 bg-white border border-stone-200 px-2.5 py-1 rounded-xl shadow-sm whitespace-nowrap">10.000 Kişi</span>
                 </div>
 
-                {/* Step 2: Toplam Reklam Bütçesi */}
+                {/* Step 2: Toplam Reklam Rekabeti */}
                 <div className="bg-stone-50 border border-stone-200/60 rounded-2xl p-3 flex justify-between items-center">
                   <div className="space-y-0.5">
-                    <span className="text-[10px] font-black text-stone-400 uppercase tracking-wider block">Toplam Reklam Bütçesi</span>
-                    <p className="text-[9px] font-bold text-stone-500 leading-none">Sektörünüzle alakalı Google'a ödenmiş toplam reklam bütçesi</p>
+                    <span className="text-[10px] font-black text-stone-400 uppercase tracking-wider block">Toplam Reklam Rekabeti</span>
+                    <p className="text-[9px] font-bold text-stone-500 leading-none">Google'a ödenen toplam para</p>
                   </div>
-                  <span className="text-[12px] font-black text-stone-900 bg-white border border-stone-200 px-2.5 py-1 rounded-xl shadow-sm whitespace-nowrap">100.000₺ Pasta</span>
+                  <span className="text-[12px] font-black text-stone-900 bg-white border border-stone-200 px-2.5 py-1 rounded-xl shadow-sm whitespace-nowrap">100.000 ₺</span>
                 </div>
 
                 {/* Sizin Reklam Bütçeniz ve Sonuçlar (Merged Card) */}
                 <div className="bg-stone-50 border border-stone-200/60 rounded-2xl p-3.5 space-y-3.5">
-                  {/* Segment 1: Sizin Bütçeniz */}
+                  {/* Segment 1: Sizin Reklamınız */}
                   <div className="flex justify-between items-center">
                     <div className="space-y-0.5">
-                      <span className="text-[10px] font-black text-stone-400 uppercase tracking-wider block">Sizin Bütçeniz</span>
-                      <p className="text-[9px] font-bold text-stone-500 leading-none">Google'da en üst sıraya çıkmak için ayırdığınız bütçe</p>
+                      <span className="text-[10px] font-black text-stone-400 uppercase tracking-wider block">Sizin Reklamınız</span>
+                      <p className="text-[9px] font-bold text-stone-500 leading-none">Google'da en üst sıraya çıkmak için verdiğiniz reklam</p>
                     </div>
                     <span className="text-[12px] font-black text-stone-900 bg-white border border-stone-200 px-2.5 py-1 rounded-xl shadow-sm whitespace-nowrap">10.000 ₺</span>
                   </div>
 
                   <hr className="border-t border-stone-200/60" />
 
-                  {/* Segment 2: Sizin Payınız */}
+                  {/* Segment 2: Pastadan Payınız */}
                   <div className="space-y-1.5">
                     <div className="flex justify-between items-center">
                       <div className="space-y-0.5">
-                        <span className="text-[10px] font-black text-emerald-600 uppercase tracking-wider block">Sizin Payınız</span>
-                        <p className="text-[9px] font-bold text-stone-500 leading-none">10.000 ₺ / 100.000 ₺ = %10 pay</p>
+                        <span className="text-[10px] font-black text-emerald-600 uppercase tracking-wider block">Pastadan Payınız</span>
+                        <p className="text-[9px] font-bold text-stone-500 leading-none">10.000 ₺ / 100.000 ₺ = %10</p>
                       </div>
-                      <span className="text-[12px] font-black text-emerald-600 bg-emerald-50 border border-emerald-200 px-2.5 py-1 rounded-xl shadow-sm whitespace-nowrap">10.000 ₺ Pay</span>
+                      <span className="text-[12px] font-black text-emerald-600 bg-emerald-50 border border-emerald-200 px-2.5 py-1 rounded-xl shadow-sm whitespace-nowrap">%10 Pay</span>
                     </div>
                     {/* Tiny Share Progress Bar */}
                     <div className="w-full h-1.5 bg-stone-200 rounded-full overflow-hidden flex">
@@ -456,11 +456,11 @@ export default function GoogleAdPreviewModal({ isOpen, onClose }: GoogleAdPrevie
 
                   <hr className="border-t border-stone-200/60" />
 
-                  {/* Segment 3: Dükkanınıza Gelenler */}
+                  {/* Segment 3: Size Gelen Müşteriler */}
                   <div className="flex justify-between items-center">
                     <div className="space-y-0.5">
-                      <span className="text-[10px] font-black text-emerald-600 uppercase tracking-wider block">Dükkanınıza Gelenler</span>
-                      <p className="text-[9px] font-bold text-stone-500 leading-none">10.000 Müşteri x %10 pay = 1.000 Müşteri</p>
+                      <span className="text-[10px] font-black text-emerald-600 uppercase tracking-wider block">Size Gelen Müşteriler</span>
+                      <p className="text-[9px] font-bold text-stone-500 leading-none">10.000 Kişi x %10 = 1.000 Müşteri</p>
                     </div>
                     <span className="text-[12px] font-black text-white bg-emerald-500 border border-emerald-600 px-2.5 py-1 rounded-xl shadow-sm whitespace-nowrap">1.000 Müşteri</span>
                   </div>
