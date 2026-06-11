@@ -408,11 +408,11 @@ export default function GoogleAdPreviewModal({ isOpen, onClose }: GoogleAdPrevie
             <div className="space-y-5">
               {/* Math Content (Stack Layout) */}
               <div className="space-y-3">
-                {/* Step 1: Ürünlerinizi Arayanlar */}
+                {/* Step 1: Toplam Pasta */}
                 <div className="bg-stone-50 border border-stone-200/60 rounded-2xl p-3 flex justify-between items-center">
                   <div className="space-y-0.5">
-                    <span className="text-[10px] font-black text-stone-400 uppercase tracking-wider block">Ürünlerinizi Arayanlar</span>
-                    <p className="text-[9px] font-bold text-stone-500 leading-none">Aylık potansiyel müşteri pastası</p>
+                    <span className="text-[10px] font-black text-stone-400 uppercase tracking-wider block">Toplam Pasta</span>
+                    <p className="text-[9px] font-bold text-stone-500 leading-none">Google'da sektörünüzle alakalı arama yapan potansiyel müşterileriniz.</p>
                   </div>
                   <span className="text-[12px] font-black text-stone-900 bg-white border border-stone-200 px-2.5 py-1 rounded-xl shadow-sm whitespace-nowrap">10.000 Kişi</span>
                 </div>
