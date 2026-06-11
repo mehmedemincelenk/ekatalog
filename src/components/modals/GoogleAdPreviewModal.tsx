@@ -65,6 +65,7 @@ export default function GoogleAdPreviewModal({ isOpen, onClose }: GoogleAdPrevie
 
   // Consent & Code States
   const [consentInput, setConsentInput] = useState('');
+  const [addressConsentInput, setAddressConsentInput] = useState('');
   const [refCode, setRefCode] = useState('');
 
   // Feedback Overlays
@@ -87,6 +88,7 @@ export default function GoogleAdPreviewModal({ isOpen, onClose }: GoogleAdPrevie
       setSelectedBudget(1000);
       setCustomBudget('');
       setConsentInput('');
+      setAddressConsentInput('');
     }
   }, [isOpen]);
 
@@ -419,7 +421,7 @@ export default function GoogleAdPreviewModal({ isOpen, onClose }: GoogleAdPrevie
                 <div className="flex items-center gap-2 border-b border-stone-100 pb-2">
                   <div className="w-5 h-5 rounded-full bg-stone-100 flex items-center justify-center text-[10px] font-black text-stone-600 shrink-0">G</div>
                   <div className="flex-1 bg-stone-50 border border-stone-200/50 rounded-full px-3 py-1 flex items-center justify-between text-[9px] font-bold text-stone-700 min-h-[22px]">
-                    <span></span>
+                    <span className="text-stone-300 select-none tracking-widest font-black">......................</span>
                     <Lucide.Search size={10} className="text-stone-400" />
                   </div>
                 </div>
@@ -665,8 +667,26 @@ export default function GoogleAdPreviewModal({ isOpen, onClose }: GoogleAdPrevie
                 </div>
               </div>
 
+              {/* Text confirmation */}
+              <div className="border border-stone-200 rounded-3xl p-5 bg-white space-y-3">
+                <h4 className="text-[9px] font-black text-stone-400 uppercase tracking-widest">
+                  Adres Onaylama
+                </h4>
+                <p className="text-[10px] font-bold text-stone-400 leading-relaxed lowercase">
+                  yukarıdaki adresin doğru olduğunu onaylamak için aşağıdaki kutuya <span className="font-black text-stone-900 underline">adresim doğru yazıyor</span> yazın.
+                </p>
+                <input
+                  type="text"
+                  placeholder="adresim doğru yazıyor yazın"
+                  value={addressConsentInput}
+                  onChange={(e) => setAddressConsentInput(e.target.value)}
+                  className="w-full bg-stone-50 border border-stone-200 focus:border-stone-900 focus:bg-white text-stone-900 text-xs font-black uppercase tracking-wider px-4 py-3 rounded-2xl outline-none transition-all text-center"
+                />
+              </div>
+
               {/* Navigation button */}
               <Button
+                disabled={addressConsentInput.trim().toLowerCase() !== 'adresim doğru yazıyor'}
                 onClick={handleNextStep}
                 variant="primary"
                 size="lg"

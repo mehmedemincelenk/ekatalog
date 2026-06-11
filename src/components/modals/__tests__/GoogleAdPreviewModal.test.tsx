@@ -80,6 +80,10 @@ describe('GoogleAdPreviewModal Component (Diamond Standard)', () => {
     expect(screen.getByText('Mevcut Adresiniz')).not.toBeNull();
     expect(screen.getByText('ADRESİ ONAYLA')).not.toBeNull();
 
+    // Type address confirmation to enable the button
+    const addressInput = screen.getByPlaceholderText('adresim doğru yazıyor yazın');
+    fireEvent.change(addressInput, { target: { value: 'adresim doğru yazıyor' } });
+
     // Confirm address to proceed to targeting settings (Hedef Kitle)
     fireEvent.click(screen.getByText('ADRESİ ONAYLA'));
     expect(screen.getByText('Hedef Kitle')).not.toBeNull();
