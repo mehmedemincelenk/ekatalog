@@ -39,7 +39,7 @@ describe('GoogleAdPreviewModal Component (Diamond Standard)', () => {
 
     // Check title & subtitle
     expect(screen.getByText('Google Reklamları')).not.toBeNull();
-    expect(screen.getByText('1. Toplam Pasta')).not.toBeNull();
+    expect(screen.getByText('Bütçenizin Gücü')).not.toBeNull();
     expect(screen.getByText('Sponsorlu')).not.toBeNull();
     expect(screen.getByText('DEVAM ET')).not.toBeNull();
 

@@ -406,58 +406,41 @@ export default function GoogleAdPreviewModal({ isOpen, onClose }: GoogleAdPrevie
           {/* STEP 1: Onboarding */}
           {step === 1 && (
             <div className="space-y-5">
-              {/* Google Ads Auction Explainer Cards */}
-              <div className="grid grid-cols-1 gap-3">
-                {/* 1. Market Size */}
-                <div className="bg-stone-50 border border-stone-150 rounded-2xl p-4 flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
-                    <Lucide.Search size={20} />
+              {/* Simplified Single Explanation Card */}
+              <div className="bg-stone-50 border border-stone-150 rounded-3xl p-5 space-y-4">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-8 h-8 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
+                    <Lucide.PieChart size={16} />
                   </div>
-                  <div className="space-y-0.5">
-                    <span className="text-[9px] font-black text-stone-400 uppercase tracking-wider">1. Toplam Pasta</span>
-                    <h5 className="text-xs font-black text-stone-950">100.000 Müşteri</h5>
-                    <p className="text-[9px] font-bold text-stone-500 leading-normal">
-                      Her ay Google'da sizin ürünlerinizi arayan tam 100.000 insan var.
-                    </p>
+                  <div>
+                    <h4 className="text-[11px] font-black text-stone-900 uppercase tracking-widest">Bütçenizin Gücü</h4>
+                    <p className="text-[9px] font-bold text-stone-400">10.000 ₺ bütçenin getireceği kesin sonuç:</p>
                   </div>
                 </div>
 
-                {/* 2. Budget Share Pie/Bar */}
-                <div className="bg-stone-50 border border-stone-150 rounded-2xl p-4 space-y-3">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
-                      <Lucide.PieChart size={20} />
-                    </div>
-                    <div className="space-y-0.5">
-                      <span className="text-[9px] font-black text-stone-400 uppercase tracking-wider">2. Pastadaki Diliminiz</span>
-                      <h5 className="text-xs font-black text-stone-950">Sizin Payınız: 5.000 Müşteri</h5>
-                    </div>
+                {/* Visual Share Bar */}
+                <div className="space-y-2">
+                  <div className="w-full h-3 bg-stone-200 rounded-full overflow-hidden flex">
+                    <div className="h-full bg-emerald-500 transition-all" style={{ width: '5%' }} />
+                    <div className="h-full bg-stone-300" style={{ width: '95%' }} />
                   </div>
-                  {/* Share Progress Bar */}
-                  <div className="space-y-1">
-                    <div className="w-full h-3 bg-stone-200 rounded-full overflow-hidden flex">
-                      <div className="h-full bg-emerald-500" style={{ width: '5%' }} title="Sizin Diliminiz" />
-                      <div className="h-full bg-stone-400/50" style={{ width: '95%' }} title="Diğerleri" />
-                    </div>
-                    <div className="flex justify-between items-center text-[8px] font-black uppercase tracking-wider">
-                      <span className="text-emerald-600">Sizin Diliminiz (5.000 Kişi)</span>
-                      <span className="text-stone-400">Kalan Pasta (95.000 Kişi)</span>
-                    </div>
+                  <div className="flex justify-between items-center text-[8px] font-black uppercase tracking-wider">
+                    <span className="text-emerald-600">Sizin Payınız (5.000 Kişi)</span>
+                    <span className="text-stone-400">Diğerleri (95.000 Kişi)</span>
                   </div>
                 </div>
 
-                {/* 3. Expected Clicks */}
-                <div className="bg-stone-50 border border-stone-150 rounded-2xl p-4 flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center shrink-0">
-                    <Lucide.MousePointerClick size={20} />
-                  </div>
-                  <div className="space-y-0.5">
-                    <span className="text-[9px] font-black text-stone-400 uppercase tracking-wider">3. Dükkanınıza Hücum</span>
-                    <h5 className="text-xs font-black text-stone-950">Google'da En Üste Çıkın</h5>
-                    <p className="text-[9px] font-bold text-stone-500 leading-normal">
-                      Google sizi en üste yerleştirir. Bu 5.000 kişi doğrudan sizin dükkanınıza girer ve hemen sipariş verir.
-                    </p>
-                  </div>
+                {/* Explanation text */}
+                <div className="text-[10px] font-bold text-stone-600 space-y-2 leading-relaxed pt-3 border-t border-stone-200/60">
+                  <p>
+                    Google'da sizinle alakalı kelimeleri her ay <span className="font-black text-stone-900">100.000</span> kişi aratıyor.
+                  </p>
+                  <p>
+                    Diğer dükkanlar toplam <span className="font-black text-stone-900">200.000 ₺</span> reklam verirken, siz <span className="font-black text-stone-900">10.000 ₺</span> bütçeyle bu pastadan <span className="font-black text-stone-900">5.000</span> kişilik pay alırsınız.
+                  </p>
+                  <p>
+                    Google sizi en tepede gösterir. Arayan <span className="font-black text-emerald-600">5.000 müşteri</span> doğrudan sizin dükkanınıza girer.
+                  </p>
                 </div>
               </div>
 
