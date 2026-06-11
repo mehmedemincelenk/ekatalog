@@ -240,7 +240,7 @@ export default function LandingPage() {
                 </div>
                 <div className="flex-1 flex items-center justify-center pt-3">
                   <p className="text-xs text-stone-500 font-medium leading-relaxed">
-                    Yazılım bilmenize gerek yok; bikaç tıkla bütçenizi belirleyip <span className="font-bold text-stone-900">Google reklamı verin</span>, bölgenizdeki müşterilerin sizi ilk sırada görmesini sağlayın.
+                    Yazılım bilmenize gerek yok; bikaç tıkla bütçenizi belirleyin, <span className="font-bold text-stone-900">Google reklamınızı biz verelim</span>, bölgenizdeki müşterilerin sizi ilk sırada görmesini sağlayalım.
                   </p>
                 </div>
               </div>
