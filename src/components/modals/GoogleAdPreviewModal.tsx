@@ -426,13 +426,13 @@ export default function GoogleAdPreviewModal({ isOpen, onClose }: GoogleAdPrevie
                 <div className="space-y-1.5">
                   <div className="flex items-center gap-1.5">
                     <span className="text-[9px] font-black bg-stone-100 text-stone-600 px-1 py-0.5 rounded tracking-wider uppercase">Sponsorlu</span>
-                    <span className="text-[9px] font-bold text-stone-400">ekatalog.site/{settings?.slug || 'slug'}</span>
+                    <span className="text-[9px] font-bold text-stone-400">{settings?.slug || 'slug'}.ekatalog.site</span>
                   </div>
                   <h4 className="text-[13px] font-black text-blue-600 hover:underline cursor-pointer leading-tight">
-                    {settings?.title || 'Yeni Mağazanız'}
+                    {settings?.title || 'Yeni Mağazanız'} | {settings?.subtitle || 'Dijital Katalog'}
                   </h4>
                   <p className="text-[10px] font-bold text-stone-500 leading-normal">
-                    {settings?.subtitle || 'Dijital Katalog ve Sipariş Platformu.'}
+                    En güncel ürünlerimizi, fiyat listemizi ve kataloğumuzu hemen inceleyin. Hızlı inceleme ve doğrudan sipariş imkanıyla hizmetinizdeyiz.
                   </p>
                   
                   {/* Mock Sitelinks */}
