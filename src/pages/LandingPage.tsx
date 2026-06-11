@@ -227,7 +227,7 @@ export default function LandingPage() {
                 </div>
                 <div className="flex-1 flex items-center justify-center pt-3">
                   <p className="text-xs text-stone-500 font-medium leading-relaxed">
-                    markanıza özel ücretsiz web sitesi, cepten yönetim ve mobil uygulama kurulumu
+                    markanıza özel web sitesi, cepten kolay katalog yönetimi, mobil uygulama kurulumu ve toplu ürün yükleme
                   </p>
                 </div>
               </div>
@@ -240,7 +240,7 @@ export default function LandingPage() {
                 </div>
                 <div className="flex-1 flex items-center justify-center pt-3">
                   <p className="text-xs text-stone-500 font-medium leading-relaxed">
-                    Yazılım veya tasarım bilmenize gerek yok; bikaç tıkla kataloğunuzu yönetin, <span className="font-bold text-stone-900">Google reklamı verin</span>, toplu yükleme yapın ve sosyal medya tasarımlarınızı cebe indirin.
+                    Yazılım bilmenize gerek yok; bikaç tıkla bütçenizi belirleyip <span className="font-bold text-stone-900">Google reklamı verin</span>, bölgenizdeki müşterilerin sizi ilk sırada görmesini sağlayın.
                   </p>
                 </div>
               </div>
@@ -253,7 +253,7 @@ export default function LandingPage() {
                 </div>
                 <div className="flex-1 flex items-center justify-center pt-3">
                   <p className="text-xs text-stone-500 font-medium leading-relaxed">
-                    kataloğunuza yönlendiren QR telefon kılıfları, masa kartları, kartvizitler, hazır sosyal medya gönderileri ve tüm baskı/tasarım çözümleri
+                    Tasarımcı beklemeden sosyal medya tasarımlarınızı cebe indirin; QR masa kartları, kartvizitler ve tüm baskı çözümlerini anında sipariş edin.
                   </p>
                 </div>
               </div>
