@@ -417,7 +417,7 @@ export default function GoogleAdPreviewModal({ isOpen, onClose }: GoogleAdPrevie
                     <h4 className="text-[11px] font-black text-stone-900 uppercase tracking-widest">Nedir bu Google Reklamları?</h4>
                   </div>
                   <p className="text-[10px] font-bold text-stone-600 leading-relaxed">
-                    Müşteri Google'a <span className="text-stone-900">"toptan ambalaj"</span> veya <span className="text-stone-900">"toptan gıda"</span> yazar, en üstte sizin dükkanınızı görür ve tıklar.
+                    Müşteri Google'da sattığınız ürünleri aratır, en üstte sizin dükkanınızı görür ve tıklar.
                   </p>
                 </div>
 
@@ -451,15 +451,15 @@ export default function GoogleAdPreviewModal({ isOpen, onClose }: GoogleAdPrevie
                   <div className="space-y-2 text-[10px] font-bold text-stone-600 leading-relaxed">
                     <div className="flex items-start gap-2">
                       <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full mt-1.5 shrink-0" />
-                      <p>Sektörünüzü Türkiye genelinde her ay ortalama <span className="font-black text-stone-900">3.000</span> potansiyel toptan alıcı aratıyor.</p>
+                      <p>Sattığınız ürünleri Google'da her ay ortalama <span className="font-black text-stone-900">3.000</span> alıcı aratıyor.</p>
                     </div>
                     <div className="flex items-start gap-2">
                       <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full mt-1.5 shrink-0" />
-                      <p>Siz bu reklamla arayan <span className="font-black text-stone-900">450 hazır alıcıyı</span> doğrudan kendi dükkanınıza çekersiniz.</p>
+                      <p>Aylık 3.000 ₺ bütçeyle bu alıcıların en az <span className="font-black text-stone-900">450 tanesini</span> doğrudan kendi dükkanınıza çekersiniz.</p>
                     </div>
                     <div className="flex items-start gap-2">
                       <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full mt-1.5 shrink-0" />
-                      <p>Arayan müşteriler diğer dükkanlar yerine doğrudan sizin <span className="font-black text-emerald-600">ekataloğunuza</span> ulaşır ve sipariş verir.</p>
+                      <p>Müşteriler başkalarını aramak yerine doğrudan sizin <span className="font-black text-emerald-600">kataloğunuzu</span> görür ve sipariş verir.</p>
                     </div>
                   </div>
                 </div>
