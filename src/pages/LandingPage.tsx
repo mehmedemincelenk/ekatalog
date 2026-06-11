@@ -198,23 +198,47 @@ export default function LandingPage() {
             <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-3 px-4 pt-2">
               <div className="flex items-center gap-2 bg-stone-50/80 border border-stone-100/80 rounded-full py-1.5 px-4 text-xs font-bold text-stone-600 shadow-sm shadow-stone-100/50 hover:bg-stone-100/50 transition-colors">
                 <span className="text-[10px] text-red-500 font-black">✕</span>
-                <span>fiyat değiştikçe her gün yeni PDF hazırlamaktan</span>
+                <span>karmaşık pdf'ler</span>
               </div>
               <div className="flex items-center gap-2 bg-stone-50/80 border border-stone-100/80 rounded-full py-1.5 px-4 text-xs font-bold text-stone-600 shadow-sm shadow-stone-100/50 hover:bg-stone-100/50 transition-colors">
                 <span className="text-[10px] text-red-500 font-black">✕</span>
-                <span>eski PDF fiyatına bakıp indirim isteyen müşterilerle tartışmaktan</span>
+                <span>karmaşık yönetim panelleri</span>
               </div>
               <div className="flex items-center gap-2 bg-stone-50/80 border border-stone-100/80 rounded-full py-1.5 px-4 text-xs font-bold text-stone-600 shadow-sm shadow-stone-100/50 hover:bg-stone-100/50 transition-colors">
                 <span className="text-[10px] text-red-500 font-black">✕</span>
-                <span>günde 50 kez "bunun fiyatı ne kadar?" sorusunu cevaplamaktan</span>
+                <span>tasarımcı beklemek</span>
               </div>
               <div className="flex items-center gap-2 bg-stone-50/80 border border-stone-100/80 rounded-full py-1.5 px-4 text-xs font-bold text-stone-600 shadow-sm shadow-stone-100/50 hover:bg-stone-100/50 transition-colors">
                 <span className="text-[10px] text-red-500 font-black">✕</span>
-                <span>stok bittiği halde sipariş alıp mahcup olmaktan</span>
+                <span>müşteri bekletmek</span>
               </div>
               <div className="flex items-center gap-2 bg-stone-50/80 border border-stone-100/80 rounded-full py-1.5 px-4 text-xs font-bold text-stone-600 shadow-sm shadow-stone-100/50 hover:bg-stone-100/50 transition-colors">
                 <span className="text-[10px] text-red-500 font-black">✕</span>
-                <span>dosya boyutu büyük diye açılmayan, kasan PDF'lerden</span>
+                <span>websiteye eleman tutmak</span>
+              </div>
+              <div className="flex items-center gap-2 bg-stone-50/80 border border-stone-100/80 rounded-full py-1.5 px-4 text-xs font-bold text-stone-600 shadow-sm shadow-stone-100/50 hover:bg-stone-100/50 transition-colors">
+                <span className="text-[10px] text-red-500 font-black">✕</span>
+                <span>yazılımcı beklemek</span>
+              </div>
+              <div className="flex items-center gap-2 bg-stone-50/80 border border-stone-100/80 rounded-full py-1.5 px-4 text-xs font-bold text-stone-600 shadow-sm shadow-stone-100/50 hover:bg-stone-100/50 transition-colors">
+                <span className="text-[10px] text-red-500 font-black">✕</span>
+                <span>gönderilen pdf'i güncelleyememek</span>
+              </div>
+              <div className="flex items-center gap-2 bg-stone-50/80 border border-stone-100/80 rounded-full py-1.5 px-4 text-xs font-bold text-stone-600 shadow-sm shadow-stone-100/50 hover:bg-stone-100/50 transition-colors">
+                <span className="text-[10px] text-red-500 font-black">✕</span>
+                <span>stokta olmayan ürüne sipariş almak</span>
+              </div>
+              <div className="flex items-center gap-2 bg-stone-50/80 border border-stone-100/80 rounded-full py-1.5 px-4 text-xs font-bold text-stone-600 shadow-sm shadow-stone-100/50 hover:bg-stone-100/50 transition-colors">
+                <span className="text-[10px] text-red-500 font-black">✕</span>
+                <span>müşteriyle fiyat sorunuz sürtüşmesi</span>
+              </div>
+              <div className="flex items-center gap-2 bg-stone-50/80 border border-stone-100/80 rounded-full py-1.5 px-4 text-xs font-bold text-stone-600 shadow-sm shadow-stone-100/50 hover:bg-stone-100/50 transition-colors">
+                <span className="text-[10px] text-red-500 font-black">✕</span>
+                <span>hantal süreçlerle rakibe müşteri kaptırmak</span>
+              </div>
+              <div className="flex items-center gap-2 bg-stone-50/80 border border-stone-100/80 rounded-full py-1.5 px-4 text-xs font-bold text-stone-600 shadow-sm shadow-stone-100/50 hover:bg-stone-100/50 transition-colors">
+                <span className="text-[10px] text-red-500 font-black">✕</span>
+                <span>mesai dışında fiyat verememek</span>
               </div>
             </div>
           </div>
@@ -393,6 +417,22 @@ export default function LandingPage() {
                   </p>
                 </div>
               </div>
+
+              {/* Pillar 11: Baskı Sipariş Et (Yakında) */}
+              <div className="flex gap-3 items-start">
+                <Lucide.Printer
+                  size={16}
+                  className="text-stone-900 shrink-0 mt-0.5"
+                />
+                <div className="space-y-0.5">
+                  <h3 className="text-sm font-black text-stone-900 tracking-tight flex items-center gap-1.5">
+                    baskı sipariş et <span className="text-[9px] bg-emerald-500/10 text-emerald-600 px-1.5 py-0.5 rounded font-black uppercase tracking-wider">yakında</span>
+                  </h3>
+                  <p className="text-xs text-stone-500 font-medium leading-relaxed">
+                    Dükkanınız için QR kod baskılı masa stantları, pleksi sunumlar, çok amaçlı stickerlar ve kılıflar gibi tanıtım ürünlerini tek tıkla sipariş edin.
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -411,7 +451,7 @@ export default function LandingPage() {
                 <span className="text-lg font-bold opacity-30 ml-2">/ ay</span>
               </p>
               <p className="text-xs font-bold text-emerald-600 mt-2 uppercase tracking-wider">
-                30 GÜN ÜCRETSİZ DENE
+                90 GÜN ÜCRETSİZ DENE
               </p>
             </div>
           </div>

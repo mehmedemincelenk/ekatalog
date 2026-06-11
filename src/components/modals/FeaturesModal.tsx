@@ -89,6 +89,52 @@ export default function FeaturesModal({ isOpen, onClose }: FeaturesModalProps) {
             </button>
           );
         })}
+
+        <button
+          disabled
+          className="flex items-center gap-4 p-4 rounded-2xl border border-stone-150 bg-stone-50/50 opacity-60 text-left cursor-not-allowed select-none"
+        >
+          <div className="w-12 h-12 rounded-xl bg-purple-500/10 text-purple-600 flex items-center justify-center shrink-0">
+            <Lucide.Printer size={24} strokeWidth={2} />
+          </div>
+          <div className="flex-1">
+            <div className="flex items-center gap-2">
+              <h4 className="text-[12px] font-black text-stone-400 uppercase tracking-wider">
+                Baskı Sipariş Et
+              </h4>
+              <span className="text-[8px] font-black bg-stone-200 text-stone-500 px-1.5 py-0.5 rounded uppercase tracking-wider">
+                Yakında
+              </span>
+            </div>
+            <p className="text-[10px] font-bold text-stone-400 mt-1 leading-normal">
+              Dükkanınız için QR ve e-katalog baskılı tanıtım ürünleri sipariş edin.
+            </p>
+          </div>
+          <Lucide.ChevronRight size={18} className="text-stone-200" />
+        </button>
+
+        <button
+          disabled
+          className="flex items-center gap-4 p-4 rounded-2xl border border-stone-150 bg-stone-50/50 opacity-60 text-left cursor-not-allowed select-none"
+        >
+          <div className="w-12 h-12 rounded-xl bg-emerald-500/10 text-emerald-600 flex items-center justify-center shrink-0">
+            <Lucide.Megaphone size={24} strokeWidth={2} />
+          </div>
+          <div className="flex-1">
+            <div className="flex items-center gap-2">
+              <h4 className="text-[12px] font-black text-stone-400 uppercase tracking-wider">
+                Tek Tıkla Reklam Ver
+              </h4>
+              <span className="text-[8px] font-black bg-stone-200 text-stone-500 px-1.5 py-0.5 rounded uppercase tracking-wider">
+                Yakında
+              </span>
+            </div>
+            <p className="text-[10px] font-bold text-stone-400 mt-1 leading-normal">
+              Sosyal medya hesabı ve karmaşık paneller olmadan kolayca reklam verin.
+            </p>
+          </div>
+          <Lucide.ChevronRight size={18} className="text-stone-200" />
+        </button>
       </div>
     </BaseModal>
   );
