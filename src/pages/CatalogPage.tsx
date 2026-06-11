@@ -96,15 +96,6 @@ export default function CatalogPage() {
     }
   }, [activeModal, isAdmin]);
 
-  const [hasVisitedAdmin, setHasVisitedAdmin] = useState(false);
-
-  // Track if user has entered admin mode at least once to prevent showing overlay again
-  useEffect(() => {
-    if (isAdmin) {
-      setHasVisitedAdmin(true);
-    }
-  }, [isAdmin]);
-
   const [visibleCategoryLimit, setVisibleCategoryLimit] = useState(2);
   const [activeAdminProductId, setActiveAdminProductId] = useState<
     string | null
@@ -166,7 +157,7 @@ export default function CatalogPage() {
     <>
       <div className="relative w-full h-full overflow-hidden flex flex-col">
         {/* Onboarding or Modal active Glassmorphic/Blur Overlay */}
-        {((getActiveStoreSlug() === 'landingpage' && !isAdmin && !hasVisitedAdmin) || !!activeModal) && (
+        {!!activeModal && (
           <div className="fixed md:absolute inset-0 z-[50] bg-white/20 backdrop-blur-[2px] pointer-events-auto animate-in fade-in duration-300" />
         )}
 
@@ -246,21 +237,6 @@ export default function CatalogPage() {
       {!isAdmin && (
         <div className="fixed inset-0 pointer-events-none z-[400] print:hidden">
           <div className="absolute bottom-3 right-4 pointer-events-auto">
-            {/* Onboarding Tooltip for Demo (inside the iframe, completely hidden from LandingPage context) */}
-            {getActiveStoreSlug() === 'landingpage' && !hasVisitedAdmin && !activeModal && (
-              <div className="absolute bottom-[52px] right-2 pointer-events-none animate-in fade-in slide-in-from-bottom-2 duration-300">
-                <div className="bg-stone-950/95 border border-white/15 backdrop-blur-md text-white text-[14px] font-bold py-3 px-4 rounded-2xl shadow-[0_10px_35px_rgba(0,0,0,0.6)] flex flex-col items-start gap-1.5 whitespace-nowrap relative select-none">
-                  <div className="flex items-center gap-1">
-                    <span><b>Örnek ekatalog</b></span>
-                  </div>
-                  <span className="text-[12px] text-stone-400 font-medium">Dünyanın en basit yönetim paneline giriş için</span>
-                  <span className="text-[12px] text-stone-300 font-bold">butona basılı tutun • Şifre: 0000</span>
-                  
-                  {/* Little down arrow point */}
-                  <div className="absolute bottom-[-5px] right-[45px] w-2.5 h-2.5 bg-stone-950/95 border-r border-b border-white/15 rotate-45"></div>
-                </div>
-              </div>
-            )}
 
             <FloatingGuestMenu
               onPointerDown={handleMenuPointerDown}
