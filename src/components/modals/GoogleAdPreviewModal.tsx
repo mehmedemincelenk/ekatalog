@@ -455,6 +455,11 @@ export default function GoogleAdPreviewModal({ isOpen, onClose }: GoogleAdPrevie
                     </div>
                   </div>
                 </div>
+
+                {/* Explanatory Callout (Outside the Card, borderless and centered) */}
+                <p className="text-[10px] font-semibold text-stone-500 leading-relaxed text-center px-4">
+                  10.000 potansiyel müşteriden 1.000 tanesinin Google aramalarında en başta çıktınız. İnsanlar aradıklarına dair ilk gördüğüne tıklar.
+                </p>
               </div>
 
               <hr className="border-t border-stone-200/60" />
