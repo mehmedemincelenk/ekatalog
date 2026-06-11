@@ -46,54 +46,14 @@ export const MOCK_LANDINGPAGE_SETTINGS: CompanySettings = {
   },
   referencesData: [
     {
-      id: 1777001524867,
-      logo: 'https://logo.clearbit.com/selpak.com.tr',
-      name: 'Selpak Professional',
-    },
-    {
       id: 1777001524860,
       logo: 'https://logo.clearbit.com/eczacibasi.com.tr',
       name: 'Eczacıbaşı',
     },
     {
-      id: 1777001524865,
-      logo: 'https://logo.clearbit.com/hayat.com.tr',
-      name: 'Hayat Kimya',
-    },
-    {
       id: 1777001524873,
       logo: 'https://logo.clearbit.com/arcelik.com.tr',
       name: 'Arçelik',
-    },
-    {
-      id: 1777001524874,
-      logo: 'https://logo.clearbit.com/korozo.com.tr',
-      name: 'Korozo Ambalaj',
-    },
-    {
-      id: 1777001524875,
-      logo: 'https://logo.clearbit.com/evyap.com.tr',
-      name: 'Evyap Professional',
-    },
-    {
-      id: 1777001524876,
-      logo: 'https://logo.clearbit.com/sutas.com.tr',
-      name: 'Sütaş',
-    },
-    {
-      id: 1777001524877,
-      logo: 'https://logo.clearbit.com/ulker.com.tr',
-      name: 'Ülker',
-    },
-    {
-      id: 1777001524878,
-      logo: 'https://logo.clearbit.com/mehmetefendi.com',
-      name: 'Mehmet Efendi',
-    },
-    {
-      id: 1777001524879,
-      logo: 'https://logo.clearbit.com/bingo.com.tr',
-      name: 'Bingo',
     },
     {
       id: 1777001524880,
