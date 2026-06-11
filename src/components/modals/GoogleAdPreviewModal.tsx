@@ -487,14 +487,37 @@ export default function GoogleAdPreviewModal({ isOpen, onClose }: GoogleAdPrevie
                   <hr className="border-t border-stone-100" />
 
                   {/* Step 2: Budget Pool */}
-                  <div className="flex justify-between items-start gap-4">
-                    <div className="space-y-0.5">
-                      <span className="text-[9px] font-black text-stone-400 uppercase tracking-wider block">2. Reklam Pastası (Bütçe Havuzu)</span>
-                      <p className="text-[10px] font-bold text-stone-600 leading-normal">
-                        Rakiplerin Payı: 18.000 ₺ <span className="text-stone-300">|</span> Sizin Bütçeniz: 2.000 ₺
-                      </p>
+                  <div className="space-y-2.5">
+                    <span className="text-[9px] font-black text-stone-400 uppercase tracking-wider block">2. Toplam Reklam Bütçesi</span>
+                    
+                    <div className="grid grid-cols-3 gap-2 pt-0.5">
+                      {/* Sizin Bütçeniz */}
+                      <div className="bg-emerald-50/30 border border-emerald-100/50 rounded-2xl p-2.5 text-center space-y-1">
+                        <div className="w-6 h-6 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto">
+                          <Lucide.User size={12} />
+                        </div>
+                        <span className="text-[7.5px] font-black text-stone-400 uppercase tracking-wider block">Sizin Bütçeniz</span>
+                        <span className="text-[10px] font-black text-emerald-600">2.000 ₺</span>
+                      </div>
+
+                      {/* Rakiplerin Bütçesi */}
+                      <div className="bg-stone-50 border border-stone-200/50 rounded-2xl p-2.5 text-center space-y-1">
+                        <div className="w-6 h-6 rounded-full bg-stone-100 text-stone-600 flex items-center justify-center mx-auto">
+                          <Lucide.Users size={12} />
+                        </div>
+                        <span className="text-[7.5px] font-black text-stone-400 uppercase tracking-wider block">Rakiplerin Bütçesi</span>
+                        <span className="text-[10px] font-black text-stone-800">18.000 ₺</span>
+                      </div>
+
+                      {/* Toplam Bütçe */}
+                      <div className="bg-stone-50 border border-stone-200/50 rounded-2xl p-2.5 text-center space-y-1">
+                        <div className="w-6 h-6 rounded-full bg-stone-100 text-stone-600 flex items-center justify-center mx-auto">
+                          <Lucide.Coins size={12} />
+                        </div>
+                        <span className="text-[7.5px] font-black text-stone-400 uppercase tracking-wider block">Toplam Bütçe</span>
+                        <span className="text-[10px] font-black text-stone-900">20.000 ₺</span>
+                      </div>
                     </div>
-                    <span className="text-[12px] font-black text-stone-900 shrink-0">20.000 ₺ Havuz</span>
                   </div>
 
                   <hr className="border-t border-stone-100" />
