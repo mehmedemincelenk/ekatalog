@@ -67,7 +67,6 @@ export default function GoogleAdPreviewModal({ isOpen, onClose }: GoogleAdPrevie
   const [consentInput, setConsentInput] = useState('');
   const [addressConsentInput, setAddressConsentInput] = useState('');
   const [refCode, setRefCode] = useState('');
-  const [keywordInput, setKeywordInput] = useState('.......');
 
   // Feedback Overlays
   const [statusOverlay, setStatusOverlay] = useState<'idle' | 'success' | 'loading' | 'error'>('idle');
@@ -80,7 +79,6 @@ export default function GoogleAdPreviewModal({ isOpen, onClose }: GoogleAdPrevie
       setRefCode(code);
       // Reset state
       setStep(1);
-      setKeywordInput('toptan ambalaj');
       setHasQA(null);
       setQaStep(0);
       setRecordings({});
@@ -499,29 +497,17 @@ export default function GoogleAdPreviewModal({ isOpen, onClose }: GoogleAdPrevie
                 <hr className="border-t border-stone-200/60" />
 
                 {/* Google Arama Simülasyonu */}
-                <div className="space-y-3.5">
-                  <div className="space-y-2">
-                    <label className="text-[9px] font-black text-stone-400 uppercase tracking-widest block">
-                      Müşterileriniz Google'da ne yazıp dükkanınızı bulsun?
-                    </label>
-                    <div className="relative">
-                      <input
-                        type="text"
-                        value={keywordInput}
-                        onChange={(e) => setKeywordInput(e.target.value)}
-                        placeholder="Örn: toptan kutu, butik cafe..."
-                        className="w-full bg-white border border-stone-200 focus:border-stone-900 text-stone-900 text-xs font-black px-4 py-2.5 rounded-xl outline-none transition-all pr-8"
-                      />
-                      <Lucide.Search size={14} className="absolute right-3.5 top-1/2 -translate-y-1/2 text-stone-400" />
-                    </div>
-                  </div>
+                <div className="space-y-2.5">
+                  <span className="text-[9px] font-black text-stone-400 uppercase tracking-widest block">
+                    Google Arama Görünümü
+                  </span>
 
                   {/* Visual Google Search Result Mockup */}
                   <div className="border border-stone-200 rounded-2xl p-4 bg-white shadow-sm space-y-3">
                     <div className="flex items-center gap-2 border-b border-stone-100 pb-2">
                       <div className="w-5 h-5 rounded-full bg-stone-100 flex items-center justify-center text-[10px] font-black text-stone-600 shrink-0">G</div>
                       <div className="flex-1 bg-stone-50 border border-stone-200/50 rounded-full px-3 py-1 flex items-center justify-between text-[9px] font-bold text-stone-700 min-h-[22px]">
-                        <span className="text-stone-850 font-black tracking-normal">{keywordInput || '...'}</span>
+                        <span className="text-stone-850 font-black tracking-normal">.....</span>
                         <Lucide.Search size={10} className="text-stone-400" />
                       </div>
                     </div>
