@@ -471,7 +471,7 @@ export default function GoogleAdPreviewModal({ isOpen, onClose }: GoogleAdPrevie
                     <h4 className="text-[11px] font-black text-stone-900 uppercase tracking-widest">Nedir Bu Google Reklamları?</h4>
                   </div>
                   <p className="text-[10px] font-bold text-stone-600 leading-relaxed">
-                    Sattığınız ürünleri <span className="text-stone-900 font-black">almaya hazır olan</span> ve o an Google'da arayan müşterilerin karşısına ilk sırada çıkarsınız.
+                    Sattığınız ürünleri veya hizmetleri o an Google'da arayan potansiyel müşterilerin karşısına ilk sırada çıkarsınız.
                   </p>
                 </div>
 
@@ -485,7 +485,7 @@ export default function GoogleAdPreviewModal({ isOpen, onClose }: GoogleAdPrevie
                     </div>
                     <div>
                       <h4 className="text-[11px] font-black text-stone-900 uppercase tracking-widest">Bütçenizin Gücü</h4>
-                      <p className="text-[9px] font-bold text-stone-400">Aylık 3.000 ₺ bütçe ile elde edeceğiniz pay:</p>
+                      <p className="text-[9px] font-bold text-stone-400">Aylık 3.000 ₺ bütçe ile elde edeceğiniz tahmini ziyaretçi payı:</p>
                     </div>
                   </div>
 
@@ -496,8 +496,8 @@ export default function GoogleAdPreviewModal({ isOpen, onClose }: GoogleAdPrevie
                       <div className="h-full bg-stone-200" style={{ width: '85%' }} />
                     </div>
                     <div className="flex justify-between items-center text-[8px] font-black uppercase tracking-wider">
-                      <span className="text-emerald-600">Sizin Payınız (450 Alıcı)</span>
-                      <span className="text-stone-400">Diğerleri (2.550 Alıcı)</span>
+                      <span className="text-emerald-600">Sizin Payınız (450 Ziyaretçi)</span>
+                      <span className="text-stone-400">Diğerleri (2.550 Ziyaretçi)</span>
                     </div>
                   </div>
 
@@ -505,15 +505,15 @@ export default function GoogleAdPreviewModal({ isOpen, onClose }: GoogleAdPrevie
                   <div className="space-y-2 text-[10px] font-bold text-stone-600 leading-relaxed">
                     <div className="flex items-start gap-2">
                       <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full mt-1.5 shrink-0" />
-                      <p>Google'da sattığınız ürünleri arayan hazır alıcılar var.</p>
+                      <p>Google'da sattığınız ürünleri veya hizmetleri arayan potansiyel müşteriler var.</p>
                     </div>
                     <div className="flex items-start gap-2">
                       <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full mt-1.5 shrink-0" />
-                      <p>Bu reklam sizi en tepeye koyar, alıcılar rakiplerinizden önce sizi görür.</p>
+                      <p>Bu reklam sizi en tepeye koyar, arayanlar rakiplerinizden önce sizi görür.</p>
                     </div>
                     <div className="flex items-start gap-2">
                       <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full mt-1.5 shrink-0" />
-                      <p>Dükkanınıza tıklayan hazır alıcı doğrudan sipariş verir.</p>
+                      <p>Dükkanınıza tıklayan ziyaretçiler ürünlerinizi kolayca inceleyip sizinle iletişime geçebilir.</p>
                     </div>
                   </div>
                 </div>
