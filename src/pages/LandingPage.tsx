@@ -263,21 +263,17 @@ export default function LandingPage() {
             </div>
 
             {/* SB7 Emotional Success Badges */}
-            <div className="flex flex-wrap items-center justify-center gap-2 !mt-3">
-              <div className="flex items-center gap-1.5 bg-emerald-50/20 border border-emerald-100/30 rounded-md py-1 px-3 text-[10px] font-bold text-emerald-800/80 shadow-sm">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+            <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-3 px-4 !mt-3">
+              <div className="flex items-center gap-2 bg-emerald-50/60 border border-emerald-100/80 rounded-lg py-1.5 px-4 text-xs font-bold text-emerald-800/90 shadow-sm shadow-emerald-100/30 hover:bg-emerald-100/40 transition-colors">
                 <span>zaman</span>
               </div>
-              <div className="flex items-center gap-1.5 bg-emerald-50/20 border border-emerald-100/30 rounded-md py-1 px-3 text-[10px] font-bold text-emerald-800/80 shadow-sm">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+              <div className="flex items-center gap-2 bg-emerald-50/60 border border-emerald-100/80 rounded-lg py-1.5 px-4 text-xs font-bold text-emerald-800/90 shadow-sm shadow-emerald-100/30 hover:bg-emerald-100/40 transition-colors">
                 <span>tasarruf</span>
               </div>
-              <div className="flex items-center gap-1.5 bg-emerald-50/20 border border-emerald-100/30 rounded-md py-1 px-3 text-[10px] font-bold text-emerald-800/80 shadow-sm">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+              <div className="flex items-center gap-2 bg-emerald-50/60 border border-emerald-100/80 rounded-lg py-1.5 px-4 text-xs font-bold text-emerald-800/90 shadow-sm shadow-emerald-100/30 hover:bg-emerald-100/40 transition-colors">
                 <span>prestij</span>
               </div>
-              <div className="flex items-center gap-1.5 bg-emerald-50/20 border border-emerald-100/30 rounded-md py-1 px-3 text-[10px] font-bold text-emerald-800/80 shadow-sm">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+              <div className="flex items-center gap-2 bg-emerald-50/60 border border-emerald-100/80 rounded-lg py-1.5 px-4 text-xs font-bold text-emerald-800/90 shadow-sm shadow-emerald-100/30 hover:bg-emerald-100/40 transition-colors">
                 <span>teknik güç</span>
               </div>
             </div>
