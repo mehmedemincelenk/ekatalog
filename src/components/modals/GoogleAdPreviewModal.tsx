@@ -387,6 +387,7 @@ export default function GoogleAdPreviewModal({ isOpen, onClose }: GoogleAdPrevie
         isOpen={isOpen}
         onClose={onClose}
         title={getStepTitle()}
+        subtitle={step === 1 ? "İnsanlar aradıklarına dair ilk gördüğüne tıklar/girer/dener/bakar" : undefined}
         maxWidth="max-w-md"
         progress={{ current: step, total: totalSteps }}
         leftNav={
@@ -457,15 +458,12 @@ export default function GoogleAdPreviewModal({ isOpen, onClose }: GoogleAdPrevie
                   <hr className="border-t border-stone-200/60" />
 
                   {/* Segment 3: Sizi İlk Seçenek Olarak Gören Müşteriler */}
-                  <div className="flex justify-between items-start">
-                    <div className="space-y-2">
-                      <div>
-                        <span className="text-[10px] font-black text-emerald-600 uppercase tracking-wider block">Sizi İlk Seçenek Olarak Gören Müşteriler</span>
-                        <p className="text-[9px] font-medium text-stone-400 leading-relaxed mt-0.5">İnsanlar aradıklarına dair ilk gördüğüne tıklar/girer/dener/bakar</p>
-                      </div>
+                  <div className="flex justify-between items-center">
+                    <div className="space-y-0.5">
+                      <span className="text-[10px] font-black text-emerald-600 uppercase tracking-wider block">Sizi İlk Seçenek Olarak Gören Müşteriler</span>
                       <p className="text-[9px] font-bold text-stone-500 leading-none">10.000 Kişi x %10 = 1.000 Müşteri</p>
                     </div>
-                    <span className="text-[12px] font-black text-white bg-emerald-500 border border-emerald-600 px-2.5 py-1 rounded-xl shadow-sm whitespace-nowrap mt-1">1.000 Müşteri</span>
+                    <span className="text-[12px] font-black text-white bg-emerald-500 border border-emerald-600 px-2.5 py-1 rounded-xl shadow-sm whitespace-nowrap">1.000 Müşteri</span>
                   </div>
                 </div>
               </div>
