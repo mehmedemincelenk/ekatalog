@@ -249,7 +249,7 @@ export default function LandingPage() {
                     bikaç tıkla teknoloji
                   </h3>
                   <p className="text-xs text-stone-500 font-medium leading-relaxed">
-                    Yazılım veya tasarım bilmenize gerek yok; tek tıkla kataloğunuzu yönetin, <span className="text-emerald-600 font-black">Google reklamı verin</span>, toplu yükleme yapın ve sosyal medya tasarımlarınızı cebe indirin.
+                    Yazılım veya tasarım bilmenize gerek yok; bikaç tıkla kataloğunuzu yönetin, <span className="text-emerald-600 font-black">Google reklamı verin</span>, toplu yükleme yapın ve sosyal medya tasarımlarınızı cebe indirin.
                   </p>
                 </div>
               </div>
