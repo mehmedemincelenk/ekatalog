@@ -288,8 +288,17 @@ export default function LandingPage() {
       {/* PRICING & TRUST SECTION - Clean Modernist Layout */}
       <section className="pb-16 px-4">
         <div className="text-center flex flex-col items-center animate-in fade-in duration-1000 delay-500">
-          <div className="flex flex-col items-center space-y-2">
+          {/* Launch Special Price Badge */}
+          <div className="mb-8 px-4 py-1.5 bg-amber-50/70 border border-amber-200/50 rounded-full text-[10px] font-black text-amber-800 uppercase tracking-widest shadow-sm shadow-amber-50">
+            Lansmana Özel Fiyatlar
+          </div>
+
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-12 sm:gap-20">
+            {/* Monthly Plan */}
             <div className="space-y-1">
+              <span className="text-[9px] font-black text-stone-400 uppercase tracking-widest block mb-1">
+                AYLIK ÖDEME
+              </span>
               <p className="text-[10px] font-black text-stone-300 tracking-[0.3em] line-through">
                 ₺499 / ay
               </p>
@@ -297,11 +306,29 @@ export default function LandingPage() {
                 ₺299
                 <span className="text-lg font-bold opacity-30 ml-2">/ ay</span>
               </p>
-              <p className="text-xs font-bold text-emerald-600 mt-2 uppercase tracking-wider">
-                90 GÜN ÜCRETSİZ DENE • KOLAYCA ÖĞREN
+            </div>
+
+            {/* Vertical Divider */}
+            <div className="hidden sm:block h-12 w-px bg-stone-100" />
+
+            {/* Yearly Plan */}
+            <div className="space-y-1">
+              <span className="text-[9px] font-black text-stone-400 uppercase tracking-widest block mb-1">
+                YILLIK ÖDEME
+              </span>
+              <p className="text-[10px] font-black text-stone-300 tracking-[0.3em] line-through">
+                ₺5.999 / yıl
+              </p>
+              <p className="text-5xl font-black text-stone-900 tracking-tighter leading-none pr-1">
+                ₺3.499
+                <span className="text-lg font-bold opacity-30 ml-2">/ yıl</span>
               </p>
             </div>
           </div>
+
+          <p className="text-xs font-bold text-emerald-600 mt-8 uppercase tracking-wider">
+            90 GÜN ÜCRETSİZ DENE • KOLAYCA ÖĞREN
+          </p>
         </div>
       </section>
 
