@@ -436,15 +436,18 @@ export default function GoogleAdPreviewModal({ isOpen, onClose }: GoogleAdPrevie
                   <div className="space-y-1.5">
                     <div className="flex justify-between items-center">
                       <span className="text-[11px] font-black text-stone-400 uppercase tracking-wider block">2. Bütçe Pastası</span>
-                      <span className="text-[11px] font-black text-stone-900 bg-stone-100 px-1.5 py-0.5 rounded">%10 Bütçe Payı</span>
+                      <span className="text-[11px] font-black text-stone-900 bg-stone-100 px-1.5 py-0.5 rounded whitespace-nowrap">%10 Payı</span>
                     </div>
-                    <div className="flex justify-between items-center text-[10px] font-bold text-stone-600 bg-stone-50/50 rounded-xl p-2 border border-stone-150/50">
-                      <div>
-                        Sizin: <span className="font-black text-emerald-600">2.000 ₺</span> 
-                        <span className="mx-1.5 text-stone-300">|</span> 
-                        Rakiplerin: <span className="font-black text-stone-850">18.000 ₺</span>
+                    <div className="grid grid-cols-3 gap-1 text-[11px] font-bold text-stone-600 text-center pt-0.5">
+                      <div className="whitespace-nowrap">
+                        Sizin: <span className="font-black text-emerald-600">2.000 ₺</span>
                       </div>
-                      <span className="text-[10px] font-black text-stone-900">Toplam: 20.000 ₺</span>
+                      <div className="whitespace-nowrap border-x border-stone-200 px-0.5">
+                        Rakipler: <span className="font-black text-stone-850">18.000 ₺</span>
+                      </div>
+                      <div className="whitespace-nowrap">
+                        Toplam: <span className="font-black text-stone-900">20.000 ₺</span>
+                      </div>
                     </div>
                   </div>
                   
