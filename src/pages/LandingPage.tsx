@@ -351,7 +351,7 @@ export default function LandingPage() {
                   {/* Left Side: Text Copy */}
                   <div className="flex-1 space-y-1">
                     <h2 className="text-base sm:text-lg font-black text-white tracking-tight leading-snug">
-                      90 Gün Ücretsiz Deneyin
+                      90 Gün Ücretsiz Denemenizi Başlatın
                     </h2>
                     <p className="text-[10px] font-bold text-emerald-400 uppercase tracking-wider">
                       Fiyatı Sonra Düşünün
