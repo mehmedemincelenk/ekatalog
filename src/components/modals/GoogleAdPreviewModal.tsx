@@ -407,9 +407,9 @@ export default function GoogleAdPreviewModal({ isOpen, onClose }: GoogleAdPrevie
             <div className="space-y-5">
               {/* Math Content (Stack Layout) */}
               {/* Consolidated Math Scorecard */}
-              <div className="bg-stone-50 border border-stone-200/60 rounded-2xl p-4 space-y-4">
+              <div className="space-y-4 px-1 pb-2">
                 {/* Introduction Text (Inside Card) */}
-                <p className="text-[10px] font-semibold text-stone-500 leading-relaxed">
+                <p className="text-[10px] font-semibold text-stone-500 leading-relaxed text-center px-2">
                   Potansiyel müşterileriniz, Google'da sektörünüze dair arama yapıyorlar ve ilk çıkan sonuca/sonuclara tıklıyorlar. Rakipleriniz, ilk çıkanlardan olmak için Google Reklamlar kullanıyor (Google'a para ödüyor.)
                 </p>
 
@@ -464,31 +464,7 @@ export default function GoogleAdPreviewModal({ isOpen, onClose }: GoogleAdPrevie
                 </div>
               </div>
 
-              {/* Google Arama Simülasyonu */}
-              <div className="space-y-2.5">
-                {/* Visual Google Search Result Mockup */}
-                <div className="border border-stone-200 rounded-2xl p-4 bg-white shadow-sm space-y-3">
-                  <div className="flex items-center gap-2 border-b border-stone-100 pb-2">
-                    <div className="w-5 h-5 rounded-full bg-stone-100 flex items-center justify-center text-[10px] font-black text-stone-600 shrink-0">G</div>
-                    <div className="flex-1 bg-stone-50 border border-stone-200/50 rounded-full px-3 py-1 flex items-center justify-between text-[9px] font-bold text-stone-700 min-h-[22px]">
-                      <span className="text-stone-850 font-black tracking-normal">.....</span>
-                      <Lucide.Search size={10} className="text-stone-400" />
-                    </div>
-                  </div>
-                  <div className="space-y-1.5">
-                    <div className="flex items-center gap-1.5">
-                      <span className="text-[9px] font-black bg-stone-100 text-stone-600 px-1 py-0.5 rounded tracking-wider uppercase">Sponsorlu</span>
-                      <span className="text-[9px] font-bold text-stone-400">{settings?.slug || 'slug'}.ekatalog.site</span>
-                    </div>
-                    <h4 className="text-[13px] font-black text-blue-600 hover:underline cursor-pointer leading-tight">
-                      {settings?.title || 'Yeni Mağazanız'} | {settings?.subtitle || 'Dijital Katalog'}
-                    </h4>
-                    <p className="text-[10px] font-bold text-stone-500 leading-normal normal-case">
-                      En güncel ürünlerimizi, fiyat listemizi ve kataloğumuzu hemen inceleyin. Hızlı inceleme ve doğrudan sipariş imkanıyla hizmetinizdeyiz.
-                    </p>
-                  </div>
-                </div>
-              </div>
+
 
               {/* Devam et button */}
               <Button
