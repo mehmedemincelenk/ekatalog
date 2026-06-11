@@ -462,6 +462,13 @@ export default function GoogleAdPreviewModal({ isOpen, onClose }: GoogleAdPrevie
                     <div className="h-full bg-stone-300" style={{ width: '90%' }} />
                   </div>
                 </div>
+
+                <hr className="border-t border-stone-200/60" />
+
+                {/* Conclusion Text (Inside Card at the bottom) */}
+                <p className="text-[10px] font-semibold text-stone-500 leading-relaxed text-center px-2">
+                  Artık bu ay sektörünüzle ilgili Google (Google Caddesi) arama yapan 10.000 potansiyel müşteriden 1.000 tanesi önce sizin sitenizi/ekataloğunuzu (dükkanınızı) görücek.
+                </p>
               </div>
 
 
