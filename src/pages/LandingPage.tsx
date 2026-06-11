@@ -257,7 +257,7 @@ export default function LandingPage() {
             </div>
 
             {/* SB7 Emotional Success Badges */}
-            <div className="flex flex-wrap items-center justify-center gap-2 pt-6">
+            <div className="flex flex-wrap items-center justify-center gap-2 !mt-3">
               <div className="flex items-center gap-1.5 bg-emerald-50/20 border border-emerald-100/30 rounded-md py-1 px-3 text-[10px] font-bold text-emerald-800/80 shadow-sm">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
                 <span>zaman</span>
