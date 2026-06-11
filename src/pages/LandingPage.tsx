@@ -218,7 +218,7 @@ export default function LandingPage() {
             <p className="text-[10px] font-black text-stone-300 uppercase tracking-[0.4em]">
               kazanacaklarınız
             </p>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-3xl mx-auto px-4">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-5xl mx-auto px-4">
               {/* Pillar 1: App & Web */}
               <div className="bg-stone-50/40 border border-stone-100/80 rounded-2xl p-5 hover:bg-stone-50/80 transition-all shadow-sm shadow-stone-100/10 flex flex-col items-center text-center">
                 <div className="inline-flex items-center gap-2 bg-emerald-50/60 border border-emerald-100/80 rounded-lg py-1.5 px-4 text-xs font-bold text-emerald-800/90 shadow-sm shadow-emerald-100/30 hover:bg-emerald-100/40 transition-colors shrink-0">
@@ -241,6 +241,19 @@ export default function LandingPage() {
                 <div className="flex-1 flex items-center justify-center pt-3">
                   <p className="text-xs text-stone-500 font-medium leading-relaxed">
                     Yazılım veya tasarım bilmenize gerek yok; bikaç tıkla kataloğunuzu yönetin, <span className="font-bold text-stone-900">Google reklamı verin</span>, toplu yükleme yapın ve sosyal medya tasarımlarınızı cebe indirin.
+                  </p>
+                </div>
+              </div>
+
+              {/* Pillar 3: Hazır Tasarımlar */}
+              <div className="bg-stone-50/40 border border-stone-100/80 rounded-2xl p-5 hover:bg-stone-50/80 transition-all shadow-sm shadow-stone-100/10 flex flex-col items-center text-center">
+                <div className="inline-flex items-center gap-2 bg-emerald-50/60 border border-emerald-100/80 rounded-lg py-1.5 px-4 text-xs font-bold text-emerald-800/90 shadow-sm shadow-emerald-100/30 hover:bg-emerald-100/40 transition-colors shrink-0">
+                  <Lucide.Palette size={12} className="text-emerald-600" />
+                  <span>hazır tasarımlar</span>
+                </div>
+                <div className="flex-1 flex items-center justify-center pt-3">
+                  <p className="text-xs text-stone-500 font-medium leading-relaxed">
+                    kataloğunuza yönlendiren QR telefon kılıfları, masa kartları, kartvizitler, hazır sosyal medya gönderileri ve tüm baskı/tasarım çözümleri
                   </p>
                 </div>
               </div>
