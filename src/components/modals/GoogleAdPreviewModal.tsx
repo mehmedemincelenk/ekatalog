@@ -407,9 +407,10 @@ export default function GoogleAdPreviewModal({ isOpen, onClose }: GoogleAdPrevie
           {step === 1 && (
             <div className="space-y-5">
               {/* Math Content (Stack Layout) */}
-              <div className="space-y-3">
-                {/* Step 1: Toplam Pasta */}
-                <div className="bg-stone-50 border border-stone-200/60 rounded-2xl p-3 flex justify-between items-center">
+              {/* Consolidated Math Scorecard */}
+              <div className="bg-stone-50 border border-stone-200/60 rounded-2xl p-4 space-y-4">
+                {/* Segment 1: Toplam Pasta */}
+                <div className="flex justify-between items-center">
                   <div className="space-y-0.5">
                     <span className="text-[10px] font-black text-stone-400 uppercase tracking-wider block">Toplam Pasta</span>
                     <p className="text-[9px] font-bold text-stone-500 leading-none">Google'da sektörünüzle alakalı arama yapan potansiyel müşterileriniz.</p>
@@ -417,8 +418,10 @@ export default function GoogleAdPreviewModal({ isOpen, onClose }: GoogleAdPrevie
                   <span className="text-[12px] font-black text-stone-900 bg-white border border-stone-200 px-2.5 py-1 rounded-xl shadow-sm whitespace-nowrap">10.000 Kişi</span>
                 </div>
 
-                {/* Step 2: Toplam Bütçe */}
-                <div className="bg-stone-50 border border-stone-200/60 rounded-2xl p-3 flex justify-between items-center">
+                <hr className="border-t border-stone-200/60" />
+
+                {/* Segment 2: Toplam Bütçe */}
+                <div className="flex justify-between items-center">
                   <div className="space-y-0.5">
                     <span className="text-[10px] font-black text-stone-400 uppercase tracking-wider block">Toplam Bütçe</span>
                     <p className="text-[9px] font-bold text-stone-500 leading-none">Sektörünüzün Google'a pasta için ödediği toplam ücret</p>
@@ -426,50 +429,38 @@ export default function GoogleAdPreviewModal({ isOpen, onClose }: GoogleAdPrevie
                   <span className="text-[12px] font-black text-stone-900 bg-white border border-stone-200 px-2.5 py-1 rounded-xl shadow-sm whitespace-nowrap">100.000 ₺</span>
                 </div>
 
-                {/* Sizin Reklam Bütçeniz ve Sonuçlar (Merged Card) */}
-                <div className="bg-stone-50 border border-stone-200/60 rounded-2xl p-3.5 space-y-3.5">
-                  {/* Segment 1: Sizin Bütçeniz */}
-                  <div className="flex justify-between items-center">
-                    <div className="space-y-0.5">
-                      <span className="text-[10px] font-black text-stone-400 uppercase tracking-wider block">Sizin Bütçeniz</span>
-                      <p className="text-[9px] font-bold text-stone-500 leading-none">Pastaya ödediğiniz ücret (reklam bütçesi)</p>
-                    </div>
-                    <span className="text-[12px] font-black text-stone-900 bg-white border border-stone-200 px-2.5 py-1 rounded-xl shadow-sm whitespace-nowrap">10.000 ₺</span>
-                  </div>
+                <hr className="border-t border-stone-200/60" />
 
-                  <hr className="border-t border-stone-200/60" />
-
-                  {/* Segment 2: Pastadan Payınız */}
-                  <div className="space-y-1.5">
-                    <div className="flex justify-between items-center">
-                      <div className="space-y-0.5">
-                        <span className="text-[10px] font-black text-emerald-600 uppercase tracking-wider block">Pastadan Payınız</span>
-                        <p className="text-[9px] font-bold text-stone-500 leading-none">10.000 ₺ / 100.000 ₺ = %10</p>
-                      </div>
-                      <span className="text-[12px] font-black text-white bg-emerald-500 border border-emerald-600 px-2.5 py-1 rounded-xl shadow-sm whitespace-nowrap">%10 (1.000 Müşteri)</span>
-                    </div>
-                    {/* Tiny Share Progress Bar */}
-                    <div className="w-full h-1.5 bg-stone-200 rounded-full overflow-hidden flex">
-                      <div className="h-full bg-emerald-500" style={{ width: '10%' }} />
-                      <div className="h-full bg-stone-300" style={{ width: '90%' }} />
-                    </div>
+                {/* Segment 3: Sizin Bütçeniz */}
+                <div className="flex justify-between items-center">
+                  <div className="space-y-0.5">
+                    <span className="text-[10px] font-black text-stone-400 uppercase tracking-wider block">Sizin Bütçeniz</span>
+                    <p className="text-[9px] font-bold text-stone-500 leading-none">Pastaya ödediğiniz ücret (reklam bütçesi)</p>
                   </div>
+                  <span className="text-[12px] font-black text-stone-900 bg-white border border-stone-200 px-2.5 py-1 rounded-xl shadow-sm whitespace-nowrap">10.000 ₺</span>
                 </div>
 
-                {/* Explanatory Callout (Outside the Card, borderless and centered) */}
-                <p className="text-[10px] font-semibold text-stone-500 leading-relaxed text-center px-4">
-                  10.000 potansiyel müşteriden 1.000 tanesinin Google aramalarında en başta çıktınız. İnsanlar aradıklarına dair ilk gördüğüne tıklar.
-                </p>
-              </div>
+                <hr className="border-t border-stone-200/60" />
 
-              <hr className="border-t border-stone-200/60" />
+                {/* Segment 4: Sizin Payınız */}
+                <div className="space-y-1.5">
+                  <div className="flex justify-between items-center">
+                    <div className="space-y-0.5">
+                      <span className="text-[10px] font-black text-emerald-600 uppercase tracking-wider block">Sizin Payınız</span>
+                      <p className="text-[9px] font-bold text-stone-500 leading-none">10.000 ₺ / 100.000 ₺ = %10</p>
+                    </div>
+                    <span className="text-[12px] font-black text-white bg-emerald-500 border border-emerald-600 px-2.5 py-1 rounded-xl shadow-sm whitespace-nowrap">%10 (1.000 Müşteri)</span>
+                  </div>
+                  {/* Tiny Share Progress Bar */}
+                  <div className="w-full h-1.5 bg-stone-200 rounded-full overflow-hidden flex">
+                    <div className="h-full bg-emerald-500" style={{ width: '10%' }} />
+                    <div className="h-full bg-stone-300" style={{ width: '90%' }} />
+                  </div>
+                </div>
+              </div>
 
               {/* Google Arama Simülasyonu */}
               <div className="space-y-2.5">
-                <span className="text-[9px] font-black text-stone-400 uppercase tracking-widest block">
-                  Google Arama Görünümü
-                </span>
-
                 {/* Visual Google Search Result Mockup */}
                 <div className="border border-stone-200 rounded-2xl p-4 bg-white shadow-sm space-y-3">
                   <div className="flex items-center gap-2 border-b border-stone-100 pb-2">
