@@ -478,49 +478,49 @@ export default function GoogleAdPreviewModal({ isOpen, onClose }: GoogleAdPrevie
                   {/* Step 1: Total Searchers */}
                   <div className="flex justify-between items-start gap-4">
                     <div className="flex gap-2.5 items-start">
-                      <div className="w-6 h-6 rounded-full bg-stone-100 text-stone-600 flex items-center justify-center shrink-0 mt-0.5">
-                        <Lucide.Search size={12} />
+                      <div className="w-7 h-7 rounded-full bg-stone-100 text-stone-600 flex items-center justify-center shrink-0 mt-0.5">
+                        <Lucide.Search size={13} />
                       </div>
                       <div className="space-y-0.5">
-                        <span className="text-[9px] font-black text-stone-400 uppercase tracking-wider block">1. Toplam Arama</span>
-                        <p className="text-[10px] font-bold text-stone-600 leading-normal">Ürünlerinizi arayan aylık toplam kişi sayısı</p>
+                        <span className="text-[11px] font-black text-stone-400 uppercase tracking-wider block">1. Toplam Arama</span>
+                        <p className="text-[12px] font-bold text-stone-600 leading-normal">Ürünlerinizi arayan aylık toplam kişi sayısı</p>
                       </div>
                     </div>
-                    <span className="text-[12px] font-black text-stone-900 shrink-0 pt-0.5">10.000 Arama</span>
+                    <span className="text-[14px] font-black text-stone-900 shrink-0 pt-0.5">10.000 Arama</span>
                   </div>
 
                   <hr className="border-t border-stone-100" />
 
                   {/* Step 2: Budget Pool */}
                   <div className="space-y-2.5">
-                    <span className="text-[9px] font-black text-stone-400 uppercase tracking-wider block">2. Reklam Bütçeleri</span>
+                    <span className="text-[11px] font-black text-stone-400 uppercase tracking-wider block">2. Reklam Bütçeleri</span>
                     
                     <div className="grid grid-cols-3 gap-2 pt-0.5">
                       {/* Sizin Bütçeniz */}
                       <div className="bg-emerald-50/30 border border-emerald-100/50 rounded-2xl p-2.5 text-center space-y-1">
-                        <div className="w-6 h-6 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto">
-                          <Lucide.User size={12} />
+                        <div className="w-7 h-7 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto">
+                          <Lucide.User size={13} />
                         </div>
-                        <span className="text-[7.5px] font-black text-stone-400 uppercase tracking-wider block">Sizin</span>
-                        <span className="text-[10px] font-black text-emerald-600">2.000 ₺</span>
+                        <span className="text-[9px] font-black text-stone-400 uppercase tracking-wider block">Sizin</span>
+                        <span className="text-[13px] font-black text-emerald-600">2.000 ₺</span>
                       </div>
 
                       {/* Rakiplerin Bütçesi */}
                       <div className="bg-stone-50 border border-stone-200/50 rounded-2xl p-2.5 text-center space-y-1">
-                        <div className="w-6 h-6 rounded-full bg-stone-100 text-stone-600 flex items-center justify-center mx-auto">
-                          <Lucide.Users size={12} />
+                        <div className="w-7 h-7 rounded-full bg-stone-100 text-stone-600 flex items-center justify-center mx-auto">
+                          <Lucide.Users size={13} />
                         </div>
-                        <span className="text-[7.5px] font-black text-stone-400 uppercase tracking-wider block">Rakipler</span>
-                        <span className="text-[10px] font-black text-stone-800">18.000 ₺</span>
+                        <span className="text-[9px] font-black text-stone-400 uppercase tracking-wider block">Rakipler</span>
+                        <span className="text-[13px] font-black text-stone-800">18.000 ₺</span>
                       </div>
 
                       {/* Toplam Bütçe */}
                       <div className="bg-stone-50 border border-stone-200/50 rounded-2xl p-2.5 text-center space-y-1">
-                        <div className="w-6 h-6 rounded-full bg-stone-100 text-stone-600 flex items-center justify-center mx-auto">
-                          <Lucide.Coins size={12} />
+                        <div className="w-7 h-7 rounded-full bg-stone-100 text-stone-600 flex items-center justify-center mx-auto">
+                          <Lucide.Coins size={13} />
                         </div>
-                        <span className="text-[7.5px] font-black text-stone-400 uppercase tracking-wider block">Toplam</span>
-                        <span className="text-[10px] font-black text-stone-900">20.000 ₺</span>
+                        <span className="text-[9px] font-black text-stone-400 uppercase tracking-wider block">Toplam</span>
+                        <span className="text-[13px] font-black text-stone-900">20.000 ₺</span>
                       </div>
                     </div>
                   </div>
@@ -531,17 +531,17 @@ export default function GoogleAdPreviewModal({ isOpen, onClose }: GoogleAdPrevie
                   <div className="bg-emerald-50/40 border border-emerald-150 p-3.5 rounded-xl space-y-2.5">
                     <div className="flex justify-between items-start gap-4">
                       <div className="flex gap-2.5 items-start">
-                        <div className="w-6 h-6 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0 mt-0.5">
-                          <Lucide.TrendingUp size={12} />
+                        <div className="w-7 h-7 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0 mt-0.5">
+                          <Lucide.TrendingUp size={13} />
                         </div>
                         <div className="space-y-0.5">
-                          <span className="text-[9px] font-black text-emerald-600 uppercase tracking-wider block">3. Sizin Ziyaretçiniz</span>
-                          <p className="text-[10px] font-bold text-emerald-800 leading-normal">
+                          <span className="text-[11px] font-black text-emerald-600 uppercase tracking-wider block">3. Sizin Ziyaretçiniz</span>
+                          <p className="text-[12px] font-bold text-emerald-800 leading-normal">
                             Bütçe payınız <span className="font-black">%10</span>. Aramaların <span className="font-black">%10'u</span> dükkanınıza gelir.
                           </p>
                         </div>
                       </div>
-                      <span className="text-[14px] font-black text-emerald-600 shrink-0 pt-0.5">1.000 Kişi</span>
+                      <span className="text-[16px] font-black text-emerald-600 shrink-0 pt-0.5">1.000 Kişi</span>
                     </div>
 
                     {/* Simple Share Indicator */}
@@ -550,7 +550,7 @@ export default function GoogleAdPreviewModal({ isOpen, onClose }: GoogleAdPrevie
                         <div className="h-full bg-emerald-500" style={{ width: '10%' }} />
                         <div className="h-full bg-stone-200" style={{ width: '90%' }} />
                       </div>
-                      <div className="flex justify-between items-center text-[7px] font-black uppercase tracking-wider text-stone-400">
+                      <div className="flex justify-between items-center text-[9px] font-black uppercase tracking-wider text-stone-400">
                         <span className="text-emerald-600 font-black">Sizin (%10)</span>
                         <span>Rakipler (%90)</span>
                       </div>
