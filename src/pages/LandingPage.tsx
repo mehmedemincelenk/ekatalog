@@ -156,42 +156,6 @@ export default function LandingPage() {
               </div>
             </div>
 
-            <div className="pt-4 w-full">
-              <a
-                href="https://wa.me/905373420161"
-                target="_blank"
-                rel="noreferrer"
-                className="block hover:scale-[1.02] active:scale-[0.98] transition-transform duration-200 max-w-md mx-auto"
-              >
-                <div
-                  className="rounded-[2rem] p-5 shadow-2xl relative overflow-hidden w-full"
-                  style={{ backgroundColor: THEME.colors.marketing.brand }}
-                >
-                  <div className="absolute inset-0 bg-gradient-to-tr from-white/5 to-transparent"></div>
-
-                  <div className="relative z-10 flex items-center justify-between gap-4 text-left">
-                    {/* Left Side: Text Copy */}
-                    <div className="flex-1 space-y-1">
-                      <h2 className="text-base sm:text-lg font-black text-white tracking-tight leading-snug">
-                        Eski Katalog Menünüzü Gönderin
-                      </h2>
-                      <p className="text-[10px] font-bold text-emerald-400 uppercase tracking-wider">
-                        ÜCRETSİZ KURALIM
-                      </p>
-                    </div>
-
-                    {/* Right Side: Squircle App Icon Button */}
-                    <div className="shrink-0">
-                      <div className="w-16 h-16 bg-[#25D366] text-white flex items-center justify-center rounded-2xl shadow-none">
-                        <div className="w-8 h-8 fill-white drop-shadow-sm transition-transform duration-300">
-                          {THEME.icons.whatsapp}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </a>
-            </div>
           </div>
 
           {/* AVOID LOSS (STAKES) - Modernist Minimalist (Kurtulacaklarınız) */}
