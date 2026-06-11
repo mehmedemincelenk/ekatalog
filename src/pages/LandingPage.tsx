@@ -133,8 +133,11 @@ export default function LandingPage() {
           </h1>
 
           <h2 className="text-lg sm:text-xl font-bold text-stone-900 tracking-tight leading-none relative z-10 pt-2">
-            📜 Katalog Menü Angaryaları/Maliyetleri Geçmişte Kaldı 📱
+            Katalog Menü Angaryaları/Maliyetleri Geçmişte Kaldı
           </h2>
+          <p className="text-2xl relative z-10 mt-3 select-none">
+            📜 📖 📱
+          </p>
 
 
           <div className="pt-8 flex flex-col items-center justify-center relative z-20 space-y-4">
