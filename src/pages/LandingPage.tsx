@@ -208,7 +208,7 @@ export default function LandingPage() {
                 <span>tasarımcı/yazılımcı beklemek</span>
               </div>
               <div className="flex items-center gap-2 bg-red-50/60 border border-red-100/80 rounded-lg py-1.5 px-4 text-xs font-bold text-red-800/90 shadow-sm shadow-red-100/30 hover:bg-red-100/40 transition-colors">
-                <span>maliyet</span>
+                <span>karmaşa</span>
               </div>
             </div>
           </div>
