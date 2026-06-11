@@ -409,15 +409,18 @@ export default function GoogleAdPreviewModal({ isOpen, onClose }: GoogleAdPrevie
                   <Lucide.Compass className="text-emerald-500" size={16} /> Google Reklamları Nedir?
                 </h4>
                 <p className="text-[10px] font-bold text-stone-500 leading-relaxed normal-case">
-                  Google'da arama yapan müşterilerin karşısına en tepede çıkmanızı sağlar. Reklamı gören kişiler tek tıkla e-kataloğunuza girer ve doğrudan sipariş verir.
+                  Ödediğiniz bütçe kadar müşteri, Google'da sizin sektörünüzle alakalı bir şey aradığında en başta sizin dükkanınızı görür. Müşteriler reklamınıza tıklar, doğrudan e-kataloğunuza girip sipariş verir.
                 </p>
               </div>
 
               {/* Static Google Search Mockup */}
               <div className="border border-stone-200 rounded-2xl p-4 bg-white shadow-sm space-y-3">
                 <div className="flex items-center gap-2 border-b border-stone-100 pb-2">
-                  <div className="w-5 h-5 rounded-full bg-stone-100 flex items-center justify-center text-[10px] font-black text-stone-600">G</div>
-                  <div className="h-3 bg-stone-100 rounded-full w-24"></div>
+                  <div className="w-5 h-5 rounded-full bg-stone-100 flex items-center justify-center text-[10px] font-black text-stone-600 shrink-0">G</div>
+                  <div className="flex-1 bg-stone-50 border border-stone-200/50 rounded-full px-3 py-1 flex items-center justify-between text-[9px] font-bold text-stone-700">
+                    <span>{settings?.subtitle || 'Yakınımdaki En İyi Yerler'}</span>
+                    <Lucide.Search size={10} className="text-stone-400" />
+                  </div>
                 </div>
                 <div className="space-y-1.5">
                   <div className="flex items-center gap-1.5">
