@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import * as Lucide from 'lucide-react';
 import { THEME } from '../data/config';
+import Button from '../components/ui/Button';
 
 const DOMAIN_EXTENSIONS = ['site', 'coffee', 'cafe', 'ltd', 'io'];
 
@@ -294,60 +295,29 @@ export default function LandingPage() {
                 <span className="text-lg font-bold opacity-30 ml-2">/ ay</span>
               </p>
               <p className="text-xs font-bold text-emerald-600 mt-2 uppercase tracking-wider">
-                90 GÜN ÜCRETSİZ DENE
+                90 GÜN ÜCRETSİZ DENE • KOLAYCA ÖĞREN
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* 3-STEP PLAN SECTION */}
-      <section className="pb-16 px-4 border-t border-stone-50 pt-16 max-w-3xl mx-auto w-full">
-        <div className="text-center space-y-8">
-          <p className="text-[10px] font-black text-stone-300 uppercase tracking-[0.4em]">
-            3 adımda kolay kurulum
-          </p>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-left max-w-2xl mx-auto">
-            {/* Step 1 */}
-            <div className="space-y-2">
-              <div className="w-8 h-8 rounded-full bg-stone-900 text-white flex items-center justify-center font-black text-sm">
-                1
-              </div>
-              <h3 className="text-sm font-black text-stone-900 tracking-tight">
-                Kataloğunuzu Gönderin
-              </h3>
-              <p className="text-xs text-stone-500 font-medium leading-relaxed">
-                Eski katalog veya menünüzü WhatsApp'tan bize atın.
-              </p>
-            </div>
-
-            {/* Step 2 */}
-            <div className="space-y-2">
-              <div className="w-8 h-8 rounded-full bg-stone-900 text-white flex items-center justify-center font-black text-sm">
-                2
-              </div>
-              <h3 className="text-sm font-black text-stone-900 tracking-tight">
-                Biz Kuralım
-              </h3>
-              <p className="text-xs text-stone-500 font-medium leading-relaxed">
-                Dükkanınızı 24 saat içinde tamamen hazır hale getirelim.
-              </p>
-            </div>
-
-            {/* Step 3 */}
-            <div className="space-y-2">
-              <div className="w-8 h-8 rounded-full bg-stone-900 text-white flex items-center justify-center font-black text-sm">
-                3
-              </div>
-              <h3 className="text-sm font-black text-stone-900 tracking-tight">
-                Cepten Yönetin
-              </h3>
-              <p className="text-xs text-stone-500 font-medium leading-relaxed">
-                Fiyatlarınızı telefondan güncelleyin ve anında paylaşın.
-              </p>
-            </div>
-          </div>
-        </div>
+      {/* CTA SECTION */}
+      <section className="pb-20 px-4 max-w-md mx-auto w-full">
+        <Button
+          {...({
+            as: 'a',
+            href: 'https://wa.me/905373420161',
+            target: '_blank',
+            rel: 'noreferrer'
+          } as any)}
+          variant="whatsapp"
+          size="lg"
+          icon={<div className="w-5 h-5 fill-white">{THEME.icons.whatsapp}</div>}
+          className="hover:scale-[1.02] active:scale-[0.98] transition-transform shadow-xl shadow-green-100/40 w-full text-center"
+        >
+          Eski Katalog Menünüzü Gönderin
+        </Button>
       </section>
 
       <footer className="relative border-t border-stone-100 pt-8 flex items-center justify-between gap-4 px-6 pb-8 max-w-3xl mx-auto w-full">
