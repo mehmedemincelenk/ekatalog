@@ -258,7 +258,7 @@ export default function LandingPage() {
 
           <div className="flex flex-col md:flex-row items-stretch justify-center gap-6 mt-4 max-w-2xl mx-auto w-full px-4">
             {/* Monthly Plan Card */}
-            <div className="flex-1 min-w-[260px] bg-white border border-stone-100 rounded-3xl p-8 flex flex-col justify-between hover:border-stone-200 transition-all shadow-sm text-left">
+            <div className="flex-1 min-w-[260px] bg-white border border-stone-100 rounded-xl p-8 flex flex-col justify-between hover:border-stone-200 transition-all shadow-sm text-left">
               <div className="space-y-4">
                 <span className="text-[9px] font-black text-stone-400 uppercase tracking-widest block">
                   AYLIK ÖDEME
@@ -276,7 +276,7 @@ export default function LandingPage() {
             </div>
 
             {/* Yearly Plan Card - Highly Recommended */}
-            <div className="flex-1 min-w-[260px] bg-stone-950 text-white border-2 border-stone-950 rounded-3xl p-8 flex flex-col justify-between relative hover:scale-[1.01] transition-all shadow-xl shadow-stone-950/10 text-left">
+            <div className="flex-1 min-w-[260px] bg-stone-950 text-white border-2 border-stone-950 rounded-xl p-8 flex flex-col justify-between relative hover:scale-[1.01] transition-all shadow-xl shadow-stone-950/10 text-left">
               {/* Popular Badge */}
               <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 px-4 py-1.5 bg-emerald-500 text-[9px] font-black text-white uppercase tracking-widest rounded-full shadow-lg shadow-emerald-500/20 whitespace-nowrap">
                 en popüler
@@ -307,7 +307,7 @@ export default function LandingPage() {
               className="block hover:scale-[1.02] active:scale-[0.98] transition-transform duration-200 w-full"
             >
               <div
-                className="rounded-[2rem] p-5 shadow-2xl relative overflow-hidden w-full text-left"
+                className="rounded-3xl p-5 shadow-2xl relative overflow-hidden w-full text-left"
                 style={{ backgroundColor: THEME.colors.marketing.brand }}
               >
                 <div className="absolute inset-0 bg-gradient-to-tr from-white/5 to-transparent"></div>
@@ -315,7 +315,7 @@ export default function LandingPage() {
                 <div className="relative z-10 flex items-center justify-between gap-4">
                   {/* Left Side: Text Copy */}
                   <div className="flex-1 space-y-1">
-                    <h2 className="text-base sm:text-lg font-black text-white tracking-tight leading-snug">
+                    <h2 className="text-sm sm:text-base font-black text-white tracking-tight leading-snug">
                       90 Gün Ücretsiz Denemenizi Başlatın
                     </h2>
                     <p className="text-[10px] font-bold text-emerald-400 uppercase tracking-wider">
@@ -325,7 +325,7 @@ export default function LandingPage() {
 
                   {/* Right Side: Squircle App Icon Button */}
                   <div className="shrink-0">
-                    <div className="w-16 h-16 bg-[#25D366] text-white flex items-center justify-center rounded-2xl shadow-none">
+                    <div className="w-16 h-16 bg-[#25D366] text-white flex items-center justify-center rounded-xl shadow-none">
                       <div className="w-8 h-8 fill-white drop-shadow-sm transition-transform duration-300">
                         {THEME.icons.whatsapp}
                       </div>
