@@ -101,7 +101,7 @@ export default function GoogleAdPreviewModal({ isOpen, onClose }: GoogleAdPrevie
     };
   }, []);
 
-  const totalSteps = hasQA ? 6 : 5;
+  const totalSteps = hasQA === null ? 6 : (hasQA ? 7 : 6);
 
   // Formatting timer (e.g. 00:05)
   const formatTime = (seconds: number) => {
@@ -343,11 +343,12 @@ export default function GoogleAdPreviewModal({ isOpen, onClose }: GoogleAdPrevie
   const getStepTitle = () => {
     switch (step) {
       case 1: return 'Google Reklamları';
-      case 2: return hasQA ? 'Reklam Kalitesi' : 'Hedef Kitle';
-      case 3: return hasQA ? 'Hedef Kitle' : 'Reklam Bütçesi';
-      case 4: return hasQA ? 'Reklam Bütçesi' : 'Onay ve Güvenlik';
-      case 5: return hasQA ? 'Onay ve Güvenlik' : 'Ödeme Adımı';
-      case 6: return 'Ödeme Adımı';
+      case 2: return 'Kampanya Tipi';
+      case 3: return hasQA ? 'Reklam Kalitesi' : 'Hedef Kitle';
+      case 4: return hasQA ? 'Hedef Kitle' : 'Reklam Bütçesi';
+      case 5: return hasQA ? 'Reklam Bütçesi' : 'Onay ve Güvenlik';
+      case 6: return hasQA ? 'Onay ve Güvenlik' : 'Ödeme Adımı';
+      case 7: return 'Ödeme Adımı';
       default: return 'Google Reklamları';
     }
   };
@@ -357,8 +358,8 @@ export default function GoogleAdPreviewModal({ isOpen, onClose }: GoogleAdPrevie
   };
 
   const handlePrevStep = () => {
-    if (step === 2 && hasQA === false) {
-      setStep(1);
+    if (step === 3) {
+      setStep(2);
       setHasQA(null);
     } else {
       setStep(prev => prev - 1);
@@ -399,7 +400,7 @@ export default function GoogleAdPreviewModal({ isOpen, onClose }: GoogleAdPrevie
         }
       >
         <div className="space-y-6 pt-1">
-          {/* STEP 1: Onboarding and Choice */}
+          {/* STEP 1: Onboarding */}
           {step === 1 && (
             <div className="space-y-5">
               {/* Onboarding Info */}
@@ -438,10 +439,32 @@ export default function GoogleAdPreviewModal({ isOpen, onClose }: GoogleAdPrevie
                 </div>
               </div>
 
+              {/* Devam et button */}
+              <Button
+                onClick={() => setStep(2)}
+                variant="primary"
+                size="lg"
+                className="w-full"
+              >
+                DEVAM ET
+              </Button>
+            </div>
+          )}
+
+          {/* STEP 2: Choice */}
+          {step === 2 && (
+            <div className="space-y-5">
+              <div className="bg-stone-50 border border-stone-150 rounded-2xl p-4 space-y-1">
+                <span className="text-[9px] font-black text-stone-400 uppercase tracking-wider">Reklam Yöntemi</span>
+                <p className="text-[10px] font-bold text-stone-500 leading-normal lowercase">
+                  reklam kalitesini arttırmak için sorularımızı ses kaydıyla yanıtlayabilir veya doğrudan hızlı kuruluma geçebilirsiniz.
+                </p>
+              </div>
+
               {/* Action Buttons */}
               <div className="space-y-3 pt-2">
                 <Button
-                  onClick={() => { setHasQA(false); setStep(2); }}
+                  onClick={() => { setHasQA(false); setStep(3); }}
                   variant="primary"
                   size="lg"
                   className="w-full flex justify-between items-center text-left py-4"
@@ -451,7 +474,7 @@ export default function GoogleAdPreviewModal({ isOpen, onClose }: GoogleAdPrevie
                 </Button>
 
                 <Button
-                  onClick={() => { setHasQA(true); setStep(2); }}
+                  onClick={() => { setHasQA(true); setStep(3); }}
                   variant="outline"
                   size="lg"
                   className="w-full flex justify-between items-center text-left py-4 !border-stone-200 hover:!border-stone-900 bg-white"
@@ -463,8 +486,8 @@ export default function GoogleAdPreviewModal({ isOpen, onClose }: GoogleAdPrevie
             </div>
           )}
 
-          {/* STEP 2 (ONLY IF hasQA === true): Q&A Voice Recorder */}
-          {step === 2 && hasQA && (
+          {/* STEP 3 (ONLY IF hasQA === true): Q&A Voice Recorder */}
+          {step === 3 && hasQA && (
             <div className="space-y-5">
               {/* Question card */}
               <div className="bg-stone-50 border border-stone-150 rounded-3xl p-5 space-y-4">
@@ -620,8 +643,8 @@ export default function GoogleAdPreviewModal({ isOpen, onClose }: GoogleAdPrevie
             </div>
           )}
 
-          {/* STEP 3 (Targeting Setup) */}
-          {step === (hasQA ? 3 : 2) && (
+          {/* STEP 4 (Targeting Setup) */}
+          {step === (hasQA ? 4 : 3) && (
             <div className="space-y-5">
               {/* Address Banner */}
               <div className="bg-stone-50 border border-stone-150 rounded-2xl p-4 flex items-start gap-3">
@@ -721,8 +744,8 @@ export default function GoogleAdPreviewModal({ isOpen, onClose }: GoogleAdPrevie
             </div>
           )}
 
-          {/* STEP 4: Budget Setup */}
-          {step === (hasQA ? 4 : 3) && (
+          {/* STEP 5: Budget Setup */}
+          {step === (hasQA ? 5 : 4) && (
             <div className="space-y-5">
               <div className="bg-stone-50 border border-stone-150 rounded-2xl p-4 space-y-1">
                 <span className="text-[9px] font-black text-stone-400 uppercase tracking-wider">Hedef Kitle Özeti</span>
@@ -796,8 +819,8 @@ export default function GoogleAdPreviewModal({ isOpen, onClose }: GoogleAdPrevie
             </div>
           )}
 
-          {/* STEP 5: Consent Verification */}
-          {step === (hasQA ? 5 : 4) && (
+          {/* STEP 6: Consent Verification */}
+          {step === (hasQA ? 6 : 5) && (
             <div className="space-y-5">
               {/* Alert instruction card */}
               <div className="bg-amber-50 border border-amber-200/50 rounded-2xl p-4 space-y-3">
@@ -844,8 +867,8 @@ export default function GoogleAdPreviewModal({ isOpen, onClose }: GoogleAdPrevie
             </div>
           )}
 
-          {/* STEP 6: IBAN Bridge */}
-          {step === (hasQA ? 6 : 5) && (
+          {/* STEP 7: IBAN Bridge */}
+          {step === (hasQA ? 7 : 6) && (
             <div className="space-y-5">
               {/* Payment Summary */}
               <div className="bg-stone-50 border border-stone-150 rounded-2xl p-4 grid grid-cols-2 gap-4">

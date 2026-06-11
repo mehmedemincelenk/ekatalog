@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { render, screen, fireEvent, act } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import GoogleAdPreviewModal from '../GoogleAdPreviewModal';
 import { useStore } from '../../../store';
 
@@ -34,22 +34,30 @@ describe('GoogleAdPreviewModal Component (Diamond Standard)', () => {
     expect(container.firstChild).toBeNull();
   });
 
-  it('should render Step 1 onboarding screen with action options when open', () => {
+  it('should render Step 1 onboarding screen and proceed to Step 2 when DEVAM ET is clicked', () => {
     render(<GoogleAdPreviewModal isOpen={true} onClose={vi.fn()} />);
 
     // Check title & subtitle
     expect(screen.getByText('Google Reklamları')).not.toBeNull();
     expect(screen.getByText('Google Reklamları Nedir?')).not.toBeNull();
     expect(screen.getByText('Sponsorlu')).not.toBeNull();
+    expect(screen.getByText('DEVAM ET')).not.toBeNull();
 
-    // Check action buttons
+    // Go to Step 2
+    fireEvent.click(screen.getByText('DEVAM ET'));
+
+    // Check action buttons in Step 2
     expect(screen.getByText('⚡ Tek Tıkla Reklam Ver')).not.toBeNull();
     expect(screen.getByText('🎤 Soruları Yanıtla (Tavsiye Edilen)')).not.toBeNull();
   });
 
-  it('should transition to Q&A flow when "Soruları Yanıtla" is clicked', () => {
+  it('should transition to Q&A flow when "Soruları Yanıtla" is clicked on Step 2', () => {
     render(<GoogleAdPreviewModal isOpen={true} onClose={vi.fn()} />);
 
+    // Go to Step 2
+    fireEvent.click(screen.getByText('DEVAM ET'));
+    
+    // Choose QA
     fireEvent.click(screen.getByText('🎤 Soruları Yanıtla (Tavsiye Edilen)'));
 
     // Should render Soru 1 / 3
@@ -58,9 +66,13 @@ describe('GoogleAdPreviewModal Component (Diamond Standard)', () => {
     expect(screen.getByText('soruyu yanıtlamak için aşağıdaki mikrofon butonuna basın ve konuşun.')).not.toBeNull();
   });
 
-  it('should transition directly to Targeting flow when "Tek Tıkla Reklam Ver" is clicked', () => {
+  it('should transition directly to Targeting flow when "Tek Tıkla Reklam Ver" is clicked on Step 2', () => {
     render(<GoogleAdPreviewModal isOpen={true} onClose={vi.fn()} />);
 
+    // Go to Step 2
+    fireEvent.click(screen.getByText('DEVAM ET'));
+
+    // Choose Quick Ads
     fireEvent.click(screen.getByText('⚡ Tek Tıkla Reklam Ver'));
 
     // Should skip Q&A and show Targeting step (Hedef Kitle)
