@@ -301,9 +301,6 @@ export default function LandingPage() {
                   AYLIK ÖDEME
                 </span>
                 <div className="space-y-1">
-                  <p className="text-[10px] font-black text-stone-300 tracking-[0.2em] line-through">
-                    ₺500 / ay
-                  </p>
                   <p className="text-5xl font-black text-stone-900 tracking-tighter leading-none">
                     ₺300
                     <span className="text-base font-bold text-stone-400 ml-2">/ ay</span>
@@ -327,9 +324,6 @@ export default function LandingPage() {
                   YILLIK ÖDEME
                 </span>
                 <div className="space-y-1">
-                  <p className="text-[10px] font-black text-stone-500 tracking-[0.2em] line-through">
-                    ₺6.000 / yıl
-                  </p>
                   <p className="text-5xl font-black text-white tracking-tighter leading-none">
                     ₺3.500
                     <span className="text-base font-bold text-stone-400 ml-2">/ yıl</span>
@@ -337,7 +331,7 @@ export default function LandingPage() {
                 </div>
               </div>
               <p className="text-[10px] text-stone-400 font-bold mt-8">
-                Yıllık toplu ödeme ile en avantajlı fiyat.
+                Yıllık ödemede kredi kartı gerekmez.
               </p>
             </div>
           </div>
@@ -358,7 +352,7 @@ export default function LandingPage() {
             </Button>
             {/* Trust Badge / Microcopy */}
             <p className="text-[9px] font-black text-stone-400 mt-4 uppercase tracking-[0.2em]">
-              Kredi Kartı Gerekmez • Kurulum Bize Ait
+              24 Saatte Teslim • Kurulum Bize Ait
             </p>
           </div>
         </div>
