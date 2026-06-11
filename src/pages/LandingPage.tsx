@@ -293,35 +293,51 @@ export default function LandingPage() {
             • lansmana özel fiyatlar •
           </p>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-12 sm:gap-20">
-            {/* Monthly Plan */}
-            <div className="space-y-1">
-              <span className="text-[9px] font-black text-stone-400 uppercase tracking-widest block mb-1">
-                AYLIK ÖDEME
-              </span>
-              <p className="text-[10px] font-black text-stone-300 tracking-[0.3em] line-through">
-                ₺500 / ay
-              </p>
-              <p className="text-5xl font-black text-stone-900 tracking-tighter leading-none pr-1">
-                ₺300
-                <span className="text-lg font-bold opacity-30 ml-2">/ ay</span>
+          <div className="flex flex-col md:flex-row items-stretch justify-center gap-6 mt-4 max-w-2xl mx-auto w-full px-4">
+            {/* Monthly Plan Card */}
+            <div className="flex-1 min-w-[260px] bg-white border border-stone-100 rounded-3xl p-8 flex flex-col justify-between hover:border-stone-200 transition-all shadow-sm text-left">
+              <div className="space-y-4">
+                <span className="text-[9px] font-black text-stone-400 uppercase tracking-widest block">
+                  AYLIK ÖDEME
+                </span>
+                <div className="space-y-1">
+                  <p className="text-[10px] font-black text-stone-300 tracking-[0.2em] line-through">
+                    ₺500 / ay
+                  </p>
+                  <p className="text-5xl font-black text-stone-900 tracking-tighter leading-none">
+                    ₺300
+                    <span className="text-base font-bold text-stone-400 ml-2">/ ay</span>
+                  </p>
+                </div>
+              </div>
+              <p className="text-[10px] text-stone-400 font-bold mt-8">
+                Dilediğiniz zaman iptal edebilirsiniz.
               </p>
             </div>
 
-            {/* Vertical Divider */}
-            <div className="hidden sm:block h-12 w-px bg-stone-100" />
+            {/* Yearly Plan Card - Highly Recommended */}
+            <div className="flex-1 min-w-[260px] bg-stone-950 text-white border-2 border-stone-950 rounded-3xl p-8 flex flex-col justify-between relative hover:scale-[1.01] transition-all shadow-xl shadow-stone-950/10 text-left">
+              {/* Popular Badge */}
+              <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 px-4 py-1.5 bg-emerald-500 text-[9px] font-black text-white uppercase tracking-widest rounded-full shadow-lg shadow-emerald-500/20 whitespace-nowrap">
+                en popüler • %42 tasarruf
+              </div>
 
-            {/* Yearly Plan */}
-            <div className="space-y-1">
-              <span className="text-[9px] font-black text-stone-400 uppercase tracking-widest block mb-1">
-                YILLIK ÖDEME
-              </span>
-              <p className="text-[10px] font-black text-stone-300 tracking-[0.3em] line-through">
-                ₺6.000 / yıl
-              </p>
-              <p className="text-5xl font-black text-stone-900 tracking-tighter leading-none pr-1">
-                ₺3.500
-                <span className="text-lg font-bold opacity-30 ml-2">/ yıl</span>
+              <div className="space-y-4">
+                <span className="text-[9px] font-black text-emerald-400 uppercase tracking-widest block">
+                  YILLIK ÖDEME
+                </span>
+                <div className="space-y-1">
+                  <p className="text-[10px] font-black text-stone-500 tracking-[0.2em] line-through">
+                    ₺6.000 / yıl
+                  </p>
+                  <p className="text-5xl font-black text-white tracking-tighter leading-none">
+                    ₺3.500
+                    <span className="text-base font-bold text-stone-400 ml-2">/ yıl</span>
+                  </p>
+                </div>
+              </div>
+              <p className="text-[10px] text-stone-400 font-bold mt-8">
+                Yıllık toplu ödeme ile en avantajlı fiyat.
               </p>
             </div>
           </div>
