@@ -150,4 +150,38 @@ export const useStore = create<StoreState>((set) => ({
     }, duration);
   },
   hideFeedback: () => set({ feedbackStatus: 'idle', feedbackMessage: '' }),
+
+  // Google Ads Campaign Simulation State
+  activeCampaign: (() => {
+    if (typeof window === 'undefined') return { status: 'none', budget: 0, refCode: '' };
+    try {
+      const cached = localStorage.getItem('ekatalog_active_campaign');
+      return cached ? JSON.parse(cached) : { status: 'none', budget: 0, refCode: '' };
+    } catch {
+      return { status: 'none', budget: 0, refCode: '' };
+    }
+  })(),
+  setPreparingCampaign: (budget, refCode) => {
+    const nextCampaign = { status: 'preparing' as const, budget, refCode };
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('ekatalog_active_campaign', JSON.stringify(nextCampaign));
+    }
+    set({ activeCampaign: nextCampaign });
+  },
+  setActiveCampaign: () => {
+    set((state) => {
+      const nextCampaign = { ...state.activeCampaign, status: 'active' as const };
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('ekatalog_active_campaign', JSON.stringify(nextCampaign));
+      }
+      return { activeCampaign: nextCampaign };
+    });
+  },
+  clearCampaign: () => {
+    const nextCampaign = { status: 'none' as const, budget: 0, refCode: '' };
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem('ekatalog_active_campaign');
+    }
+    set({ activeCampaign: nextCampaign });
+  },
 }));

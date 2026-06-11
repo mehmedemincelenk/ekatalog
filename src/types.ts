@@ -628,6 +628,7 @@ export type ModalType =
   | 'PORTFOYS_SEARCH'
   | 'PORTFOYS_DIRECTORY'
   | 'FEATURES'
+  | 'GOOGLE_AD_PREVIEW'
   | null;
 
 export interface StoreState {
@@ -681,4 +682,14 @@ export interface StoreState {
     duration?: number,
   ) => void;
   hideFeedback: () => void;
+
+  // Google Ads Campaign Simulation State
+  activeCampaign: {
+    status: 'preparing' | 'active' | 'none';
+    budget: number;
+    refCode: string;
+  };
+  setPreparingCampaign: (budget: number, refCode: string) => void;
+  setActiveCampaign: () => void;
+  clearCampaign: () => void;
 }
