@@ -38,8 +38,8 @@ describe('GoogleAdPreviewModal Component (Diamond Standard)', () => {
     render(<GoogleAdPreviewModal isOpen={true} onClose={vi.fn()} />);
 
     // Check title & subtitle
-    expect(screen.getByText('Google Reklamları')).not.toBeNull();
-    expect(screen.getByText('Bütçenizin Gücü')).not.toBeNull();
+    expect(screen.getByText('Nedir bu Google Reklamları?')).not.toBeNull();
+    expect(screen.getByText("Google'da Arayanlar")).not.toBeNull();
     expect(screen.getByText('Sponsorlu')).not.toBeNull();
     expect(screen.getByText('DEVAM ET')).not.toBeNull();
 

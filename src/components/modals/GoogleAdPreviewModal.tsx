@@ -413,47 +413,51 @@ export default function GoogleAdPreviewModal({ isOpen, onClose }: GoogleAdPrevie
                 </p>
               </div>
 
-              {/* Math Content (Flat) */}
-              <div className="space-y-3">
-                {/* Row 1: Toplam Arama */}
-                <div className="flex justify-between items-center">
-                  <div className="space-y-0.5">
-                    <span className="text-[11px] font-black text-stone-400 uppercase tracking-wider block">1. Toplam Arama</span>
-                    <p className="text-[10px] font-bold text-stone-500 leading-none">Aylık ürünlerinizi arayan kişi sayısı</p>
+              {/* Math Content (Funnel Timeline) */}
+              <div className="space-y-4">
+                {/* Step 1: Toplam Arama */}
+                <div className="relative flex gap-4 pl-2">
+                  {/* Timeline node */}
+                  <div className="absolute top-1 left-[9px] bottom-[-24px] w-0.5 bg-stone-100" />
+                  <div className="relative z-10 w-[20px] h-[20px] rounded-full bg-stone-100 border border-stone-200 flex items-center justify-center text-[10px] font-black text-stone-600 shrink-0">
+                    1
                   </div>
-                  <span className="text-[13px] font-black text-stone-900">10.000 Kişi</span>
-                </div>
-                
-                <hr className="border-t border-stone-100" />
-                
-                {/* Row 2: Reklam Bütçeleri */}
-                <div className="space-y-1.5">
-                  <div className="flex justify-between items-center">
-                    <span className="text-[11px] font-black text-stone-400 uppercase tracking-wider block">2. Bütçe Pastası</span>
-                    <span className="text-[11px] font-black text-stone-900 bg-stone-100 px-2 py-0.5 rounded whitespace-nowrap">%10 Payı</span>
-                  </div>
-                  <div className="flex flex-wrap items-center justify-between gap-x-2 gap-y-1 text-[11px] font-bold text-stone-600 pt-0.5">
-                    <div className="whitespace-nowrap">
-                      Sizin: <span className="font-black text-emerald-600">2.000 ₺</span>
+                  <div className="flex-1 bg-stone-50 border border-stone-200/60 rounded-2xl p-3 flex justify-between items-center">
+                    <div className="space-y-0.5">
+                      <span className="text-[10px] font-black text-stone-400 uppercase tracking-wider block">Google'da Arayanlar</span>
+                      <p className="text-[9px] font-bold text-stone-500 leading-none">Aylık ürünlerinizi arayan kişi sayısı</p>
                     </div>
-                    <div className="whitespace-nowrap">
-                      Rakipler: <span className="font-black text-stone-850">18.000 ₺</span>
-                    </div>
-                    <div className="whitespace-nowrap">
-                      Toplam: <span className="font-black text-stone-900">20.000 ₺</span>
-                    </div>
+                    <span className="text-[12px] font-black text-stone-900 bg-white border border-stone-200 px-2.5 py-1 rounded-xl shadow-sm whitespace-nowrap">10.000 Kişi</span>
                   </div>
                 </div>
-                
-                <hr className="border-t border-stone-100" />
-                
-                {/* Row 3: Sizin Ziyaretçiniz */}
-                <div className="flex justify-between items-center">
-                  <div className="space-y-0.5">
-                    <span className="text-[11px] font-black text-emerald-600 uppercase tracking-wider block">3. Sizin Ziyaretçiniz</span>
-                    <p className="text-[10px] font-bold text-stone-500 leading-none">Aramaların %10'u dükkanınıza gelir</p>
+
+                {/* Step 2: Sizin Bütçeniz */}
+                <div className="relative flex gap-4 pl-2">
+                  <div className="absolute top-1 left-[9px] bottom-[-24px] w-0.5 bg-stone-100" />
+                  <div className="relative z-10 w-[20px] h-[20px] rounded-full bg-stone-100 border border-stone-200 flex items-center justify-center text-[10px] font-black text-stone-600 shrink-0">
+                    2
                   </div>
-                  <span className="text-[14px] font-black text-emerald-600">1.000 Kişi</span>
+                  <div className="flex-1 bg-stone-50 border border-stone-200/60 rounded-2xl p-3 flex justify-between items-center">
+                    <div className="space-y-0.5">
+                      <span className="text-[10px] font-black text-stone-400 uppercase tracking-wider block">Sizin Bütçeniz</span>
+                      <p className="text-[9px] font-bold text-stone-500 leading-none">Sizi Google'da en üst sıraya taşır</p>
+                    </div>
+                    <span className="text-[12px] font-black text-emerald-600 bg-white border border-stone-200 px-2.5 py-1 rounded-xl shadow-sm whitespace-nowrap">2.000 ₺</span>
+                  </div>
+                </div>
+
+                {/* Step 3: Dükkanınıza Gelenler */}
+                <div className="relative flex gap-4 pl-2">
+                  <div className="relative z-10 w-[20px] h-[20px] rounded-full bg-emerald-500 text-white flex items-center justify-center text-[10px] font-black shrink-0">
+                    ✓
+                  </div>
+                  <div className="flex-1 bg-emerald-50/50 border border-emerald-200 rounded-2xl p-3 flex justify-between items-center shadow-sm">
+                    <div className="space-y-0.5">
+                      <span className="text-[10px] font-black text-emerald-600 uppercase tracking-wider block">Dükkanınıza Gelenler</span>
+                      <p className="text-[9px] font-bold text-stone-500 leading-none">Doğrudan sipariş veren müşteriler</p>
+                    </div>
+                    <span className="text-[13px] font-black text-white bg-emerald-500 border border-emerald-600 px-2.5 py-1 rounded-xl shadow-sm whitespace-nowrap">1.000 Müşteri</span>
+                  </div>
                 </div>
               </div>
 
