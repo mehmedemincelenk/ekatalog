@@ -387,7 +387,6 @@ export default function GoogleAdPreviewModal({ isOpen, onClose }: GoogleAdPrevie
         isOpen={isOpen}
         onClose={onClose}
         title={getStepTitle()}
-        subtitle={step === 1 ? "İnsanlar aradıklarına dair ilk gördüğüne tıklar/girer/dener/bakar" : undefined}
         maxWidth="max-w-md"
         progress={{ current: step, total: totalSteps }}
         leftNav={
@@ -409,6 +408,12 @@ export default function GoogleAdPreviewModal({ isOpen, onClose }: GoogleAdPrevie
               {/* Math Content (Stack Layout) */}
               {/* Consolidated Math Scorecard */}
               <div className="bg-stone-50 border border-stone-200/60 rounded-2xl p-4 space-y-4">
+                {/* Introduction Text (Inside Card) */}
+                <p className="text-[10px] font-semibold text-stone-500 leading-relaxed">
+                  Potansiyel müşterileriniz, Google'da sektörünüze dair arama yapıyorlar ve ilk çıkan sonuca/sonuclara tıklıyorlar. Rakipleriniz, ilk çıkanlardan olmak için Google Reklamlar kullanıyor (Google'a para ödüyor.)
+                </p>
+
+                <hr className="border-t border-stone-200/60" />
                 {/* Segment 1: Toplam Pasta */}
                 <div className="flex justify-between items-center">
                   <div className="space-y-0.5">
