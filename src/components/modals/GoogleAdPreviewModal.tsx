@@ -387,7 +387,6 @@ export default function GoogleAdPreviewModal({ isOpen, onClose }: GoogleAdPrevie
         isOpen={isOpen}
         onClose={onClose}
         title={getStepTitle()}
-        subtitle="Zor Kurulumlar Olmadan Google Arama Sonuçlarında Öne Çıkın"
         maxWidth="max-w-md"
         progress={{ current: step, total: totalSteps }}
         leftNav={
@@ -406,58 +405,49 @@ export default function GoogleAdPreviewModal({ isOpen, onClose }: GoogleAdPrevie
           {/* STEP 1: Onboarding */}
           {step === 1 && (
             <div className="space-y-5">
-              {/* Header Section */}
-              <div className="space-y-0.5">
-                <p className="text-[11px] font-bold text-stone-500 leading-relaxed">
-                  Sistem son derece basit çalışır:
-                </p>
-              </div>
-
-              {/* Math Content (Funnel Timeline) */}
-              <div className="space-y-4">
-                {/* Step 1: Toplam Arama */}
-                <div className="relative flex gap-4 pl-2">
-                  {/* Timeline node */}
-                  <div className="absolute top-1 left-[9px] bottom-[-24px] w-0.5 bg-stone-100" />
-                  <div className="relative z-10 w-[20px] h-[20px] rounded-full bg-stone-100 border border-stone-200 flex items-center justify-center text-[10px] font-black text-stone-600 shrink-0">
-                    1
+              {/* Math Content (Stack Layout) */}
+              <div className="space-y-3">
+                {/* Step 1: Google'da Arayanlar */}
+                <div className="bg-stone-50 border border-stone-200/60 rounded-2xl p-3 flex justify-between items-center">
+                  <div className="space-y-0.5">
+                    <span className="text-[10px] font-black text-stone-400 uppercase tracking-wider block">Google'da Arayanlar</span>
+                    <p className="text-[9px] font-bold text-stone-500 leading-none">Aylık ürünlerinizi arayan kişi sayısı</p>
                   </div>
-                  <div className="flex-1 bg-stone-50 border border-stone-200/60 rounded-2xl p-3 flex justify-between items-center">
+                  <span className="text-[12px] font-black text-stone-900 bg-white border border-stone-200 px-2.5 py-1 rounded-xl shadow-sm whitespace-nowrap">10.000 Kişi</span>
+                </div>
+
+                {/* Step 2: Toplam Reklam Pastası */}
+                <div className="bg-stone-50 border border-stone-200/60 rounded-2xl p-3 flex justify-between items-center">
+                  <div className="space-y-0.5">
+                    <span className="text-[10px] font-black text-stone-400 uppercase tracking-wider block">Toplam Reklam Pastası</span>
+                    <p className="text-[9px] font-bold text-stone-500 leading-none">Sektördeki dükkanların toplam harcaması</p>
+                  </div>
+                  <span className="text-[12px] font-black text-stone-900 bg-white border border-stone-200 px-2.5 py-1 rounded-xl shadow-sm whitespace-nowrap">20.000 ₺</span>
+                </div>
+
+                {/* Step 3: Sizin Reklam Payınız */}
+                <div className="bg-stone-50 border border-stone-200/60 rounded-2xl p-3 space-y-1.5">
+                  <div className="flex justify-between items-center">
                     <div className="space-y-0.5">
-                      <span className="text-[10px] font-black text-stone-400 uppercase tracking-wider block">Google'da Arayanlar</span>
-                      <p className="text-[9px] font-bold text-stone-500 leading-none">Aylık ürünlerinizi arayan kişi sayısı</p>
+                      <span className="text-[10px] font-black text-emerald-600 uppercase tracking-wider block">Sizin Reklam Payınız</span>
+                      <p className="text-[9px] font-bold text-stone-500 leading-none">Koyduğunuz 2.000 ₺ bütçe karşılığı</p>
                     </div>
-                    <span className="text-[12px] font-black text-stone-900 bg-white border border-stone-200 px-2.5 py-1 rounded-xl shadow-sm whitespace-nowrap">10.000 Kişi</span>
+                    <span className="text-[12px] font-black text-emerald-600 bg-emerald-50 border border-emerald-200 px-2.5 py-1 rounded-xl shadow-sm whitespace-nowrap">%10 Payı</span>
+                  </div>
+                  {/* Tiny Share Progress Bar */}
+                  <div className="w-full h-1.5 bg-stone-200 rounded-full overflow-hidden flex">
+                    <div className="h-full bg-emerald-500" style={{ width: '10%' }} />
+                    <div className="h-full bg-stone-300" style={{ width: '90%' }} />
                   </div>
                 </div>
 
-                {/* Step 2: Sizin Bütçeniz */}
-                <div className="relative flex gap-4 pl-2">
-                  <div className="absolute top-1 left-[9px] bottom-[-24px] w-0.5 bg-stone-100" />
-                  <div className="relative z-10 w-[20px] h-[20px] rounded-full bg-stone-100 border border-stone-200 flex items-center justify-center text-[10px] font-black text-stone-600 shrink-0">
-                    2
+                {/* Step 4: Dükkanınıza Gelenler */}
+                <div className="bg-emerald-50/50 border border-emerald-200 rounded-2xl p-3 flex justify-between items-center shadow-sm">
+                  <div className="space-y-0.5">
+                    <span className="text-[10px] font-black text-emerald-600 uppercase tracking-wider block">Dükkanınıza Gelenler</span>
+                    <p className="text-[9px] font-bold text-stone-500 leading-none">Aramaların %10'u doğrudan size gelir</p>
                   </div>
-                  <div className="flex-1 bg-stone-50 border border-stone-200/60 rounded-2xl p-3 flex justify-between items-center">
-                    <div className="space-y-0.5">
-                      <span className="text-[10px] font-black text-stone-400 uppercase tracking-wider block">Sizin Bütçeniz</span>
-                      <p className="text-[9px] font-bold text-stone-500 leading-none">Sizi Google'da en üst sıraya taşır</p>
-                    </div>
-                    <span className="text-[12px] font-black text-emerald-600 bg-white border border-stone-200 px-2.5 py-1 rounded-xl shadow-sm whitespace-nowrap">2.000 ₺</span>
-                  </div>
-                </div>
-
-                {/* Step 3: Dükkanınıza Gelenler */}
-                <div className="relative flex gap-4 pl-2">
-                  <div className="relative z-10 w-[20px] h-[20px] rounded-full bg-emerald-500 text-white flex items-center justify-center text-[10px] font-black shrink-0">
-                    ✓
-                  </div>
-                  <div className="flex-1 bg-emerald-50/50 border border-emerald-200 rounded-2xl p-3 flex justify-between items-center shadow-sm">
-                    <div className="space-y-0.5">
-                      <span className="text-[10px] font-black text-emerald-600 uppercase tracking-wider block">Dükkanınıza Gelenler</span>
-                      <p className="text-[9px] font-bold text-stone-500 leading-none">Doğrudan sipariş veren müşteriler</p>
-                    </div>
-                    <span className="text-[13px] font-black text-white bg-emerald-500 border border-emerald-600 px-2.5 py-1 rounded-xl shadow-sm whitespace-nowrap">1.000 Müşteri</span>
-                  </div>
+                  <span className="text-[13px] font-black text-white bg-emerald-500 border border-emerald-600 px-2.5 py-1 rounded-xl shadow-sm whitespace-nowrap">1.000 Müşteri</span>
                 </div>
               </div>
 
