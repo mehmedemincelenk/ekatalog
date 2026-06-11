@@ -208,6 +208,22 @@ export default function LandingPage() {
                 <span>tasarımcı/yazılımcı beklemek</span>
               </div>
             </div>
+
+            {/* SB7 Emotional Pain Badges */}
+            <div className="flex flex-wrap items-center justify-center gap-2 !mt-3">
+              <div className="flex items-center bg-red-50/20 border border-red-100/30 rounded-md py-1 px-3 text-[10px] font-bold text-red-800/80 shadow-sm">
+                <span>zaman kaybı</span>
+              </div>
+              <div className="flex items-center bg-red-50/20 border border-red-100/30 rounded-md py-1 px-3 text-[10px] font-bold text-red-800/80 shadow-sm">
+                <span>gereksiz masraf</span>
+              </div>
+              <div className="flex items-center bg-red-50/20 border border-red-100/30 rounded-md py-1 px-3 text-[10px] font-bold text-red-800/80 shadow-sm">
+                <span>amatör görünüm</span>
+              </div>
+              <div className="flex items-center bg-red-50/20 border border-red-100/30 rounded-md py-1 px-3 text-[10px] font-bold text-red-800/80 shadow-sm">
+                <span>dışa bağımlılık</span>
+              </div>
+            </div>
           </div>
 
           {/* THE SUPERPOWERS (Kazanacaklarınız) - Flat typographic minimalist design */}
