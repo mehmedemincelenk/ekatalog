@@ -420,43 +420,50 @@ export default function GoogleAdPreviewModal({ isOpen, onClose }: GoogleAdPrevie
                 <div className="bg-stone-50 border border-stone-200/60 rounded-2xl p-3 flex justify-between items-center">
                   <div className="space-y-0.5">
                     <span className="text-[10px] font-black text-stone-400 uppercase tracking-wider block">Toplam Reklam Bütçesi</span>
-                    <p className="text-[9px] font-bold text-stone-500 leading-none">sektörünüzle alakalı google'a ödenmiş toplam reklam bütçesi</p>
+                    <p className="text-[9px] font-bold text-stone-500 leading-none">Sektörünüzle alakalı Google'a ödenmiş toplam reklam bütçesi</p>
                   </div>
                   <span className="text-[12px] font-black text-stone-900 bg-white border border-stone-200 px-2.5 py-1 rounded-xl shadow-sm whitespace-nowrap">100.000₺ Pasta</span>
                 </div>
 
-                {/* Step 3: Sizin Bütçeniz */}
-                <div className="bg-stone-50 border border-stone-200/60 rounded-2xl p-3 flex justify-between items-center">
-                  <div className="space-y-0.5">
-                    <span className="text-[10px] font-black text-stone-400 uppercase tracking-wider block">Sizin Bütçeniz</span>
-                    <p className="text-[9px] font-bold text-stone-500 leading-none">Google'da en üst sıraya çıkmak için ayırdığınız bütçe</p>
-                  </div>
-                  <span className="text-[12px] font-black text-emerald-600 bg-white border border-stone-200 px-2.5 py-1 rounded-xl shadow-sm whitespace-nowrap">10.000 ₺</span>
-                </div>
-
-                {/* Step 4: Sizin Payınız */}
-                <div className="bg-stone-50 border border-stone-200/60 rounded-2xl p-3 space-y-1.5">
+                {/* Sizin Reklam Bütçeniz ve Sonuçlar (Merged Card) */}
+                <div className="bg-stone-50 border border-stone-200/60 rounded-2xl p-3.5 space-y-3.5">
+                  {/* Segment 1: Sizin Bütçeniz */}
                   <div className="flex justify-between items-center">
                     <div className="space-y-0.5">
-                      <span className="text-[10px] font-black text-emerald-600 uppercase tracking-wider block">Sizin Payınız</span>
-                      <p className="text-[9px] font-bold text-stone-500 leading-none">10.000 ₺ / 100.000 ₺ = %10 pay</p>
+                      <span className="text-[10px] font-black text-stone-400 uppercase tracking-wider block">Sizin Bütçeniz</span>
+                      <p className="text-[9px] font-bold text-stone-500 leading-none">Google'da en üst sıraya çıkmak için ayırdığınız bütçe</p>
                     </div>
-                    <span className="text-[12px] font-black text-emerald-600 bg-emerald-50 border border-emerald-200 px-2.5 py-1 rounded-xl shadow-sm whitespace-nowrap">10.000 ₺ Pay</span>
+                    <span className="text-[12px] font-black text-stone-900 bg-white border border-stone-200 px-2.5 py-1 rounded-xl shadow-sm whitespace-nowrap">10.000 ₺</span>
                   </div>
-                  {/* Tiny Share Progress Bar */}
-                  <div className="w-full h-1.5 bg-stone-200 rounded-full overflow-hidden flex">
-                    <div className="h-full bg-emerald-500" style={{ width: '10%' }} />
-                    <div className="h-full bg-stone-300" style={{ width: '90%' }} />
-                  </div>
-                </div>
 
-                {/* Step 5: Dükkanınıza Gelenler */}
-                <div className="bg-emerald-50/50 border border-emerald-200 rounded-2xl p-3 flex justify-between items-center shadow-sm">
-                  <div className="space-y-0.5">
-                    <span className="text-[10px] font-black text-emerald-600 uppercase tracking-wider block">Dükkanınıza Gelenler</span>
-                    <p className="text-[9px] font-bold text-stone-500 leading-none">10.000 Arayan x %10 pay = 1.000 Müşteri</p>
+                  <hr className="border-t border-stone-200/60" />
+
+                  {/* Segment 2: Sizin Payınız */}
+                  <div className="space-y-1.5">
+                    <div className="flex justify-between items-center">
+                      <div className="space-y-0.5">
+                        <span className="text-[10px] font-black text-emerald-600 uppercase tracking-wider block">Sizin Payınız</span>
+                        <p className="text-[9px] font-bold text-stone-500 leading-none">10.000 ₺ / 100.000 ₺ = %10 pay</p>
+                      </div>
+                      <span className="text-[12px] font-black text-emerald-600 bg-emerald-50 border border-emerald-200 px-2.5 py-1 rounded-xl shadow-sm whitespace-nowrap">10.000 ₺ Pay</span>
+                    </div>
+                    {/* Tiny Share Progress Bar */}
+                    <div className="w-full h-1.5 bg-stone-200 rounded-full overflow-hidden flex">
+                      <div className="h-full bg-emerald-500" style={{ width: '10%' }} />
+                      <div className="h-full bg-stone-300" style={{ width: '90%' }} />
+                    </div>
                   </div>
-                  <span className="text-[13px] font-black text-white bg-emerald-500 border border-emerald-600 px-2.5 py-1 rounded-xl shadow-sm whitespace-nowrap">1.000 Müşteri</span>
+
+                  <hr className="border-t border-stone-200/60" />
+
+                  {/* Segment 3: Dükkanınıza Gelenler */}
+                  <div className="flex justify-between items-center">
+                    <div className="space-y-0.5">
+                      <span className="text-[10px] font-black text-emerald-600 uppercase tracking-wider block">Dükkanınıza Gelenler</span>
+                      <p className="text-[9px] font-bold text-stone-500 leading-none">10.000 Müşteri x %10 pay = 1.000 Müşteri</p>
+                    </div>
+                    <span className="text-[12px] font-black text-white bg-emerald-500 border border-emerald-600 px-2.5 py-1 rounded-xl shadow-sm whitespace-nowrap">1.000 Müşteri</span>
+                  </div>
                 </div>
               </div>
 
