@@ -444,9 +444,9 @@ export default function GoogleAdPreviewModal({ isOpen, onClose }: GoogleAdPrevie
                     <div className="flex justify-between items-center">
                       <div className="space-y-0.5">
                         <span className="text-[10px] font-black text-emerald-600 uppercase tracking-wider block">Pastadan Payınız</span>
-                        <p className="text-[9px] font-bold text-stone-500 leading-none">10.000 ₺ / 100.000 ₺ = %10 pay &nbsp;•&nbsp; 10.000 Kişi x %10 = 1.000 Müşteri</p>
+                        <p className="text-[9px] font-bold text-stone-500 leading-none">10.000 ₺ / 100.000 ₺ = %10</p>
                       </div>
-                      <span className="text-[12px] font-black text-white bg-emerald-500 border border-emerald-600 px-2.5 py-1 rounded-xl shadow-sm whitespace-nowrap">%10 Pay (1.000 Müşteri)</span>
+                      <span className="text-[12px] font-black text-white bg-emerald-500 border border-emerald-600 px-2.5 py-1 rounded-xl shadow-sm whitespace-nowrap">%10 (1.000 Müşteri)</span>
                     </div>
                     {/* Tiny Share Progress Bar */}
                     <div className="w-full h-1.5 bg-stone-200 rounded-full overflow-hidden flex">
