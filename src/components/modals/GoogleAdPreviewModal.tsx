@@ -101,7 +101,7 @@ export default function GoogleAdPreviewModal({ isOpen, onClose }: GoogleAdPrevie
     };
   }, []);
 
-  const totalSteps = hasQA === null ? 6 : (hasQA ? 7 : 6);
+  const totalSteps = hasQA === null ? 7 : (hasQA ? 8 : 7);
 
   // Formatting timer (e.g. 00:05)
   const formatTime = (seconds: number) => {
@@ -344,11 +344,12 @@ export default function GoogleAdPreviewModal({ isOpen, onClose }: GoogleAdPrevie
     switch (step) {
       case 1: return 'Google Reklamları';
       case 2: return 'Kampanya Tipi';
-      case 3: return hasQA ? 'Reklam Kalitesi' : 'Hedef Kitle';
-      case 4: return hasQA ? 'Hedef Kitle' : 'Reklam Bütçesi';
-      case 5: return hasQA ? 'Reklam Bütçesi' : 'Onay ve Güvenlik';
-      case 6: return hasQA ? 'Onay ve Güvenlik' : 'Ödeme Adımı';
-      case 7: return 'Ödeme Adımı';
+      case 3: return hasQA ? 'Reklam Kalitesi' : 'Adres Onayı';
+      case 4: return hasQA ? 'Adres Onayı' : 'Hedef Kitle';
+      case 5: return hasQA ? 'Hedef Kitle' : 'Reklam Bütçesi';
+      case 6: return hasQA ? 'Reklam Bütçesi' : 'Onay ve Güvenlik';
+      case 7: return hasQA ? 'Onay ve Güvenlik' : 'Ödeme Adımı';
+      case 8: return 'Ödeme Adımı';
       default: return 'Google Reklamları';
     }
   };
@@ -457,13 +458,6 @@ export default function GoogleAdPreviewModal({ isOpen, onClose }: GoogleAdPrevie
           {/* STEP 2: Choice */}
           {step === 2 && (
             <div className="space-y-5">
-              <div className="bg-stone-50 border border-stone-150 rounded-2xl p-4 space-y-1">
-                <span className="text-[9px] font-black text-stone-400 uppercase tracking-wider">Reklam Yöntemi</span>
-                <p className="text-[10px] font-bold text-stone-500 leading-normal lowercase">
-                  reklam kalitesini arttırmak için sorularımızı ses kaydıyla yanıtlayabilir veya doğrudan hızlı kuruluma geçebilirsiniz.
-                </p>
-              </div>
-
               {/* Action Buttons */}
               <div className="space-y-3 pt-2">
                 <Button
@@ -646,7 +640,7 @@ export default function GoogleAdPreviewModal({ isOpen, onClose }: GoogleAdPrevie
             </div>
           )}
 
-          {/* STEP 4 (Targeting Setup) */}
+          {/* STEP 4 (Adres Onayı) */}
           {step === (hasQA ? 4 : 3) && (
             <div className="space-y-5">
               {/* Address Banner */}
@@ -671,6 +665,21 @@ export default function GoogleAdPreviewModal({ isOpen, onClose }: GoogleAdPrevie
                 </div>
               </div>
 
+              {/* Navigation button */}
+              <Button
+                onClick={handleNextStep}
+                variant="primary"
+                size="lg"
+                className="w-full"
+              >
+                ADRESİ ONAYLA
+              </Button>
+            </div>
+          )}
+
+          {/* STEP 5 (Hedef Kitle / km & konum seçimi) */}
+          {step === (hasQA ? 5 : 4) && (
+            <div className="space-y-5">
               {/* "Yakın Çevrem" Container with Horizontal Chips */}
               <div className="border border-stone-200 rounded-3xl p-5 bg-white space-y-3">
                 <h4 className="text-[10px] font-black text-stone-400 uppercase tracking-widest">
@@ -747,8 +756,8 @@ export default function GoogleAdPreviewModal({ isOpen, onClose }: GoogleAdPrevie
             </div>
           )}
 
-          {/* STEP 5: Budget Setup */}
-          {step === (hasQA ? 5 : 4) && (
+          {/* STEP 6: Budget Setup */}
+          {step === (hasQA ? 6 : 5) && (
             <div className="space-y-5">
               <div className="bg-stone-50 border border-stone-150 rounded-2xl p-4 space-y-1">
                 <span className="text-[9px] font-black text-stone-400 uppercase tracking-wider">Hedef Kitle Özeti</span>
@@ -822,8 +831,8 @@ export default function GoogleAdPreviewModal({ isOpen, onClose }: GoogleAdPrevie
             </div>
           )}
 
-          {/* STEP 6: Consent Verification */}
-          {step === (hasQA ? 6 : 5) && (
+          {/* STEP 7: Consent Verification */}
+          {step === (hasQA ? 7 : 6) && (
             <div className="space-y-5">
               {/* Alert instruction card */}
               <div className="bg-amber-50 border border-amber-200/50 rounded-2xl p-4 space-y-3">
@@ -870,8 +879,8 @@ export default function GoogleAdPreviewModal({ isOpen, onClose }: GoogleAdPrevie
             </div>
           )}
 
-          {/* STEP 7: IBAN Bridge */}
-          {step === (hasQA ? 7 : 6) && (
+          {/* STEP 8: IBAN Bridge */}
+          {step === (hasQA ? 8 : 7) && (
             <div className="space-y-5">
               {/* Payment Summary */}
               <div className="bg-stone-50 border border-stone-150 rounded-2xl p-4 grid grid-cols-2 gap-4">

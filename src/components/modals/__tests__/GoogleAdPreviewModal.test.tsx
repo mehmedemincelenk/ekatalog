@@ -66,7 +66,7 @@ describe('GoogleAdPreviewModal Component (Diamond Standard)', () => {
     expect(screen.getByText('soruyu yanıtlamak için aşağıdaki mikrofon butonuna basın ve konuşun.')).not.toBeNull();
   });
 
-  it('should transition directly to Targeting flow when "Tek Tıkla Reklam Ver" is clicked on Step 2', () => {
+  it('should transition directly to Address Approval flow when "Tek Tıkla Reklam Ver" is clicked on Step 2', () => {
     render(<GoogleAdPreviewModal isOpen={true} onClose={vi.fn()} />);
 
     // Go to Step 2
@@ -75,9 +75,14 @@ describe('GoogleAdPreviewModal Component (Diamond Standard)', () => {
     // Choose Quick Ads
     fireEvent.click(screen.getByText('⚡ Tek Tıkla Reklam Ver'));
 
-    // Should skip Q&A and show Targeting step (Hedef Kitle)
-    expect(screen.getByText('Hedef Kitle')).not.toBeNull();
+    // Should skip Q&A and show Address Approval step (Adres Onayı)
+    expect(screen.getByText('Adres Onayı')).not.toBeNull();
     expect(screen.getByText('Mevcut Adresiniz')).not.toBeNull();
+    expect(screen.getByText('ADRESİ ONAYLA')).not.toBeNull();
+
+    // Confirm address to proceed to targeting settings (Hedef Kitle)
+    fireEvent.click(screen.getByText('ADRESİ ONAYLA'));
+    expect(screen.getByText('Hedef Kitle')).not.toBeNull();
     expect(screen.getByText('Yakın Çevrem')).not.toBeNull();
   });
 });
