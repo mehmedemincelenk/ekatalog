@@ -308,7 +308,7 @@ export default function LandingPage() {
                 </div>
               </div>
               <p className="text-[10px] text-stone-400 font-bold mt-8">
-                Her ay yenilenir, taahhüt gerektirmez.
+                Aylık periyotlarla faturalandırılır.
               </p>
             </div>
 
@@ -352,7 +352,7 @@ export default function LandingPage() {
             </Button>
             {/* Trust Badge / Microcopy */}
             <p className="text-[9px] font-black text-stone-400 mt-4 uppercase tracking-[0.2em]">
-              24 Saatte Teslim • Kurulum Bize Ait • Dilediğiniz Zaman İptal
+              24 Saatte Teslim • Kurulum Bize Ait • Taahhüt Yok
             </p>
           </div>
         </div>
