@@ -421,7 +421,7 @@ export default function GoogleAdPreviewModal({ isOpen, onClose }: GoogleAdPrevie
                 <div className="bg-stone-50 border border-stone-200/60 rounded-2xl p-3 flex justify-between items-center">
                   <div className="space-y-0.5">
                     <span className="text-[10px] font-black text-stone-400 uppercase tracking-wider block">Toplam Bütçe</span>
-                    <p className="text-[9px] font-bold text-stone-500 leading-none">Google'a ödenen toplam para</p>
+                    <p className="text-[9px] font-bold text-stone-500 leading-none">Sektörünüzün Google'a pasta için ödediği toplam ücret</p>
                   </div>
                   <span className="text-[12px] font-black text-stone-900 bg-white border border-stone-200 px-2.5 py-1 rounded-xl shadow-sm whitespace-nowrap">100.000 ₺</span>
                 </div>
