@@ -466,52 +466,57 @@ export default function GoogleAdPreviewModal({ isOpen, onClose }: GoogleAdPrevie
                 <div className="space-y-1">
                   <h4 className="text-[11px] font-black text-stone-900 uppercase tracking-widest flex items-center gap-1.5">
                     <Lucide.PieChart size={14} className="text-emerald-500" />
-                    Kampanya Matematiği
+                    Google Reklam Matematiği
                   </h4>
-                  <p className="text-[10px] font-bold text-stone-600 leading-relaxed">
-                    Google, bütçenizi tıklama maliyetine bölerek dükkanınıza çekeceğiniz ziyaretçiyi hesaplar:
+                  <p className="text-[10px] font-bold text-stone-500 leading-relaxed">
+                    Sistem son derece basit çalışır:
                   </p>
                 </div>
 
                 {/* Math Card */}
-                <div className="bg-white border border-stone-200/60 rounded-2xl p-4 space-y-3.5">
-                  {/* Math Formula Display */}
-                  <div className="bg-stone-50 border border-stone-200/50 rounded-xl p-3 text-center space-y-1">
-                    <span className="text-[8px] font-black text-stone-400 uppercase tracking-widest block">Matematik Hesabı</span>
-                    <div className="flex items-center justify-center gap-2 font-black text-stone-900 text-[13px] tracking-tight">
-                      <span>Bütçe (2.000 ₺)</span>
-                      <span className="text-stone-300">/</span>
-                      <span>Maliyet (2 ₺)</span>
-                      <span className="text-stone-300">=</span>
-                      <span className="text-emerald-600 font-black">1.000 Ziyaretçi</span>
+                <div className="bg-white border border-stone-200/60 rounded-2xl p-4 space-y-4">
+                  {/* Step 1: Total Searchers */}
+                  <div className="flex justify-between items-start gap-4">
+                    <div className="space-y-0.5">
+                      <span className="text-[9px] font-black text-stone-400 uppercase tracking-wider block">1. Toplam Arama</span>
+                      <p className="text-[10px] font-bold text-stone-600 leading-normal">Ürünlerinizi Google'da arayan aylık toplam kişi sayısı</p>
                     </div>
+                    <span className="text-[12px] font-black text-stone-900 shrink-0">10.000 Arama</span>
                   </div>
 
-                  {/* Details List */}
-                  <div className="space-y-2 text-[10px] font-bold text-stone-600 leading-normal">
-                    <div className="flex justify-between items-center border-b border-stone-100 pb-1.5">
-                      <span className="text-stone-400">Aylık Toplam Arama:</span>
-                      <span className="text-stone-900 font-black">10.000 Arama</span>
+                  <hr className="border-t border-stone-100" />
+
+                  {/* Step 2: Cost per visitor */}
+                  <div className="flex justify-between items-start gap-4">
+                    <div className="space-y-0.5">
+                      <span className="text-[9px] font-black text-stone-400 uppercase tracking-wider block">2. Ziyaretçi Maliyeti</span>
+                      <p className="text-[10px] font-bold text-stone-600 leading-normal">Dükkanınıza tıklayan kişi başına Google'a ödenen ücret</p>
                     </div>
-                    <div className="flex justify-between items-center border-b border-stone-100 pb-1.5">
-                      <span className="text-stone-400">Rakiplerin Toplam Payı:</span>
-                      <span className="text-stone-900 font-black">9.000 Ziyaretçi (%90)</span>
-                    </div>
-                    <div className="flex justify-between items-center">
-                      <span className="text-stone-400">Sizin Alacağınız Pay:</span>
-                      <span className="text-emerald-600 font-black">1.000 Ziyaretçi (%10)</span>
-                    </div>
+                    <span className="text-[12px] font-black text-stone-900 shrink-0">2 ₺</span>
                   </div>
 
-                  {/* Visual Share Bar */}
-                  <div className="space-y-1.5 pt-1">
-                    <div className="w-full h-2 bg-stone-100 rounded-full overflow-hidden flex">
-                      <div className="h-full bg-emerald-500" style={{ width: '10%' }} />
-                      <div className="h-full bg-stone-200" style={{ width: '90%' }} />
+                  <hr className="border-t border-stone-100" />
+
+                  {/* Step 3: Your monthly share */}
+                  <div className="bg-emerald-50/40 border border-emerald-150 p-3.5 rounded-xl space-y-2">
+                    <div className="flex justify-between items-start gap-4">
+                      <div className="space-y-0.5">
+                        <span className="text-[9px] font-black text-emerald-600 uppercase tracking-wider block">3. Sizin Ziyaretçiniz</span>
+                        <p className="text-[10px] font-bold text-emerald-800 leading-normal">Aylık 2.000 ₺ reklam bütçesi ile dükkanınıza çekeceğiniz kişi sayısı</p>
+                      </div>
+                      <span className="text-[14px] font-black text-emerald-600 shrink-0">1.000 Kişi</span>
                     </div>
-                    <div className="flex justify-between items-center text-[7px] font-black uppercase tracking-wider">
-                      <span className="text-emerald-600">Sizin Payınız (1.000)</span>
-                      <span className="text-stone-400">Rakipler (9.000)</span>
+
+                    {/* Simple Share Indicator */}
+                    <div className="space-y-1 pt-1.5 border-t border-emerald-150/40">
+                      <div className="w-full h-2 bg-stone-100 rounded-full overflow-hidden flex">
+                        <div className="h-full bg-emerald-500" style={{ width: '10%' }} />
+                        <div className="h-full bg-stone-200" style={{ width: '90%' }} />
+                      </div>
+                      <div className="flex justify-between items-center text-[7px] font-black uppercase tracking-wider text-stone-400">
+                        <span className="text-emerald-600 font-black">Sizin Ziyaretçileriniz (1.000)</span>
+                        <span>Diğer Arayanlar (9.000)</span>
+                      </div>
                     </div>
                   </div>
                 </div>
