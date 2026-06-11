@@ -73,10 +73,13 @@ export function useSettingsQuery() {
       }
 
       // 0.1. LANDINGPAGE DEMO STORE BYPASS
-      if (STORE_SLUG === 'landingpage') {
+      if (STORE_SLUG === 'landingpage' || STORE_SLUG === 'ornek' || STORE_SLUG === 'misal') {
         const { MOCK_LANDINGPAGE_SETTINGS } =
           await import('../data/mockLandingpage');
-        return MOCK_LANDINGPAGE_SETTINGS;
+        return {
+          ...MOCK_LANDINGPAGE_SETTINGS,
+          slug: STORE_SLUG,
+        };
       }
 
       // If virtual, check localStorage first (to retain temporary edits during session)

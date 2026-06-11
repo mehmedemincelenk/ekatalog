@@ -39,7 +39,7 @@ export function useProductsQuery(storeId?: string) {
   return useQuery<Product[]>({
     queryKey,
     queryFn: async () => {
-      if (STORE_SLUG === 'landingpage') {
+      if (STORE_SLUG === 'landingpage' || STORE_SLUG === 'ornek' || STORE_SLUG === 'misal') {
         const { MOCK_LANDINGPAGE_PRODUCTS } =
           await import('../data/mockLandingpage');
         return MOCK_LANDINGPAGE_PRODUCTS;
