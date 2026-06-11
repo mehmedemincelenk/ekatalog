@@ -417,7 +417,7 @@ export default function GoogleAdPreviewModal({ isOpen, onClose }: GoogleAdPrevie
                     <h4 className="text-[11px] font-black text-stone-900 uppercase tracking-widest">Nedir bu Google Reklamları?</h4>
                   </div>
                   <p className="text-[10px] font-bold text-stone-600 leading-relaxed">
-                    Google'da dükkanınızla veya ürünlerinizle ilgili (<span className="text-stone-900">"toptan ambalaj"</span>, <span className="text-stone-900">"toptan gıda"</span> vb.) arama yapan hazır alıcıların karşısına sponsorlu olarak ilk sırada çıkmanızı sağlayan en etkili sistemdir.
+                    Müşteri Google'a <span className="text-stone-900">"toptan ambalaj"</span> veya <span className="text-stone-900">"toptan gıda"</span> yazar, en üstte sizin dükkanınızı görür ve tıklar.
                   </p>
                 </div>
 
