@@ -288,10 +288,10 @@ export default function LandingPage() {
       {/* PRICING & TRUST SECTION - Clean Modernist Layout */}
       <section className="pb-16 px-4">
         <div className="text-center flex flex-col items-center animate-in fade-in duration-1000 delay-500">
-          {/* Launch Special Price Badge */}
-          <div className="mb-8 px-4 py-1.5 bg-amber-50/70 border border-amber-200/50 rounded-full text-[10px] font-black text-amber-800 uppercase tracking-widest shadow-sm shadow-amber-50">
-            Lansmana Özel Fiyatlar
-          </div>
+          {/* Launch Special Price Subtitle */}
+          <p className="text-[10px] font-black text-amber-600 uppercase tracking-[0.25em] mb-8">
+            • lansmana özel fiyatlar •
+          </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-12 sm:gap-20">
             {/* Monthly Plan */}
