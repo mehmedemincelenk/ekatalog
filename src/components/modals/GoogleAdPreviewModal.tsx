@@ -413,26 +413,35 @@ export default function GoogleAdPreviewModal({ isOpen, onClose }: GoogleAdPrevie
                     <span className="text-[10px] font-black text-stone-400 uppercase tracking-wider block">Google'da Arayanlar</span>
                     <p className="text-[9px] font-bold text-stone-500 leading-none">Aylık ürünlerinizi arayan kişi sayısı</p>
                   </div>
-                  <span className="text-[12px] font-black text-stone-900 bg-white border border-stone-200 px-2.5 py-1 rounded-xl shadow-sm whitespace-nowrap">10.000 Kişi</span>
+                  <span className="text-[12px] font-black text-stone-900 bg-white border border-stone-200 px-2.5 py-1 rounded-xl shadow-sm whitespace-nowrap">10.000 Müşteri</span>
                 </div>
 
                 {/* Step 2: Toplam Reklam Bütçesi */}
                 <div className="bg-stone-50 border border-stone-200/60 rounded-2xl p-3 flex justify-between items-center">
                   <div className="space-y-0.5">
                     <span className="text-[10px] font-black text-stone-400 uppercase tracking-wider block">Toplam Reklam Bütçesi</span>
-                    <p className="text-[9px] font-bold text-stone-500 leading-none">Sektördeki rakiplerinizin toplam harcaması</p>
+                    <p className="text-[9px] font-bold text-stone-500 leading-none">sektörünüzle alakalı google'a ödenmiş toplam reklam bütçesi</p>
                   </div>
-                  <span className="text-[12px] font-black text-stone-900 bg-white border border-stone-200 px-2.5 py-1 rounded-xl shadow-sm whitespace-nowrap">20.000 ₺</span>
+                  <span className="text-[12px] font-black text-stone-900 bg-white border border-stone-200 px-2.5 py-1 rounded-xl shadow-sm whitespace-nowrap">20.000₺ Pasta</span>
                 </div>
 
                 {/* Step 3: Sizin Bütçeniz */}
+                <div className="bg-stone-50 border border-stone-200/60 rounded-2xl p-3 flex justify-between items-center">
+                  <div className="space-y-0.5">
+                    <span className="text-[10px] font-black text-stone-400 uppercase tracking-wider block">Sizin Bütçeniz</span>
+                    <p className="text-[9px] font-bold text-stone-500 leading-none">Google'da en üst sıraya çıkmak için ayırdığınız bütçe</p>
+                  </div>
+                  <span className="text-[12px] font-black text-emerald-600 bg-white border border-stone-200 px-2.5 py-1 rounded-xl shadow-sm whitespace-nowrap">2.000 ₺</span>
+                </div>
+
+                {/* Step 4: Sizin Payınız */}
                 <div className="bg-stone-50 border border-stone-200/60 rounded-2xl p-3 space-y-1.5">
                   <div className="flex justify-between items-center">
                     <div className="space-y-0.5">
-                      <span className="text-[10px] font-black text-emerald-600 uppercase tracking-wider block">Sizin Bütçeniz</span>
+                      <span className="text-[10px] font-black text-emerald-600 uppercase tracking-wider block">Sizin Payınız</span>
                       <p className="text-[9px] font-bold text-stone-500 leading-none">2.000 ₺ / 20.000 ₺ = %10 pay</p>
                     </div>
-                    <span className="text-[12px] font-black text-emerald-600 bg-emerald-50 border border-emerald-200 px-2.5 py-1 rounded-xl shadow-sm whitespace-nowrap">%10 Payı</span>
+                    <span className="text-[12px] font-black text-emerald-600 bg-emerald-50 border border-emerald-200 px-2.5 py-1 rounded-xl shadow-sm whitespace-nowrap">%10 Pay</span>
                   </div>
                   {/* Tiny Share Progress Bar */}
                   <div className="w-full h-1.5 bg-stone-200 rounded-full overflow-hidden flex">
@@ -441,7 +450,7 @@ export default function GoogleAdPreviewModal({ isOpen, onClose }: GoogleAdPrevie
                   </div>
                 </div>
 
-                {/* Step 4: Dükkanınıza Gelenler */}
+                {/* Step 5: Dükkanınıza Gelenler */}
                 <div className="bg-emerald-50/50 border border-emerald-200 rounded-2xl p-3 flex justify-between items-center shadow-sm">
                   <div className="space-y-0.5">
                     <span className="text-[10px] font-black text-emerald-600 uppercase tracking-wider block">Dükkanınıza Gelenler</span>
