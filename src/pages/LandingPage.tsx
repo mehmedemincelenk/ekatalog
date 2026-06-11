@@ -319,7 +319,7 @@ export default function LandingPage() {
             <div className="flex-1 min-w-[260px] bg-stone-950 text-white border-2 border-stone-950 rounded-3xl p-8 flex flex-col justify-between relative hover:scale-[1.01] transition-all shadow-xl shadow-stone-950/10 text-left">
               {/* Popular Badge */}
               <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 px-4 py-1.5 bg-emerald-500 text-[9px] font-black text-white uppercase tracking-widest rounded-full shadow-lg shadow-emerald-500/20 whitespace-nowrap">
-                en popüler • %42 tasarruf
+                en popüler
               </div>
 
               <div className="space-y-4">
