@@ -271,10 +271,10 @@ export default function LandingPage() {
                 <span>tasarruf</span>
               </div>
               <div className="flex items-center gap-2 bg-emerald-50/60 border border-emerald-100/80 rounded-lg py-1.5 px-4 text-xs font-bold text-emerald-800/90 shadow-sm shadow-emerald-100/30 hover:bg-emerald-100/40 transition-colors">
-                <span>prestij</span>
+                <span>kolaylık</span>
               </div>
               <div className="flex items-center gap-2 bg-emerald-50/60 border border-emerald-100/80 rounded-lg py-1.5 px-4 text-xs font-bold text-emerald-800/90 shadow-sm shadow-emerald-100/30 hover:bg-emerald-100/40 transition-colors">
-                <span>teknik güç</span>
+                <span>satış</span>
               </div>
             </div>
           </div>
