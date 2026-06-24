@@ -2,7 +2,6 @@ import { useState, useRef } from 'react';
 import * as Lucide from 'lucide-react';
 import html2canvas from 'html2canvas';
 import StudioWebAdres from '../components/layout/StudioWebAdres';
-import StudioKazanacaklar from '../components/layout/StudioKazanacaklar';
 import StudioB2BRehber from '../components/layout/StudioB2BRehber';
 import StudioKurtulacaklar from '../components/layout/StudioKurtulacaklar';
 import StudioKazanacaklarCarousel from '../components/layout/StudioKazanacaklarCarousel';
@@ -126,36 +125,6 @@ const PRODUCTIONS: ProductionConfig[] = [
         leadInfo1={values.leadInfo1}
         leadName2={values.leadName2}
         leadInfo2={values.leadInfo2}
-        website={values.website}
-        presetClass={presetClass}
-        glowColor={glowColor}
-        isLight={isLight}
-        formatType={formatType}
-      />
-    ),
-  },
-  {
-    id: 'kazanacaklar',
-    name: 'Kazanacaklarınız',
-    icon: 'CheckSquare',
-    fields: [
-      { key: 'header', label: 'Başlık', type: 'text', defaultValue: 'ekatalog ile Neler Kazanacaksınız?' },
-      {
-        key: 'items',
-        label: 'Maddeler',
-        type: 'list',
-        defaultValue: [
-          '7/24 Kesintisiz Sipariş Alımı',
-          'Sıfır Komisyon, Doğrudan Satış',
-          'Arama Motorlarında Kolay Bulunma',
-        ],
-      },
-      { key: 'website', label: 'Görsel Web Adresi', type: 'text', defaultValue: 'www.sirketadim.ekatalog.site' },
-    ],
-    render: (values, presetClass, glowColor, isLight, formatType) => (
-      <StudioKazanacaklar
-        header={values.header}
-        items={values.items}
         website={values.website}
         presetClass={presetClass}
         glowColor={glowColor}
