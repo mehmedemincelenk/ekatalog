@@ -55,23 +55,23 @@ export default function StudioKurtulacaklar({
           {(items || []).map((item, idx) => (
             <div 
               key={idx}
-              className={`p-8 rounded-[2rem] border backdrop-blur-md flex gap-6 items-center transition-all ${
+              className={`p-8 rounded-[2rem] border backdrop-blur-md flex gap-8 items-center transition-all ${
                 isLight 
                   ? 'bg-red-50/20 border-red-100/50' 
                   : 'bg-white/[0.02] border-white/[0.04]'
               }`}
             >
               <div className="shrink-0">
-                <div className={`w-14 h-14 rounded-2xl flex items-center justify-center ${
+                <div className={`w-20 h-20 rounded-[1.25rem] flex items-center justify-center ${
                   isLight 
-                    ? 'bg-red-50 border border-red-200 text-red-600' 
+                    ? 'bg-red-50 border border-red-250 text-red-650' 
                     : 'bg-red-500/10 border border-red-500/20 text-red-400'
                 }`}>
-                  <Lucide.X size={24} strokeWidth={3} />
+                  <Lucide.X size={32} strokeWidth={3} />
                 </div>
               </div>
               <div className="flex-1 space-y-1 text-left">
-                <p className={`text-[19px] font-bold leading-relaxed ${isLight ? 'text-stone-700' : 'text-stone-300'}`}>
+                <p className={`text-3xl font-extrabold leading-relaxed ${isLight ? 'text-stone-850' : 'text-stone-205'}`}>
                   {item || 'Madde açıklaması...'}
                 </p>
               </div>
@@ -82,7 +82,7 @@ export default function StudioKurtulacaklar({
 
       {/* Footer website address */}
       <div className="flex justify-center items-center relative z-10">
-        <span className={`text-2xl font-black tracking-wide ${isLight ? 'text-stone-900' : 'text-stone-200'}`}>
+        <span className={`text-3xl font-black tracking-wide ${isLight ? 'text-stone-900' : 'text-stone-200'}`}>
           {website}
         </span>
       </div>

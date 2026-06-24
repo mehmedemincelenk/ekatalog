@@ -60,16 +60,16 @@ export default function StudioKazanacaklarCarousel({
     switch (activeSlide) {
       case 0: // Cover
         return (
-          <div className="flex-1 flex flex-col justify-center text-left gap-6 relative z-10">
-            <span className="text-[15px] font-black tracking-[0.4em] text-emerald-500 uppercase">EKATALOG</span>
-            <h1 className={`text-7xl font-black tracking-tighter leading-[1.05] ${isLight ? 'text-stone-900' : 'text-stone-100'}`}>
+          <div className="flex-1 flex flex-col justify-center text-left gap-8 relative z-10">
+            <span className="text-[20px] font-black tracking-[0.4em] text-emerald-500 uppercase">EKATALOG</span>
+            <h1 className={`text-8xl font-black tracking-tighter leading-[1.05] ${isLight ? 'text-stone-900' : 'text-stone-100'}`}>
               ekatalog ile
               <br />
               Neler
               <br />
               <span className="text-emerald-500">Kazanacaksınız?</span>
             </h1>
-            <p className={`text-lg font-medium leading-relaxed max-w-md ${isLight ? 'text-stone-500' : 'text-stone-400'}`}>
+            <p className={`text-3xl font-bold leading-relaxed max-w-2xl ${isLight ? 'text-stone-600' : 'text-stone-300'}`}>
               Toptancı esnafı için tasarlanmış dijital dönüşümün en kolay adımları.
             </p>
           </div>
@@ -77,16 +77,16 @@ export default function StudioKazanacaklarCarousel({
 
       case 1: // Teknoloji
         return (
-          <div className="flex-1 flex flex-col justify-center text-left gap-8 relative z-10">
-            <div className={`w-24 h-24 rounded-3xl flex items-center justify-center ${isLight ? 'bg-stone-200 border border-stone-300 text-stone-900' : 'bg-emerald-500/10 border border-emerald-500/20 text-emerald-400'}`}>
-              <Lucide.Globe size={40} />
+          <div className="flex-1 flex flex-col justify-center text-left gap-10 relative z-10">
+            <div className={`w-28 h-28 rounded-3xl flex items-center justify-center ${isLight ? 'bg-stone-200 border border-stone-300 text-stone-900' : 'bg-emerald-500/10 border border-emerald-500/20 text-emerald-400'}`}>
+              <Lucide.Globe size={52} />
             </div>
-            <div className="space-y-4">
-              <span className="text-xs font-black uppercase tracking-[0.25em] text-emerald-500">01. TEKNOLOJİ</span>
-              <h2 className={`text-5xl font-black tracking-tighter leading-tight ${isLight ? 'text-stone-900' : 'text-stone-100'}`}>
+            <div className="space-y-6">
+              <span className="text-lg font-black uppercase tracking-[0.25em] text-emerald-500">01. TEKNOLOJİ</span>
+              <h2 className={`text-6xl font-black tracking-tighter leading-tight ${isLight ? 'text-stone-900' : 'text-stone-100'}`}>
                 Markanıza Özel Altyapı
               </h2>
-              <p className={`text-xl font-medium leading-relaxed ${isLight ? 'text-stone-600' : 'text-stone-300'}`}>
+              <p className={`text-3xl font-bold leading-relaxed ${isLight ? 'text-stone-600' : 'text-stone-300'}`}>
                 Markanıza özel web sitesi, cepten kolay katalog yönetimi, mobil uygulama kurulumu ve toplu ürün yükleme kolaylığı.
               </p>
             </div>
@@ -95,16 +95,16 @@ export default function StudioKazanacaklarCarousel({
 
       case 2: // Reklam
         return (
-          <div className="flex-1 flex flex-col justify-center text-left gap-8 relative z-10">
-            <div className={`w-24 h-24 rounded-3xl flex items-center justify-center ${isLight ? 'bg-stone-200 border border-stone-300 text-stone-900' : 'bg-emerald-500/10 border border-emerald-500/20 text-emerald-400'}`}>
-              <Lucide.Sparkles size={40} />
+          <div className="flex-1 flex flex-col justify-center text-left gap-10 relative z-10">
+            <div className={`w-28 h-28 rounded-3xl flex items-center justify-center ${isLight ? 'bg-stone-200 border border-stone-300 text-stone-900' : 'bg-emerald-500/10 border border-emerald-500/20 text-emerald-400'}`}>
+              <Lucide.Sparkles size={52} />
             </div>
-            <div className="space-y-4">
-              <span className="text-xs font-black uppercase tracking-[0.25em] text-emerald-500">02. REKLAM</span>
-              <h2 className={`text-5xl font-black tracking-tighter leading-tight ${isLight ? 'text-stone-900' : 'text-stone-100'}`}>
+            <div className="space-y-6">
+              <span className="text-lg font-black uppercase tracking-[0.25em] text-emerald-500">02. REKLAM</span>
+              <h2 className={`text-6xl font-black tracking-tighter leading-tight ${isLight ? 'text-stone-900' : 'text-stone-100'}`}>
                 Bölgesel Google Reklamı
               </h2>
-              <p className={`text-xl font-medium leading-relaxed ${isLight ? 'text-stone-600' : 'text-stone-300'}`}>
+              <p className={`text-3xl font-bold leading-relaxed ${isLight ? 'text-stone-600' : 'text-stone-300'}`}>
                 Yazılım bilmenize gerek yok; bikaç tıkla bütçenizi belirleyin, Google reklamınızı biz verelim, bölgenizdeki müşterilerin sizi ilk sırada görmesini sağlayalım.
               </p>
             </div>
@@ -113,16 +113,16 @@ export default function StudioKazanacaklarCarousel({
 
       case 3: // Tasarım
         return (
-          <div className="flex-1 flex flex-col justify-center text-left gap-8 relative z-10">
-            <div className={`w-24 h-24 rounded-3xl flex items-center justify-center ${isLight ? 'bg-stone-200 border border-stone-300 text-stone-900' : 'bg-emerald-500/10 border border-emerald-500/20 text-emerald-400'}`}>
-              <Lucide.Palette size={40} />
+          <div className="flex-1 flex flex-col justify-center text-left gap-10 relative z-10">
+            <div className={`w-28 h-28 rounded-3xl flex items-center justify-center ${isLight ? 'bg-stone-200 border border-stone-300 text-stone-900' : 'bg-emerald-500/10 border border-emerald-500/20 text-emerald-400'}`}>
+              <Lucide.Palette size={52} />
             </div>
-            <div className="space-y-4">
-              <span className="text-xs font-black uppercase tracking-[0.25em] text-emerald-500">03. TASARIM</span>
-              <h2 className={`text-5xl font-black tracking-tighter leading-tight ${isLight ? 'text-stone-900' : 'text-stone-100'}`}>
+            <div className="space-y-6">
+              <span className="text-lg font-black uppercase tracking-[0.25em] text-emerald-500">03. TASARIM</span>
+              <h2 className={`text-6xl font-black tracking-tighter leading-tight ${isLight ? 'text-stone-900' : 'text-stone-100'}`}>
                 Hazır Sosyal Medya & Baskı
               </h2>
-              <p className={`text-xl font-medium leading-relaxed ${isLight ? 'text-stone-600' : 'text-stone-300'}`}>
+              <p className={`text-3xl font-bold leading-relaxed ${isLight ? 'text-stone-600' : 'text-stone-300'}`}>
                 Tasarımcı beklemeden hazır sosyal medya gönderilerinizi indirip paylaşın; QR masa kartı, kılıf ve kartvizit gibi tüm baskı ürünlerini markanıza özel tasarımlarla anında sipariş edin.
               </p>
             </div>
@@ -131,14 +131,14 @@ export default function StudioKazanacaklarCarousel({
 
       case 4: // Özet / Badges
         return (
-          <div className="flex-1 flex flex-col justify-center text-left gap-8 relative z-10">
-            <div className="space-y-2">
-              <span className="text-xs font-black uppercase tracking-[0.25em] text-emerald-500">ÖZETLE</span>
-              <h2 className={`text-5xl font-black tracking-tighter leading-tight ${isLight ? 'text-stone-900' : 'text-stone-100'}`}>
+          <div className="flex-1 flex flex-col justify-center text-left gap-10 relative z-10">
+            <div className="space-y-4">
+              <span className="text-lg font-black uppercase tracking-[0.25em] text-emerald-500">ÖZETLE</span>
+              <h2 className={`text-6xl font-black tracking-tighter leading-tight ${isLight ? 'text-stone-900' : 'text-stone-100'}`}>
                 Dükkanınız İçin Değerler
               </h2>
             </div>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 gap-6 w-full">
               {[
                 { title: 'ZAMAN', desc: 'Hızlı katalog ve sipariş yönetimi.', icon: Lucide.Clock },
                 { title: 'TASARRUF', desc: 'Tasarım ve yazılım maliyetlerine son.', icon: Lucide.TrendingDown },
@@ -149,13 +149,13 @@ export default function StudioKazanacaklarCarousel({
                 return (
                   <div 
                     key={index}
-                    className={`p-5 rounded-2xl border ${isLight ? 'bg-emerald-50/30 border-emerald-100/60' : 'bg-white/[0.02] border-white/[0.04]'} flex flex-col gap-2`}
+                    className={`p-8 rounded-[2rem] border ${isLight ? 'bg-emerald-50/40 border-emerald-100/80' : 'bg-white/[0.02] border-white/[0.04]'} flex flex-col gap-3 justify-center text-left`}
                   >
-                    <div className="flex items-center gap-2 text-emerald-500 font-black tracking-wider text-xs">
-                      <IconComp size={16} strokeWidth={3} />
+                    <div className="flex items-center gap-3 text-emerald-500 font-black tracking-wider text-[17px]">
+                      <IconComp size={24} strokeWidth={3} />
                       <span>{badge.title}</span>
                     </div>
-                    <p className={`text-xs ${isLight ? 'text-stone-500' : 'text-stone-400'} font-medium`}>
+                    <p className={`text-[17px] ${isLight ? 'text-stone-600' : 'text-stone-300'} font-bold leading-relaxed`}>
                       {badge.desc}
                     </p>
                   </div>
