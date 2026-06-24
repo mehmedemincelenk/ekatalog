@@ -4,6 +4,7 @@ import html2canvas from 'html2canvas';
 import StudioWebAdres from '../components/layout/StudioWebAdres';
 import StudioKazanacaklar from '../components/layout/StudioKazanacaklar';
 import StudioB2BRehber from '../components/layout/StudioB2BRehber';
+import StudioKurtulacaklar from '../components/layout/StudioKurtulacaklar';
 
 const PRESETS = [
   {
@@ -161,6 +162,37 @@ const PRODUCTIONS: ProductionConfig[] = [
       />
     ),
   },
+  {
+    id: 'kurtulacaklar',
+    name: 'Kurtulacaklarınız',
+    icon: 'AlertTriangle',
+    fields: [
+      { key: 'header', label: 'Başlık', type: 'text', defaultValue: 'bikaç tıkla kurtulacaklarınız' },
+      {
+        key: 'items',
+        label: 'Maddeler',
+        type: 'list',
+        defaultValue: [
+          'fiyat değişikliklerine yetişememek',
+          'tasarımcı/yazılımcı beklemek',
+          'karmaşa',
+          'maliyetler',
+        ],
+      },
+      { key: 'website', label: 'Görsel Web Adresi', type: 'text', defaultValue: 'www.sirketadim.ekatalog.site' },
+    ],
+    render: (values, presetClass, glowColor, isLight, formatType) => (
+      <StudioKurtulacaklar
+        header={values.header}
+        items={values.items}
+        website={values.website}
+        presetClass={presetClass}
+        glowColor={glowColor}
+        isLight={isLight}
+        formatType={formatType}
+      />
+    ),
+  },
 ];
 
 export default function WorkspaceDesign() {
@@ -248,11 +280,11 @@ export default function WorkspaceDesign() {
           <p className="text-xs text-stone-500 font-medium">Özellik Tasarım Stüdyosu ({activeProduction.name})</p>
         </div>
 
-        {/* ÜRETİM ŞABLONU SEÇİMİ */}
+        {/* ÜRETİM POSTU SEÇİMİ */}
         <div className="border border-stone-900 bg-stone-900/20 rounded-2xl p-4 space-y-3">
           <div className="flex items-center gap-2 pb-1 border-b border-stone-900">
             <Lucide.Layers size={14} className="text-emerald-500" />
-            <span className="text-xs font-black uppercase tracking-wider text-stone-400">1. Şablon Seçimi</span>
+            <span className="text-xs font-black uppercase tracking-wider text-stone-400">1. Post Seçimi</span>
           </div>
           <div className="grid grid-cols-2 gap-2">
             {PRODUCTIONS.map((prod) => {
