@@ -5,6 +5,7 @@ import StudioWebAdres from '../components/layout/StudioWebAdres';
 import StudioKazanacaklar from '../components/layout/StudioKazanacaklar';
 import StudioB2BRehber from '../components/layout/StudioB2BRehber';
 import StudioKurtulacaklar from '../components/layout/StudioKurtulacaklar';
+import StudioKazanacaklarCarousel from '../components/layout/StudioKazanacaklarCarousel';
 
 const PRESETS = [
   {
@@ -52,8 +53,9 @@ const FORMATS = [
 interface FieldConfig {
   key: string;
   label: string;
-  type: 'text' | 'textarea' | 'list';
+  type: 'text' | 'textarea' | 'list' | 'select';
   defaultValue: any;
+  options?: { value: any; label: string }[];
 }
 
 interface ProductionConfig {
@@ -185,6 +187,37 @@ const PRODUCTIONS: ProductionConfig[] = [
       <StudioKurtulacaklar
         header={values.header}
         items={values.items}
+        website={values.website}
+        presetClass={presetClass}
+        glowColor={glowColor}
+        isLight={isLight}
+        formatType={formatType}
+      />
+    ),
+  },
+  {
+    id: 'kazanacaklar-carousel',
+    name: 'Kazanacaklar (Kaydırmalı)',
+    icon: 'Copy',
+    fields: [
+      {
+        key: 'activeSlide',
+        label: 'Aktif Slayt (Kaydırarak İndirin)',
+        type: 'select',
+        defaultValue: 0,
+        options: [
+          { value: 0, label: '1. Slayt - Giriş/Kapak' },
+          { value: 1, label: '2. Slayt - Teknoloji' },
+          { value: 2, label: '3. Slayt - Reklam' },
+          { value: 3, label: '4. Slayt - Tasarım' },
+          { value: 4, label: '5. Slayt - Değerler/Badges' },
+        ],
+      },
+      { key: 'website', label: 'Görsel Web Adresi', type: 'text', defaultValue: 'www.sirketadim.ekatalog.site' },
+    ],
+    render: (values, presetClass, glowColor, isLight, formatType) => (
+      <StudioKazanacaklarCarousel
+        activeSlide={values.activeSlide ?? 0}
         website={values.website}
         presetClass={presetClass}
         glowColor={glowColor}
@@ -435,6 +468,24 @@ export default function WorkspaceDesign() {
                       </div>
                     ))}
                   </div>
+                </div>
+              );
+            }
+            if (field.type === 'select') {
+              return (
+                <div key={field.key} className="space-y-2">
+                  <span className="text-[10px] font-bold text-stone-500 uppercase">{field.label}</span>
+                  <select
+                    value={values[field.key] ?? field.defaultValue}
+                    onChange={(e) => updateValue(field.key, Number(e.target.value))}
+                    className="w-full bg-stone-900 border border-stone-850 rounded-lg py-2 px-3 text-xs font-bold text-stone-200 focus:outline-none focus:border-emerald-500"
+                  >
+                    {(field.options || []).map((opt) => (
+                      <option key={opt.value} value={opt.value}>
+                        {opt.label}
+                      </option>
+                    ))}
+                  </select>
                 </div>
               );
             }
